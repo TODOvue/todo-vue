@@ -1,0 +1,34 @@
+:root {
+  /* 🌙 Dark Theme */
+  --dark-body-bg: #7A7D7D;
+  --dark-card-bg: #0E131F;
+  --dark-text: #F4FAFF;
+
+  /* ☀️ Light Theme */
+  --light-body-bg: #E0E1E1;
+  --light-card-bg: #B9C4DF;
+  --light-button-text: #F1F9F9;
+  --light-text: #000B14;
+
+  /* 🖋 Fonts */
+  --font-text: 'Lato', sans-serif;
+  --font-title: 'Kanit', sans-serif;
+}
+
+.dark-mode {
+  background-color: var(--dark-body-bg);
+  color: var(--dark-text);
+}
+
+.light-mode {
+  background-color: var(--light-body-bg);
+  color: var(--light-text);
+}
+
+body {
+  font-family: var(--font-text), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-title), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}

@@ -15,5 +15,16 @@ export default defineNuxtConfig({
     experimental: {
       nativeSqlite: true
     }
+  },
+
+  css: [
+    '@/assets/styles/main.css'
+  ],
+
+  fonts: {
+    families: [
+      { name: 'Lato', provider: 'google', weights: [300], display: 'swap', preload: true },
+      { name: 'Kanit', provider: 'google', weights: [600], display: 'swap', preload: true }
+    ]
   }
 })
