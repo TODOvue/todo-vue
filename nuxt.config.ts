@@ -9,5 +9,11 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/hints',
     '@nuxt/fonts'
-  ]
+  ],
+
+  content: {
+    experimental: {
+      nativeSqlite: true
+    }
+  }
 })

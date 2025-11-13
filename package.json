@@ -15,7 +15,6 @@
     "@nuxt/fonts": "0.12.1",
     "@nuxt/hints": "1.0.0-alpha.1",
     "@nuxt/image": "2.0.0",
-    "better-sqlite3": "12.4.1",
     "eslint": "9.39.1",
     "nuxt": "^4.2.1"
   },
