@@ -1,5 +1,5 @@
 <template>
-  <div>
-    TODOvue Blog
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
