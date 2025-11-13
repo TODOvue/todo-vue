@@ -7,6 +7,10 @@ tags:
   - tag: "Motivation"
     color: "#eb3b5a"
   - "Creativity"
+  - tag: "Productivity"
+    color: "#20bf6b"
+  - tag: "Personal Development"
+    color: "#3867d6"
 cover: https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=1200&h=675&fit=crop
 coverAlt: Person writing ideas in a notebook
 coverCaption: Not every idea deserves a full project. Some do.

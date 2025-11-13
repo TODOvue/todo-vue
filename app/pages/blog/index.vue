@@ -1,5 +1,6 @@
 <script setup>
 import { TvCard } from '@todovue/tv-card'
+import { TvHero } from '@todovue/tv-hero'
 
 const router = useRouter()
 
@@ -15,7 +16,7 @@ const { data: posts } = await useAsyncData('blog-list', async () => {
 const configCards = computed(() => {
   if (!posts.value) return []
   return posts.value.map(post => ({
-    title: post.title?.length > 22 ? post.title.slice(0, 22) + '...' : post.title,
+    title: post.title,
     description: post.description,
     id: post.id,
     primaryButtonText: 'Read blog',
@@ -31,6 +32,11 @@ const configCards = computed(() => {
   }))
 })
 
+const configHero = {
+  description: "Discover the latest articles, tutorials, and insights from the TODOvue community. Stay updated with our blog for tips, best practices, and news about Vue.js and web development.",
+  title: "TODOvue Blogs",
+};
+
 const handleButton = (path) => {
   router.push(path)
 }
@@ -38,7 +44,10 @@ const handleButton = (path) => {
 
 <template>
   <section>
-    <h1>Blog</h1>
+    <tv-hero
+      :config-hero="configHero"
+      is-entry
+    />
     <div v-if="posts && posts.length" class="container-cards">
       <TvCard
         v-for="post in configCards"
