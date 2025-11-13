@@ -1,6 +1,6 @@
 <script setup>
-import {TvThemeButton} from '@todovue/tv-theme-button'
-import {TvMenu} from '@todovue/tv-menu'
+import { TvThemeButton } from '@todovue/tv-theme-button'
+import { TvMenu } from '@todovue/tv-menu'
 
 const router = useRouter()
 
