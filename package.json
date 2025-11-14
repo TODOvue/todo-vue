@@ -19,6 +19,7 @@
     "@todovue/tv-card": "1.0.4",
     "@todovue/tv-hero": "1.0.0",
     "@todovue/tv-menu": "1.0.2",
+    "@todovue/tv-sidebar": "2.0.1",
     "@todovue/tv-theme-button": "1.0.2",
     "eslint": "9.39.1",
     "nuxt": "^4.2.1"
