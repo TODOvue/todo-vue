@@ -40,6 +40,11 @@ const configMenu = {
       title: "Blogs",
       url: "/blog",
     },
+    {
+      id: 3,
+      title: "Components",
+      url: "/components",
+    }
   ],
   placeholder: "Search blogs...",
   titleButton: "Search",
