@@ -32,3 +32,9 @@ body {
 h1, h2, h3 {
   font-family: var(--font-title), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
+
+.main-container {
+  margin: 40px auto;
+  width: 95%;
+  max-width: 1400px;
+}

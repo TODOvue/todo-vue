@@ -2,6 +2,7 @@
 import { TvCard } from '@todovue/tv-card'
 import { TvHero } from '@todovue/tv-hero'
 import { TvSidebar } from '@todovue/tv-sidebar'
+import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
 
 const router = useRouter()
 
@@ -92,12 +93,17 @@ const handleButton = (path) => {
 <template>
   <main>
     <section>
-      <tv-hero
+      <TvHero
         :config-hero="configHero"
         is-entry
       />
+      <div class="main-container">
+        <TvBreadcrumbs
+          auto-generate
+        />
+      </div>
     </section>
-    <div class="container">
+    <div class="container main-container">
       <section>
         <div v-if="posts && posts.length" class="container-cards">
           <TvCard
@@ -128,9 +134,6 @@ const handleButton = (path) => {
 .container {
   display: grid;
   grid-template-columns: 1fr 350px;
-  margin: 40px auto;
-  width: 95%;
-  max-width: 1400px;
   gap: 30px;
 }
 

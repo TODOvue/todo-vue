@@ -16,6 +16,7 @@
     "@nuxt/hints": "1.0.0-alpha.1",
     "@nuxt/image": "2.0.0",
     "@todovue/tv-article": "1.1.0",
+    "@todovue/tv-breadcrumbs": "1.0.0",
     "@todovue/tv-card": "1.0.4",
     "@todovue/tv-hero": "1.0.0",
     "@todovue/tv-menu": "1.0.2",

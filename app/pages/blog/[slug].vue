@@ -1,5 +1,7 @@
 <script setup>
-import TvArticle from '@todovue/tv-article'
+import { TvArticle } from '@todovue/tv-article'
+import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
+import { TvHero } from "@todovue/tv-hero";
 
 const route = useRoute()
 
@@ -28,20 +30,34 @@ if (!post.value) {
 }
 
 const articleData = computed(() => ({
-  title: post.value.title,
-  description: post.value.description,
   date: post.value.date,
   readingTime: post.value.meta?.readingTime,
   tags: post.value.tags,
-  cover: post.value.meta?.cover,
-  coverAlt: post.value.meta?.coverAlt,
   coverCaption: post.value.meta?.coverCaption,
   body: post.value.body
 }));
+
+const configHero = {
+  description: post.value.description,
+  title: post.value.title,
+  image: post.value.meta?.cover,
+  alt: post.value.meta?.coverAlt,
+};
 </script>
 
 <template>
-  <div>
-    <TvArticle v-if="post" :content="articleData" lang="en" />
-  </div>
+  <main>
+    <TvHero
+      :config-hero="configHero"
+      is-entry
+    />
+    <div class="main-container">
+      <TvBreadcrumbs
+        auto-generate
+      />
+    </div>
+    <article>
+      <TvArticle v-if="post" :content="articleData" lang="en" />
+    </article>
+  </main>
 </template>
