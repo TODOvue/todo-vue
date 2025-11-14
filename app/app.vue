@@ -4,29 +4,22 @@ import { TvMenu } from '@todovue/tv-menu'
 
 const router = useRouter()
 
-const setTheme = (value) => {
-  document.documentElement.className = value + '-mode'
-  localStorage.setItem('theme', value)
-}
-
-const changeValue = (value) => {
-  setTheme(value)
-}
-
 const { data: posts } = await useAsyncData('app-menu-posts', async () => {
-  try {
-    return await queryCollection('blog').all()
-  } catch (error) {
-    console.error(error)
+  const data = await queryCollection('blog').all().catch((err) => {
+    console.error('[app-menu-posts] queryCollection error:', err)
     return []
-  }
+  })
+
+  return Array.isArray(data) ? data : []
 })
 
-const results = posts.value.map(post => ({
-  title: post.title,
-  url: post.path,
-  id: post.id,
-}))
+const results = computed(() =>
+  (posts.value ?? []).map((post) => ({
+    title: post.title ?? '',
+    url: post.path ?? '/',
+    id: post.id ?? post._id ?? post._path ?? crypto.randomUUID?.() ?? Math.random().toString(),
+  }))
+)
 
 const configMenu = {
   menus: [
@@ -49,18 +42,30 @@ const configMenu = {
   placeholder: "Search blogs...",
   titleButton: "Search",
   imageMenu: "https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/logo.png?alt=media&token=4d64783f-2259-49cc-a6b4-68e58ce3b227",
-  results
+  results: results.value
 };
 
 const handleClickMenu = (menu) => {
   if (typeof menu === 'string') return
   router.push(menu.url)
 }
-onMounted(() => {
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  const savedTheme = localStorage.getItem('theme')
 
-  const theme = savedTheme || (prefersDark ? 'dark' : 'light')
+const setTheme = (value) => {
+  if (!import.meta.client) return
+  document.documentElement.className = `${value}-mode`
+  localStorage.setItem('theme', value)
+}
+
+const changeValue = (value) => {
+  setTheme(value)
+}
+
+onMounted(() => {
+  if (!import.meta.client) return
+
+  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
+  const stored = localStorage.getItem('theme')
+  const theme = stored || (prefersDark ? 'dark' : 'light')
   setTheme(theme)
 })
 </script>
@@ -78,7 +83,11 @@ onMounted(() => {
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-  <TvThemeButton @change-theme="changeValue"/>
+  <ClientOnly>
+    <TvThemeButton
+      @change-theme="changeValue"
+    />
+  </ClientOnly>
 </template>
 
 <style scoped>

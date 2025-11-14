@@ -15,29 +15,33 @@ const { data: posts } = await useAsyncData('blog-index-posts', async () => {
   }
 })
 
-const configCards = computed(() => {
-  if (!posts.value) return []
-  return posts.value.map(post => ({
-    title: post.title,
-    description: post.description,
-    id: post.id,
+const safePosts = computed(() => Array.isArray(posts.value) ? posts.value : [])
+
+const configCards = computed(() =>
+  safePosts.value.map((post) => ({
+    title: post.title ?? 'Untitled post',
+    description: post.description ?? '',
+    id: post.id ?? post._id ?? post._path,
     primaryButtonText: 'Read blog',
-    alt: post.title,
-    image: post.meta.cover,
-    labels: post.tags?.map((tag, index) => ({
-      id: index + 1,
-      name: typeof tag === 'string' ? tag : tag.tag,
-      color: typeof tag === 'object' ? tag.color : undefined
-    })) || [],
-    path: post.path,
+    alt: post.title ?? 'Blog cover',
+    image: post.meta?.cover ?? '',
+    labels: Array.isArray(post.tags)
+        ? post.tags.map((tag, index) => ({
+          id: index + 1,
+          name: typeof tag === 'string' ? tag : tag.tag,
+          color: typeof tag === 'object' ? tag.color : undefined,
+        }))
+        : [],
+    path: post.path ?? post._path ?? '/',
     limitLabels: 10,
   }))
-})
+)
 
 const labels = computed(() => {
   const labelMap = new Map()
-  posts.value?.forEach(post => {
-    post.tags?.forEach(tag => {
+  safePosts.value.forEach((post) => {
+    if (!Array.isArray(post.tags)) return
+    post.tags.forEach((tag) => {
       const tagName = typeof tag === 'string' ? tag : tag.tag
       const tagColor = typeof tag === 'object' ? tag.color : undefined
       const current = labelMap.get(tagName)
@@ -105,7 +109,7 @@ const handleButton = (path) => {
     </section>
     <div class="container main-container">
       <section>
-        <div v-if="posts && posts.length" class="container-cards">
+        <div v-if="configCards.length" class="container-cards">
           <TvCard
             v-for="post in configCards"
             :key="post.id"

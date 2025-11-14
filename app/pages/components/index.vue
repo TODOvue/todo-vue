@@ -1,13 +1,25 @@
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { TvHero } from '@todovue/tv-hero'
+import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
 
-export default defineComponent({
-  name: "IndexComponents"
-})
+const configHero = {
+  description: "Explore our collection of reusable Vue components built with modern best practices.",
+  title: "TODOvue components",
+};
 </script>
 
 <template>
-  <h1>Components</h1>
+  <main>
+    <TvHero
+      :config-hero="configHero"
+      is-entry
+    />
+    <div class="main-container">
+      <TvBreadcrumbs
+        auto-generate
+      />
+    </div>
+  </main>
 </template>
 
 <style scoped>
