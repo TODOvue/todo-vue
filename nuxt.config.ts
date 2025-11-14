@@ -26,5 +26,11 @@ export default defineNuxtConfig({
       { name: 'Lato', provider: 'google', weights: [300], display: 'swap', preload: true },
       { name: 'Kanit', provider: 'google', weights: [600], display: 'swap', preload: true }
     ]
+  },
+
+  nitro: {
+    prerender: {
+      failOnError: false
+    }
   }
 })
