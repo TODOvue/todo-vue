@@ -76,7 +76,7 @@ onMounted(() => {
   <TvThemeButton @change-theme="changeValue"/>
 </template>
 
-<style>
+<style scoped>
 img {
   max-width: 100%;
   max-height: 450px;
