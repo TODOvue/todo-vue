@@ -13,7 +13,7 @@ const changeValue = (value) => {
   setTheme(value)
 }
 
-const { data: posts } = await useAsyncData('blog-list', async () => {
+const { data: posts } = await useAsyncData('app-menu-posts', async () => {
   try {
     return await queryCollection('blog').all()
   } catch (error) {

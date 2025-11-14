@@ -6,7 +6,7 @@ import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
 
 const router = useRouter()
 
-const { data: posts } = await useAsyncData('blog-list', async () => {
+const { data: posts } = await useAsyncData('blog-index-posts', async () => {
   try {
     return await queryCollection('blog').all()
   } catch (error) {
