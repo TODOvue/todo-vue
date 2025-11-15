@@ -71,21 +71,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <TvMenu
-    :menus="configMenu.menus"
-    :placeholder="configMenu.placeholder"
-    :title-button="configMenu.titleButton"
-    :image-menu="configMenu.imageMenu"
-    :results="configMenu.results"
-    @click-menu="handleClickMenu"
-    @search-menu="handleClickMenu"
-  />
+  <ClientOnly>
+    <TvMenu
+      :menus="configMenu.menus"
+      :placeholder="configMenu.placeholder"
+      :title-button="configMenu.titleButton"
+      :image-menu="configMenu.imageMenu"
+      :results="configMenu.results"
+      @click-menu="handleClickMenu"
+      @search-menu="handleClickMenu"
+    />
+  </ClientOnly>
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-  <TvThemeButton
-    @change-theme="changeValue"
-  />
+  <ClientOnly>
+    <TvThemeButton
+      @change-theme="changeValue"
+    />
+  </ClientOnly>
 </template>
 
 <style scoped>

@@ -126,10 +126,12 @@ const handleButton = (path) => {
         <p v-else>No hay posts todavía.</p>
       </section>
       <section class="container-sidebar">
-        <TvSidebar
-          :data="renderMostPopular"
-          @click="handleLinkBlog"
-        />
+        <ClientOnly>
+          <TvSidebar
+            :data="renderMostPopular"
+            @click="handleLinkBlog"
+          />
+        </ClientOnly>
         <ClientOnly>
           <TvSidebar
             is-label

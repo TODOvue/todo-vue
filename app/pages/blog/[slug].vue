@@ -60,6 +60,8 @@ const configHero = {
         />
       </ClientOnly>
     </div>
-    <TvArticle v-if="post" :content="articleData" lang="en" />
+    <ClientOnly>
+      <TvArticle v-if="post" :content="articleData" lang="en" />
+    </ClientOnly>
   </main>
 </template>
