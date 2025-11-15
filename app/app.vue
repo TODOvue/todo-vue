@@ -83,11 +83,9 @@ onMounted(() => {
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-  <ClientOnly>
-    <TvThemeButton
-      @change-theme="changeValue"
-    />
-  </ClientOnly>
+  <TvThemeButton
+    @change-theme="changeValue"
+  />
 </template>
 
 <style scoped>

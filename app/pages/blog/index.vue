@@ -97,25 +97,31 @@ const handleButton = (path) => {
 <template>
   <main>
     <section>
-      <TvHero
-        :config-hero="configHero"
-        is-entry
-      />
-      <div class="main-container">
-        <TvBreadcrumbs
-          auto-generate
+      <ClientOnly>
+        <TvHero
+          :config-hero="configHero"
+          is-entry
         />
+      </ClientOnly>
+      <div class="main-container">
+        <ClientOnly>
+          <TvBreadcrumbs
+            auto-generate
+          />
+        </ClientOnly>
       </div>
     </section>
     <div class="container main-container">
       <section>
         <div v-if="configCards.length" class="container-cards">
-          <TvCard
-            v-for="post in configCards"
-            :key="post.id"
-            :config-card="post"
-            @click-button="() => handleButton(post.path)"
-          />
+          <ClientOnly>
+            <TvCard
+              v-for="post in configCards"
+              :key="post.id"
+              :config-card="post"
+              @click-button="() => handleButton(post.path)"
+            />
+          </ClientOnly>
         </div>
         <p v-else>No hay posts todavía.</p>
       </section>
@@ -124,11 +130,13 @@ const handleButton = (path) => {
           :data="renderMostPopular"
           @click="handleLinkBlog"
         />
-        <TvSidebar
-          is-label
-          :data="renderLabels"
-          @click-label="handleSidebar"
-        />
+        <ClientOnly>
+          <TvSidebar
+            is-label
+            :data="renderLabels"
+            @click-label="handleSidebar"
+          />
+        </ClientOnly>
       </section>
     </div>
   </main>

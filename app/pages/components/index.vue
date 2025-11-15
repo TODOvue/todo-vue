@@ -10,14 +10,18 @@ const configHero = {
 
 <template>
   <main>
-    <TvHero
-      :config-hero="configHero"
-      is-entry
-    />
-    <div class="main-container">
-      <TvBreadcrumbs
-        auto-generate
+    <ClientOnly>
+      <TvHero
+        :config-hero="configHero"
+        is-entry
       />
+    </ClientOnly>
+    <div class="main-container">
+      <ClientOnly>
+        <TvBreadcrumbs
+          auto-generate
+        />
+      </ClientOnly>
     </div>
   </main>
 </template>

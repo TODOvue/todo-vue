@@ -30,7 +30,7 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      failOnError: false
+      failOnError: true
     }
   }
 })
