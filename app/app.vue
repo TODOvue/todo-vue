@@ -24,11 +24,6 @@ const results = computed(() =>
 const configMenu = {
   menus: [
     {
-      id: 1,
-      title: "Home",
-      url: "/",
-    },
-    {
       id: 2,
       title: "Blogs",
       url: "/blog",
@@ -71,25 +66,22 @@ onMounted(() => {
 </script>
 
 <template>
-  <ClientOnly>
-    <TvMenu
-      :menus="configMenu.menus"
-      :placeholder="configMenu.placeholder"
-      :title-button="configMenu.titleButton"
-      :image-menu="configMenu.imageMenu"
-      :results="configMenu.results"
-      @click-menu="handleClickMenu"
-      @search-menu="handleClickMenu"
-    />
-  </ClientOnly>
+  <TvMenu
+    :menus="configMenu.menus"
+    :placeholder="configMenu.placeholder"
+    :title-button="configMenu.titleButton"
+    :image-menu="configMenu.imageMenu"
+    :results="configMenu.results"
+    @click-image="handleClickMenu({ url: '/' })"
+    @click-menu="handleClickMenu"
+    @search-menu="handleClickMenu"
+  />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-  <ClientOnly>
-    <TvThemeButton
-      @change-theme="changeValue"
-    />
-  </ClientOnly>
+  <TvThemeButton
+    @change-theme="changeValue"
+  />
 </template>
 
 <style scoped>

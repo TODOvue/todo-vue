@@ -18,7 +18,14 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '@/assets/styles/main.css'
+    '@/assets/styles/main.css',
+    '@todovue/tv-article/style.css',
+    '@todovue/tv-breadcrumbs/style.css',
+    '@todovue/tv-card/style.css',
+    '@todovue/tv-hero/style.css',
+    '@todovue/tv-menu/style.css',
+    '@todovue/tv-sidebar/style.css',
+    '@todovue/tv-theme-button/style.css'
   ],
 
   fonts: {

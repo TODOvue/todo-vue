@@ -15,13 +15,11 @@ const configHero = {
 
 <template>
   <section>
-    <ClientOnly>
-      <TvHero
-        :config-hero="configHero"
-        @click-button="router.push('/blog')"
-        @click-secondary-button="router.push('/components')"
-      />
-    </ClientOnly>
+    <TvHero
+      :config-hero="configHero"
+      @click-button="router.push('/blog')"
+      @click-secondary-button="router.push('/components')"
+    />
   </section>
 </template>
 

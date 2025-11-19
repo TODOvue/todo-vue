@@ -10,7 +10,7 @@ const { data: posts } = await useAsyncData('blog-index-posts', async () => {
   try {
     return await queryCollection('blog').all()
   } catch (error) {
-    console.error('Error al cargar posts:', error)
+    console.error('Error loading posts:', error)
     return []
   }
 })
@@ -26,12 +26,12 @@ const configCards = computed(() =>
     alt: post.title ?? 'Blog cover',
     image: post.meta?.cover ?? '',
     labels: Array.isArray(post.tags)
-        ? post.tags.map((tag, index) => ({
-          id: index + 1,
-          name: typeof tag === 'string' ? tag : tag.tag,
-          color: typeof tag === 'object' ? tag.color : undefined,
-        }))
-        : [],
+      ? post.tags.map((tag, index) => ({
+        id: index + 1,
+        name: typeof tag === 'string' ? tag : tag.tag,
+        color: typeof tag === 'object' ? tag.color : undefined,
+      }))
+      : [],
     path: post.path ?? post._path ?? '/',
     limitLabels: 10,
   }))
@@ -97,48 +97,38 @@ const handleButton = (path) => {
 <template>
   <main>
     <section>
-      <ClientOnly>
-        <TvHero
-          :config-hero="configHero"
-          is-entry
-        />
-      </ClientOnly>
+      <TvHero
+        :config-hero="configHero"
+        is-entry
+      />
       <div class="main-container">
-        <ClientOnly>
-          <TvBreadcrumbs
-            auto-generate
-          />
-        </ClientOnly>
+       <TvBreadcrumbs
+         auto-generate
+       />
       </div>
     </section>
     <div class="container main-container">
       <section>
         <div v-if="configCards.length" class="container-cards">
-          <ClientOnly>
-            <TvCard
-              v-for="post in configCards"
-              :key="post.id"
-              :config-card="post"
-              @click-button="() => handleButton(post.path)"
-            />
-          </ClientOnly>
+          <TvCard
+            v-for="post in configCards"
+            :key="post.id"
+            :config-card="post"
+            @click-button="() => handleButton(post.path)"
+          />
         </div>
-        <p v-else>No hay posts todavía.</p>
+        <p v-else>No posts found</p>
       </section>
       <section class="container-sidebar">
-        <ClientOnly>
-          <TvSidebar
-            :data="renderMostPopular"
-            @click="handleLinkBlog"
-          />
-        </ClientOnly>
-        <ClientOnly>
-          <TvSidebar
-            is-label
-            :data="renderLabels"
-            @click-label="handleSidebar"
-          />
-        </ClientOnly>
+        <TvSidebar
+          :data="renderMostPopular"
+          @click="handleLinkBlog"
+        />
+        <TvSidebar
+          is-label
+          :data="renderLabels"
+          @click-label="handleSidebar"
+        />
       </section>
     </div>
   </main>

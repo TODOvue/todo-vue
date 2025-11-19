@@ -10,7 +10,7 @@ const { data: post } = await useAsyncData(
   async () => {
     const slug = route.params.slug
     if (!slug || typeof slug !== 'string') {
-      console.error('Slug inválido:', slug)
+      console.error('Slug not found:', slug)
       return null
     }
 
@@ -19,7 +19,7 @@ const { data: post } = await useAsyncData(
       const result = allPosts.find(p => p.stem === `blog/${slug}`)
       return result || null
     } catch (error) {
-      console.error('Error al buscar post:', error)
+      console.error('Error searching for post:', error)
       return null
     }
   }
@@ -47,21 +47,15 @@ const configHero = {
 
 <template>
   <main>
-    <ClientOnly>
-      <TvHero
-        :config-hero="configHero"
-        is-entry
-      />
-    </ClientOnly>
+    <TvHero
+      :config-hero="configHero"
+      is-entry
+    />
     <div class="main-container">
-      <ClientOnly>
-        <TvBreadcrumbs
-          auto-generate
-        />
-      </ClientOnly>
+      <TvBreadcrumbs
+        auto-generate
+      />
     </div>
-    <ClientOnly>
-      <TvArticle v-if="post" :content="articleData" lang="en" />
-    </ClientOnly>
+    <TvArticle v-if="post" :content="articleData" lang="en" />
   </main>
 </template>
