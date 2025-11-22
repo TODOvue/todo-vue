@@ -1,8 +1,12 @@
 <script setup>
 import { TvThemeButton } from '@todovue/tv-theme-button'
 import { TvMenu } from '@todovue/tv-menu'
+import { TvAlert, useAlert } from '@todovue/tv-alert'
 
 const router = useRouter()
+
+const { api } = useAlert()
+const alert = api()
 
 const { data: posts } = await useAsyncData('app-menu-posts', async () => {
   const data = await queryCollection('blog').all().catch((err) => {
@@ -41,7 +45,16 @@ const configMenu = {
 };
 
 const handleClickMenu = (menu) => {
-  if (typeof menu === 'string') return
+  if (typeof menu === 'string') {
+    console.log(menu.trim().length)
+    if (menu.trim().length <= 1) {
+      alert.error('Please enter a search term', {
+        position: 'top-right',
+        timeout: 2000,
+      })
+      return
+    }
+  }
   router.push(menu.url)
 }
 
@@ -82,6 +95,7 @@ onMounted(() => {
   <TvThemeButton
     @change-theme="changeValue"
   />
+  <TvAlert/>
 </template>
 
 <style scoped>

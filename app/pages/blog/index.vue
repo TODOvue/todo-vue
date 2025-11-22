@@ -114,7 +114,7 @@ const handleButton = (path) => {
             v-for="post in configCards"
             :key="post.id"
             :config-card="post"
-            @click-button="() => handleButton(post.path)"
+            @click-button="handleButton(post.path)"
           />
         </div>
         <p v-else>No posts found</p>

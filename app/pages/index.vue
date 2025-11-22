@@ -11,14 +11,18 @@ const configHero = {
   title: "TODOvue Blog",
   buttonSecondary: "View components",
 }
+
+const navigateTo = (path) => {
+  router.push(path)
+}
 </script>
 
 <template>
   <section>
     <TvHero
       :config-hero="configHero"
-      @click-button="router.push('/blog')"
-      @click-secondary-button="router.push('/components')"
+      @click-button="navigateTo('/blog')"
+      @click-secondary-button="navigateTo('/components')"
     />
   </section>
 </template>

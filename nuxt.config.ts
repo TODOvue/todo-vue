@@ -8,7 +8,16 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/hints',
-    '@nuxt/fonts'
+    '@nuxt/fonts',
+    '@todovue/tv-card/nuxt',
+    '@todovue/tv-alert/nuxt',
+    '@todovue/tv-article/nuxt',
+    '@todovue/tv-breadcrumbs/nuxt',
+    '@todovue/tv-hero/nuxt',
+    '@todovue/tv-menu/nuxt',
+    '@todovue/tv-search/nuxt',
+    '@todovue/tv-sidebar/nuxt',
+    '@todovue/tv-theme-button/nuxt',
   ],
 
   content: {
@@ -19,13 +28,6 @@ export default defineNuxtConfig({
 
   css: [
     '@/assets/styles/main.css',
-    '@todovue/tv-article/style.css',
-    '@todovue/tv-breadcrumbs/style.css',
-    '@todovue/tv-card/style.css',
-    '@todovue/tv-hero/style.css',
-    '@todovue/tv-menu/style.css',
-    '@todovue/tv-sidebar/style.css',
-    '@todovue/tv-theme-button/style.css'
   ],
 
   fonts: {
