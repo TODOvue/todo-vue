@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@nuxt/content": "3.8.2",
-    "@nuxt/eslint": "1.10.0",
     "@nuxt/fonts": "0.12.1",
     "@nuxt/hints": "1.0.0-alpha.1",
     "@nuxt/image": "2.0.0",
@@ -24,11 +23,13 @@
     "@todovue/tv-search": "1.1.0",
     "@todovue/tv-sidebar": "2.1.0",
     "@todovue/tv-theme-button": "1.1.0",
-    "eslint": "9.39.1",
+
     "nuxt": "^4.2.1"
   },
-  "packageManager": "pnpm@10.18.2+sha512.9fb969fa749b3ade6035e0f109f0b8a60b5d08a1a87fdf72e337da90dcc93336e2280ca4e44f2358a649b83c17959e9993e777c2080879f3801e6f0d999ad3dd",
+  "packageManager": "pnpm@10.21.0",
   "devDependencies": {
+    "@nuxt/eslint": "^1.10.0",
+    "eslint": "9.39.1",
     "vue": "^3.5.24",
     "zod": "^4.1.12",
     "zod-to-json-schema": "^3.24.6"

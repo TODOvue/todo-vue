@@ -18,10 +18,10 @@ const { data: posts } = await useAsyncData('app-menu-posts', async () => {
 })
 
 const results = computed(() =>
-  (posts.value ?? []).map((post) => ({
+  (posts.value ?? []).map(post => ({
     title: post.title ?? '',
     url: post.path ?? '/',
-    id: post.id ?? post._id ?? post._path ?? crypto.randomUUID?.() ?? Math.random().toString(),
+    id: post.id ?? post._id ?? post._path ?? crypto.randomUUID?.() ?? Math.random().toString()
   }))
 )
 
@@ -29,20 +29,20 @@ const configMenu = {
   menus: [
     {
       id: 2,
-      title: "Blogs",
-      url: "/blog",
+      title: 'Blogs',
+      url: '/blog'
     },
     {
       id: 3,
-      title: "Components",
-      url: "/components",
+      title: 'Components',
+      url: '/components'
     }
   ],
-  placeholder: "Search blogs...",
-  titleButton: "Search",
-  imageMenu: "https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/logo.png?alt=media&token=4d64783f-2259-49cc-a6b4-68e58ce3b227",
+  placeholder: 'Search blogs...',
+  titleButton: 'Search',
+  imageMenu: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
   results: results.value
-};
+}
 
 const handleClickMenu = (menu) => {
   if (typeof menu === 'string') {
@@ -50,7 +50,7 @@ const handleClickMenu = (menu) => {
     if (menu.trim().length <= 1) {
       alert.error('Please enter a search term', {
         position: 'top-right',
-        timeout: 2000,
+        timeout: 2000
       })
       return
     }
@@ -95,7 +95,7 @@ onMounted(() => {
   <TvThemeButton
     @change-theme="changeValue"
   />
-  <TvAlert/>
+  <TvAlert />
 </template>
 
 <style scoped>

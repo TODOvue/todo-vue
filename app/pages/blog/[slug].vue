@@ -1,7 +1,7 @@
 <script setup>
 import { TvArticle } from '@todovue/tv-article'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
-import { TvHero } from "@todovue/tv-hero";
+import { TvHero } from '@todovue/tv-hero'
 
 const route = useRoute()
 
@@ -35,14 +35,14 @@ const articleData = computed(() => ({
   tags: post.value.tags,
   coverCaption: post.value.meta?.coverCaption,
   body: post.value.body
-}));
+}))
 
 const configHero = {
   description: post.value.description,
   title: post.value.title,
   image: post.value.meta?.cover,
-  alt: post.value.meta?.coverAlt,
-};
+  alt: post.value.meta?.coverAlt
+}
 </script>
 
 <template>
@@ -56,6 +56,10 @@ const configHero = {
         auto-generate
       />
     </div>
-    <TvArticle v-if="post" :content="articleData" lang="en" />
+    <TvArticle
+      v-if="post"
+      :content="articleData"
+      lang="en"
+    />
   </main>
 </template>

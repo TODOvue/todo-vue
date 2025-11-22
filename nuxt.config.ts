@@ -1,8 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
-
   modules: [
     '@nuxt/content',
     '@nuxt/eslint',
@@ -17,29 +14,30 @@ export default defineNuxtConfig({
     '@todovue/tv-menu/nuxt',
     '@todovue/tv-search/nuxt',
     '@todovue/tv-sidebar/nuxt',
-    '@todovue/tv-theme-button/nuxt',
+    '@todovue/tv-theme-button/nuxt'
+  ],
+  devtools: { enabled: true },
+
+  css: [
+    '@/assets/styles/main.css'
   ],
 
   content: {
     experimental: {
       nativeSqlite: true
     }
-  },
+  }, compatibilityDate: '2025-07-15',
 
-  css: [
-    '@/assets/styles/main.css',
-  ],
+  nitro: {
+    prerender: {
+      failOnError: true
+    }
+  },
 
   fonts: {
     families: [
       { name: 'Lato', provider: 'google', weights: [300], display: 'swap', preload: true },
       { name: 'Kanit', provider: 'google', weights: [600], display: 'swap', preload: true }
     ]
-  },
-
-  nitro: {
-    prerender: {
-      failOnError: true
-    }
   }
 })
