@@ -1,14 +1,14 @@
 :root {
   /* 🌙 Dark Theme */
-  --dark-body-bg: #7A7D7D;
+  --dark-body-bg: #161E31;
   --dark-card-bg: #0E131F;
-  --dark-text: #F4FAFF;
+  --dark-text: #CBD5E1;
 
   /* ☀️ Light Theme */
-  --light-body-bg: #E0E1E1;
+  --light-body-bg: #f8FAFC;
   --light-card-bg: #B9C4DF;
   --light-button-text: #F1F9F9;
-  --light-text: #000B14;
+  --light-text: #1E293B;
 
   /* 🖋 Fonts */
   --font-text: 'Lato', sans-serif;
