@@ -43,6 +43,17 @@ const configHero = {
   image: post.value.meta?.cover,
   alt: post.value.meta?.coverAlt
 }
+
+useSeoMeta({
+  title: `${post.value.title}`,
+  description: post.value.description,
+  ogTitle: `${post.value.title} - TODOvue`,
+  ogDescription: post.value.description,
+  ogImage: post.value.meta?.cover,
+  twitterTitle: `${post.value.title} - TODOvue`,
+  twitterDescription: post.value.description,
+  twitterImage: post.value.meta?.cover
+});
 </script>
 
 <template>

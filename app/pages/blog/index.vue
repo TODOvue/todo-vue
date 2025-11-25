@@ -116,6 +116,15 @@ watch(() => route.query.page, (newPageQuery) => {
     currentPage.value = pageNum
   }
 })
+
+useSeoMeta({
+  title: 'Blog',
+  description: 'Discover the latest articles, tutorials, and insights from the TODOvue community. Stay updated with our blog for tips, best practices, and news about Vue.js and web development.',
+  ogTitle: 'Blog - TODOvue',
+  ogDescription: 'Discover the latest articles, tutorials, and insights from the TODOvue community. Stay updated with our blog for tips, best practices, and news about Vue.js and web development.',
+  twitterTitle: 'Blog - TODOvue',
+  twitterDescription: 'Discover the latest articles, tutorials, and insights from the TODOvue community. Stay updated with our blog for tips, best practices, and news about Vue.js and web development.'
+})
 </script>
 
 <template>

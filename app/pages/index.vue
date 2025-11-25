@@ -15,6 +15,15 @@ const configHero = {
 const navigateTo = (path) => {
   router.push(path)
 }
+
+useSeoMeta({
+  title: 'Home',
+  description: 'Introducing my Vue.js blog! Get ready to dive into the world of Vue.js and discover how this powerful JavaScript framework can help you build beautiful and dynamic user interfaces for your web applications.',
+  ogTitle: 'Home - TODOvue',
+  ogDescription: 'Introducing my Vue.js blog! Get ready to dive into the world of Vue.js and discover how this powerful JavaScript framework can help you build beautiful and dynamic user interfaces for your web applications.',
+  twitterTitle: 'Home - TODOvue',
+  twitterDescription: 'Introducing my Vue.js blog! Get ready to dive into the world of Vue.js and discover how this powerful JavaScript framework can help you build beautiful and dynamic user interfaces for your web applications.'
+});
 </script>
 
 <template>

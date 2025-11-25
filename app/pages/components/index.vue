@@ -6,6 +6,15 @@ const configHero = {
   description: "Explore our collection of reusable Vue components built with modern best practices.",
   title: "TODOvue components",
 };
+
+useSeoMeta({
+  title: 'Components',
+  description: 'Explore our collection of reusable Vue components built with modern best practices.',
+  ogTitle: 'Components - TODOvue',
+  ogDescription: 'Explore our collection of reusable Vue components built with modern best practices.',
+  twitterTitle: 'Components - TODOvue',
+  twitterDescription: 'Explore our collection of reusable Vue components built with modern best practices.'
+});
 </script>
 
 <template>

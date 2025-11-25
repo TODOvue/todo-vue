@@ -76,6 +76,12 @@ onMounted(() => {
   const theme = stored || (prefersDark ? 'dark' : 'light')
   setTheme(theme)
 })
+
+useSeoMeta({
+  titleTemplate: '%s - TODOvue',
+  ogSiteName: 'TODOvue',
+  twitterCard: 'summary_large_image'
+})
 </script>
 
 <template>
