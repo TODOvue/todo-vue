@@ -3,8 +3,13 @@ import { TvCard } from '@todovue/tv-card'
 import { TvHero } from '@todovue/tv-hero'
 import { TvSidebar } from '@todovue/tv-sidebar'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
+import { TvPagination } from '@todovue/tv-pagination'
 
 const router = useRouter()
+const route = useRoute()
+const pageSize = 3 // Change later to make it configurable
+
+const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
 
 const { data: posts } = await useAsyncData('blog-index-posts', async () => {
   try {
@@ -17,8 +22,14 @@ const { data: posts } = await useAsyncData('blog-index-posts', async () => {
 
 const safePosts = computed(() => Array.isArray(posts.value) ? posts.value : [])
 
+const paginatedPosts = computed(() => {
+  const start = (currentPage.value - 1) * pageSize
+  const end = start + pageSize
+  return safePosts.value.slice(start, end)
+})
+
 const configCards = computed(() =>
-  safePosts.value.map((post) => ({
+  paginatedPosts.value.map((post) => ({
     title: post.title ?? 'Untitled post',
     description: post.description ?? '',
     id: post.id ?? post._id ?? post._path,
@@ -92,6 +103,19 @@ const configHero = {
 const handleButton = (path) => {
   router.push(path)
 }
+
+watch(currentPage, (newPage) => {
+  router.push({
+    query: { page: newPage.toString() }
+  })
+})
+
+watch(() => route.query.page, (newPageQuery) => {
+  const pageNum = parseInt(String(newPageQuery || '1')) || 1
+  if (pageNum !== currentPage.value) {
+    currentPage.value = pageNum
+  }
+})
 </script>
 
 <template>
@@ -118,6 +142,14 @@ const handleButton = (path) => {
           />
         </div>
         <p v-else>No posts found</p>
+        <div v-if="safePosts.length > pageSize" class="pagination-container">
+          <TvPagination
+            v-model="currentPage"
+            :total-items="safePosts.length"
+            :page-size="pageSize"
+            :show-icons="true"
+          />
+        </div>
       </section>
       <section class="container-sidebar">
         <TvSidebar
@@ -145,6 +177,12 @@ const handleButton = (path) => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
 .container-sidebar {

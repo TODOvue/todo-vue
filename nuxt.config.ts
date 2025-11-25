@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     '@todovue/tv-breadcrumbs/nuxt',
     '@todovue/tv-hero/nuxt',
     '@todovue/tv-menu/nuxt',
+    '@todovue/tv-pagination/nuxt',
     '@todovue/tv-search/nuxt',
     '@todovue/tv-sidebar/nuxt',
     '@todovue/tv-theme-button/nuxt'
