@@ -4,12 +4,25 @@ import { TvHero } from '@todovue/tv-hero'
 import { TvSidebar } from '@todovue/tv-sidebar'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
 import { TvPagination } from '@todovue/tv-pagination'
+import IconGrid from '~/assets/icons/IconGrid.vue'
+import IconList from '~/assets/icons/IconList.vue'
 
 const router = useRouter()
 const route = useRoute()
 const pageSize = 3 // Change later to make it configurable
 
 const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
+
+const isHorizontalView = ref(false)
+
+onMounted(() => {
+  const savedView = localStorage.getItem('blog-view-preference')
+  if (savedView === 'horizontal') {
+    isHorizontalView.value = true
+  } else if (savedView === 'grid') {
+    isHorizontalView.value = false
+  }
+})
 
 const { data: posts } = await useAsyncData('blog-index-posts', async () => {
   try {
@@ -45,6 +58,7 @@ const configCards = computed(() =>
       : [],
     path: post.path ?? post._path ?? '/',
     limitLabels: 10,
+    isHorizontal: isHorizontalView.value,
   }))
 )
 
@@ -104,6 +118,11 @@ const handleButton = (path) => {
   router.push(path)
 }
 
+const toggleView = () => {
+  isHorizontalView.value = !isHorizontalView.value
+  localStorage.setItem('blog-view-preference', isHorizontalView.value ? 'horizontal' : 'grid')
+}
+
 watch(currentPage, (newPage) => {
   router.push({
     query: { page: newPage.toString() }
@@ -142,10 +161,22 @@ useSeoMeta({
     </section>
     <div class="container main-container">
       <section>
-        <div v-if="configCards.length" class="container-cards">
+        <div class="view-toggle-container">
+          <button
+            :aria-label="isHorizontalView ? 'Switch to grid view' : 'Switch to horizontal view'"
+            class="view-toggle-btn"
+            @click="toggleView"
+          >
+            <IconGrid v-if="!isHorizontalView" />
+            <IconList v-else />
+            <span>{{ isHorizontalView ? 'Grid View' : 'List View' }}</span>
+          </button>
+        </div>
+        <div v-if="configCards.length" class="container-cards" :class="{ 'horizontal': isHorizontalView }">
           <TvCard
             v-for="post in configCards"
             :key="post.id"
+            :is-horizontal="isHorizontalView"
             :config-card="post"
             @click-button="handleButton(post.path)"
           />
@@ -182,10 +213,60 @@ useSeoMeta({
   gap: 30px;
 }
 
+.view-toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.view-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--dark-card-bg);
+  color: var(--dark-text);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(var(--dark-card-bg), 0.4);
+}
+
+.light-mode {
+  .view-toggle-btn {
+    background: var(--light-card-bg);
+    color: var(--light-text);
+    box-shadow: 0 2px 8px rgba(var(--light-card-bg), 0.4);
+  }
+}
+
+.view-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.view-toggle-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.view-toggle-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
 .container-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+}
+
+.container-cards.horizontal {
+  grid-template-columns: 1fr;
+  gap: 1px;
 }
 
 .pagination-container {
@@ -225,6 +306,16 @@ useSeoMeta({
   .container-cards {
     grid-template-columns: 1fr;
     gap: 15px;
+  }
+
+  .view-toggle-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .view-toggle-btn svg {
+    width: 18px;
+    height: 18px;
   }
 }
 </style>
