@@ -1,12 +1,13 @@
-import { ref, computed, readonly } from 'vue'
+import { computed, readonly } from 'vue'
 import { queryCollection } from '#imports'
 
-const blogPosts = ref([])
-const isLoading = ref(false)
-const lastFetchTime = ref(0)
-const CACHE_DURATION = 5 * 60 * 1000 // 5 minutos
-
 export const useBlogStore = () => {
+  // Usar useState de Nuxt para persistir datos entre servidor y cliente
+  const blogPosts = useState('blog-posts', () => [])
+  const isLoading = useState('blog-loading', () => false)
+  const lastFetchTime = useState('blog-last-fetch', () => 0)
+  const CACHE_DURATION = 5 * 60 * 1000 // 5 minutos
+
   const fetchBlogPosts = async (forceRefresh = false) => {
     const now = Date.now()
     const shouldFetch =

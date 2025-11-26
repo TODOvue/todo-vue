@@ -20,7 +20,7 @@ const navigateTo = (path) => {
   router.push(path)
 }
 
-await useAsyncData('blog-home-posts', async () => {
+await useAsyncData('index-home-blogs', async () => {
   return await blogStore.fetchBlogPosts()
 })
 
@@ -77,7 +77,7 @@ useSeoMeta({
       <div class="section-header">
         <h2 class="section-title">Latest Posts</h2>
       </div>
-      <div class="posts-grid">
+      <div v-if="latestPosts.length > 0" class="posts-grid">
         <TvCard
           v-for="post in latestPosts"
           :key="post.id"
@@ -100,7 +100,7 @@ useSeoMeta({
       <div class="section-header">
         <h2 class="section-title">Popular Categories</h2>
       </div>
-      <div class="categories-container">
+      <div v-if="popularCategories.labels.length > 0" class="categories-container">
         <div class="labels-grid">
           <TvLabel
             v-for="label in popularCategories.labels"

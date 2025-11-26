@@ -1,7 +1,7 @@
 ---
 title: Welcome to TODOvue
 description: The start of a new modern, accessible, and production-ready Vue 3 component library.
-date: 2025-11-12
+date: 2025-11-25
 readingTime: 9
 tags:
   - tag: "Vue"
