@@ -9,6 +9,7 @@ import IconList from '~/assets/icons/IconList.vue'
 
 const router = useRouter()
 const route = useRoute()
+const blogStore = useBlogStore()
 const pageSize = 6 // Change later to make it configurable
 
 const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
@@ -24,16 +25,11 @@ onMounted(() => {
   }
 })
 
-const { data: posts } = await useAsyncData('blog-index-posts', async () => {
-  try {
-    return await queryCollection('blog').all()
-  } catch (error) {
-    console.error('Error loading posts:', error)
-    return []
-  }
+await useAsyncData('blog-index-posts', async () => {
+  return await blogStore.fetchBlogPosts()
 })
 
-const safePosts = computed(() => Array.isArray(posts.value) ? posts.value : [])
+const safePosts = blogStore.blogPosts
 
 const paginatedPosts = computed(() => {
   const start = (currentPage.value - 1) * pageSize
@@ -42,64 +38,12 @@ const paginatedPosts = computed(() => {
 })
 
 const configCards = computed(() =>
-  paginatedPosts.value.map((post) => ({
-    title: post.title ?? 'Untitled post',
-    description: post.description ?? '',
-    id: post.id ?? post._id ?? post._path,
-    primaryButtonText: 'Read blog',
-    alt: post.title ?? 'Blog cover',
-    image: post.meta?.cover ?? '',
-    labels: Array.isArray(post.tags)
-      ? post.tags.map((tag, index) => ({
-        id: index + 1,
-        name: typeof tag === 'string' ? tag : tag.tag,
-        color: typeof tag === 'object' ? tag.color : undefined,
-      }))
-      : [],
-    path: post.path ?? post._path ?? '/',
-    limitLabels: 10,
-    isHorizontal: isHorizontalView.value,
-  }))
+  paginatedPosts.value.map((post) => blogStore.postToCardConfig(post))
 )
 
-const labels = computed(() => {
-  const labelMap = new Map()
-  safePosts.value.forEach((post) => {
-    if (!Array.isArray(post.tags)) return
-    post.tags.forEach((tag) => {
-      const tagName = typeof tag === 'string' ? tag : tag.tag
-      const tagColor = typeof tag === 'object' ? tag.color : undefined
-      const current = labelMap.get(tagName)
-      if (!current) {
-        labelMap.set(tagName, { name: tagName, color: tagColor })
-      } else if (!current.color && tagColor) {
-        labelMap.set(tagName, { ...current, color: tagColor })
-      }
-    })
-  })
-  return Array.from(labelMap.values()).map((item, index) => ({
-    id: index + 1,
-    name: item.name,
-    color: item.color,
-  }))
-})
+const renderLabels = blogStore.getLabelsConfig
 
-const renderLabels = computed(() => ({
-  title: 'Blog Labels',
-  labels: labels?.value ?? [],
-}))
-
-const renderMostPopular = computed(() => {
-  const sortedPosts = [...(posts.value || [])].sort((a, b) => (b.views || 0) - (a.views || 0))
-  return {
-    title: 'Most Popular Blogs',
-    list: sortedPosts.slice(0, 5).map((post, index) => ({
-      id: index + 1,
-      title: post.title,
-      link: post.path,
-    })),
-  }
-})
+const renderMostPopular = blogStore.getMostPopular
 
 const handleSidebar = (path) => {
   console.log('Clicked sidebar link:', path)

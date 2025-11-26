@@ -4,6 +4,7 @@ import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
 import { TvHero } from '@todovue/tv-hero'
 
 const route = useRoute()
+const blogStore = useBlogStore()
 
 const { data: post } = await useAsyncData(
   `blog-${route.params.slug}`,
@@ -15,9 +16,7 @@ const { data: post } = await useAsyncData(
     }
 
     try {
-      const allPosts = await queryCollection('blog').all()
-      const result = allPosts.find(p => p.stem === `blog/${slug}`)
-      return result || null
+      return await blogStore.getBlogBySlug(slug)
     } catch (error) {
       console.error('Error searching for post:', error)
       return null
