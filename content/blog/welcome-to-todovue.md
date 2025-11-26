@@ -9,7 +9,7 @@ tags:
   - tag: "Composition API"
     color: "#35195e"
   - "Frontend"
-cover: https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763701508/jarnmxxvmhbisvpzzfwu.webp](https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763701508/jarnmxxvmhbisvpzzfwu.webp)
+cover: https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763701508/jarnmxxvmhbisvpzzfwu.webp
 coverAlt: Vue.js logo and code
 coverCaption: Starting the journey with TODOvue
 
