@@ -190,6 +190,7 @@ img {
   .posts-grid {
     grid-template-columns: 1fr;
     gap: 15px;
+    justify-items: center;
   }
 
   .section-title {
@@ -198,6 +199,10 @@ img {
 
   .section-header {
     margin-bottom: 20px;
+  }
+
+  .labels-grid {
+    justify-content: center;
   }
 }
 </style>

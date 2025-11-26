@@ -120,6 +120,15 @@ useSeoMeta({
   z-index: 1000;
 }
 
+@media (max-width: 768px) {
+  .theme-button-container {
+    top: auto;
+    bottom: 20px;
+    right: auto;
+    left: 20px;
+  }
+}
+
 img {
   max-width: 100%;
   max-height: 450px;

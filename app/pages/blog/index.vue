@@ -255,6 +255,11 @@ useSeoMeta({
   .container-cards {
     grid-template-columns: 1fr;
     gap: 15px;
+    justify-items: center;
+  }
+
+  .view-toggle-container {
+    justify-content: center;
   }
 
   .view-toggle-btn {
