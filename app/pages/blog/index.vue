@@ -9,7 +9,7 @@ import IconList from '~/assets/icons/IconList.vue'
 
 const router = useRouter()
 const route = useRoute()
-const pageSize = 3 // Change later to make it configurable
+const pageSize = 6 // Change later to make it configurable
 
 const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
 
@@ -126,6 +126,11 @@ const toggleView = () => {
 watch(currentPage, (newPage) => {
   router.push({
     query: { page: newPage.toString() }
+  })
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
   })
 })
 
