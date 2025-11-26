@@ -58,14 +58,20 @@ const handleClickMenu = (menu) => {
   router.push(menu.url)
 }
 
-const setTheme = (value) => {
+const setTheme = (value, toButton = false) => {
   if (!import.meta.client) return
   document.documentElement.className = `${value}-mode`
   localStorage.setItem('theme', value)
+  if (toButton) {
+    alert.info(`Switched to ${value} mode`, {
+      position: 'top-left',
+      timeout: 1000
+    })
+  }
 }
 
 const changeValue = (value) => {
-  setTheme(value)
+  setTheme(value, true)
 }
 
 onMounted(() => {
@@ -95,16 +101,25 @@ useSeoMeta({
     @click-menu="handleClickMenu"
     @search-menu="handleClickMenu"
   />
+  <div class="theme-button-container">
+    <TvThemeButton
+      @change-theme="changeValue"
+    />
+  </div>
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-  <TvThemeButton
-    @change-theme="changeValue"
-  />
   <TvAlert />
 </template>
 
 <style scoped>
+.theme-button-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
 img {
   max-width: 100%;
   max-height: 450px;
