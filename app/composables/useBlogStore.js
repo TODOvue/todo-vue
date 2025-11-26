@@ -1,5 +1,5 @@
-import { computed, readonly } from 'vue'
-import { queryCollection } from '#imports'
+import {computed, readonly} from 'vue'
+import {queryCollection} from '#imports'
 
 export const useBlogStore = () => {
   // Usar useState de Nuxt para persistir datos entre servidor y cliente
@@ -34,7 +34,13 @@ export const useBlogStore = () => {
     isLoading.value = true
     try {
       const posts = await queryCollection('blog').all()
-      blogPosts.value = Array.isArray(posts) ? posts : []
+      blogPosts.value = Array.isArray(posts)
+        ? posts.sort((a, b) => {
+          const dateA = new Date(a.date || 0)
+          const dateB = new Date(b.date || 0)
+          return dateB - dateA
+        })
+        : []
       lastFetchTime.value = now
       return blogPosts.value
     } catch (error) {
@@ -124,10 +130,7 @@ export const useBlogStore = () => {
 
   const getLastMostViewedPost = computed(() => {
     if (blogPosts.value.length === 0) return null
-    const sortedPosts = [...blogPosts.value].sort(
-      (a, b) => (b.views || 0) - (a.views || 0)
-    )
-    return sortedPosts[0] ? postToCardConfig(sortedPosts[0]) : null
+    return blogPosts.value[0] ? postToCardConfig(blogPosts.value[0]) : null
   })
 
   const getPostsByTag = (tagName) => {
