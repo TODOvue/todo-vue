@@ -3,18 +3,19 @@ import { TvHero } from '@todovue/tv-hero'
 import { TvCard } from '@todovue/tv-card'
 import { TvButton } from '@todovue/tv-button'
 import { TvLabel } from '@todovue/tv-label'
+const { t } = useI18n()
 
 const router = useRouter()
 const blogStore = useBlogStore()
 
-const configHero = {
+const configHero = computed(() => ({
   alt: 'TODOvue Logo',
-  button: 'View all blogs',
-  description: 'Introducing my Vue.js blog! Get ready to dive into the world of Vue.js and discover how this powerful JavaScript framework can help you build beautiful and dynamic user interfaces for your web applications.',
+  button: t('home.hero.button'),
+  description: t('home.hero.description'),
   image: 'https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/icono_git.png?alt=media&token=86270c30-8235-4424-b72b-7a585f228685',
-  title: 'TODOvue Blog',
-  buttonSecondary: 'View components'
-}
+  title: t('home.hero.title'),
+  buttonSecondary: t('home.hero.secondary')
+}))
 
 const navigateTo = (path) => {
   router.push(path)
@@ -32,11 +33,7 @@ const latestPosts = computed(() => {
 })
 
 const popularCategories = computed(() => {
-  const allLabels = blogStore.getAllLabels.value
-  return {
-    title: 'Popular Categories',
-    labels: allLabels.slice(0, 10)
-  }
+  return blogStore.getAllLabels.value
 })
 
 const handleCategoryClick = (category) => {
@@ -44,12 +41,12 @@ const handleCategoryClick = (category) => {
 }
 
 useSeoMeta({
-  title: 'Home',
-  description: 'Introducing my Vue.js blog! Get ready to dive into the world of Vue.js and discover how this powerful JavaScript framework can help you build beautiful and dynamic user interfaces for your web applications.',
-  ogTitle: 'Home - TODOvue',
-  ogDescription: 'Introducing my Vue.js blog! Get ready to dive into the world of Vue.js and discover how this powerful JavaScript framework can help you build beautiful and dynamic user interfaces for your web applications.',
-  twitterTitle: 'Home - TODOvue',
-  twitterDescription: 'Introducing my Vue.js blog! Get ready to dive into the world of Vue.js and discover how this powerful JavaScript framework can help you build beautiful and dynamic user interfaces for your web applications.'
+  title: () => t('seo.home.title'),
+  description: () => t('seo.home.description'),
+  ogTitle: () => t('seo.home.title'),
+  ogDescription: () => t('seo.home.description'),
+  twitterTitle: () => t('seo.home.title'),
+  twitterDescription: () => t('seo.home.description')
 });
 </script>
 
@@ -63,7 +60,7 @@ useSeoMeta({
 
     <div class="main-container">
       <div class="section-header">
-        <h2 class="section-title">Latest Post</h2>
+        <h2 class="section-title">{{ t('home.sections.lastPost') }}</h2>
       </div>
       <TvCard
         v-if="lastBlogPosts"
@@ -75,7 +72,7 @@ useSeoMeta({
 
     <div class="main-container">
       <div class="section-header">
-        <h2 class="section-title">Latest Posts</h2>
+        <h2 class="section-title">{{ t('home.sections.lastestPosts') }}</h2>
       </div>
       <div v-if="latestPosts.length > 0" class="posts-grid">
         <TvCard
@@ -91,22 +88,23 @@ useSeoMeta({
           large
           @click="navigateTo('/blog')"
         >
-          See all posts
+          {{ t('home.sections.viewAllPosts') }}
         </TvButton>
       </div>
     </div>
 
     <div class="main-container">
       <div class="section-header">
-        <h2 class="section-title">Popular Categories</h2>
+        <h2 class="section-title">{{ t('home.sections.popularCategories') }}</h2>
       </div>
-      <div v-if="popularCategories.labels.length > 0" class="categories-container">
+      <div v-if="popularCategories.length > 0" class="categories-container">
         <div class="labels-grid">
           <TvLabel
-            v-for="label in popularCategories.labels"
+            v-for="label in popularCategories"
             :key="label.id"
             :text-label="label.name"
             :color="label.color"
+            :limit="10"
             @click="handleCategoryClick(label)"
           />
         </div>

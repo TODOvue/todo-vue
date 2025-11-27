@@ -2,11 +2,14 @@
 import { TvThemeButton } from '@todovue/tv-theme-button'
 import { TvMenu } from '@todovue/tv-menu'
 import { TvAlert, useAlert } from '@todovue/tv-alert'
+import { useI18n } from 'vue-i18n'
 
 const router = useRouter()
 
 const { api } = useAlert()
 const alert = api()
+
+const { locale, t } = useI18n()
 
 const { data: posts } = await useAsyncData('app-menu-posts', async () => {
   const data = await queryCollection('blog').all().catch((err) => {
@@ -18,43 +21,49 @@ const { data: posts } = await useAsyncData('app-menu-posts', async () => {
 })
 
 const results = computed(() =>
-  (posts.value ?? []).map(post => ({
-    title: post.title ?? '',
-    url: post.path ?? '/',
-    id: post.id ?? post._id ?? post._path ?? crypto.randomUUID?.() ?? Math.random().toString()
-  }))
+  (posts.value ?? [])
+    .filter((post) => post.locale === locale.value || !post.locale)
+    .map(post => ({
+      title: post.title ?? '',
+      url: post.path ?? '/',
+      id: post.id ?? post._id ?? post._path ?? crypto.randomUUID?.() ?? Math.random().toString()
+    }))
 )
 
-const configMenu = {
+const configMenu = computed(() => ({
   menus: [
     {
       id: 2,
-      title: 'Blogs',
+      title: t('menu.blogs'),
       url: '/blog'
     },
     {
       id: 3,
-      title: 'Components',
+      title: t('menu.components'),
       url: '/components'
     }
   ],
-  placeholder: 'Search blogs...',
-  titleButton: 'Search',
+  placeholder: t('menu.search.placeholder'),
+  titleButton: t('menu.search.button'),
   imageMenu: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
   results: results.value
-}
+}))
 
 const handleClickMenu = (menu) => {
   if (typeof menu === 'string') {
-    console.log(menu.trim().length)
-    if (menu.trim().length <= 1) {
-      alert.error('Please enter a search term', {
-        position: 'top-right',
-        timeout: 2000
-      })
+    const query = menu.trim()
+    const len = query.length
+    if (len === 0) {
+      alert.error(t('menu.search.errors.required'), { position: 'top-right', timeout: 2000 })
       return
     }
+    if (len <= 3) {
+      alert.error(t('menu.search.errors.minLength'), { position: 'top-right', timeout: 2000 })
+      return
+    }
+    return
   }
+
   router.push(menu.url)
 }
 
@@ -63,7 +72,10 @@ const setTheme = (value, toButton = false) => {
   document.documentElement.className = `${value}-mode`
   localStorage.setItem('theme', value)
   if (toButton) {
-    alert.info(`Switched to ${value} mode`, {
+    alert.info(value === 'dark'
+      ? t('menu.theme.dark')
+      : t('menu.theme.light')
+        , {
       position: 'top-left',
       timeout: 1000
     })

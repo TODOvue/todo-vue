@@ -2,9 +2,11 @@
 import { TvArticle } from '@todovue/tv-article'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
 import { TvHero } from '@todovue/tv-hero'
+import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
 const blogStore = useBlogStore()
+const { locale } = useI18n()
 
 const { data: post } = await useAsyncData(
   `blog-${route.params.slug}`,
@@ -69,7 +71,7 @@ useSeoMeta({
     <TvArticle
       v-if="post"
       :content="articleData"
-      lang="en"
+      :lang="locale"
     />
   </main>
 </template>

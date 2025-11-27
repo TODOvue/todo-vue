@@ -1,19 +1,20 @@
 <script setup>
 import { TvHero } from '@todovue/tv-hero'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
+const { t } = useI18n()
 
-const configHero = {
-  description: "Explore our collection of reusable Vue components built with modern best practices.",
-  title: "TODOvue components",
-};
+const configHero = computed(() => ({
+  description: t('components.hero.description'),
+  title: t('components.hero.title'),
+}))
 
 useSeoMeta({
-  title: 'Components',
-  description: 'Explore our collection of reusable Vue components built with modern best practices.',
-  ogTitle: 'Components - TODOvue',
-  ogDescription: 'Explore our collection of reusable Vue components built with modern best practices.',
-  twitterTitle: 'Components - TODOvue',
-  twitterDescription: 'Explore our collection of reusable Vue components built with modern best practices.'
+  title: () => t('seo.components.title'),
+  description: () => t('seo.components.description'),
+  ogTitle: () => t('seo.components.title'),
+  ogDescription: () => t('seo.components.description'),
+  twitterTitle: () => t('seo.components.title'),
+  twitterDescription: () => t('common.componentsDescription')
 });
 </script>
 

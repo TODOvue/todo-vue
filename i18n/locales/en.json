@@ -1,0 +1,66 @@
+{
+  "menu": {
+    "blogs": "Blogs",
+    "components": "Components",
+    "search": {
+      "placeholder": "Search blogs...",
+      "button": "Search",
+      "errors": {
+        "required": "Search term is required",
+        "minLength": "Search term must be at least 3 characters long"
+      }
+    },
+    "theme": {
+      "light": "Switched to light mode",
+      "dark": "Switched to dark mode"
+    }
+  },
+  "blogs": {
+    "hero": {
+      "title": "TODOvue Blog",
+      "description": "Welcome to my Vue.js blog. Discover how this powerful framework can help you create beautiful and dynamic user interfaces."
+    },
+    "switch": {
+      "grid": "Grid view",
+      "list": "List view",
+      "gridAria": "Switch to grid view",
+      "listAria": "Switch to list view"
+    },
+    "empty": "No articles available yet"
+  },
+  "home": {
+    "sections": {
+      "lastPost": "Featured Post",
+      "lastestPosts": "Latest Posts",
+      "mostPopular": "Most Popular Blogs",
+      "viewAllPosts": "View all posts",
+      "popularCategories": "Popular Categories"
+    },
+    "hero": {
+      "title": "TODOvue Blog",
+      "description": "Welcome to my Vue.js blog. Discover how this powerful framework can help you build beautiful and dynamic user interfaces.",
+      "button": "View all blogs",
+      "secondary": "View components"
+    }
+  },
+  "components": {
+    "hero": {
+      "title": "TODOvue Components",
+      "description": "Explore our collection of reusable Vue components built with modern best practices."
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "TODOvue Blog - Guides and Tutorials on Vue.js",
+      "description": "Explore the TODOvue blog for guides, tutorials, and development notes on building modern components with Vue.js."
+    },
+    "components": {
+      "title": "TODOvue Components - Reusable Vue Component Library",
+      "description": "Discover the TODOvue collection, a reusable Vue.js component library built with modern best practices."
+    },
+    "blogs": {
+      "title": "TODOvue Blog - Articles and Tutorials on Vue.js",
+      "description": "Dive into the TODOvue blog to find articles, tutorials, and development notes focused on building modern Vue.js components."
+    }
+  }
+}

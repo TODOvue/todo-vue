@@ -1,8 +1,11 @@
 import {computed, readonly} from 'vue'
-import {queryCollection} from '#imports'
+import {queryCollection, useNuxtApp, useI18n, useLocalePath } from '#imports'
+import { FALLBACK_LOCALE, matchesSlug, getLocalizedPosts } from '@/utils/contentLocale'
 
 export const useBlogStore = () => {
-  // Usar useState de Nuxt para persistir datos entre servidor y cliente
+  const { $localizedContent } = useNuxtApp()
+  const { locale } = useI18n()
+  const localePath = useLocalePath()
   const blogPosts = useState('blog-posts', () => [])
   const isLoading = useState('blog-loading', () => false)
   const lastFetchTime = useState('blog-last-fetch', () => 0)
@@ -34,8 +37,11 @@ export const useBlogStore = () => {
     isLoading.value = true
     try {
       const posts = await queryCollection('blog').all()
+      const localized = typeof $localizedContent?.getLocalized === 'function'
+        ? $localizedContent.getLocalized(posts, locale.value)
+        : getLocalizedPosts(posts, locale.value, FALLBACK_LOCALE)
       blogPosts.value = Array.isArray(posts)
-        ? posts.sort((a, b) => {
+        ? localized.sort((a, b) => {
           const dateA = new Date(a.date || 0)
           const dateB = new Date(b.date || 0)
           return dateB - dateA
@@ -53,14 +59,17 @@ export const useBlogStore = () => {
   
   const getBlogBySlug = async (slug) => {
     await fetchBlogPosts()
-    return blogPosts.value.find((p) => p.stem === `blog/${slug}`) || null
+    const normalizedSlug = String(slug)
+    const direct = blogPosts.value.find((post) => matchesSlug(post, normalizedSlug))
+    if (direct) return direct
+    return blogPosts.value.find((post) => Array.isArray(post.alternate) && post.alternate.some((alt) => matchesSlug(alt, normalizedSlug))) || null
   }
 
   const postToCardConfig = (post) => ({
     title: post.title ?? 'Untitled post',
     description: post.description ?? '',
     id: post.id ?? post._id ?? post._path ?? '',
-    primaryButtonText: 'Read blog',
+    primaryButtonText: locale.value === 'es' ? 'Leer blog' : 'Read blog',
     alt: post.title ?? 'Blog cover',
     image: post.meta?.cover ?? '',
     labels: Array.isArray(post.tags)
@@ -70,7 +79,7 @@ export const useBlogStore = () => {
           color: typeof tag === 'object' ? tag.color : undefined,
         }))
       : [],
-    path: post.path ?? post._path ?? '/',
+    path: localePath(post.path ?? post._path ?? '/'),
     limitLabels: 10,
   })
 
@@ -110,7 +119,7 @@ export const useBlogStore = () => {
   })
   
   const getLabelsConfig = computed(() => ({
-    title: 'Blog Labels',
+    title: locale.value === 'es' ? 'Etiquetas del blog' : 'Blog Labels',
     labels: getAllLabels.value,
   }))
   
@@ -119,11 +128,11 @@ export const useBlogStore = () => {
       (a, b) => (b.views || 0) - (a.views || 0)
     )
     return {
-      title: 'Most Popular Blogs',
+      title: locale.value === 'es' ? 'Blogs mas populares' : 'Most Popular Blogs',
       list: sortedPosts.slice(0, 5).map((post, index) => ({
         id: index + 1,
         title: post.title ?? 'Untitled',
-        link: post.path ?? post._path ?? '/',
+        link: localePath(post.path ?? post._path ?? '/'),
       })),
     }
   })

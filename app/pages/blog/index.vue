@@ -10,6 +10,7 @@ import IconList from '~/assets/icons/IconList.vue'
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
+const { t } = useI18n()
 const pageSize = 6 // Change later to make it configurable
 
 const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
@@ -53,10 +54,10 @@ const handleLinkBlog = (blog) => {
   router.push(blog.link)
 }
 
-const configHero = {
-  description: "Discover the latest articles, tutorials, and insights from the TODOvue community. Stay updated with our blog for tips, best practices, and news about Vue.js and web development.",
-  title: "TODOvue Blogs",
-};
+const configHero = computed(() => ({
+  description: t('blogs.hero.description'),
+  title: t('blogs.hero.title'),
+}))
 
 const handleButton = (path) => {
   router.push(path)
@@ -86,12 +87,12 @@ watch(() => route.query.page, (newPageQuery) => {
 })
 
 useSeoMeta({
-  title: 'Blog',
-  description: 'Discover the latest articles, tutorials, and insights from the TODOvue community. Stay updated with our blog for tips, best practices, and news about Vue.js and web development.',
-  ogTitle: 'Blog - TODOvue',
-  ogDescription: 'Discover the latest articles, tutorials, and insights from the TODOvue community. Stay updated with our blog for tips, best practices, and news about Vue.js and web development.',
-  twitterTitle: 'Blog - TODOvue',
-  twitterDescription: 'Discover the latest articles, tutorials, and insights from the TODOvue community. Stay updated with our blog for tips, best practices, and news about Vue.js and web development.'
+  title: () => t('seo.blogs.title'),
+  description: () => t('seo.blogs.description'),
+  ogTitle: () => t('seo.blogs.title'),
+  ogDescription: () => t('seo.blogs.description'),
+  twitterTitle: () => t('seo.blogs.title'),
+  twitterDescription: () => t('seo.blogs.description')
 })
 </script>
 
@@ -112,13 +113,13 @@ useSeoMeta({
       <section>
         <div class="view-toggle-container">
           <button
-            :aria-label="isHorizontalView ? 'Switch to grid view' : 'Switch to horizontal view'"
+            :aria-label="isHorizontalView ? t('blogs.switch.gridAria') : t('blogs.switch.listAria')"
             class="view-toggle-btn"
             @click="toggleView"
           >
             <IconGrid v-if="!isHorizontalView" />
             <IconList v-else />
-            <span>{{ isHorizontalView ? 'Grid View' : 'List View' }}</span>
+            <span>{{ isHorizontalView ? t('blogs.switch.grid') : t('blogs.switch.list') }}</span>
           </button>
         </div>
         <div v-if="configCards.length" class="container-cards" :class="{ 'horizontal': isHorizontalView }">
@@ -130,7 +131,7 @@ useSeoMeta({
             @click-button="handleButton(post.path)"
           />
         </div>
-        <p v-else>No posts found</p>
+        <p v-else>{{ t('blogs.empty') }}</p>
         <div v-if="safePosts.length > pageSize" class="pagination-container">
           <TvPagination
             v-model="currentPage"
