@@ -59,7 +59,7 @@ export const useBlogStore = () => {
   
   const getBlogBySlug = async (slug) => {
     await fetchBlogPosts()
-    const normalizedSlug = String(slug)
+    const normalizedSlug = String(slug).replace(/\.[a-z]{2}$/i, '')
     const direct = blogPosts.value.find((post) => matchesSlug(post, normalizedSlug))
     if (direct) return direct
     return blogPosts.value.find((post) => Array.isArray(post.alternate) && post.alternate.some((alt) => matchesSlug(alt, normalizedSlug))) || null

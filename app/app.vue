@@ -9,20 +9,15 @@ const router = useRouter()
 const { api } = useAlert()
 const alert = api()
 
-const { locale, t } = useI18n()
+const blogStore = useBlogStore()
+const { t } = useI18n()
 
 const { data: posts } = await useAsyncData('app-menu-posts', async () => {
-  const data = await queryCollection('blog').all().catch((err) => {
-    console.error('[app-menu-posts] queryCollection error:', err)
-    return []
-  })
-
-  return Array.isArray(data) ? data : []
+  return await blogStore.fetchBlogPosts()
 })
 
 const results = computed(() =>
   (posts.value ?? [])
-    .filter((post) => post.locale === locale.value || !post.locale)
     .map(post => ({
       title: post.title ?? '',
       url: post.path ?? '/',
