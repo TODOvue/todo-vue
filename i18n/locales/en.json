@@ -41,6 +41,9 @@
       "description": "Welcome to my Vue.js blog. Discover how this powerful framework can help you build beautiful and dynamic user interfaces.",
       "button": "View all blogs",
       "secondary": "View components"
+    },
+    "settings": {
+      "label": "Open settings"
     }
   },
   "components": {

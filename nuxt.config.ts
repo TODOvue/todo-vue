@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     '@todovue/tv-menu/nuxt',
     '@todovue/tv-pagination/nuxt',
     '@todovue/tv-search/nuxt',
+    '@todovue/tv-settings/nuxt',
     '@todovue/tv-sidebar/nuxt',
     '@todovue/tv-theme-button/nuxt',
     '@nuxtjs/i18n'

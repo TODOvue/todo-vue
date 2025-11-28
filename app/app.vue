@@ -2,6 +2,7 @@
 import { TvThemeButton } from '@todovue/tv-theme-button'
 import { TvMenu } from '@todovue/tv-menu'
 import { TvAlert, useAlert } from '@todovue/tv-alert'
+import { TvSettings } from '@todovue/tv-settings'
 import { useI18n } from 'vue-i18n'
 
 const router = useRouter()
@@ -108,10 +109,14 @@ useSeoMeta({
     @click-menu="handleClickMenu"
     @search-menu="handleClickMenu"
   />
-  <div class="theme-button-container">
-    <TvThemeButton
-      @change-theme="changeValue"
-    />
+  <div class="settings-container">
+    <TvSettings direction="right" :label="t('home.settings.label')">
+      <template #default>
+        <div class="settings-content">
+          <TvThemeButton @change-theme="changeValue" />
+        </div>
+      </template>
+    </TvSettings>
   </div>
   <NuxtLayout>
     <NuxtPage />
@@ -120,20 +125,15 @@ useSeoMeta({
 </template>
 
 <style scoped>
-.theme-button-container {
+.settings-container {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  bottom: 20px;
+  left: 20px;
   z-index: 1000;
 }
 
-@media (max-width: 768px) {
-  .theme-button-container {
-    top: auto;
-    bottom: 20px;
-    right: auto;
-    left: 20px;
-  }
+.settings-content {
+  padding: 20px;
 }
 
 img {
