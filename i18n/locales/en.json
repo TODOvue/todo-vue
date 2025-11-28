@@ -43,7 +43,13 @@
       "secondary": "View components"
     },
     "settings": {
-      "label": "Open settings"
+      "label": "Open settings",
+      "language": {
+        "label": "Language",
+        "es": "Español",
+        "en": "English",
+        "changed": "Language changed to {lang}"
+      }
     }
   },
   "components": {

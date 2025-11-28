@@ -6,12 +6,13 @@ import { TvSettings } from '@todovue/tv-settings'
 import { useI18n } from 'vue-i18n'
 
 const router = useRouter()
+const route = useRoute()
 
 const { api } = useAlert()
 const alert = api()
 
 const blogStore = useBlogStore()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const { data: posts } = await useAsyncData('app-menu-posts', async () => {
   return await blogStore.fetchBlogPosts()
@@ -82,6 +83,26 @@ const changeValue = (value) => {
   setTheme(value, true)
 }
 
+const changeLanguage = async (lang) => {
+  locale.value = lang
+
+  const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
+  alert.info(t('home.settings.language.changed', { lang: langName }), {
+    position: 'top-left',
+    timeout: 2000
+  })
+  await blogStore.fetchBlogPosts(true)
+
+  if (route.path.startsWith('/blog/') && route.params.slug) {
+    const currentSlug = String(route.params.slug).replace(/\.(es|en)$/, '')
+    const post = await blogStore.getBlogBySlug(currentSlug)
+
+    if (post && post.path) {
+      await router.push(post.path)
+    }
+  }
+}
+
 onMounted(() => {
   if (!import.meta.client) return
 
@@ -114,6 +135,17 @@ useSeoMeta({
       <template #default>
         <div class="settings-content">
           <TvThemeButton @change-theme="changeValue" />
+          <div class="language-selector">
+            <div class="language-buttons">
+              <button
+                class="language-button"
+                :class="{ active: locale === 'es' }"
+                @click="changeLanguage(locale === 'es' ? 'en' : 'es')"
+              >
+                {{ locale === 'es' ? 'ES' : 'EN' }}
+              </button>
+            </div>
+          </div>
         </div>
       </template>
     </TvSettings>
@@ -127,13 +159,71 @@ useSeoMeta({
 <style scoped>
 .settings-container {
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   left: 20px;
   z-index: 1000;
 }
 
 .settings-content {
   padding: 20px;
+}
+
+.language-selector {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.language-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.language-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.language-button {
+  flex: 1;
+  padding: 8px 16px;
+  border: 2px solid #e0e0e0;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.language-button:hover {
+  background-color: #f5f5f5;
+  border-color: #42b983;
+}
+
+.language-button.active {
+  background-color: #42b983;
+  color: white;
+  border-color: #42b983;
+}
+
+.dark-mode .language-button {
+  background-color: #0E131F;
+  color: #CBD5E1;
+  border-color: #2d3748;
+}
+
+.dark-mode .language-button:hover {
+  background-color: #1a202c;
+  border-color: #42b983;
+}
+
+.dark-mode .language-button.active {
+  background-color: #42b983;
+  color: white;
+  border-color: #42b983;
 }
 
 img {
