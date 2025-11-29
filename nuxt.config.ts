@@ -19,6 +19,7 @@ export default defineNuxtConfig({
     '@todovue/tv-settings/nuxt',
     '@todovue/tv-sidebar/nuxt',
     '@todovue/tv-theme-button/nuxt',
+    '@todovue/tv-toc/nuxt',
     '@nuxtjs/i18n'
   ],
   devtools: { enabled: true },

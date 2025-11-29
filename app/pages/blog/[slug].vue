@@ -2,6 +2,7 @@
 import { TvArticle } from '@todovue/tv-article'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
 import { TvHero } from '@todovue/tv-hero'
+import { TvToc } from '@todovue/tv-toc'
 import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
@@ -38,6 +39,12 @@ const articleData = computed(() => ({
   body: post.value.body
 }))
 
+const tocData = computed(() => post.value.body?.toc ?? null)
+const hasToc = computed(() => {
+  const toc = tocData.value
+  return Boolean(toc && Array.isArray(toc.links) && toc.links.length > 0)
+})
+
 const configHero = {
   description: post.value.description,
   title: post.value.title,
@@ -68,10 +75,69 @@ useSeoMeta({
         auto-generate
       />
     </div>
-    <TvArticle
+    <section
       v-if="post"
-      :content="articleData"
-      :lang="locale"
-    />
+      class="main-container blog-reading-zone"
+    >
+      <div class="blog-reading-zone__article">
+        <TvArticle
+          :content="articleData"
+          :lang="locale"
+        />
+      </div>
+      <client-only>
+        <aside
+          v-if="hasToc"
+          class="blog-reading-zone__toc"
+        >
+          <div class="blog-reading-zone__toc-inner">
+            <TvToc :toc="tocData" />
+          </div>
+        </aside>
+      </client-only>
+    </section>
   </main>
 </template>
+
+<style scoped>
+.blog-reading-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.blog-reading-zone__article {
+  min-width: 0;
+}
+
+.blog-reading-zone__toc {
+  border-top: 1px solid rgba(148, 163, 184, 0.4);
+  padding-top: 1.5rem;
+}
+
+.blog-reading-zone__toc-inner {
+  position: sticky;
+  top: 120px;
+}
+
+@media (min-width: 992px) {
+  .blog-reading-zone {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 3rem;
+  }
+
+  .blog-reading-zone__toc {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .blog-reading-zone__toc-inner {
+    max-height: calc(100vh - 160px);
+    overflow: auto;
+    padding-left: 1.5rem;
+    border-left: 1px solid rgba(148, 163, 184, 0.3);
+  }
+}
+</style>
