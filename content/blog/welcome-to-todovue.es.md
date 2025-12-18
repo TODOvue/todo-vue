@@ -2,13 +2,13 @@
 title: "TODOvue: Un espacio dedicado al ecosistema de Vue.js"
 description: "Bienvenidos a TODOvue. Un blog técnico diseñado por y para desarrolladores, donde exploramos a fondo Vue 3, Nuxt y la arquitectura de componentes moderna."
 date: 2025-12-17T00:00:00-05:00
-readingTime: 1
+readingTime: 2
 tags:
   - tag: "TODOvue"
     color: "#42b883"
   - tag: "General"
     color: "#35495e"
-cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766092564/TODOvue_ddfc6m.png
+cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766098456/TODOvue_idegxt.png
 coverAlt: Logo de TODOvue con código fuente de fondo
 coverCaption: "Explorando el universo de Vue.js de principio a fin"
 locale: es
