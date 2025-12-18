@@ -10,13 +10,33 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/content": "3.8.0",
-    "@nuxt/eslint": "1.10.0",
-    "@nuxt/fonts": "0.12.1",
-    "@nuxt/hints": "1.0.0-alpha.1",
-    "@nuxt/image": "2.0.0",
-    "eslint": "9.39.1",
-    "nuxt": "^4.2.1"
+    "@nuxt/content": "^3.9.0",
+    "@nuxt/fonts": "^0.12.1",
+    "@nuxt/hints": "^1.0.0-alpha.4",
+    "@nuxt/image": "^2.0.0",
+    "@nuxtjs/i18n": "^10.2.1",
+    "@todovue/tv-alert": "1.1.0",
+    "@todovue/tv-article": "1.2.1",
+    "@todovue/tv-breadcrumbs": "1.1.1",
+    "@todovue/tv-button": "1.2.2",
+    "@todovue/tv-card": "1.1.1",
+    "@todovue/tv-hero": "1.1.1",
+    "@todovue/tv-label": "1.1.1",
+    "@todovue/tv-menu": "1.1.1",
+    "@todovue/tv-pagination": "1.1.1",
+    "@todovue/tv-search": "1.1.1",
+    "@todovue/tv-settings": "1.0.1",
+    "@todovue/tv-sidebar": "2.1.1",
+    "@todovue/tv-theme-button": "1.1.0",
+    "@todovue/tv-toc": "1.0.1",
+    "nuxt": "^4.2.2"
   },
-  "packageManager": "pnpm@10.18.2+sha512.9fb969fa749b3ade6035e0f109f0b8a60b5d08a1a87fdf72e337da90dcc93336e2280ca4e44f2358a649b83c17959e9993e777c2080879f3801e6f0d999ad3dd"
+  "packageManager": "pnpm@10.26.0",
+  "devDependencies": {
+    "@nuxt/eslint": "^1.12.1",
+    "eslint": "^9.39.2",
+    "vue": "^3.5.25",
+    "zod": "^4.2.1",
+    "zod-to-json-schema": "^3.24.6"
+  }
 }

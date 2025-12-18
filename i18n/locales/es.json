@@ -1,0 +1,75 @@
+{
+  "menu": {
+    "blogs": "Blogs",
+    "components": "Componentes",
+    "search": {
+      "placeholder": "Buscar blogs...",
+      "button": "Buscar",
+      "errors": {
+        "required": "El término de búsqueda es obligatorio",
+        "minLength": "El término de búsqueda debe tener al menos 3 caracteres"
+      }
+    },
+    "theme": {
+      "light": "Cambiado a modo claro",
+      "dark": "Cambiado a modo oscuro"
+    }
+  },
+  "blogs": {
+    "hero": {
+      "title": "TODOvue Blog",
+      "description": "Bienvenido a mi blog de Vue.js. Descubre cómo este potente framework puede ayudarte a crear interfaces hermosas y dinámicas."
+    },
+    "switch": {
+      "grid": "Vista de cuadrícula",
+      "list": "Vista de lista",
+      "gridAria": "Cambiar a vista de cuadrícula",
+      "listAria": "Cambiar a vista de lista"
+    },
+    "empty": "No hay artículos disponibles aún"
+  },
+  "home": {
+    "sections": {
+      "lastPost": "Entrada destacada",
+      "lastestPosts": "Entradas recientes",
+      "mostPopular": "Blogs más populares",
+      "viewAllPosts": "Ver todas",
+      "popularCategories": "Categorías populares"
+    },
+    "hero": {
+      "title": "TODOvue Blog",
+      "description": "Bienvenido a mi blog de Vue.js. Descubre cómo este potente framework puede ayudarte a crear interfaces hermosas y dinámicas.",
+      "button": "Ver todos los blogs",
+      "secondary": "Ver componentes"
+    },
+    "settings": {
+      "label": "Abrir configuración",
+      "language": {
+        "label": "Idioma",
+        "es": "Español",
+        "en": "English",
+        "changed": "Idioma cambiado a {lang}"
+      }
+    }
+  },
+  "components": {
+    "hero": {
+      "title": "Componentes TODOvue",
+      "description": "Explora nuestra colección de componentes Vue reutilizables, construidos con las mejores prácticas modernas."
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "TODOvue Blog - Guías y tutoriales sobre Vue.js",
+      "description": "Explora el blog TODOvue para obtener guías, tutoriales y notas de desarrollo sobre la creación de componentes modernos con Vue.js."
+    },
+    "components": {
+      "title": "Componentes TODOvue - Biblioteca de componentes Vue reutilizables",
+      "description": "Descubre la colección de componentes TODOvue, una biblioteca de componentes Vue.js reutilizables construidos con las mejores prácticas modernas."
+    },
+    "blogs": {
+      "title": "Blog TODOvue - Artículos y tutoriales sobre Vue.js",
+      "description": "Sumérgete en el blog TODOvue para encontrar artículos, tutoriales y notas de desarrollo centrados en la creación de componentes modernos con Vue.js."
+    }
+  }
+}

@@ -8,8 +8,6 @@ dist
 
 # Node dependencies
 node_modules
-pnpm-lock.yaml
-pnpm-workspace.yaml
 
 # Logs
 logs
@@ -19,6 +17,7 @@ logs
 .DS_Store
 .fleet
 .idea
+.vscode
 
 # Local env files
 .env

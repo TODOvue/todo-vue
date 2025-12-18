@@ -1,0 +1,24 @@
+// content.config.ts
+import { defineContentConfig, defineCollection } from '@nuxt/content'
+import { z } from 'zod'
+
+export default defineContentConfig({
+  collections: {
+    blog: defineCollection({
+      type: 'page',
+      source: 'blog/**/*.md',
+      schema: z.object({
+        title: z.string(),
+        description: z.string().optional(),
+        date: z.preprocess((arg) => {
+          if (typeof arg === 'string' || typeof arg === 'number') return new Date(arg)
+          return arg
+        }, z.date()).optional(),
+        tags: z.array(z.union([z.string(), z.object({ tag: z.string(), color: z.string().optional() })])).optional(),
+        draft: z.boolean(),
+        locale: z.enum(['en', 'es']).optional(),
+        slug: z.string().optional()
+      })
+    })
+  }
+})

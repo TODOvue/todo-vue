@@ -1,0 +1,40 @@
+:root {
+  /* 🌙 Dark Theme */
+  --dark-body-bg: #161E31;
+  --dark-card-bg: #0E131F;
+  --dark-text: #CBD5E1;
+
+  /* ☀️ Light Theme */
+  --light-body-bg: #f8FAFC;
+  --light-card-bg: #B9C4DF;
+  --light-button-text: #F1F9F9;
+  --light-text: #1E293B;
+
+  /* 🖋 Fonts */
+  --font-text: 'Lato', sans-serif;
+  --font-title: 'Kanit', sans-serif;
+}
+
+.dark-mode {
+  background-color: var(--dark-body-bg);
+  color: var(--dark-text);
+}
+
+.light-mode {
+  background-color: var(--light-body-bg);
+  color: var(--light-text);
+}
+
+body {
+  font-family: var(--font-text), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-title), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+.main-container {
+  margin: 40px auto;
+  width: 95%;
+  max-width: 1400px;
+}
