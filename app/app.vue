@@ -3,8 +3,6 @@ import { TvThemeButton } from '@todovue/tv-theme-button'
 import { TvMenu } from '@todovue/tv-menu'
 import { TvAlert, useAlert } from '@todovue/tv-alert'
 import { TvSettings } from '@todovue/tv-settings'
-import { useI18n } from 'vue-i18n'
-
 const router = useRouter()
 const route = useRoute()
 
@@ -12,7 +10,7 @@ const { api } = useAlert()
 const alert = api()
 
 const blogStore = useBlogStore()
-const { t, locale } = useI18n()
+const { t, locale, setLocale } = useI18n()
 
 const { data: posts } = await useAsyncData('app-menu-posts', async () => {
   return await blogStore.fetchBlogPosts()
@@ -84,7 +82,7 @@ const changeValue = (value) => {
 }
 
 const changeLanguage = async (lang) => {
-  locale.value = lang
+  await setLocale(lang)
 
   const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
   alert.info(t('home.settings.language.changed', { lang: langName }), {
@@ -110,6 +108,7 @@ onMounted(() => {
   const stored = localStorage.getItem('theme')
   const theme = stored || (prefersDark ? 'dark' : 'light')
   setTheme(theme)
+  blogStore.fetchBlogPosts()
 })
 
 useSeoMeta({

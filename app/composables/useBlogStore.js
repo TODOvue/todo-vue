@@ -1,5 +1,5 @@
-import {computed, readonly} from 'vue'
-import {queryCollection, useNuxtApp, useI18n, useLocalePath } from '#imports'
+import { computed, readonly } from 'vue'
+import { queryCollection, useNuxtApp, useI18n, useLocalePath } from '#imports'
 import { FALLBACK_LOCALE, matchesSlug, getLocalizedPosts } from '@/utils/contentLocale'
 
 export const useBlogStore = () => {
@@ -9,13 +9,15 @@ export const useBlogStore = () => {
   const blogPosts = useState('blog-posts', () => [])
   const isLoading = useState('blog-loading', () => false)
   const lastFetchTime = useState('blog-last-fetch', () => 0)
-  const CACHE_DURATION = 5 * 60 * 1000 // 5 minutos
+  const lastFetchLocale = useState('blog-last-fetch-locale', () => '')
+  const CACHE_DURATION = 5 * 60 * 1000 // 5 min
 
   const fetchBlogPosts = async (forceRefresh = false) => {
     const now = Date.now()
     const shouldFetch =
       forceRefresh ||
       blogPosts.value.length === 0 ||
+      lastFetchLocale.value !== locale.value ||
       now - lastFetchTime.value > CACHE_DURATION
 
     if (!shouldFetch) {
@@ -48,6 +50,7 @@ export const useBlogStore = () => {
         })
         : []
       lastFetchTime.value = now
+      lastFetchLocale.value = locale.value
       return blogPosts.value
     } catch (error) {
       console.error('Error loading blog posts:', error)
@@ -56,7 +59,7 @@ export const useBlogStore = () => {
       isLoading.value = false
     }
   }
-  
+
   const getBlogBySlug = async (slug) => {
     await fetchBlogPosts()
     const normalizedSlug = String(slug).replace(/\.[a-z]{2}$/i, '')
@@ -74,10 +77,10 @@ export const useBlogStore = () => {
     image: post.meta?.cover ?? '',
     labels: Array.isArray(post.tags)
       ? post.tags.map((tag, index) => ({
-          id: index + 1,
-          name: typeof tag === 'string' ? tag : tag.tag ?? '',
-          color: typeof tag === 'object' ? tag.color : undefined,
-        }))
+        id: index + 1,
+        name: typeof tag === 'string' ? tag : tag.tag ?? '',
+        color: typeof tag === 'object' ? tag.color : undefined,
+      }))
       : [],
     path: localePath(post.path ?? post._path ?? '/'),
     limitLabels: 10,
@@ -86,7 +89,7 @@ export const useBlogStore = () => {
   const getCardsConfig = computed(() => {
     return blogPosts.value.map(postToCardConfig)
   })
-  
+
   const getPaginatedCards = (page, pageSize) => {
     return computed(() => {
       const start = (page - 1) * pageSize
@@ -94,7 +97,7 @@ export const useBlogStore = () => {
       return getCardsConfig.value.slice(start, end)
     })
   }
-  
+
   const getAllLabels = computed(() => {
     const labelMap = new Map()
     blogPosts.value.forEach((post) => {
@@ -117,12 +120,12 @@ export const useBlogStore = () => {
       color: item.color,
     }))
   })
-  
+
   const getLabelsConfig = computed(() => ({
     title: locale.value === 'es' ? 'Etiquetas del blog' : 'Blog Labels',
     labels: getAllLabels.value,
   }))
-  
+
   const getMostPopular = computed(() => {
     const sortedPosts = [...blogPosts.value].sort(
       (a, b) => (b.views || 0) - (a.views || 0)
