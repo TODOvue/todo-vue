@@ -5,13 +5,16 @@
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Handle SPA Routing
+  # Handle SPA Routing and Subfolders
+  
   # If the requested filename exists, simply serve it.
-  RewriteCond %{REQUEST_FILENAME} -f
+  # We now also allow serving directories because Nuxt will generate subfolder/index.html
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
   # Otherwise, redirect everything to index.html for client-side routing
-  # This ensures all routes are handled by the SPA, even if directories exist
+  # This catches 404s for proper SPA hydration of non-existent routes
   RewriteRule ^ index.html [L]
 </IfModule>
 
