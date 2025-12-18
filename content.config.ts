@@ -14,7 +14,10 @@ export default defineContentConfig({
           if (typeof arg === 'string' || typeof arg === 'number') return new Date(arg)
           return arg
         }, z.date()).optional(),
-        tags: z.array(z.union([z.string(), z.object({ tag: z.string(), color: z.string().optional() })])).optional(),
+        tags: z.array(z.object({
+          tag: z.string(),
+          color: z.string().optional()
+        })).optional(),
         draft: z.boolean(),
         locale: z.enum(['en', 'es']).optional(),
         slug: z.string().optional()
