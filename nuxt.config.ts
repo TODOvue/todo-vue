@@ -28,15 +28,7 @@ export default defineNuxtConfig({
     '@/assets/styles/main.css'
   ],
 
-  content: {
-    build: {
-      markdown: {
-        toc: {
-          searchDepth: 1
-        }
-      }
-    }
-  },
+  content: {},
 
   experimental: {
     asyncContext: true
@@ -46,10 +38,7 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      routes: [
-        '/'
-      ],
-      crawlLinks: true
+      failOnError: true
     }
   },
 
@@ -70,7 +59,9 @@ export default defineNuxtConfig({
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
+      redirectOn: 'no prefix',
+      alwaysRedirect: false,
+      fallbackLocale: 'es'
     }
   },
 })
