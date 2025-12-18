@@ -4,7 +4,7 @@ description: "Bienvenidos a TODOvue. Un blog técnico diseñado por y para desar
 date: 2025-12-17T14:30:00-05:00
 readingTime: 1
 tags:
-  - tag: "Vue"
+  - tag: "TODOvue"
     color: "#42b883"
   - tag: "Offtopic"
     color: "#35495e"
