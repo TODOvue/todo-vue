@@ -70,7 +70,7 @@ useSeoMeta({
       />
     </div>
 
-    <div class="main-container">
+    <div v-if="lastBlogPosts.length > 0" class="main-container">
       <div class="section-header">
         <h2 class="section-title">{{ t('home.sections.lastestPosts') }}</h2>
       </div>
