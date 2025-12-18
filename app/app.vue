@@ -32,11 +32,11 @@ const configMenu = computed(() => ({
       title: t('menu.blogs'),
       url: '/blog'
     },
-    {
-      id: 3,
-      title: t('menu.components'),
-      url: '/components'
-    }
+    // { TODO: Enable when components page is ready
+    //   id: 3,
+    //   title: t('menu.components'),
+    //   url: '/components'
+    // }
   ],
   placeholder: t('menu.search.placeholder'),
   titleButton: t('menu.search.button'),
