@@ -68,6 +68,26 @@ useSeoMeta({
   twitterDescription: post.value.description,
   twitterImage: post.value.meta?.cover
 });
+
+onMounted(() => {
+  if (route.hash) {
+    nextTick(() => {
+      setTimeout(() => {
+        const element = document.querySelector(route.hash)
+        if (element) {
+          const offset = 100
+          const elementPosition = element.getBoundingClientRect().top
+          const offsetPosition = elementPosition + window.pageYOffset - offset
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          })
+        }
+      }, 300)
+    })
+  }
+})
 </script>
 
 <template>
