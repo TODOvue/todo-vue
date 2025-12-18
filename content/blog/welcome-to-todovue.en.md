@@ -41,7 +41,7 @@ We believe in **Open Source** not just as a philosophy, but as an engineering pr
 
 ## Why now?
 
-Vue 3 has reached an exceptional state of maturity. Thanks to the adoption of `<script setup>`, the stability of Nuxt 3, and the speed of Vite, frontend development has never been more rewarding. However, evolution is constant: new challenges, breaking changes, and architectural patterns emerge that deserve to be documented and analyzed with technical rigor.
+Vue 3 has reached an exceptional state of maturity. Thanks to the adoption of `&lt;script setup&gt;`, the stability of Nuxt 3, and the speed of Vite, frontend development has never been more rewarding. However, evolution is constant: new challenges, breaking changes, and architectural patterns emerge that deserve to be documented and analyzed with technical rigor.
 
 ## Join the conversation
 
