@@ -49,4 +49,5 @@ I invite you to explore the content, experiment with the components that power t
 
 ---
 
-**Is there a specific Vue or Nuxt topic you'd like us to cover first? Get in touch!**
+**Is there a specific Vue or Nuxt topic you'd like us to cover first?**
+Get in touch! [blog@todovue.blog](mailto:blog@todovue.blog)

@@ -6,7 +6,7 @@ readingTime: 1
 tags:
   - tag: "TODOvue"
     color: "#42b883"
-  - tag: "Offtopic"
+  - tag: "General"
     color: "#35495e"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766092564/TODOvue_ddfc6m.png
 coverAlt: Logo de TODOvue con código fuente de fondo
@@ -49,4 +49,5 @@ Te invito a explorar el contenido, experimentar con los componentes que alimenta
 
 ---
 
-**¿Hay algún tema específico de Vue o Nuxt que te gustaría que tratáramos primero? ¡Contáctame!**
+**¿Hay algún tema específico de Vue o Nuxt que te gustaría que tratáramos primero?**
+¡Contáctame! [blog@todovue.blog](mailto:blog@todovue.blog)
