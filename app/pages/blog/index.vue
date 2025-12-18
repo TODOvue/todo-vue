@@ -30,7 +30,31 @@ await useAsyncData('blog-index-posts', async () => {
   return await blogStore.fetchBlogPosts()
 })
 
-const safePosts = blogStore.blogPosts
+const safePosts = computed(() => {
+  let posts = blogStore.blogPosts.value || []
+
+  if (route.query.search) {
+    const query = String(route.query.search).toLowerCase()
+    posts = posts.filter(post => {
+      const title = (post.title ?? '').toLowerCase()
+      const description = (post.description ?? '').toLowerCase()
+      return title.includes(query) || description.includes(query)
+    })
+  }
+
+  if (route.query.label) {
+    const label = String(route.query.label)
+    posts = posts.filter(post => {
+      if (!Array.isArray(post.tags)) return false
+      return post.tags.some(tag => {
+        const tagName = typeof tag === 'string' ? tag : tag.tag
+        return tagName === label
+      })
+    })
+  }
+
+  return posts
+})
 
 const paginatedPosts = computed(() => {
   const start = (currentPage.value - 1) * pageSize
@@ -46,8 +70,10 @@ const renderLabels = blogStore.getLabelsConfig
 
 const renderMostPopular = blogStore.getMostPopular
 
-const handleSidebar = (path) => {
-  console.log('Clicked sidebar link:', path)
+const handleSidebar = (label) => {
+  if (label && label.name) {
+    router.push({ query: { ...route.query, label: label.name, page: '1' } })
+  }
 }
 
 const handleLinkBlog = (blog) => {

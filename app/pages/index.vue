@@ -6,6 +6,7 @@ import { TvLabel } from '@todovue/tv-label'
 const { t } = useI18n()
 
 const router = useRouter()
+const route = useRoute()
 const blogStore = useBlogStore()
 
 const configHero = computed(() => ({
@@ -36,8 +37,10 @@ const popularCategories = computed(() => {
   return blogStore.getAllLabels.value
 })
 
-const handleCategoryClick = (category) => {
-  console.log('Category clicked:', category)
+const handleCategoryClick = (label) => {
+  if (label && label.name) {
+    router.push({  path: '/blog', query: { ...route.query, label: label.name, page: '1' } })
+  }
 }
 
 useSeoMeta({

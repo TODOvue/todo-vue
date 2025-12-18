@@ -56,6 +56,7 @@ const handleClickMenu = (menu) => {
       alert.error(t('menu.search.errors.minLength'), { position: 'top-right', timeout: 2000 })
       return
     }
+    router.push({ path: '/blog', query: { search: query } })
     return
   }
 
