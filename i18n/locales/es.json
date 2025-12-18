@@ -2,6 +2,7 @@
   "menu": {
     "blogs": "Blogs",
     "components": "Componentes",
+    "home": "Inicio",
     "search": {
       "placeholder": "Buscar blogs...",
       "button": "Buscar",

@@ -24,19 +24,23 @@ const results = computed(() =>
       id: post.id ?? post._id ?? post._path ?? crypto.randomUUID?.() ?? Math.random().toString()
     }))
 )
-
+// { TODO: Enable when components page is ready
+//   id: 3,
+//   title: t('menu.components'),
+//   url: '/components'
+// }
 const configMenu = computed(() => ({
   menus: [
     {
       id: 2,
+      title: t('menu.home'),
+      url: '/'
+    },
+    {
+      id: 2,
       title: t('menu.blogs'),
       url: '/blog'
-    },
-    // { TODO: Enable when components page is ready
-    //   id: 3,
-    //   title: t('menu.components'),
-    //   url: '/components'
-    // }
+    }
   ],
   placeholder: t('menu.search.placeholder'),
   titleButton: t('menu.search.button'),

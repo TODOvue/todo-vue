@@ -8,7 +8,7 @@ tags:
     color: "#42b883"
   - tag: "Offtopic"
     color: "#35495e"
-cover: https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763701508/jarnmxxvmhbisvpzzfwu.webp
+cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766092564/TODOvue_ddfc6m.png
 coverAlt: TODOvue logo with source code background
 coverCaption: "Exploring the Vue.js universe from end to end"
 locale: en
