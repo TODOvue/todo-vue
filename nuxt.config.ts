@@ -29,14 +29,28 @@ export default defineNuxtConfig({
   ],
 
   content: {
-    experimental: {
-      nativeSqlite: true
+    build: {
+      markdown: {
+        toc: {
+          searchDepth: 1
+        }
+      }
     }
-  }, compatibilityDate: '2025-07-15',
+  },
+
+  experimental: {
+    asyncContext: true
+  },
+
+  compatibilityDate: '2025-07-15',
 
   nitro: {
     prerender: {
-      failOnError: true
+      routes: [
+        '/'
+      ],
+      crawlLinks: true,
+      autoSubfolderIndex: false
     }
   },
 

@@ -29,12 +29,12 @@
     "@todovue/tv-sidebar": "2.1.1",
     "@todovue/tv-theme-button": "1.1.0",
     "@todovue/tv-toc": "1.0.1",
+    "better-sqlite3": "^12.5.0",
     "nuxt": "^4.2.2"
   },
   "packageManager": "pnpm@10.26.0",
   "devDependencies": {
     "@nuxt/eslint": "^1.12.1",
-    "better-sqlite3": "^12.5.0",
     "eslint": "^9.39.2",
     "vue": "^3.5.25",
     "zod": "^4.2.1",
