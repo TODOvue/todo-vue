@@ -32,7 +32,7 @@ const results = computed(() =>
 const configMenu = computed(() => ({
   menus: [
     {
-      id: 2,
+      id: 1,
       title: t('menu.home'),
       url: '/'
     },
