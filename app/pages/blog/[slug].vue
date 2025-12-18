@@ -79,12 +79,6 @@ useSeoMeta({
       v-if="post"
       class="main-container blog-reading-zone"
     >
-      <div class="blog-reading-zone__article">
-        <TvArticle
-          :content="articleData"
-          :lang="locale"
-        />
-      </div>
       <client-only>
         <aside
           v-if="hasToc"
@@ -95,11 +89,21 @@ useSeoMeta({
           </div>
         </aside>
       </client-only>
+      <div class="blog-reading-zone__article">
+        <TvArticle
+          :content="articleData"
+          :lang="locale"
+        />
+      </div>
     </section>
   </main>
 </template>
 
 <style scoped>
+.tv-article {
+  padding-top: 0 !important;
+}
+
 .blog-reading-zone {
   display: flex;
   flex-direction: column;
@@ -128,7 +132,12 @@ useSeoMeta({
     gap: 3rem;
   }
 
+  .blog-reading-zone__article {
+    order: 1;
+  }
+
   .blog-reading-zone__toc {
+    order: 2;
     border-top: none;
     padding-top: 0;
   }
