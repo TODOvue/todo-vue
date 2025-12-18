@@ -153,6 +153,8 @@ useSeoMeta({
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+
+  <AppFooter version="v0.1.0" />
   <TvAlert />
 </template>
 

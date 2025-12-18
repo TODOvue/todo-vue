@@ -1,114 +1,54 @@
 ---
-title: Bienvenido a TODOvue
-description: El comienzo de una nueva biblioteca de componentes Vue 3 moderna, accesible y lista para producción.
-date: 2025-11-25
-readingTime: 9
+title: "TODOvue: Un espacio dedicado al ecosistema de Vue.js"
+description: "Bienvenidos a TODOvue. Un blog técnico diseñado por y para desarrolladores, donde exploramos a fondo Vue 3, Nuxt y la arquitectura de componentes moderna."
+date: 2025-12-17
+readingTime: 5
 tags:
   - tag: "Vue"
     color: "#42b883"
-  - tag: "Composition API"
+  - tag: "Nuxt"
+    color: "#00dc82"
+  - tag: "Arquitectura"
     color: "#35195e"
-  - "Frontend"
 cover: https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763701508/jarnmxxvmhbisvpzzfwu.webp
-coverAlt: Logotipo de Vue.js y código
-coverCaption: Comenzando el viaje con TODOvue
+coverAlt: Logo de TODOvue con código fuente de fondo
+coverCaption: "Explorando el universo de Vue.js de principio a fin"
 locale: es
 ---
 
-¡Bienvenido a la primera publicación oficial del blog de **TODOvue**! Este es el comienzo de un viaje emocionante donde documentaremos la creación de una biblioteca completa de componentes Vue 3.
+¡Bienvenidos a **TODOvue**!
 
-## ¿Qué es TODOvue?
+Este espacio nace de una necesidad clara: establecer un punto de encuentro para desarrolladores que, al igual que yo, encuentran en el ecosistema de **Vue.js** una de las herramientas más potentes, elegantes y eficientes para construir la web moderna.
 
-TODOvue es una colección de componentes Vue 3 diseñados teniendo en cuenta las mejores prácticas:
+**TODOvue** no es solo un blog; es un proyecto técnico dedicado a desglosar cada rincón de **Vue 3**, **Nuxt** y el abanico de librerías que optimizan nuestro flujo de trabajo diario.
 
-- **Moderno**: Composition API, TypeScript y las últimas características de Vue 3
-- **Accesible**: Siguiendo los estándares ARIA y las mejores prácticas de accesibilidad
-- **Listo para SSR**: Compatible con Nuxt 3 y renderizado del lado del servidor
-- **Tree-shakeable**: Importa solo lo que necesitas
-- **Bien documentado**: Cada componente viene con documentación completa y ejemplos
+## ¿Qué esperar de este blog?
 
-## El Primer Componente: TvArticle
+Nuestro objetivo es trascender los tutoriales introductorios. En TODOvue profundizaremos en pilares fundamentales para el desarrollo profesional:
 
-Nuestro primer componente lanzado es `TvArticle`, un componente especializado para renderizar contenido de artículos con tipografía pulida y características avanzadas.
+* **Patrones de Diseño y Composición**: Uso avanzado de la **Composition API**, patrones de reusabilidad y diseño de *composables*.
+* **Ecosistema Nuxt**: Estrategias de renderizado avanzado (**SSR**, **SSG**, **Hybrid Rendering / ISR**), gestión de módulos y despliegue optimizado.
+* **Rendimiento y Optimización**: Técnicas de *code-splitting*, optimización de bundles y estrategias para alcanzar la máxima velocidad en el lado del cliente.
+* **Herramientas y Librerías**: Análisis profundo de **Pinia**, **Vue Router**, **Vite** y las propuestas emergentes más disruptivas de la comunidad.
 
-### Características Clave
+## "Dogfooding": Construido con lo que enseñamos
 
-El componente `TvArticle` incluye:
+Un aspecto diferencial de este blog es su propia arquitectura. Todo lo que interactúa en esta plataforma ha sido desarrollado bajo los principios de **Atomic Design**.
 
-1.  **Tipografía prosa** para contenido largo (párrafos, listas, tablas, citas, código, imágenes)
-2.  **Anclas copiables** en encabezados H2-H4 con retroalimentación localizada
-3.  **Metadatos opcionales**: fecha (con un componente de tiempo relativo), tiempo de lectura y etiquetas coloreadas
-4.  **Imagen de portada** con control sobre `loading`, `decoding`, `fetchpriority` y relación de aspecto
-5.  **Diseño configurable**: contenedor centrado y control de ancho de prosa
+He decidido que cada pieza de TODOvue —desde los átomos (botones) hasta el motor de renderizado de artículos— funcione como un componente independiente publicado en **NPM**. Aunque el foco principal es el contenido educativo, la infraestructura es totalmente transparente y abierta para quienes deseen integrarla en sus propios proyectos.
 
-### Ejemplo de Uso
+Creemos en el **Open Source** no solo como una filosofía, sino como una práctica de ingeniería. Si un componente es lo suficientemente robusto para dar vida a este blog, debe estar disponible para la comunidad en el registro de NPM.
 
-```vue
-<script setup>
-import { TvArticle } from '@todovue/tv-article'
+## ¿Por qué ahora?
 
-const article = {
-  title: 'Mi Primer Artículo',
-  description: 'Una introducción al ecosistema TODOvue',
-  date: '2025-11-12',
-  readingTime: 5,
-  tags: ['Vue', { tag: 'JavaScript', color: '#F7DF1E' }],
-  body: `
-    <h2 id="introduction">Introducción</h2>
-    <p>Contenido del artículo...</p>
-  `
-}
-</script>
+Vue 3 ha alcanzado un estado de madurez excepcional. Gracias a la adopción de `<script setup>`, la estabilidad de Nuxt 3 y la velocidad de Vite, el desarrollo *frontend* nunca ha sido tan gratificante. Sin embargo, la evolución es constante: surgen nuevos retos, *breaking changes* y patrones de arquitectura que merecen ser documentados y analizados con rigor técnico.
 
-<template>
-  <TvArticle :content="article" lang="es" />
-</template>
-```
+## Únete a la conversación
 
-## ¿Por qué Otra Biblioteca de Componentes?
+Este es el inicio de un camino de aprendizaje continuo. **TODOvue** aspira a ser una fuente de consulta confiable y un espacio de intercambio de conocimientos.
 
-Hay muchas bibliotecas excelentes como Vuetify, PrimeVue o Element Plus. Entonces, ¿por qué TODOvue?
-
-### Filosofía Diferente
-
-TODOvue nace con una filosofía específica:
-
-- **Componentes especializados**: No intentamos ser todo para todos. Cada componente resuelve un problema específico muy bien.
-- **Cero dependencias innecesarias**: Solo dependencias estrictamente necesarias.
-- **Estilos inyectados**: CSS inyectado automáticamente a través de JavaScript, sin configuración manual.
-- **TypeScript primero**: Tipos de primera clase, no una ocurrencia tardía.
-
-## El Camino por Delante
-
-Este blog documentará el proceso de desarrollo completo:
-
-- Decisiones de arquitectura y por qué las tomamos
-- Desafíos técnicos y cómo los resolvemos
-- Nuevos componentes y sus casos de uso
-- Mejoras de rendimiento y optimizaciones
-- Comentarios de la comunidad e iteraciones
-
-## Únete al Viaje
-
-TODOvue es de código abierto y agradecemos las contribuciones. Ya sea que quieras:
-
-- Reportar errores o sugerir características
-- Contribuir código o documentación
-- Compartir tus casos de uso
-- Simplemente seguir el progreso
-
-¡Todas las formas de participación son bienvenidas!
-
-## Próximos Pasos
-
-En las siguientes publicaciones exploraremos:
-
-1.  La arquitectura interna de TvArticle
-2.  Cómo manejamos SSR e inyección de estilos
-3.  El sistema de localización e i18n
-4.  Componentes auxiliares: TvLabel y TvRelativeTime
-5.  Planes para nuevos componentes
+Te invito a explorar el contenido, experimentar con los componentes que alimentan este sitio y, sobre todo, a mantener la curiosidad por este framework que nos apasiona.
 
 ---
 
-¿Tienes alguna pregunta o comentario? ¡Nos encantaría escucharlos! Síguenos en [GitHub](https://github.com/TODOvue) para mantenerte al día con las últimas noticias.
+**¿Hay algún tema específico de Vue o Nuxt que te gustaría que tratáramos primero? ¡Contáctame!**

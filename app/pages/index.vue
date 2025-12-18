@@ -72,11 +72,11 @@ useSeoMeta({
       />
     </div>
 
-    <div v-if="lastBlogPosts.length > 0" class="main-container">
+    <div v-if="latestPosts.length > 0" class="main-container">
       <div class="section-header">
         <h2 class="section-title">{{ t('home.sections.lastestPosts') }}</h2>
       </div>
-      <div v-if="latestPosts.length > 0" class="posts-grid">
+      <div class="posts-grid">
         <TvCard
           v-for="post in latestPosts"
           :key="post.id"
