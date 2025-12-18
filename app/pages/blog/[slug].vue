@@ -52,6 +52,12 @@ const configHero = {
   alt: post.value.meta?.coverAlt
 }
 
+const breadcrumbs = computed(() => [
+  { label: 'Home', href: '/' },
+  { label: 'Blog', href: '/blog' },
+  { label: post.value.title, href: route.path }
+])
+
 useSeoMeta({
   title: `${post.value.title}`,
   description: post.value.description,
@@ -72,7 +78,7 @@ useSeoMeta({
     />
     <div class="main-container">
       <TvBreadcrumbs
-        auto-generate
+        :items="breadcrumbs"
       />
     </div>
     <section
