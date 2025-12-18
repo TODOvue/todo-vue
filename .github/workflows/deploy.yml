@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Rebuild SQLite for Linux
+        run: pnpm rebuild better-sqlite3
+
       - name: Nuxt Generate
         run: pnpm run generate
 
