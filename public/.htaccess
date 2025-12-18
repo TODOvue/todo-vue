@@ -10,14 +10,8 @@
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^ - [L]
 
-  # If the requested directory exists, simply serve it.
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
-
-  # Otherwise, redirect everything to index.html (or 200.html for Nuxt generate usually)
-  # For nuxt generate, fallback is often 200.html or 404.html depending on setup.
-  # But standard SPA fallback is index.html.
-  # Let's use index.html as safest default for SPA.
+  # Otherwise, redirect everything to index.html for client-side routing
+  # This ensures all routes are handled by the SPA, even if directories exist
   RewriteRule ^ index.html [L]
 </IfModule>
 
