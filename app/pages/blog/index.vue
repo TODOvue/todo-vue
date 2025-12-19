@@ -117,6 +117,7 @@ useSeoMeta({
   description: () => t('seo.blogs.description'),
   ogTitle: () => t('seo.blogs.title'),
   ogDescription: () => t('seo.blogs.description'),
+  ogUrl: () => `${useRequestURL().origin}/blog`,
   twitterTitle: () => t('seo.blogs.title'),
   twitterDescription: () => t('seo.blogs.description')
 })

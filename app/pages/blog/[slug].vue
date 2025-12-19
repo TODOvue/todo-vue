@@ -64,6 +64,10 @@ useSeoMeta({
   ogTitle: `${post.value.title} - TODOvue`,
   ogDescription: post.value.description,
   ogImage: post.value.meta?.cover,
+  ogType: 'article',
+  ogUrl: `${useRequestURL().origin}${route.path}`,
+  articlePublishedTime: post.value.date,
+  articleAuthor: ['TODOvue'],
   twitterTitle: `${post.value.title} - TODOvue`,
   twitterDescription: post.value.description,
   twitterImage: post.value.meta?.cover

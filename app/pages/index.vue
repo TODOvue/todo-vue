@@ -43,13 +43,18 @@ const handleCategoryClick = (label) => {
   }
 }
 
+const img = 'https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/icono_git.png?alt=media&token=86270c30-8235-4424-b72b-7a585f228685'
+
 useSeoMeta({
   title: () => t('seo.home.title'),
   description: () => t('seo.home.description'),
   ogTitle: () => t('seo.home.title'),
   ogDescription: () => t('seo.home.description'),
+  ogImage: img,
+  ogUrl: () => `${useRequestURL().origin}/`,
   twitterTitle: () => t('seo.home.title'),
-  twitterDescription: () => t('seo.home.description')
+  twitterDescription: () => t('seo.home.description'),
+  twitterImage: img
 });
 </script>
 

@@ -116,10 +116,15 @@ onMounted(() => {
   blogStore.fetchBlogPosts()
 })
 
+const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'
+
 useSeoMeta({
   titleTemplate: '%s - TODOvue',
   ogSiteName: 'TODOvue',
-  twitterCard: 'summary_large_image'
+  ogType: 'website',
+  ogImage: img,
+  twitterCard: 'summary_large_image',
+  twitterImage: img
 })
 </script>
 
