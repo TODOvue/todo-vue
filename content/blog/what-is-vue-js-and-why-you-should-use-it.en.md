@@ -4,10 +4,8 @@ description: "Discover Vue.js, a progressive JavaScript framework, and learn why
 date: 2025-12-18T00:00:00-05:00
 readingTime: 4
 tags:
-  - tag: "Vue.js"
-    color: "#42b883"
-  - tag: "JavaScript"
-    color: "#f7df1e"
+  - tag: "Ecosystem"
+    color: "#68D4F2"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766101056/What_is_Vuejs_and_Why_Should_You_Use_It_mk5pmg.png
 coverAlt: Vue.js logo on a source code background
 coverCaption: "Exploring Vue.js: The progressive framework for the modern web"
@@ -24,7 +22,7 @@ In the saturated JavaScript ecosystem, choosing a frontend tool can feel like tr
 
 But what exactly makes Vue special and why should you consider it for your next project in 2025?
 
-## 1. The "Progressive Framework" Concept
+## The "Progressive Framework" Concept
 
 Unlike other monolithic frameworks that force you to adopt their entire structure from day one, Vue defines itself as **progressive**. This means its complexity scales according to your needs:
 
@@ -33,7 +31,7 @@ Unlike other monolithic frameworks that force you to adopt their entire structur
 ### **Use as a Framework (SPA):**
 - You can build robust Single Page Applications using its complete official ecosystem: **Vue Router** for navigation and **Pinia** for global state management.
 
-## 2. Transparent and Efficient Reactivity
+## Transparent and Efficient Reactivity
 
 The heart of Vue is its reactivity system. In version 3, Vue uses native JavaScript `Proxy` to intercept data changes. This allows the framework to know exactly which part of the DOM needs to be updated, avoiding unnecessary renders and heavy node comparison processes.
 
@@ -63,7 +61,7 @@ const increment = () => {
 
 This simple example demonstrates how Vue automatically tracks dependencies: when `counter` changes, both the number display and the computed property `isEven` update without manual intervention.
 
-## 3. API Versatility: Options vs. Composition
+## API Versatility: Options vs. Composition
 
 One of Vue's greatest strengths is its duality, adapting to the team's experience level and the scale of the problem:
 
@@ -72,7 +70,7 @@ One of Vue's greatest strengths is its duality, adapting to the team's experienc
 ### **Composition API:**
 - Introduced in Vue 3, it allows grouping logic by functionality instead of by option types. It's the ultimate tool for large projects, as it facilitates the creation of reusable logic (**Composables**) and offers native and robust integration with **TypeScript**.
 
-## 4. Why Choose Vue.js Today?
+## Why Choose Vue.js Today?
 
 ### **Gentle Learning Curve:**
 - If you master the fundamentals of the web (HTML, CSS, and JS), you'll be productive in Vue within hours. Its template syntax is familiar and reduces cognitive load.
