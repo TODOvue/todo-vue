@@ -27,8 +27,12 @@ export default defineNuxtConfig({
     '@todovue/tv-sidebar/nuxt',
     '@todovue/tv-theme-button/nuxt',
     '@todovue/tv-toc/nuxt',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxtjs/sitemap'
   ],
+  site: {
+    url: 'https://todovue.com',
+  },
   devtools: { enabled: true },
 
   css: [
@@ -56,6 +60,7 @@ export default defineNuxtConfig({
     ]
   },
   i18n: {
+    baseUrl: 'https://todovue.com',
     defaultLocale: 'es',
     langDir: 'locales',
     locales: [

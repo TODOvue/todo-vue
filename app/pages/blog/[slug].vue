@@ -73,6 +73,27 @@ useSeoMeta({
   twitterImage: post.value.meta?.cover
 });
 
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.value.title,
+        image: post.value.meta?.cover,
+        datePublished: post.value.date,
+        dateModified: post.value.date,
+        author: {
+          '@type': 'Organization',
+          name: 'TODOvue',
+          url: 'https://todovue.com'
+        },
+      })
+    }
+  ]
+})
+
 onMounted(() => {
   if (route.hash) {
     nextTick(() => {

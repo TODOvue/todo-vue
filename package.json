@@ -15,6 +15,7 @@
     "@nuxt/hints": "^1.0.0-alpha.4",
     "@nuxt/image": "^2.0.0",
     "@nuxtjs/i18n": "^10.2.1",
+    "@nuxtjs/sitemap": "^7.5.0",
     "@todovue/tv-alert": "1.1.0",
     "@todovue/tv-article": "1.2.1",
     "@todovue/tv-breadcrumbs": "1.1.1",
@@ -32,11 +33,11 @@
     "better-sqlite3": "^12.5.0",
     "nuxt": "^4.2.2"
   },
-  "packageManager": "pnpm@10.26.0",
+  "packageManager": "pnpm@10.26.1",
   "devDependencies": {
     "@nuxt/eslint": "^1.12.1",
     "eslint": "^9.39.2",
-    "vue": "^3.5.25",
+    "vue": "^3.5.26",
     "zod": "^4.2.1",
     "zod-to-json-schema": "^3.24.6"
   }
