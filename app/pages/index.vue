@@ -8,6 +8,7 @@ const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
+const url = useRequestURL()
 
 const configHero = computed(() => ({
   alt: 'TODOvue Logo',
@@ -51,7 +52,7 @@ useSeoMeta({
   ogTitle: () => t('seo.home.title'),
   ogDescription: () => t('seo.home.description'),
   ogImage: img,
-  ogUrl: () => `${useRequestURL().origin}/`,
+  ogUrl: () => `${url.origin}/`,
   twitterTitle: () => t('seo.home.title'),
   twitterDescription: () => t('seo.home.description'),
   twitterImage: img
