@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [
-        { rel: 'icon', type: 'image/png', href: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png' }
+        { rel: 'icon', type: 'image/png', href: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png' }
       ]
     }
   },
@@ -48,7 +48,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
 
   nitro: {
+    preset: 'static',
     prerender: {
+      crawlLinks: true,
       failOnError: true
     }
   },
