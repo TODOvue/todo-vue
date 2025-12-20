@@ -59,7 +59,7 @@ const breadcrumbs = computed(() => [
 ])
 
 useSeoMeta({
-  title: `${post.value.title}`,
+  title: post.value.title,
   description: post.value.description,
   ogTitle: `${post.value.title} - TODOvue`,
   ogDescription: post.value.description,
