@@ -24,11 +24,7 @@ const results = computed(() =>
       id: post.id ?? post._id ?? post._path ?? crypto.randomUUID?.() ?? Math.random().toString()
     }))
 )
-// { TODO: Enable when components page is ready
-//   id: 3,
-//   title: t('menu.components'),
-//   url: '/components'
-// }
+
 const configMenu = computed(() => ({
   menus: [
     {
@@ -40,6 +36,11 @@ const configMenu = computed(() => ({
       id: 2,
       title: t('menu.blogs'),
       url: '/blog'
+    },
+    {
+      id: 3,
+      title: t('menu.components'),
+      url: '/components'
     }
   ],
   placeholder: t('menu.search.placeholder'),
@@ -49,6 +50,11 @@ const configMenu = computed(() => ({
 }))
 
 const handleClickMenu = (menu) => {
+  if (menu?.url === '/components') {
+    window.open('https://ui.todovue.blog/', '_blank')
+    return
+  }
+
   if (typeof menu === 'string') {
     const query = menu.trim()
     const len = query.length

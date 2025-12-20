@@ -16,10 +16,14 @@ const configHero = computed(() => ({
   description: t('home.hero.description'),
   image: 'https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/icono_git.png?alt=media&token=86270c30-8235-4424-b72b-7a585f228685',
   title: t('home.hero.title'),
-  // buttonSecondary: t('home.hero.secondary') TODO: @click-secondary-button="navigateTo('/components')"
+  buttonSecondary: `${t('home.hero.secondary')} ↗`
 }))
 
-const navigateTo = (path) => {
+const navigateTo = (path, isExternal = false) => {
+  if (isExternal) {
+    window.open(path, '_blank')
+    return
+  }
   router.push(path)
 }
 
@@ -64,6 +68,7 @@ useSeoMeta({
     <TvHero
       :config-hero="configHero"
       @click-button="navigateTo('/blog')"
+      @click-secondary-button="navigateTo('https://ui.todovue.blog', true)"
     />
 
     <div class="main-container">
