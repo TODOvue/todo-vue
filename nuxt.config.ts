@@ -5,6 +5,13 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/png', href: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png' }
       ]
+    },
+    seoMeta: {
+      ogSiteName: 'TODOvue',
+      ogType: 'website',
+      ogImage: 'https://todovue.blog/default-og-image.png',
+      twitterCard: 'summary_large_image',
+      twitterImage: 'https://todovue.blog/default-og-image.png'
     }
   },
 

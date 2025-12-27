@@ -58,20 +58,30 @@ const breadcrumbs = computed(() => [
   { label: post.value.title, href: route.path }
 ])
 
+const siteUrl = 'https://todovue.blog'
+
+const ogImage = computed(() => {
+  const cover = post.value.meta?.cover
+  if (!cover) return '/default-og-image.png'
+  if (cover.startsWith('http')) return cover
+  return `${siteUrl}${cover}`
+})
+
 useSeoMeta({
   title: post.value.title,
   description: post.value.description,
-  ogTitle: `${post.value.title} - TODOvue`,
+  ogTitle: post.value.title,
   ogDescription: post.value.description,
-  ogImage: post.value.meta?.cover,
+  ogImage: ogImage,
   ogType: 'article',
-  ogUrl: `${useRequestURL().origin}${route.path}`,
+  ogUrl: `${siteUrl}${route.path}`,
   articlePublishedTime: post.value.date,
   articleAuthor: ['TODOvue'],
-  twitterTitle: `${post.value.title} - TODOvue`,
+  twitterCard: 'summary_large_image',
+  twitterTitle: post.value.title,
   twitterDescription: post.value.description,
-  twitterImage: post.value.meta?.cover
-});
+  twitterImage: ogImage
+})
 
 useHead({
   script: [
