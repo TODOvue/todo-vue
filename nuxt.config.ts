@@ -4,14 +4,14 @@ export default defineNuxtConfig({
     head: {
       link: [
         { rel: 'icon', type: 'image/png', href: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png' }
+      ],
+      meta: [
+        { property: 'og:site_name', content: 'TODOvue' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:image', content: 'https://todovue.blog/default-og-image.png' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:image', content: 'https://todovue.blog/default-og-image.png' }
       ]
-    },
-    seoMeta: {
-      ogSiteName: 'TODOvue',
-      ogType: 'website',
-      ogImage: 'https://todovue.blog/default-og-image.png',
-      twitterCard: 'summary_large_image',
-      twitterImage: 'https://todovue.blog/default-og-image.png'
     }
   },
 
@@ -40,7 +40,7 @@ export default defineNuxtConfig({
   ],
 
   site: {
-    url: 'https://todovue.com',
+    url: 'https://todovue.blog',
   },
 
   devtools: { enabled: true },
@@ -72,7 +72,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    baseUrl: 'https://todovue.com',
+    baseUrl: 'https://todovue.blog',
     defaultLocale: 'es',
     langDir: 'locales',
     locales: [
