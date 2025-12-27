@@ -1,24 +1,43 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  DirectoryIndex index.html
 
+  # 1. Force HTTPS
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+  # 2. Fix Trailing Slashes
+  # If it's not a file, and doesn't have a slash, add it
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.*)$ /$1/ [L,R=301]
+
+  # 3. Serve Static Files Directly
+  # If the request matches a file, serve it
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^ - [L]
 
+  # 4. Handle Directories (SSG Structure)
+  # If it's a directory and has index.html, serve it
   RewriteCond %{REQUEST_FILENAME} -d
-  RewriteCond %{REQUEST_FILENAME}/index.html -f
-  RewriteRule ^(.*)$ $1/index.html [L]
+  RewriteCond %{REQUEST_FILENAME}index.html -f
+  RewriteRule ^(.*)$ $1index.html [L]
 
+  # 5. Fallback for Static Generation (Deep Linking)
+  # Check if request maps to a folder with index.html (e.g. /blog/post -> /blog/post/index.html)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+  RewriteRule ^(.+)/?$ $1/index.html [L]
+
+  # 6. HTML Extension Support (optional, usually not needed with strict SSG but good to have)
   RewriteCond %{REQUEST_FILENAME}.html -f
   RewriteRule ^(.*)$ $1.html [L]
 
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
+  # 7. Custom 404 Error
+  # Instead of rewriting everything to index.html (SPA mode), we let Apache handle 404s
+  # but point to our generated 404 page.
+  ErrorDocument 404 /404.html
 </IfModule>
 
 <IfModule mod_headers.c>

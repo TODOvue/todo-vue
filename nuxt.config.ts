@@ -74,5 +74,6 @@ export default defineNuxtConfig({
     ],
     strategy: 'no_prefix',
     trailingSlash: true,
+    detectBrowserLanguage: false
   },
 })
