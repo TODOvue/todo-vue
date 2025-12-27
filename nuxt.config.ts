@@ -7,6 +7,7 @@ export default defineNuxtConfig({
       ]
     }
   },
+
   modules: [
     '@nuxt/content',
     '@nuxt/eslint',
@@ -30,14 +31,14 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap'
   ],
+
   site: {
     url: 'https://todovue.com',
   },
+
   devtools: { enabled: true },
 
-  css: [
-    '@/assets/styles/main.css'
-  ],
+  css: ['@/assets/styles/main.css'],
 
   content: {},
 
@@ -51,7 +52,8 @@ export default defineNuxtConfig({
     preset: 'static',
     prerender: {
       crawlLinks: true,
-      failOnError: true
+      failOnError: true,
+      autoSubfolderIndex: true
     }
   },
 
@@ -61,6 +63,7 @@ export default defineNuxtConfig({
       { name: 'Kanit', provider: 'google', weights: [600], display: 'swap', preload: true }
     ]
   },
+
   i18n: {
     baseUrl: 'https://todovue.com',
     defaultLocale: 'es',
@@ -70,10 +73,11 @@ export default defineNuxtConfig({
       { code: 'en', name: 'English', file: 'en.json' },
     ],
     strategy: 'no_prefix',
+    trailingSlash: true,
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      redirectOn: 'no prefix',
+      redirectOn: 'root',
       alwaysRedirect: false,
       fallbackLocale: 'es'
     }

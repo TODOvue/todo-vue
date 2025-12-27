@@ -3,33 +3,22 @@
   RewriteBase /
   DirectoryIndex index.html
 
-  # Force HTTPS
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # If the request is for an existing file, serve it directly
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^ - [L]
 
-  # If the request is for an existing directory with index.html, serve it
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteCond %{REQUEST_FILENAME}/index.html -f
-  RewriteRule ^ - [L]
+  RewriteRule ^(.*)$ $1/index.html [L]
 
-  # Try adding .html extension (for routes like /about -> /about.html)
   RewriteCond %{REQUEST_FILENAME}.html -f
   RewriteRule ^(.*)$ $1.html [L]
 
-  # Try adding /index.html (for routes like /blog/my-post -> /blog/my-post/index.html)
-  # This handles Nuxt SSG generated pages with dynamic routes
-  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
-  RewriteRule ^(.*)$ /$1/index.html [L]
-
-  # SPA Fallback: If no file found, serve root index.html (internal rewrite, NOT redirect)
-  # The [L] flag ensures this is the last rule and no redirect occurs
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.*)$ /index.html [L]
+  RewriteRule . /index.html [L]
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -39,6 +28,7 @@
   Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
   Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://api.todovue.blog https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;"
 
   <FilesMatch "\.(html|htm)$">
