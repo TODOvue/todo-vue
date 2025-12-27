@@ -62,25 +62,25 @@ const siteUrl = 'https://todovue.blog'
 
 const ogImage = computed(() => {
   const cover = post.value.meta?.cover
-  if (!cover) return '/default-og-image.png'
+  if (!cover) return `${siteUrl}/default-og-image.png`
   if (cover.startsWith('http')) return cover
   return `${siteUrl}${cover}`
 })
 
 useSeoMeta({
-  title: post.value.title,
-  description: post.value.description,
-  ogTitle: post.value.title,
-  ogDescription: post.value.description,
-  ogImage: ogImage,
+  title: () => post.value.title,
+  description: () => post.value.description,
+  ogTitle: () => post.value.title,
+  ogDescription: () => post.value.description,
+  ogImage: () => ogImage.value,
   ogType: 'article',
-  ogUrl: `${siteUrl}${route.path}`,
-  articlePublishedTime: post.value.date,
+  ogUrl: () => `${siteUrl}${route.path}`,
+  articlePublishedTime: () => post.value.date,
   articleAuthor: ['TODOvue'],
   twitterCard: 'summary_large_image',
-  twitterTitle: post.value.title,
-  twitterDescription: post.value.description,
-  twitterImage: ogImage
+  twitterTitle: () => post.value.title,
+  twitterDescription: () => post.value.description,
+  twitterImage: () => ogImage.value
 })
 
 useHead({
