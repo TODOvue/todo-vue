@@ -16,7 +16,7 @@ const configHero = computed(() => ({
   description: t('home.hero.description'),
   image: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
   title: t('home.hero.title'),
-  buttonSecondary: t('home.hero.secondary')
+  buttonSecondary: `${t('home.hero.secondary')} ↗`
 }))
 
 const navigateTo = (path, isExternal = false) => {

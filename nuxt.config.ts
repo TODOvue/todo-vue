@@ -18,14 +18,16 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/content',
     '@nuxt/eslint',
-    '@nuxt/image',
-    '@nuxt/hints',
     '@nuxt/fonts',
-    '@todovue/tv-card/nuxt',
+    '@nuxt/hints',
+    '@nuxt/image',
+    '@nuxtjs/i18n',
+    '@nuxtjs/sitemap',
     '@todovue/tv-alert/nuxt',
     '@todovue/tv-article/nuxt',
     '@todovue/tv-breadcrumbs/nuxt',
     '@todovue/tv-button/nuxt',
+    '@todovue/tv-card/nuxt',
     '@todovue/tv-hero/nuxt',
     '@todovue/tv-label/nuxt',
     '@todovue/tv-menu/nuxt',
@@ -34,9 +36,7 @@ export default defineNuxtConfig({
     '@todovue/tv-settings/nuxt',
     '@todovue/tv-sidebar/nuxt',
     '@todovue/tv-theme-button/nuxt',
-    '@todovue/tv-toc/nuxt',
-    '@nuxtjs/i18n',
-    '@nuxtjs/sitemap'
+    '@todovue/tv-toc/nuxt'
   ],
 
   site: {

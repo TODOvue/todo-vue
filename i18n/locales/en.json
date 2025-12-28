@@ -49,7 +49,12 @@
         "label": "Language",
         "es": "Español",
         "en": "English",
-        "changed": "Language changed to {lang}"
+        "changed": "Language changed to {lang}",
+        "button": {
+          "aria": "Change language",
+          "es": "ES",
+          "en": "EN"
+        }
       }
     }
   },
