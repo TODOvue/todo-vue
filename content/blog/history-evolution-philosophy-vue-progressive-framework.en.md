@@ -33,7 +33,7 @@ What does it really mean for Vue to be **progressive**? Unlike monolithic framew
 4. **State Management:** Through *Pinia* (formerly Vuex).
 5. **Build System:** Currently optimized by *Vite*.
 
-This scalability allows a developer to integrate Vue into a legacy page through a simple `&lt;script setup&gt;` from CDN, or build a complex **Single Page Application (SPA)** with millions of users.
+This scalability allows a developer to integrate Vue into a legacy page through a simple `<script setup>` from CDN, or build a complex **Single Page Application (SPA)** with millions of users.
 
 ## Technical Evolution: From V1 to V3
 

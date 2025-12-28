@@ -33,7 +33,7 @@ En **febrero de 2014**, se lanzó oficialmente la versión 1.0. A diferencia de 
 4. **State Management:** Mediante *Pinia* (anteriormente Vuex).
 5. **Build System:** Optimizado actualmente por *Vite*.
 
-Esta escalabilidad permite que un desarrollador integre Vue en una página legacy mediante un simple `&lt;script setup&gt;` de CDN, o construya una **Single Page Application (SPA)** compleja con millones de usuarios.
+Esta escalabilidad permite que un desarrollador integre Vue en una página legacy mediante un simple `<script setup>` de CDN, o construya una **Single Page Application (SPA)** compleja con millones de usuarios.
 
 ## Evolución Técnica: De la V1 a la V3
 

@@ -45,7 +45,7 @@ const configMenu = computed(() => ({
   ],
   placeholder: t('menu.search.placeholder'),
   titleButton: t('menu.search.button'),
-  imageMenu: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
+  imageMenu: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png',
   results: results.value
 }))
 
@@ -82,8 +82,8 @@ const setTheme = (value, toButton = false) => {
       ? t('menu.theme.dark')
       : t('menu.theme.light')
         , {
-      position: 'top-left',
-      timeout: 1000
+      position: 'top-right',
+      timeout: 4000
     })
   }
 }
@@ -97,8 +97,8 @@ const changeLanguage = async (lang) => {
 
   const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
   alert.info(t('home.settings.language.changed', { lang: langName }), {
-    position: 'top-left',
-    timeout: 2000
+    position: 'top-right',
+    timeout: 4000
   })
   await blogStore.fetchBlogPosts(true)
 
@@ -135,16 +135,18 @@ useSeoMeta({
 </script>
 
 <template>
-  <TvMenu
-    :menus="configMenu.menus"
-    :placeholder="configMenu.placeholder"
-    :title-button="configMenu.titleButton"
-    :image-menu="configMenu.imageMenu"
-    :results="configMenu.results"
-    @click-image="handleClickMenu({ url: '/' })"
-    @click-menu="handleClickMenu"
-    @search-menu="handleClickMenu"
-  />
+  <div class="menu-container">
+    <TvMenu
+      :menus="configMenu.menus"
+      :placeholder="configMenu.placeholder"
+      :title-button="configMenu.titleButton"
+      :image-menu="configMenu.imageMenu"
+      :results="configMenu.results"
+      @click-image="handleClickMenu({ url: '/' })"
+      @click-menu="handleClickMenu"
+      @search-menu="handleClickMenu"
+    />
+  </div>
   <div class="settings-container">
     <TvSettings direction="right" :label="t('home.settings.label')">
       <template #default>
@@ -169,11 +171,22 @@ useSeoMeta({
     <NuxtPage />
   </NuxtLayout>
 
-  <AppFooter version="v0.1.0" />
+  <AppFooter version="v0.1.1" />
   <TvAlert />
 </template>
 
 <style scoped>
+:deep(.tv-menu-image img) {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.menu-container {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
 .settings-container {
   position: fixed;
   bottom: 40px;

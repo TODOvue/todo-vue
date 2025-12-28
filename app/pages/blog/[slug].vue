@@ -6,6 +6,7 @@ import { TvToc } from '@todovue/tv-toc'
 import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
+const router = useRouter()
 const blogStore = useBlogStore()
 const { locale } = useI18n()
 
@@ -66,6 +67,15 @@ const ogImage = computed(() => {
   if (cover.startsWith('http')) return cover
   return `${siteUrl}${cover}`
 })
+
+const handleLabelClick = (label) => {
+  if (label && label.tag) {
+    router.push({
+      name: 'blog',
+      query: { label: label.tag, page: '1' }
+    })
+  }
+}
 
 useSeoMeta({
   title: () => post.value.title,
@@ -154,6 +164,7 @@ onMounted(() => {
         <TvArticle
           :content="articleData"
           :lang="locale"
+          @label-click="handleLabelClick"
         />
       </div>
     </section>
@@ -161,15 +172,15 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.tv-article {
-  padding-top: 0 !important;
+:deep(.tv-article) {
+  padding: 0 !important;
 }
 
 .blog-reading-zone {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-top: 1rem;
+  margin-top: 0;
 }
 
 .blog-reading-zone__article {
@@ -183,7 +194,7 @@ onMounted(() => {
 
 .blog-reading-zone__toc-inner {
   position: sticky;
-  top: 120px;
+  top: 20px;
 }
 
 @media (min-width: 992px) {
@@ -204,7 +215,6 @@ onMounted(() => {
   }
 
   .blog-reading-zone__toc-inner {
-    max-height: calc(100vh - 160px);
     overflow: auto;
     padding-left: 1.5rem;
     border-left: 1px solid rgba(148, 163, 184, 0.3);

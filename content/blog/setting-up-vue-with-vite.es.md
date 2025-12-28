@@ -132,6 +132,6 @@ button {
 
 ### Explicación del código:
 
-* **`&lt;template&gt;`**: Contiene el HTML. Usamos `{{ }}` para mostrar variables.
-* **`&lt;script setup&gt;`**: Es la forma moderna de escribir lógica en Vue 3. Usamos `ref` para que Vue sepa que cuando el valor cambie, debe actualizar la pantalla.
-* **`&lt;style scoped&gt;`**: Aquí va el CSS, y el atributo `scoped` asegura que los estilos solo afecten a este componente.
+* **`<template>`**: Contiene el HTML. Usamos `{{ }}` para mostrar variables.
+* **`<script setup>`**: Es la forma moderna de escribir lógica en Vue 3. Usamos `ref` para que Vue sepa que cuando el valor cambie, debe actualizar la pantalla.
+* **`<style scoped>`**: Aquí va el CSS, y el atributo `scoped` asegura que los estilos solo afecten a este componente.
