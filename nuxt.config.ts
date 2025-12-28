@@ -1,4 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { readdirSync } from 'node:fs'
+import { join } from 'node:path'
+
+const blogRoutes = (() => {
+  try {
+    const dir = join(process.cwd(), 'content', 'blog')
+    return readdirSync(dir)
+      .filter((name) => name.endsWith('.md'))
+      .map((name) => name.replace(/\.md$/, ''))
+      .map((slug) => `/blog/${slug}/`)
+  } catch (error) {
+    console.warn('Could not read blog content directory for prerender:', error)
+    return []
+  }
+})()
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -60,7 +76,8 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: true,
-      autoSubfolderIndex: true
+      autoSubfolderIndex: true,
+      routes: blogRoutes
     }
   },
 
