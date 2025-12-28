@@ -101,6 +101,7 @@ useSeoMeta({
         <TvButton
           rounded
           large
+          :aria-label="t('home.sections.viewAllPosts')"
           @click="navigateTo('/blog')"
         >
           {{ t('home.sections.viewAllPosts') }}

@@ -153,13 +153,13 @@ useSeoMeta({
       <template #default>
         <div class="settings-content">
           <TvThemeButton @change-theme="changeValue" />
-          <tv-button
+          <TvButton
             :aria-label="t('home.settings.language.button.aria')"
             rounded
             @click="changeLanguage(locale === 'es' ? 'en' : 'es')"
           >
             {{ locale === 'es' ? t('home.settings.language.button.en') : t('home.settings.language.button.es') }}
-          </tv-button>
+          </TvButton>
         </div>
       </template>
     </TvSettings>
