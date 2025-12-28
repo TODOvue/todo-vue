@@ -14,7 +14,7 @@ const configHero = computed(() => ({
   alt: 'TODOvue Logo',
   button: t('home.hero.button'),
   description: t('home.hero.description'),
-  image: 'https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/icono_git.png?alt=media&token=86270c30-8235-4424-b72b-7a585f228685',
+  image: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
   title: t('home.hero.title'),
   buttonSecondary: `${t('home.hero.secondary')} ↗`
 }))
@@ -48,7 +48,7 @@ const handleCategoryClick = (label) => {
   }
 }
 
-const img = 'https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/icono_git.png?alt=media&token=86270c30-8235-4424-b72b-7a585f228685'
+const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'
 
 useSeoMeta({
   title: () => t('seo.home.title'),
@@ -80,6 +80,7 @@ useSeoMeta({
         :config-card="lastBlogPosts"
         is-horizontal
         @click-button="navigateTo(lastBlogPosts.path)"
+        @click-label="handleCategoryClick"
       />
     </div>
 
@@ -93,12 +94,14 @@ useSeoMeta({
           :key="post.id"
           :config-card="post"
           @click-button="navigateTo(post.path)"
+          @click-label="handleCategoryClick"
         />
       </div>
       <div class="see-all-container">
         <TvButton
           rounded
           large
+          :aria-label="t('home.sections.viewAllPosts')"
           @click="navigateTo('/blog')"
         >
           {{ t('home.sections.viewAllPosts') }}
@@ -127,10 +130,6 @@ useSeoMeta({
 </template>
 
 <style scoped>
-img {
-  max-width: 200px !important;
-}
-
 .section-header {
   margin-bottom: 30px;
 }

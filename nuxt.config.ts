@@ -1,4 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { readdirSync } from 'node:fs'
+import { join } from 'node:path'
+
+const blogRoutes = (() => {
+  try {
+    const dir = join(process.cwd(), 'content', 'blog')
+    return readdirSync(dir)
+      .filter((name) => name.endsWith('.md'))
+      .map((name) => name.replace(/\.md$/, ''))
+      .map((slug) => `/blog/${slug}/`)
+  } catch (error) {
+    console.warn('Could not read blog content directory for prerender:', error)
+    return []
+  }
+})()
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -18,14 +34,16 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/content',
     '@nuxt/eslint',
-    '@nuxt/image',
-    '@nuxt/hints',
     '@nuxt/fonts',
-    '@todovue/tv-card/nuxt',
+    '@nuxt/hints',
+    '@nuxt/image',
+    '@nuxtjs/i18n',
+    '@nuxtjs/sitemap',
     '@todovue/tv-alert/nuxt',
     '@todovue/tv-article/nuxt',
     '@todovue/tv-breadcrumbs/nuxt',
     '@todovue/tv-button/nuxt',
+    '@todovue/tv-card/nuxt',
     '@todovue/tv-hero/nuxt',
     '@todovue/tv-label/nuxt',
     '@todovue/tv-menu/nuxt',
@@ -34,9 +52,7 @@ export default defineNuxtConfig({
     '@todovue/tv-settings/nuxt',
     '@todovue/tv-sidebar/nuxt',
     '@todovue/tv-theme-button/nuxt',
-    '@todovue/tv-toc/nuxt',
-    '@nuxtjs/i18n',
-    '@nuxtjs/sitemap'
+    '@todovue/tv-toc/nuxt'
   ],
 
   site: {
@@ -60,7 +76,8 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: true,
-      autoSubfolderIndex: true
+      autoSubfolderIndex: true,
+      routes: blogRoutes
     }
   },
 

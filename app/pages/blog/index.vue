@@ -72,8 +72,11 @@ const renderLabels = blogStore.getLabelsConfig
 const renderMostPopular = blogStore.getMostPopular
 
 const handleSidebar = (label) => {
-  if (label && label.name) {
-    router.push({ query: { ...route.query, label: label.name, page: '1' } })
+  if (label) {
+    const labelValue = label.name || label.tag
+    if (labelValue) {
+      router.push({ query: { ...route.query, label: labelValue, page: '1' } })
+    }
   }
 }
 
@@ -157,6 +160,7 @@ useSeoMeta({
             :is-horizontal="isHorizontalView"
             :config-card="post"
             @click-button="handleButton(post.path)"
+            @click-label="handleSidebar"
           />
         </div>
         <p v-else>{{ t('blogs.empty') }}</p>

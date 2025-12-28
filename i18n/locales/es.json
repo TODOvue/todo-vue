@@ -18,8 +18,8 @@
   },
   "blogs": {
     "hero": {
-      "title": "TODOvue Blog",
-      "description": "Bienvenido a mi blog de Vue.js. Descubre cómo este potente framework puede ayudarte a crear interfaces hermosas y dinámicas."
+      "title": "Blogs de TODOvue",
+      "description": "Explora nuestros artículos, tutoriales y notas de desarrollo sobre la creación de componentes modernos con Vue.js."
     },
     "switch": {
       "grid": "Vista de cuadrícula",
@@ -34,12 +34,12 @@
       "lastPost": "Entrada destacada",
       "lastestPosts": "Entradas recientes",
       "mostPopular": "Blogs más populares",
-      "viewAllPosts": "Ver todas",
+      "viewAllPosts": "Ver todas las entradas",
       "popularCategories": "Categorías populares"
     },
     "hero": {
       "title": "TODOvue Blog",
-      "description": "Bienvenido a mi blog de Vue.js. Descubre cómo este potente framework puede ayudarte a crear interfaces hermosas y dinámicas.",
+      "description": "Bienvenido a el blog TODOvue, tu recurso definitivo para guías, tutoriales y notas de desarrollo sobre la creación de componentes modernos con Vue.js.",
       "button": "Ver todos los blogs",
       "secondary": "Ver componentes"
     },
@@ -49,7 +49,12 @@
         "label": "Idioma",
         "es": "Español",
         "en": "English",
-        "changed": "Idioma cambiado a {lang}"
+        "changed": "Idioma cambiado a {lang}",
+        "button": {
+          "aria": "Cambiar idioma",
+          "es": "ES",
+          "en": "EN"
+        }
       }
     }
   },

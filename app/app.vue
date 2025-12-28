@@ -3,6 +3,7 @@ import { TvThemeButton } from '@todovue/tv-theme-button'
 import { TvMenu } from '@todovue/tv-menu'
 import { TvAlert, useAlert } from '@todovue/tv-alert'
 import { TvSettings } from '@todovue/tv-settings'
+import { TvButton } from '@todovue/tv-button'
 const router = useRouter()
 const route = useRoute()
 
@@ -45,7 +46,7 @@ const configMenu = computed(() => ({
   ],
   placeholder: t('menu.search.placeholder'),
   titleButton: t('menu.search.button'),
-  imageMenu: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
+  imageMenu: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png',
   results: results.value
 }))
 
@@ -82,8 +83,8 @@ const setTheme = (value, toButton = false) => {
       ? t('menu.theme.dark')
       : t('menu.theme.light')
         , {
-      position: 'top-left',
-      timeout: 1000
+      position: 'top-right',
+      timeout: 4000
     })
   }
 }
@@ -97,8 +98,8 @@ const changeLanguage = async (lang) => {
 
   const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
   alert.info(t('home.settings.language.changed', { lang: langName }), {
-    position: 'top-left',
-    timeout: 2000
+    position: 'top-right',
+    timeout: 4000
   })
   await blogStore.fetchBlogPosts(true)
 
@@ -135,32 +136,30 @@ useSeoMeta({
 </script>
 
 <template>
-  <TvMenu
-    :menus="configMenu.menus"
-    :placeholder="configMenu.placeholder"
-    :title-button="configMenu.titleButton"
-    :image-menu="configMenu.imageMenu"
-    :results="configMenu.results"
-    @click-image="handleClickMenu({ url: '/' })"
-    @click-menu="handleClickMenu"
-    @search-menu="handleClickMenu"
-  />
+  <div class="menu-container">
+    <TvMenu
+      :menus="configMenu.menus"
+      :placeholder="configMenu.placeholder"
+      :title-button="configMenu.titleButton"
+      :image-menu="configMenu.imageMenu"
+      :results="configMenu.results"
+      @click-image="handleClickMenu({ url: '/' })"
+      @click-menu="handleClickMenu"
+      @search-menu="handleClickMenu"
+    />
+  </div>
   <div class="settings-container">
-    <TvSettings direction="right" :label="t('home.settings.label')">
+    <TvSettings direction="top" :label="t('home.settings.label')">
       <template #default>
         <div class="settings-content">
           <TvThemeButton @change-theme="changeValue" />
-          <div class="language-selector">
-            <div class="language-buttons">
-              <button
-                class="language-button"
-                :class="{ active: locale === 'es' }"
-                @click="changeLanguage(locale === 'es' ? 'en' : 'es')"
-              >
-                {{ locale === 'es' ? 'ES' : 'EN' }}
-              </button>
-            </div>
-          </div>
+          <TvButton
+            :aria-label="t('home.settings.language.button.aria')"
+            rounded
+            @click="changeLanguage(locale === 'es' ? 'en' : 'es')"
+          >
+            {{ locale === 'es' ? t('home.settings.language.button.en') : t('home.settings.language.button.es') }}
+          </TvButton>
         </div>
       </template>
     </TvSettings>
@@ -169,78 +168,34 @@ useSeoMeta({
     <NuxtPage />
   </NuxtLayout>
 
-  <AppFooter version="v0.1.0" />
+  <AppFooter version="v0.1.1" />
   <TvAlert />
 </template>
 
 <style scoped>
+:deep(.tv-menu-image img) {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.menu-container {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
 .settings-container {
   position: fixed;
   bottom: 40px;
-  left: 20px;
+  left: 40px;
   z-index: 1000;
 }
 
 .settings-content {
-  padding: 20px;
-}
-
-.language-selector {
-  margin-top: 24px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.language-label {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.language-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.language-button {
-  flex: 1;
-  padding: 8px 16px;
-  border: 2px solid #e0e0e0;
-  background-color: #ffffff;
-  color: #1a1a1a;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.language-button:hover {
-  background-color: #f5f5f5;
-  border-color: #42b983;
-}
-
-.language-button.active {
-  background-color: #42b983;
-  color: white;
-  border-color: #42b983;
-}
-
-.dark-mode .language-button {
-  background-color: #0E131F;
-  color: #CBD5E1;
-  border-color: #2d3748;
-}
-
-.dark-mode .language-button:hover {
-  background-color: #1a202c;
-  border-color: #42b983;
-}
-
-.dark-mode .language-button.active {
-  background-color: #42b983;
-  color: white;
-  border-color: #42b983;
+  gap: 16px;
+  align-items: center;
 }
 
 img {
