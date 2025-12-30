@@ -56,7 +56,12 @@ export default defineNuxtConfig({
   ],
 
   site: {
-    url: 'https://todovue.blog',
+    url: process.env.NUXT_PUBLIC_SITE_URL,
+    name: process.env.NUXT_PUBLIC_SITE_NAME,
+    description: process.env.NUXT_PUBLIC_SITE_DESCRIPTION,
+    defaultLocale: process.env.NUXT_PUBLIC_SITE_DEFAULT_LOCALE,
+    trailingSlash: process.env.NUXT_PUBLIC_SITE_TRAILING_SLASH === 'true',
+    indexable: process.env.NUXT_PUBLIC_SITE_INDEXABLE === 'true' || process.env.NODE_ENV === 'production',
   },
 
   devtools: { enabled: true },

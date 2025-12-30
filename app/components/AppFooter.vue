@@ -1,15 +1,23 @@
 <script setup>
+import { useSiteConfigInfo } from '@/composables/useSiteConfigInfo'
+
 defineProps({
   version: {
     type: String,
     required: true
   }
 })
+
+const { siteName, siteUrl } = useSiteConfigInfo()
+const currentYear = new Date().getFullYear()
 </script>
 
 <template>
   <footer class="app-footer">
     <div class="footer-content">
+      <p class="site-info">
+        &copy; {{ currentYear }} <a :href="siteUrl" rel="home">{{ siteName }}</a>
+      </p>
       <p class="credits-row">
         Designed & Developed by
         <a href="https://cris-dev.com" target="_blank" rel="noopener noreferrer">cris-dev.com</a>
@@ -43,6 +51,24 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.site-info {
+  font-size: 0.85rem;
+  color: inherit;
+  margin: 0;
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+.site-info a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-info a:hover {
+  color: #42b983;
+  text-decoration: underline;
 }
 
 .credits-row {

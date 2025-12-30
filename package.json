@@ -16,7 +16,7 @@
     "@nuxt/hints": "^1.0.0-alpha.5",
     "@nuxt/image": "^2.0.0",
     "@nuxtjs/i18n": "^10.2.1",
-    "@nuxtjs/sitemap": "^7.5.0",
+    "@nuxtjs/seo": "^3.3.0",
     "@todovue/tv-alert": "1.1.1",
     "@todovue/tv-article": "1.2.2",
     "@todovue/tv-breadcrumbs": "1.1.2",
