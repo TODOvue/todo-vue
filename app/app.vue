@@ -4,6 +4,7 @@ import { TvMenu } from '@todovue/tv-menu'
 import { TvAlert, useAlert } from '@todovue/tv-alert'
 import { TvSettings } from '@todovue/tv-settings'
 import { TvButton } from '@todovue/tv-button'
+import { TvScrollTop } from '@todovue/tv-scroll-top'
 const router = useRouter()
 const route = useRoute()
 
@@ -168,8 +169,9 @@ useSeoMeta({
     <NuxtPage />
   </NuxtLayout>
 
-  <AppFooter version="v0.1.1" />
+  <AppFooter version="v0.1.2" />
   <TvAlert />
+  <TvScrollTop />
 </template>
 
 <style scoped>

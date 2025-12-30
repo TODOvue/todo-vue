@@ -41,6 +41,7 @@ export default defineNuxtConfig({
     '@todovue/tv-label/nuxt',
     '@todovue/tv-menu/nuxt',
     '@todovue/tv-pagination/nuxt',
+    '@todovue/tv-scroll-top/nuxt',
     '@todovue/tv-search/nuxt',
     '@todovue/tv-settings/nuxt',
     '@todovue/tv-sidebar/nuxt',

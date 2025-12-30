@@ -26,6 +26,7 @@
     "@todovue/tv-label": "1.1.2",
     "@todovue/tv-menu": "1.1.2",
     "@todovue/tv-pagination": "1.1.2",
+    "@todovue/tv-scroll-top": "1.0.1",
     "@todovue/tv-search": "1.1.3",
     "@todovue/tv-settings": "1.0.2",
     "@todovue/tv-sidebar": "2.1.2",
