@@ -20,13 +20,6 @@ export default defineNuxtConfig({
     head: {
       link: [
         { rel: 'icon', type: 'image/png', href: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png' }
-      ],
-      meta: [
-        { property: 'og:site_name', content: 'TODOvue' },
-        { property: 'og:type', content: 'website' },
-        { property: 'og:image', content: 'https://todovue.blog/default-og-image.png' },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:image', content: 'https://todovue.blog/default-og-image.png' }
       ]
     }
   },
@@ -38,7 +31,7 @@ export default defineNuxtConfig({
     '@nuxt/hints',
     '@nuxt/image',
     '@nuxtjs/i18n',
-    '@nuxtjs/sitemap',
+    '@nuxtjs/seo',
     '@todovue/tv-alert/nuxt',
     '@todovue/tv-article/nuxt',
     '@todovue/tv-breadcrumbs/nuxt',
@@ -56,7 +49,41 @@ export default defineNuxtConfig({
   ],
 
   site: {
-    url: 'https://todovue.blog',
+    url: process.env.NUXT_PUBLIC_SITE_URL,
+    name: process.env.NUXT_PUBLIC_SITE_NAME,
+    description: process.env.NUXT_PUBLIC_SITE_DESCRIPTION,
+    defaultLocale: process.env.NUXT_PUBLIC_SITE_DEFAULT_LOCALE,
+    trailingSlash: process.env.NUXT_PUBLIC_SITE_TRAILING_SLASH === 'true',
+    indexable: process.env.NUXT_PUBLIC_SITE_INDEXABLE === 'true' || process.env.NODE_ENV === 'production',
+  },
+
+  robots: {
+    disallow: ['/components', '/admin'],
+    allow: '/'
+  },
+
+  sitemap: {
+    sources: [
+      '/api/sitemap'
+    ],
+    xsl: false
+  },
+
+  ogImage: {
+    enabled: true
+  },
+
+  schemaOrg: {
+    identity: {
+      type: 'Organization',
+      name: 'TODOvue',
+      url: 'https://todovue.blog',
+      logo: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png'
+    }
+  },
+
+  seo: {
+    redirectToCanonicalSiteUrl: true
   },
 
   devtools: { enabled: true },

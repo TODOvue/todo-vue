@@ -1,9 +1,9 @@
-name: Deploy TODOvue
+name: Deploy TODOvue Develop
 
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   deploy:
@@ -33,6 +33,9 @@ jobs:
       - name: Nuxt Generate
         run: pnpm run generate
 
+      - name: Create robots.txt for development
+        run: 'echo -e "User-agent: *\nDisallow: /" > .output/public/robots.txt'
+
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -40,5 +43,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: .output/public/
-          server-dir: ${{ secrets.FTP_DIR }}
+          server-dir: ${{ secrets.FTP_DIR_DEVELOP }}
           dangerous-clean-slate: true

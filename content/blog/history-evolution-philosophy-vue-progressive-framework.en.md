@@ -12,6 +12,14 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766105778/historia_de
 coverAlt: Vue.js logo with source code background
 coverCaption: "Exploring the evolution of Vue.js from its beginnings to the present"
 locale: en
+
+schemaOrg:
+  - type: "BlogPosting"
+    headline: "History and Evolution of Vue.js: The Progressive Framework"
+    author:
+      type: "Person"
+      name: "TODOvue"
+    datePublished: "2025-12-19T00:00:00-05"
 ---
 # Vue.js: The Evolution of the Progressive Framework
 

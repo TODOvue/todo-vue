@@ -8,7 +8,6 @@ const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
-const url = useRequestURL()
 
 const configHero = computed(() => ({
   alt: 'TODOvue Logo',
@@ -50,17 +49,13 @@ const handleCategoryClick = (label) => {
 
 const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'
 
-useSeoMeta({
-  title: () => t('seo.home.title'),
-  description: () => t('seo.home.description'),
-  ogTitle: () => t('seo.home.title'),
-  ogDescription: () => t('seo.home.description'),
-  ogImage: img,
-  ogUrl: () => `${url.origin}/`,
-  twitterTitle: () => t('seo.home.title'),
-  twitterDescription: () => t('seo.home.description'),
-  twitterImage: img
-});
+const { setPageSeo } = useSeo()
+
+setPageSeo({
+  title: t('seo.home.title'),
+  description: t('seo.home.description'),
+  image: img
+})
 </script>
 
 <template>
