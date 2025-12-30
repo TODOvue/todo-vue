@@ -12,6 +12,13 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766098456/TODOvue_ide
 coverAlt: TODOvue logo with source code background
 coverCaption: "Exploring the Vue.js universe from end to end"
 locale: en
+schemaOrg:
+  - type: "BlogPosting"
+    headline: "TODOvue: A space dedicated to the Vue.js ecosystem"
+    author:
+      type: "Person"
+      name: "TODOvue"
+    datePublished: "2025-12-17T00:00:00-05:00"
 ---
 
 Welcome to **TODOvue**!

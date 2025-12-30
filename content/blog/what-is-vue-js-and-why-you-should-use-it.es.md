@@ -12,6 +12,14 @@ coverCaption: "Explorando Vue.js: El framework progresivo para la web moderna"
 locale: es
 author: TODOvue
 keywords: vue.js, javascript, framework, frontend, spa, reactividad, composition api, vue 3
+
+schemaOrg:
+  - type: "BlogPosting"
+    headline: "¿Qué es Vue.js y por qué deberías usarlo?"
+    author:
+      type: "Person"
+      name: "TODOvue"
+    datePublished: "2025-12-18T00:00:00-05"
 ---
 
 # Vue.js: El Framework Progresivo para la Web Moderna

@@ -14,6 +14,14 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766607505/setting_up_
 coverAlt: Logo de Vue.js con el logo de Vite de fondo
 coverCaption: "Configura tu entorno de desarrollo con Vue y Vite en minutos"
 locale: es
+
+schemaOrg:
+  - type: "BlogPosting"
+    headline: "¿Cómo crear tu primer proyecto con Vue usando Vite?"
+    author:
+      type: "Person"
+      name: "TODOvue"
+    datePublished: "2025-12-24T00:00:00-05
 ---
 
 # Guía: Creando tu primer proyecto con Vue y Vite

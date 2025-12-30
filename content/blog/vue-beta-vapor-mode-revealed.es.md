@@ -19,6 +19,14 @@ coverCaption: "Descubre las innovaciones de Vue 3.6 Beta: Vapor Mode y un motor 
 locale: es
 author: TODOvue
 keywords: vue 3.6, vapor mode, alien-signals, reactividad, javascript, framework, frontend, beta
+
+schemaOrg:
+  - type: "BlogPosting"
+    headline: "Vue 3.6 Beta: La Revolución de Vapor Mode y el Nuevo Motor de Reactividad"
+    author:
+      type: "Person"
+      name: "TODOvue"
+    datePublished: "2025-12-27T00:00:00-05"
 ---
 
 # Vue 3.6 Beta: La Revolución de Vapor Mode y el Nuevo Motor de Reactividad

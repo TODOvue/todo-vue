@@ -32,7 +32,8 @@
     "@todovue/tv-theme-button": "1.1.1",
     "@todovue/tv-toc": "1.0.2",
     "better-sqlite3": "^12.5.0",
-    "nuxt": "^4.2.2"
+    "nuxt": "^4.2.2",
+    "nuxt-schema-org": "^5.0.10"
   },
   "packageManager": "pnpm@10.26.2",
   "devDependencies": {
