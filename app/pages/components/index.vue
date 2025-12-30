@@ -8,14 +8,12 @@ const configHero = computed(() => ({
   title: t('components.hero.title'),
 }))
 
-useSeoMeta({
-  title: () => t('seo.components.title'),
-  description: () => t('seo.components.description'),
-  ogTitle: () => t('seo.components.title'),
-  ogDescription: () => t('seo.components.description'),
-  twitterTitle: () => t('seo.components.title'),
-  twitterDescription: () => t('common.componentsDescription')
-});
+const { setPageSeo } = useSeo()
+
+setPageSeo({
+  title: t('seo.components.title'),
+  description: t('seo.components.description')
+})
 </script>
 
 <template>

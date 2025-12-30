@@ -71,20 +71,11 @@ const breadcrumbs = computed(() => [
   { label: post.value.title, href: route.path }
 ])
 
-const siteUrl = 'https://todovue.blog'
-
-const canonicalUrl = computed(() => {
-  const path = route.path?.endsWith('/') ? route.path : `${route.path}/`
-  return `${siteUrl}${path}`
-})
-
-const ogLocale = computed(() => (locale.value === 'es' ? 'es_ES' : 'en_US'))
-
 const ogImage = computed(() => {
   const cover = post.value.meta?.cover
-  if (!cover) return `${siteUrl}/default-og-image.png`
+  if (!cover) return '/default-og-image.png'
   if (cover.startsWith('http')) return cover
-  return `${siteUrl}${cover}`
+  return cover
 })
 
 const handleLabelClick = (label) => {
@@ -96,47 +87,16 @@ const handleLabelClick = (label) => {
   }
 }
 
-useSeoMeta({
-  title: () => post.value.title,
-  description: () => post.value.description,
-  ogTitle: () => post.value.title,
-  ogDescription: () => post.value.description,
-  ogImage: () => ogImage.value,
-  ogType: 'article',
-  ogUrl: () => canonicalUrl.value,
-  ogLocale: () => ogLocale.value,
-  ogSiteName: 'TODOvue',
-  articlePublishedTime: () => post.value.date,
-  articleModifiedTime: () => post.value.date,
-  articleAuthor: ['TODOvue'],
-  twitterCard: 'summary_large_image',
-  twitterTitle: () => post.value.title,
-  twitterDescription: () => post.value.description,
-  twitterImage: () => ogImage.value
-})
+const { setBlogPostSeo } = useSeo()
 
-useHead({
-  link: [
-    { rel: 'canonical', href: canonicalUrl.value }
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BlogPosting',
-        headline: post.value.title,
-        image: ogImage.value,
-        datePublished: post.value.date,
-        dateModified: post.value.date,
-        author: {
-          '@type': 'Organization',
-          name: 'TODOvue',
-          url: 'https://todovue.com'
-        },
-      })
-    }
-  ]
+setBlogPostSeo({
+  title: post.value.title,
+  description: post.value.description,
+  image: ogImage.value,
+  author: 'TODOvue',
+  publishedAt: post.value.date,
+  updatedAt: post.value.date,
+  tags: post.value.tags?.map(tag => typeof tag === 'string' ? tag : tag.tag) || []
 })
 
 onMounted(() => {

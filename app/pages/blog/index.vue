@@ -11,7 +11,6 @@ const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
 const { t } = useI18n()
-const url = useRequestURL()
 const pageSize = 6 // Change later to make it configurable
 
 const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
@@ -116,14 +115,11 @@ watch(() => route.query.page, (newPageQuery) => {
   }
 })
 
-useSeoMeta({
-  title: () => t('seo.blogs.title'),
-  description: () => t('seo.blogs.description'),
-  ogTitle: () => t('seo.blogs.title'),
-  ogDescription: () => t('seo.blogs.description'),
-  ogUrl: () => `${url.origin}/blog`,
-  twitterTitle: () => t('seo.blogs.title'),
-  twitterDescription: () => t('seo.blogs.description')
+const { setPageSeo } = useSeo()
+
+setPageSeo({
+  title: t('seo.blogs.title'),
+  description: t('seo.blogs.description')
 })
 </script>
 
