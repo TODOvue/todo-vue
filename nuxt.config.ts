@@ -18,8 +18,18 @@ const blogRoutes = (() => {
 export default defineNuxtConfig({
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'es'
+      },
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'theme-color', content: '#42b883' },
+        { name: 'msapplication-TileColor', content: '#42b883' },
+        { name: 'msapplication-TileImage', content: '/favicon.ico' },
+      ],
       link: [
-        { rel: 'icon', type: 'image/png', href: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ]
     }
   },
