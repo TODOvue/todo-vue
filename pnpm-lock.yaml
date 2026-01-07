@@ -53,6 +53,9 @@ importers:
       '@todovue/tv-pagination':
         specifier: 1.1.2
         version: 1.1.2(vue@3.5.26(typescript@5.9.3))
+      '@todovue/tv-progress-bar':
+        specifier: 1.0.0
+        version: 1.0.0(vue@3.5.26(typescript@5.9.3))
       '@todovue/tv-scroll-top':
         specifier: 1.0.1
         version: 1.0.1(vue@3.5.26(typescript@5.9.3))
@@ -2145,6 +2148,12 @@ packages:
 
   '@todovue/tv-pagination@1.1.2':
     resolution: {integrity: sha512-5lHHivXRrOvHN95RzztNqLGn6XN8pTZPYIl6QZKrQBhn4mvzKnHt+a0hb55/EfTUuCpU5RqKpp0iEh4pMtns0A==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      vue: ^3.5.26
+
+  '@todovue/tv-progress-bar@1.0.0':
+    resolution: {integrity: sha512-lq/C48S8rkc0JJg8lD20EwdOqADeZVHsy19W+c+fdKmXYlO7+8f788McWJRqi3fKI072RaFuea0TvFNP0Jc8Iw==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.5.26
@@ -8335,6 +8344,10 @@ snapshots:
   '@todovue/tv-pagination@1.1.2(vue@3.5.26(typescript@5.9.3))':
     dependencies:
       '@todovue/tv-button': 1.2.3(vue@3.5.26(typescript@5.9.3))
+      vue: 3.5.26(typescript@5.9.3)
+
+  '@todovue/tv-progress-bar@1.0.0(vue@3.5.26(typescript@5.9.3))':
+    dependencies:
       vue: 3.5.26(typescript@5.9.3)
 
   '@todovue/tv-relative-time@1.2.1(vue@3.5.26(typescript@5.9.3))':

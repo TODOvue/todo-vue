@@ -13,6 +13,8 @@
   /* 🖋 Fonts */
   --font-text: 'Lato', sans-serif;
   --font-title: 'Kanit', sans-serif;
+
+  --button-bg: #ef233c;
 }
 
 .dark-mode {
