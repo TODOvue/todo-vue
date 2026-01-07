@@ -169,7 +169,7 @@ useSeoMeta({
     <NuxtPage />
   </NuxtLayout>
 
-  <AppFooter version="v0.1.2" />
+  <AppFooter version="v0.1.3" />
   <TvAlert />
   <TvScrollTop />
 </template>
