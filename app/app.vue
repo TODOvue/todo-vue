@@ -176,8 +176,8 @@ useSeoMeta({
 
 <style scoped>
 :deep(.tv-menu-image img) {
-  width: 50px !important;
-  height: 50px !important;
+  width: 40px !important;
+  height: 40px !important;
 }
 
 .menu-container {
