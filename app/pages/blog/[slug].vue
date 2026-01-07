@@ -2,6 +2,7 @@
 import { TvArticle } from '@todovue/tv-article'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
 import { TvHero } from '@todovue/tv-hero'
+import { TvProgressBar } from '@todovue/tv-progress-bar'
 import { TvToc } from '@todovue/tv-toc'
 import { useI18n } from 'vue-i18n'
 
@@ -118,41 +119,44 @@ onMounted(() => {
     })
   }
 })
+
+const articleContainer = ref(null)
 </script>
 
 <template>
   <main>
-    <TvHero
-      :config-hero="configHero"
-      is-entry
-    />
-    <div class="main-container">
-      <TvBreadcrumbs
-        :items="breadcrumbs"
+    <TvProgressBar :target="articleContainer" :offset-top="0" />
+    <div ref="articleContainer" class="container-blog">
+      <TvHero
+        :config-hero="configHero"
+        is-entry
       />
-    </div>
-    <section
-      v-if="post"
-      class="main-container blog-reading-zone"
-    >
-      <client-only>
-        <aside
-          v-if="hasToc"
-          class="blog-reading-zone__toc"
-        >
-          <div class="blog-reading-zone__toc-inner">
-            <TvToc :toc="tocData" />
-          </div>
-        </aside>
-      </client-only>
-      <div class="blog-reading-zone__article">
+      <div class="main-container">
+        <TvBreadcrumbs
+          :items="breadcrumbs"
+        />
+      </div>
+      <section
+        v-if="post"
+        class="main-container blog-reading-zone"
+      >
+        <client-only>
+          <aside
+            v-if="hasToc"
+            class="blog-reading-zone__toc"
+          >
+            <div class="blog-reading-zone__toc-inner">
+              <TvToc :toc="tocData" />
+            </div>
+          </aside>
+        </client-only>
         <TvArticle
           :content="articleData"
           :lang="locale"
           @label-click="handleLabelClick"
         />
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 </template>
 
