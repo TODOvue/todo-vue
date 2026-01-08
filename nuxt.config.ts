@@ -52,6 +52,7 @@ export default defineNuxtConfig({
     '@todovue/tv-breadcrumbs/nuxt',
     '@todovue/tv-button/nuxt',
     '@todovue/tv-card/nuxt',
+    '@todovue/tv-footer/nuxt',
     '@todovue/tv-hero/nuxt',
     '@todovue/tv-label/nuxt',
     '@todovue/tv-menu/nuxt',

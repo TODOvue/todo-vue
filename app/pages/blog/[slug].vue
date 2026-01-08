@@ -9,7 +9,18 @@ import { useI18n } from 'vue-i18n'
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
-const { locale } = useI18n()
+const { locale, setLocale } = useI18n()
+
+if (route.params.slug) {
+  const slug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
+  const match = slug.match(/\.([a-z]{2})$/i)
+  if (match && match[1]) {
+    const targetLocale = match[1].toLowerCase()
+    if (['en', 'es'].includes(targetLocale) && locale.value !== targetLocale) {
+      await setLocale(targetLocale)
+    }
+  }
+}
 
 if (!route.path.endsWith('/')) {
   await navigateTo(`${route.path}/${route.fullPath.includes('?') ? route.fullPath.slice(route.fullPath.indexOf('?')) : ''}`, {
@@ -99,6 +110,19 @@ setBlogPostSeo({
   updatedAt: post.value.date,
   tags: post.value.tags?.map(tag => typeof tag === 'string' ? tag : tag.tag) || []
 })
+
+const currentSlug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
+const baseSlug = currentSlug ? currentSlug.replace(/\.(es|en)$/i, '') : ''
+
+if (baseSlug) {
+  useHead({
+    link: [
+      { rel: 'alternate', hreflang: 'es', href: `https://todovue.blog/blog/${baseSlug}.es/` },
+      { rel: 'alternate', hreflang: 'en', href: `https://todovue.blog/blog/${baseSlug}.en/` },
+      { rel: 'alternate', hreflang: 'x-default', href: `https://todovue.blog/blog/${baseSlug}.es/` }
+    ]
+  })
+}
 
 onMounted(() => {
   if (route.hash) {
