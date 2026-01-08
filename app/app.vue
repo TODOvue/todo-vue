@@ -229,7 +229,7 @@ useSeoMeta({
     />
   </div>
   <div class="settings-container">
-    <TvSettings direction="left" :label="t('home.settings.label')">
+    <TvSettings direction="top" :label="t('home.settings.label')">
       <template #default>
         <div class="settings-content">
           <TvThemeButton @change-theme="changeValue" />
@@ -271,7 +271,7 @@ useSeoMeta({
 .settings-container {
   position: fixed;
   bottom: 40px;
-  left: 20px;
+  left: 40px;
   z-index: 1000;
 }
 
