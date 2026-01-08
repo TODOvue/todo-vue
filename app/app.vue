@@ -5,11 +5,20 @@ import { TvAlert, useAlert } from '@todovue/tv-alert'
 import { TvSettings } from '@todovue/tv-settings'
 import { TvButton } from '@todovue/tv-button'
 import { TvScrollTop } from '@todovue/tv-scroll-top'
+import { TvFooter } from '@todovue/tv-footer'
+
+import GitHubIcon from '~/assets/icons/github.svg'
+import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
+import TODOvueIcon from '~/assets/icons/TODOvue.svg'
+
 const router = useRouter()
 const route = useRoute()
 
 const { api } = useAlert()
 const alert = api()
+
+const isDarkMode = ref(false)
+const language = ref('es')
 
 const blogStore = useBlogStore()
 const { t, locale, setLocale } = useI18n()
@@ -79,6 +88,7 @@ const setTheme = (value, toButton = false) => {
   if (!import.meta.client) return
   document.documentElement.className = `${value}-mode`
   localStorage.setItem('theme', value)
+  isDarkMode.value = value === 'dark'
   if (toButton) {
     alert.info(value === 'dark'
       ? t('menu.theme.dark')
@@ -103,7 +113,8 @@ const changeLanguage = async (lang) => {
     timeout: 4000
   })
   await blogStore.fetchBlogPosts(true)
-
+  await refreshNuxtData('app-menu-posts')
+  language.value = lang
   if (route.path.startsWith('/blog/') && route.params.slug) {
     const currentSlug = String(route.params.slug).replace(/\.(es|en)$/, '')
     const post = await blogStore.getBlogBySlug(currentSlug)
@@ -113,6 +124,74 @@ const changeLanguage = async (lang) => {
     }
   }
 }
+
+const getRandomPosts = (posts, count = 3) => {
+  const shuffled = [...posts].sort(() => Math.random() - 0.5)
+  return shuffled.slice(0, count)
+}
+
+watchEffect(() => {
+  if (!import.meta.client) return
+  isDarkMode.value = document.documentElement.classList.contains('dark-mode')
+})
+
+const iconUrl = computed(() => {
+  return isDarkMode.value ? GitHubWhiteIcon : GitHubIcon
+})
+
+const configFooter = computed(() => ({
+  brand: {
+    logo: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
+    url: '/'
+  },
+  social: [
+    {
+      label: 'GitHub',
+      url: 'https://github.com/TODOvue',
+      iconUrl: iconUrl.value
+    },
+    {
+      label: 'TODOvue UI',
+      url: 'https://ui.todovue.blog',
+      iconUrl: TODOvueIcon
+    }
+  ],
+  navigation: [
+    {
+      title: t('footer.navigation.title'),
+      items: [
+        { label: t('footer.navigation.home'), url: '/' },
+        { label: t('footer.navigation.blogs'), url: '/blog' },
+        { label: t('footer.navigation.components'), url: 'https://ui.todovue.blog' }
+      ]
+    },
+    {
+      title: t('home.sections.lastestPosts'),
+      items: (posts.value ?? [])
+        .filter(post => post.path?.endsWith(`.${locale.value}`))
+        .slice(0, 3)
+        .map(post => ({
+          label: post.title,
+          url: post.url ?? post.path
+        }))
+    },
+    {
+      title: t('home.sections.lastPost'),
+      items: getRandomPosts(
+        (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`)),
+        3
+      ).map(post => ({
+        label: post.title,
+        url: post.url ?? post.path
+      }))
+    },
+  ],
+  version: '0.1.4',
+  legal: [
+    { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
+  ],
+  copyright: t('footer.copyright', { year: new Date().getFullYear() })
+}))
 
 onMounted(() => {
   if (!import.meta.client) return
@@ -169,7 +248,10 @@ useSeoMeta({
     <NuxtPage />
   </NuxtLayout>
 
-  <AppFooter version="v0.1.3" />
+  <TvFooter
+    :key="`${isDarkMode}-${language}`"
+    :config="configFooter"
+  />
   <TvAlert />
   <TvScrollTop />
 </template>

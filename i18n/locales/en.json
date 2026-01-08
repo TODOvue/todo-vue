@@ -77,5 +77,14 @@
       "title": "TODOvue Blog - Articles and Tutorials on Vue.js",
       "description": "Dive into the TODOvue blog to find articles, tutorials, and development notes focused on building modern Vue.js components."
     }
+  },
+  "footer": {
+    "navigation": {
+      "title": "Menu",
+      "home": "Home",
+      "blogs": "Blogs",
+      "components": "Components"
+    },
+    "copyright": "© {year} TODOvue. All rights reserved."
   }
 }
