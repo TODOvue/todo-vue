@@ -1,5 +1,6 @@
 import { initializeApp, type FirebaseOptions } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
+import { getDatabase } from 'firebase/database'
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
@@ -7,10 +8,12 @@ export default defineNuxtPlugin(() => {
 
   const app = initializeApp(firebaseConfig, 'todovue')
   const firestore = getFirestore(app)
+  const database = getDatabase(app)
 
   return {
     provide: {
-      firestore
+      firestore,
+      database
     }
   }
 })

@@ -124,7 +124,13 @@ if (baseSlug) {
   })
 }
 
+const { registerVisit } = useVisit()
+
 onMounted(() => {
+  if (currentSlug) {
+    registerVisit(currentSlug)
+  }
+
   if (route.hash) {
     nextTick(() => {
       setTimeout(() => {
