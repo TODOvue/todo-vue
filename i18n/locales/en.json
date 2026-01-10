@@ -85,6 +85,7 @@
       "blogs": "Blogs",
       "components": "Components"
     },
+    "otherEntries": "Other entries",
     "copyright": "© {year} TODOvue. Designed & Developed by cris-dev.com. All rights reserved."
   }
 }

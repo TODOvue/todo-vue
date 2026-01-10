@@ -1,6 +1,6 @@
 import { computed, readonly } from 'vue'
 import { queryCollection, useNuxtApp, useI18n, useLocalePath } from '#imports'
-import { FALLBACK_LOCALE, matchesSlug, getLocalizedPosts } from '@/utils/contentLocale'
+import { FALLBACK_LOCALE, matchesSlug, getLocalizedPosts, getDocumentSlug } from '@/utils/contentLocale'
 
 export const useBlogStore = () => {
   const { $localizedContent } = useNuxtApp()
@@ -126,12 +126,49 @@ export const useBlogStore = () => {
     labels: getAllLabels.value,
   }))
 
+  const visitCounts = useState('visit-counts', () => ({}))
+
+  const fetchVisitCounts = async () => {
+    if (import.meta.server) return
+
+    const { $database } = useNuxtApp()
+    if (!$database) {
+      console.warn('Firebase database not available')
+      return
+    }
+
+    try {
+      const { ref, onValue } = await import('firebase/database')
+      const visitRef = ref($database, 'visit')
+
+      console.log('Connecting to Firebase visit node...')
+
+      onValue(visitRef, (snapshot) => {
+        const data = snapshot.val()
+        console.log('Firebase data received:', data ? Object.keys(data).length + ' items' : 'No data', data)
+        if (data) {
+          visitCounts.value = data
+        }
+      }, (error) => {
+        console.error('Firebase read failed:', error)
+      })
+    } catch (e) {
+      console.error('Error initializing Firebase listener:', e)
+    }
+  }
+
   const getMostPopular = computed(() => {
-    const sortedPosts = [...blogPosts.value].sort(
-      (a, b) => (b.views || 0) - (a.views || 0)
-    )
+    const sortedPosts = [...blogPosts.value].sort((a, b) => {
+      const slugA = getDocumentSlug(a)
+      const slugB = getDocumentSlug(b)
+      const countA = visitCounts.value[slugA]?.contador || 0
+      const countB = visitCounts.value[slugB]?.contador || 0
+
+      return countB - countA
+    })
+
     return {
-      title: locale.value === 'es' ? 'Blogs mas populares' : 'Most Popular Blogs',
+      title: locale.value === 'es' ? 'Blogs más populares' : 'Most Popular Blogs',
       list: sortedPosts.slice(0, 5).map((post, index) => ({
         id: index + 1,
         title: post.title ?? 'Untitled',
@@ -139,6 +176,10 @@ export const useBlogStore = () => {
       })),
     }
   })
+  
+  if (import.meta.client) {
+    fetchVisitCounts()
+  }
 
   const getLastMostViewedPost = computed(() => {
     if (blogPosts.value.length === 0) return null
@@ -167,6 +208,7 @@ export const useBlogStore = () => {
 
     fetchBlogPosts,
     getBlogBySlug,
+    fetchVisitCounts,
 
     getCardsConfig,
     getPaginatedCards,

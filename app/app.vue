@@ -182,7 +182,7 @@ const configFooter = computed(() => ({
         }))
     },
     {
-      title: t('home.sections.lastPost'),
+      title: t('footer.otherEntries'),
       items: getRandomPosts(
         (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`)),
         3
