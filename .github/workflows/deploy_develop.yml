@@ -30,6 +30,18 @@ jobs:
       - name: Rebuild SQLite for Linux
         run: pnpm rebuild better-sqlite3
 
+      - name: Create .env file
+        run: |
+          touch .env
+          echo NUXT_PUBLIC_FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY_DEV }} >> .env
+          echo NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN_DEV }} >> .env
+          echo NUXT_PUBLIC_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID_DEV }} >> .env
+          echo NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET_DEV }} >> .env
+          echo NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID_DEV }} >> .env
+          echo NUXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID_DEV }} >> .env
+          echo NUXT_PUBLIC_FIREBASE_DATABASE_URL=${{ secrets.FIREBASE_DATABASE_URL_DEV }} >> .env
+          echo NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID=${{ secrets.MEASUREMENT_ID }} >> .env
+
       - name: Nuxt Generate
         run: pnpm run generate
 

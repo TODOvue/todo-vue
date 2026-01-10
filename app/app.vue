@@ -10,6 +10,7 @@ import { TvFooter } from '@todovue/tv-footer'
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
 import TODOvueIcon from '~/assets/icons/TODOvue.svg'
+import CrisDevIcon from '~/assets/icons/CrisDev.png'
 
 const router = useRouter()
 const route = useRoute()
@@ -154,6 +155,11 @@ const configFooter = computed(() => ({
       label: 'TODOvue UI',
       url: 'https://ui.todovue.blog',
       iconUrl: TODOvueIcon
+    },
+    {
+      label: 'CrisDev',
+      url: 'https://cris-dev.com',
+      iconUrl: CrisDevIcon
     }
   ],
   navigation: [
@@ -176,7 +182,7 @@ const configFooter = computed(() => ({
         }))
     },
     {
-      title: t('home.sections.lastPost'),
+      title: t('footer.otherEntries'),
       items: getRandomPosts(
         (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`)),
         3
@@ -186,9 +192,10 @@ const configFooter = computed(() => ({
       }))
     },
   ],
-  version: '0.1.4',
+  version: '0.1.5',
   legal: [
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
+    { label: 'CrisDev', url: 'https://cris-dev.com', },
   ],
   copyright: t('footer.copyright', { year: new Date().getFullYear() })
 }))

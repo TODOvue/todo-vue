@@ -22,7 +22,7 @@ export const getDocumentLocale = (doc) => {
 export const getDocumentSlug = (doc) => {
   if (!doc || typeof doc !== 'object') return ''
   if (typeof doc.slug === 'string' && doc.slug.length) return doc.slug
-  const fromPath = typeof doc._path === 'string' ? doc._path : typeof doc.stem === 'string' ? doc.stem : typeof doc.id === 'string' ? doc.id : ''
+  const fromPath = typeof doc.path === 'string' ? doc.path : typeof doc._path === 'string' ? doc._path : typeof doc.stem === 'string' ? doc.stem : typeof doc.id === 'string' ? doc.id : ''
   const lastSegment = fromPath.split('/').pop() ?? ''
   const sanitized = lastSegment.replace(/\.md$/, '')
   if (!sanitized) return ''
