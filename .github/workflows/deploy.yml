@@ -30,9 +30,6 @@ jobs:
       - name: Rebuild SQLite for Linux
         run: pnpm rebuild better-sqlite3
 
-      - name: Nuxt Generate
-        run: pnpm run generate
-
       - name: Create .env file
         run: |
           touch .env
@@ -44,6 +41,9 @@ jobs:
           echo NUXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }} >> .env
           echo NUXT_PUBLIC_FIREBASE_DATABASE_URL=${{ secrets.FIREBASE_DATABASE_URL }} >> .env
           echo NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID=${{ secrets.MEASUREMENT_ID }} >> .env
+
+      - name: Nuxt Generate
+        run: pnpm run generate
 
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
