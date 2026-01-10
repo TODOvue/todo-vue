@@ -48,7 +48,8 @@ export default defineNuxtConfig({
         storageBucket: process.env.NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
         messagingSenderId: process.env.NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
         appId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
-        databaseURL: process.env.NUXT_PUBLIC_FIREBASE_DATABASE_URL
+        databaseURL: process.env.NUXT_PUBLIC_FIREBASE_DATABASE_URL,
+        measurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID
       }
     }
   },
