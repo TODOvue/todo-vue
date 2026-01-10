@@ -192,7 +192,7 @@ const configFooter = computed(() => ({
       }))
     },
   ],
-  version: '0.1.4',
+  version: '0.1.5',
   legal: [
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
     { label: 'CrisDev', url: 'https://cris-dev.com', },
