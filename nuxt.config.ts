@@ -51,6 +51,9 @@ export default defineNuxtConfig({
         databaseURL: process.env.NUXT_PUBLIC_FIREBASE_DATABASE_URL,
         measurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID
       }
+    },
+    site: {
+      url: 'https://todovue.blog',
     }
   },
 
@@ -96,9 +99,7 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    sources: [
-      '/api/sitemap'
-    ],
+    urls: blogRoutes,
     xsl: false
   },
 
