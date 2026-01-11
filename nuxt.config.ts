@@ -50,11 +50,9 @@ export default defineNuxtConfig({
         appId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
         databaseURL: process.env.NUXT_PUBLIC_FIREBASE_DATABASE_URL,
         measurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID
-      }
+      },
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL
     },
-    site: {
-      url: 'https://todovue.blog',
-    }
   },
 
   modules: [

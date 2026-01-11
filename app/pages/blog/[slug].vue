@@ -116,7 +116,7 @@ const baseSlug = currentSlug ? currentSlug.replace(/\.(es|en)$/i, '') : ''
 
 if (baseSlug) {
   const runtimeConfig = useRuntimeConfig()
-  const siteUrl = runtimeConfig.public.site?.url
+  const siteUrl = runtimeConfig.public.siteUrl
   const esUrl = `${siteUrl}/blog/${baseSlug}.es/`
   const enUrl = `${siteUrl}/blog/${baseSlug}.en/`
   const canonicalUrl = locale.value === 'en' ? enUrl : esUrl
