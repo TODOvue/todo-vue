@@ -34,12 +34,12 @@
     "@todovue/tv-sidebar": "2.1.2",
     "@todovue/tv-theme-button": "1.1.1",
     "@todovue/tv-toc": "1.0.2",
-    "better-sqlite3": "^12.5.0",
+    "better-sqlite3": "^12.6.0",
     "firebase": "^12.7.0",
     "nuxt": "^4.2.2",
     "nuxt-schema-org": "^5.0.10"
   },
-  "packageManager": "pnpm@10.26.2",
+  "packageManager": "pnpm@10.28.0",
   "devDependencies": {
     "@nuxt/eslint": "^1.12.1",
     "eslint": "^9.39.2",

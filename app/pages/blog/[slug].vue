@@ -115,11 +115,18 @@ const currentSlug = Array.isArray(route.params.slug) ? route.params.slug[0] : ro
 const baseSlug = currentSlug ? currentSlug.replace(/\.(es|en)$/i, '') : ''
 
 if (baseSlug) {
+  const runtimeConfig = useRuntimeConfig()
+  const siteUrl = runtimeConfig.public.siteUrl
+  const esUrl = `${siteUrl}/blog/${baseSlug}.es/`
+  const enUrl = `${siteUrl}/blog/${baseSlug}.en/`
+  const canonicalUrl = locale.value === 'en' ? enUrl : esUrl
+
   useHead({
     link: [
-      { rel: 'alternate', hreflang: 'es', href: `https://todovue.blog/blog/${baseSlug}.es/` },
-      { rel: 'alternate', hreflang: 'en', href: `https://todovue.blog/blog/${baseSlug}.en/` },
-      { rel: 'alternate', hreflang: 'x-default', href: `https://todovue.blog/blog/${baseSlug}.es/` }
+      { rel: 'canonical', href: canonicalUrl },
+      { rel: 'alternate', hreflang: 'es', href: esUrl },
+      { rel: 'alternate', hreflang: 'en', href: enUrl },
+      { rel: 'alternate', hreflang: 'x-default', href: esUrl }
     ]
   })
 }
