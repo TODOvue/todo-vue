@@ -107,8 +107,11 @@ setBlogPostSeo({
   image: ogImage.value,
   author: 'TODOvue',
   publishedAt: post.value.date,
-  updatedAt: post.value.date,
-  tags: post.value.tags?.map(tag => typeof tag === 'string' ? tag : tag.tag) || []
+  updatedAt: post.value.updatedAt || post.value.date,
+  tags: post.value.tags?.map(tag => typeof tag === 'string' ? tag : tag.tag) || [],
+  url: route.path,
+  locale: locale.value,
+  breadcrumbs: breadcrumbs.value
 })
 
 const currentSlug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug

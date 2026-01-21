@@ -1,6 +1,7 @@
 ---
 title: "Historia y Evolución de Vue.js: El Framework Progresivo"
 date: 2025-12-19T00:00:00-05:00
+updatedAt: 2026-01-21T00:00:00-05:00
 description: "Desde sus inicios como un proyecto paralelo en Google hasta convertirse en uno de los pilares del desarrollo web moderno, exploramos la evolución y filosofía de Vue.js."
 readingTime: 3
 tags:

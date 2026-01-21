@@ -2,6 +2,7 @@
 title: "¿Cómo crear tu primer proyecto con Vue usando Vite?"
 description: "Una guía paso a paso para configurar un entorno de desarrollo moderno con Vue.js y Vite."
 date: 2025-12-24T00:00:00-05:00
+updatedAt: 2026-01-21T00:00:00-05:00
 readingTime: 5
 tags:
   - tag: "Vite"

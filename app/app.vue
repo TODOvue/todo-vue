@@ -213,12 +213,32 @@ onMounted(() => {
 const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'
 
 useSeoMeta({
-  titleTemplate: '%s - TODOvue',
+  titleTemplate: '%s',
   ogSiteName: 'TODOvue',
   ogType: 'website',
   ogImage: img,
   twitterCard: 'summary_large_image',
   twitterImage: img
+})
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'TODOvue',
+        url: 'https://todovue.blog',
+        logo: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png',
+        description: 'Tu guía completa para aprender Vue.js desde cero hasta nivel avanzado',
+        sameAs: [
+          'https://github.com/TODOvue',
+          'https://ui.todovue.blog'
+        ]
+      })
+    }
+  ]
 })
 </script>
 

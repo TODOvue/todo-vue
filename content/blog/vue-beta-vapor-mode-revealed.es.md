@@ -2,6 +2,7 @@
 title: "Vue 3.6 Beta: La Revolución de Vapor Mode y el Nuevo Motor de Reactividad"
 description: "Explora las novedades de Vue 3.6 Beta, incluyendo Vapor Mode y la integración de alien-signals para una reactividad más eficiente."
 date: 2025-12-27T00:00:00-05:00
+updatedAt: 2026-01-21T00:00:00-05:00
 readingTime: 7
 tags:
   - tag: "Beta"
