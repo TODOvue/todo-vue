@@ -9,6 +9,76 @@ export const useSeo = () => {
     return `${baseUrl}${cleanPath}${trailingSlash}`
   }
 
+  const generateArticleSchema = (options: {
+    title: string
+    description: string
+    image?: string
+    author?: string
+    publishedTime?: string
+    modifiedTime?: string
+    tags?: string[]
+    url: string
+    locale?: string
+  }) => {
+    const {
+      title,
+      description,
+      image,
+      author = 'TODOvue',
+      publishedTime,
+      modifiedTime,
+      tags = [],
+      url,
+      locale = 'es'
+    } = options
+
+    const canonicalUrl = createSiteUrl(url)
+    const imageUrl = image
+      ? image.startsWith('http') ? image : createSiteUrl(image)
+      : createSiteUrl('/default-og-image.png')
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: title,
+      description: description,
+      image: imageUrl,
+      datePublished: publishedTime,
+      dateModified: modifiedTime || publishedTime,
+      author: {
+        '@type': 'Person',
+        name: author
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'TODOvue',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183906/icono_git_bvxian.png'
+        }
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': canonicalUrl
+      },
+      inLanguage: locale,
+      keywords: tags.join(', ')
+    }
+  }
+
+  const generateBreadcrumbSchema = (breadcrumbs: Array<{ label: string; href: string }>) => {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.label,
+        item: createSiteUrl(crumb.href)
+      }))
+    }
+  }
+
   const setPageSeo = (options: {
     title?: string
     description?: string
@@ -100,6 +170,9 @@ export const useSeo = () => {
     publishedAt?: string | Date
     updatedAt?: string | Date
     tags?: string[]
+    url?: string
+    locale?: string
+    breadcrumbs?: Array<{ label: string; href: string }>
   }) => {
     const publishedTime = post.publishedAt
       ? new Date(post.publishedAt).toISOString()
@@ -120,11 +193,51 @@ export const useSeo = () => {
       section: 'Blog',
       tags: post.tags
     })
+
+    // Add Article structured data
+    if (post.url) {
+      const articleSchema = generateArticleSchema({
+        title: post.title,
+        description: post.description,
+        image: post.image,
+        author: post.author,
+        publishedTime,
+        modifiedTime,
+        tags: post.tags,
+        url: post.url,
+        locale: post.locale
+      })
+
+      useHead({
+        script: [
+          {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify(articleSchema)
+          }
+        ]
+      })
+    }
+
+    // Add Breadcrumb structured data
+    if (post.breadcrumbs && post.breadcrumbs.length > 0) {
+      const breadcrumbSchema = generateBreadcrumbSchema(post.breadcrumbs)
+
+      useHead({
+        script: [
+          {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify(breadcrumbSchema)
+          }
+        ]
+      })
+    }
   }
 
   return {
     setPageSeo,
-    setBlogPostSeo
+    setBlogPostSeo,
+    generateArticleSchema,
+    generateBreadcrumbSchema
   }
 }
 

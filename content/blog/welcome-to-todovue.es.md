@@ -2,6 +2,7 @@
 title: "TODOvue: Un espacio dedicado al ecosistema de Vue.js"
 description: "Bienvenidos a TODOvue. Un blog técnico diseñado por y para desarrolladores, donde exploramos a fondo Vue 3, Nuxt y la arquitectura de componentes moderna."
 date: 2025-12-17T00:00:00-05:00
+updatedAt: 2026-01-21T00:00:00-05:00
 readingTime: 2
 tags:
   - tag: "TODOvue"

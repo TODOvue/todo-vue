@@ -2,6 +2,7 @@
 title: "What is Vue.js and Why Should You Use It?"
 description: "Discover Vue.js, a progressive JavaScript framework, and learn why it's an excellent choice for developing modern and reactive web applications."
 date: 2025-12-18T00:00:00-05:00
+updatedAt: 2026-01-21T00:00:00-05:00
 readingTime: 4
 tags:
   - tag: "Ecosystem"

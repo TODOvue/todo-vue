@@ -92,13 +92,19 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    disallow: ['/components', '/admin'],
-    allow: '/'
+    disallow: ['/components', '/admin', '/_nuxt/'],
+    allow: ['/', '/blog/'],
+    sitemap: `${process.env.NUXT_PUBLIC_SITE_URL}/sitemap.xml`
   },
 
   sitemap: {
     urls: blogRoutes,
-    xsl: false
+    xsl: false,
+    autoLastmod: true,
+    defaults: {
+      changefreq: 'weekly',
+      priority: 0.7
+    }
   },
 
   ogImage: {
