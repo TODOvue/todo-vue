@@ -18,7 +18,7 @@
     "@nuxtjs/i18n": "^10.2.1",
     "@nuxtjs/seo": "^3.3.0",
     "@todovue/tv-alert": "1.2.0",
-    "@todovue/tv-article": "1.3.0",
+    "@todovue/tv-article": "1.3.1",
     "@todovue/tv-breadcrumbs": "1.1.3",
     "@todovue/tv-button": "1.2.4",
     "@todovue/tv-card": "1.1.3",
