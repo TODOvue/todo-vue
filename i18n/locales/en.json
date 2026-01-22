@@ -102,5 +102,17 @@
     },
     "otherEntries": "Other entries",
     "copyright": "© {year} TODOvue. Designed & Developed by cris-dev.com. All rights reserved."
+  },
+  "errorPage": {
+    "homeButton": "Go back home",
+    "blogButton": "View blogs",
+    "404": {
+      "title": "Page Not Found",
+      "description": "Sorry, the page you are looking for does not exist or has been moved."
+    },
+    "500": {
+      "title": "Server Error",
+      "description": "Sorry, something went wrong on our server. Please try again later."
+    }
   }
 }
