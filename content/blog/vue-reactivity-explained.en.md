@@ -8,8 +8,8 @@ tags:
   - tag: "Reactivity"
     color: "#1D5BA1"
   - tag: "Basics"
-    color: "#35495e"
-
+    color: "#35495E"
+isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1767664201/magical_vue_coding_laboratory_p1incq.jpg
 coverAlt: "Illustration of a magical Vue.js coding laboratory"
 coverCaption: "Illustration of a magical Vue.js coding laboratory by TODOvue"

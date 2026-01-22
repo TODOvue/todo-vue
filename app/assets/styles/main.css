@@ -11,8 +11,8 @@
   --light-text: #1E293B;
 
   /* 🖋 Fonts */
-  --font-text: 'Lato', sans-serif;
-  --font-title: 'Kanit', sans-serif;
+  --font-text: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-title: 'Montserrat', sans-serif;
 
   --button-bg: #ef233c;
 }
@@ -28,11 +28,11 @@
 }
 
 body {
-  font-family: var(--font-text), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  font-family: var(--font-text), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif !important;
 }
 
 h1, h2, h3 {
-  font-family: var(--font-title), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  font-family: var(--font-title), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif !important;
 }
 
 .main-container {

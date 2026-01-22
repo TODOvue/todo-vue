@@ -4,7 +4,7 @@ import { FALLBACK_LOCALE, matchesSlug, getLocalizedPosts, getDocumentSlug } from
 
 export const useBlogStore = () => {
   const { $localizedContent } = useNuxtApp()
-  const { locale } = useI18n()
+  const { locale, t } = useI18n()
   const localePath = useLocalePath()
   const blogPosts = useState('blog-posts', () => [])
   const isLoading = useState('blog-loading', () => false)
@@ -69,11 +69,11 @@ export const useBlogStore = () => {
   }
 
   const postToCardConfig = (post) => ({
-    title: post.title ?? 'Untitled post',
+    title: post.title ?? t('blogs.card.untitled'),
     description: post.description ?? '',
     id: post.id ?? post._id ?? post._path ?? '',
-    primaryButtonText: locale.value === 'es' ? 'Leer blog' : 'Read blog',
-    alt: post.title ?? 'Blog cover',
+    primaryButtonText: t('blogs.card.readBlog'),
+    alt: post.title ?? t('blogs.card.cover'),
     image: post.meta?.cover ?? '',
     labels: Array.isArray(post.tags)
       ? post.tags.map((tag, index) => ({
@@ -122,7 +122,7 @@ export const useBlogStore = () => {
   })
 
   const getLabelsConfig = computed(() => ({
-    title: locale.value === 'es' ? 'Etiquetas del blog' : 'Blog Labels',
+    title: t('blogs.sidebar.labels'),
     labels: getAllLabels.value,
   }))
 
@@ -141,11 +141,8 @@ export const useBlogStore = () => {
       const { ref, onValue } = await import('firebase/database')
       const visitRef = ref($database, 'visit')
 
-      console.log('Connecting to Firebase visit node...')
-
       onValue(visitRef, (snapshot) => {
         const data = snapshot.val()
-        console.log('Firebase data received:', data ? Object.keys(data).length + ' items' : 'No data', data)
         if (data) {
           visitCounts.value = data
         }
@@ -166,17 +163,17 @@ export const useBlogStore = () => {
 
       return countB - countA
     })
-
     return {
-      title: locale.value === 'es' ? 'Blogs más populares' : 'Most Popular Blogs',
+      title: t('blogs.sidebar.popularBlogs'),
       list: sortedPosts.slice(0, 5).map((post, index) => ({
         id: index + 1,
-        title: post.title ?? 'Untitled',
+        title: post.title ?? t('blogs.card.untitled'),
         link: localePath(post.path ?? post._path ?? '/'),
+        isNew: post.isNew || false,
       })),
     }
   })
-  
+
   if (import.meta.client) {
     fetchVisitCounts()
   }
@@ -198,6 +195,34 @@ export const useBlogStore = () => {
     })
   }
 
+  const getRelatedPosts = (currentPost, limit = 3) => {
+    if (!currentPost || !Array.isArray(currentPost.tags)) return []
+
+    const currentTags = currentPost.tags.map(tag => typeof tag === 'string' ? tag : tag.tag)
+    const currentId = currentPost.id ?? currentPost._path
+
+    const related = blogPosts.value.filter(post => {
+      const postId = post.id ?? post._path
+      if (postId === currentId) return false
+
+      if (!Array.isArray(post.tags)) return false
+      const postTags = post.tags.map(tag => typeof tag === 'string' ? tag : tag.tag)
+      const matchingTags = postTags.filter(tag => currentTags.includes(tag))
+      post._matchCount = matchingTags.length
+      return matchingTags.length > 0
+    })
+    related.sort((a, b) => {
+      if (b._matchCount !== a._matchCount) {
+        return b._matchCount - a._matchCount
+      }
+      const dateA = new Date(a.date || 0)
+      const dateB = new Date(b.date || 0)
+      return dateB - dateA
+    })
+
+    return related.slice(0, limit).map(postToCardConfig)
+  }
+
   const totalPosts = computed(() => blogPosts.value.length)
   const allPosts = computed(() => blogPosts.value)
 
@@ -217,6 +242,7 @@ export const useBlogStore = () => {
     getMostPopular,
     getLastMostViewedPost,
     getPostsByTag,
+    getRelatedPosts,
     postToCardConfig,
   }
 }

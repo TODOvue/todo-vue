@@ -175,6 +175,9 @@ setPageSeo({
           @click="handleLinkBlog"
         />
         <TvSidebar
+          searchable
+          :search-placeholder="t('blogs.sidebar.searchPlaceholder')"
+          :new-label-text="t('blogs.sidebar.newLabelText')"
           is-label
           :data="renderLabels"
           @click-label="handleSidebar"

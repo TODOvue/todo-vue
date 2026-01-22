@@ -7,11 +7,14 @@
       "placeholder": "Search blogs...",
       "button": "Search",
       "errors": {
+        "title": "Search Error",
         "required": "Search term is required",
         "minLength": "Search term must be at least 3 characters long"
-      }
+      },
+      "noResults": "No blogs found for: "
     },
     "theme": {
+      "title": "Theme",
       "light": "Switched to light mode",
       "dark": "Switched to dark mode"
     }
@@ -27,7 +30,19 @@
       "gridAria": "Switch to grid view",
       "listAria": "Switch to list view"
     },
-    "empty": "No articles available yet"
+    "empty": "No articles available yet",
+    "sidebar": {
+      "popularBlogs": "Popular Blogs",
+      "labels": "Labels",
+      "searchPlaceholder": "Search by label",
+      "newLabelText": "New"
+    },
+    "card": {
+      "readBlog": "Read blog",
+      "untitled": "Untitled post",
+      "cover": "Blog cover"
+    },
+    "related": "Related Blogs"
   },
   "home": {
     "sections": {
@@ -46,6 +61,7 @@
     "settings": {
       "label": "Open settings",
       "language": {
+        "title": "Language",
         "label": "Language",
         "es": "Español",
         "en": "English",
@@ -87,5 +103,17 @@
     },
     "otherEntries": "Other entries",
     "copyright": "© {year} TODOvue. Designed & Developed by cris-dev.com. All rights reserved."
+  },
+  "errorPage": {
+    "homeButton": "Go back home",
+    "blogButton": "View blogs",
+    "404": {
+      "title": "Page Not Found",
+      "description": "Sorry, the page you are looking for does not exist or has been moved."
+    },
+    "500": {
+      "title": "Server Error",
+      "description": "Sorry, something went wrong on our server. Please try again later."
+    }
   }
 }

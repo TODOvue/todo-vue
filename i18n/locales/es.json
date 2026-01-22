@@ -7,11 +7,14 @@
       "placeholder": "Buscar blogs...",
       "button": "Buscar",
       "errors": {
+        "title": "Error de búsqueda",
         "required": "El término de búsqueda es obligatorio",
         "minLength": "El término de búsqueda debe tener al menos 3 caracteres"
-      }
+      },
+      "noResults": "No se encontraron blogs para: "
     },
     "theme": {
+      "title": "Tema",
       "light": "Cambiado a modo claro",
       "dark": "Cambiado a modo oscuro"
     }
@@ -27,7 +30,19 @@
       "gridAria": "Cambiar a vista de cuadrícula",
       "listAria": "Cambiar a vista de lista"
     },
-    "empty": "No hay artículos disponibles aún"
+    "empty": "No hay artículos disponibles aún",
+    "sidebar": {
+      "popularBlogs": "Blogs populares",
+      "labels": "Etiquetas",
+      "searchPlaceholder": "Buscar por etiqueta",
+      "newLabelText": "Nueva"
+    },
+    "card": {
+      "readBlog": "Leer blog",
+      "untitled": "Entrada sin título",
+      "cover": "Portada del blog"
+    },
+    "related": "Blogs relacionados"
   },
   "home": {
     "sections": {
@@ -46,6 +61,7 @@
     "settings": {
       "label": "Abrir configuración",
       "language": {
+        "title": "Idioma",
         "label": "Idioma",
         "es": "Español",
         "en": "English",
@@ -87,5 +103,17 @@
     },
     "otherEntries": "Otras entradas",
     "copyright": "© {year} TODOvue. Designed & Developed by cris-dev.com. All rights reserved."
+  },
+  "errorPage": {
+    "homeButton": "Volver al inicio",
+    "blogButton": "Ver blogs",
+    "404": {
+      "title": "Página no encontrada",
+      "description": "Lo sentimos, la página que buscas no existe o ha sido movida."
+    },
+    "500": {
+      "title": "Error del servidor",
+      "description": "Lo sentimos, algo salió mal en nuestro servidor. Por favor, inténtalo de nuevo más tarde."
+    }
   }
 }
