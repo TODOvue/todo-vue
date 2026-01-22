@@ -265,7 +265,7 @@ useHead({
     <TvSettings direction="top" :label="t('home.settings.label')">
       <template #default>
         <div class="settings-content">
-          <TvThemeButton @change-theme="changeValue" />
+          <TvThemeButton square @change-theme="changeValue" />
           <TvButton
             :aria-label="t('home.settings.language.button.aria')"
             rounded
