@@ -95,7 +95,6 @@ const ogImage = computed(() => {
 })
 
 const handleLabelClick = (label) => {
-  console.log('Label clicked:', label)
   if (label) {
     const labelValue = label.name || label.tag
     if (labelValue) {
