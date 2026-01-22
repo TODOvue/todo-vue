@@ -27,7 +27,17 @@
       "gridAria": "Switch to grid view",
       "listAria": "Switch to list view"
     },
-    "empty": "No articles available yet"
+    "empty": "No articles available yet",
+    "sidebar": {
+      "popularBlogs": "Popular Blogs",
+      "labels": "Labels",
+      "searchPlaceholder": "Search by label"
+    },
+    "card": {
+      "readBlog": "Read blog",
+      "untitled": "Untitled post",
+      "cover": "Blog cover"
+    }
   },
   "home": {
     "sections": {

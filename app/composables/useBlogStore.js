@@ -4,7 +4,7 @@ import { FALLBACK_LOCALE, matchesSlug, getLocalizedPosts, getDocumentSlug } from
 
 export const useBlogStore = () => {
   const { $localizedContent } = useNuxtApp()
-  const { locale } = useI18n()
+  const { locale, t } = useI18n()
   const localePath = useLocalePath()
   const blogPosts = useState('blog-posts', () => [])
   const isLoading = useState('blog-loading', () => false)
@@ -69,11 +69,11 @@ export const useBlogStore = () => {
   }
 
   const postToCardConfig = (post) => ({
-    title: post.title ?? 'Untitled post',
+    title: post.title ?? t('blogs.card.untitled'),
     description: post.description ?? '',
     id: post.id ?? post._id ?? post._path ?? '',
-    primaryButtonText: locale.value === 'es' ? 'Leer blog' : 'Read blog',
-    alt: post.title ?? 'Blog cover',
+    primaryButtonText: t('blogs.card.readBlog'),
+    alt: post.title ?? t('blogs.card.cover'),
     image: post.meta?.cover ?? '',
     labels: Array.isArray(post.tags)
       ? post.tags.map((tag, index) => ({
@@ -122,7 +122,7 @@ export const useBlogStore = () => {
   })
 
   const getLabelsConfig = computed(() => ({
-    title: locale.value === 'es' ? 'Etiquetas del blog' : 'Blog Labels',
+    title: t('blogs.sidebar.labels'),
     labels: getAllLabels.value,
   }))
 
@@ -141,11 +141,8 @@ export const useBlogStore = () => {
       const { ref, onValue } = await import('firebase/database')
       const visitRef = ref($database, 'visit')
 
-      console.log('Connecting to Firebase visit node...')
-
       onValue(visitRef, (snapshot) => {
         const data = snapshot.val()
-        console.log('Firebase data received:', data ? Object.keys(data).length + ' items' : 'No data', data)
         if (data) {
           visitCounts.value = data
         }
@@ -168,10 +165,10 @@ export const useBlogStore = () => {
     })
 
     return {
-      title: locale.value === 'es' ? 'Blogs más populares' : 'Most Popular Blogs',
+      title: t('blogs.sidebar.popularBlogs'),
       list: sortedPosts.slice(0, 5).map((post, index) => ({
         id: index + 1,
-        title: post.title ?? 'Untitled',
+        title: post.title ?? t('blogs.card.untitled'),
         link: localePath(post.path ?? post._path ?? '/'),
       })),
     }

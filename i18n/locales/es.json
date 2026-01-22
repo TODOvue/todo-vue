@@ -27,7 +27,17 @@
       "gridAria": "Cambiar a vista de cuadrícula",
       "listAria": "Cambiar a vista de lista"
     },
-    "empty": "No hay artículos disponibles aún"
+    "empty": "No hay artículos disponibles aún",
+    "sidebar": {
+      "popularBlogs": "Blogs populares",
+      "labels": "Etiquetas",
+      "searchPlaceholder": "Buscar por etiqueta"
+    },
+    "card": {
+      "readBlog": "Leer blog",
+      "untitled": "Entrada sin título",
+      "cover": "Portada del blog"
+    }
   },
   "home": {
     "sections": {
