@@ -165,7 +165,7 @@ const articleContainer = ref(null)
 
 <template>
   <main>
-    <TvProgressBar :target="articleContainer" :offset-top="0" />
+    <TvProgressBar :target="articleContainer" :offset-top="0" glow easing="easing-in-out" />
     <div ref="articleContainer" class="container-blog">
       <TvHero
         :config-hero="configHero"
