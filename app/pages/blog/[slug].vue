@@ -1,6 +1,7 @@
 <script setup>
 import { TvArticle } from '@todovue/tv-article'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
+import { TvCard } from '@todovue/tv-card'
 import { TvHero } from '@todovue/tv-hero'
 import { TvProgressBar } from '@todovue/tv-progress-bar'
 import { TvToc } from '@todovue/tv-toc'
@@ -9,7 +10,7 @@ import { useI18n } from 'vue-i18n'
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
-const { locale, setLocale } = useI18n()
+const { locale, setLocale, t } = useI18n()
 
 if (route.params.slug) {
   const slug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
@@ -62,6 +63,11 @@ const articleData = computed(() => ({
   body: post.value.body
 }))
 
+const relatedPosts = computed(() => {
+  if (!post.value) return []
+  return blogStore.getRelatedPosts(post.value, 3)
+})
+
 const tocData = computed(() => post.value.body?.toc ?? null)
 const hasToc = computed(() => {
   const toc = tocData.value
@@ -89,12 +95,17 @@ const ogImage = computed(() => {
 })
 
 const handleLabelClick = (label) => {
-  if (label && label.tag) {
-    router.push({
-      name: 'blog',
-      query: { label: label.tag, page: '1' }
-    })
+  console.log('Label clicked:', label)
+  if (label) {
+    const labelValue = label.name || label.tag
+    if (labelValue) {
+      router.push({  name: 'blog', query: { label: labelValue, page: '1' } })
+    }
   }
+}
+
+const handleRelatedClick = (path) => {
+  router.push(path)
 }
 
 const { setBlogPostSeo } = useSeo()
@@ -196,6 +207,19 @@ const articleContainer = ref(null)
           />
         </div>
       </section>
+
+      <section v-if="relatedPosts.length" class="main-container related-posts">
+        <h2 class="related-title">{{ t('blogs.related') }}</h2>
+        <div class="related-grid">
+          <TvCard
+            v-for="related in relatedPosts"
+            :key="related.id"
+            :config-card="related"
+            @click-button="handleRelatedClick(related.path)"
+            @click-label="handleLabelClick"
+          />
+        </div>
+      </section>
     </div>
   </main>
 </template>
@@ -249,6 +273,31 @@ const articleContainer = ref(null)
     overflow: auto;
     padding-left: 1.5rem;
     border-left: 1px solid rgba(148, 163, 184, 0.3);
+  }
+}
+
+.related-posts {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.related-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 640px) {
+  .related-grid {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    justify-items: center;
   }
 }
 </style>

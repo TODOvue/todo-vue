@@ -41,7 +41,8 @@
       "readBlog": "Read blog",
       "untitled": "Untitled post",
       "cover": "Blog cover"
-    }
+    },
+    "related": "Related Blogs"
   },
   "home": {
     "sections": {

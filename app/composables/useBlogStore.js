@@ -173,7 +173,7 @@ export const useBlogStore = () => {
       })),
     }
   })
-  
+
   if (import.meta.client) {
     fetchVisitCounts()
   }
@@ -195,6 +195,34 @@ export const useBlogStore = () => {
     })
   }
 
+  const getRelatedPosts = (currentPost, limit = 3) => {
+    if (!currentPost || !Array.isArray(currentPost.tags)) return []
+
+    const currentTags = currentPost.tags.map(tag => typeof tag === 'string' ? tag : tag.tag)
+    const currentId = currentPost.id ?? currentPost._path
+
+    const related = blogPosts.value.filter(post => {
+      const postId = post.id ?? post._path
+      if (postId === currentId) return false
+
+      if (!Array.isArray(post.tags)) return false
+      const postTags = post.tags.map(tag => typeof tag === 'string' ? tag : tag.tag)
+      const matchingTags = postTags.filter(tag => currentTags.includes(tag))
+      post._matchCount = matchingTags.length
+      return matchingTags.length > 0
+    })
+    related.sort((a, b) => {
+      if (b._matchCount !== a._matchCount) {
+        return b._matchCount - a._matchCount
+      }
+      const dateA = new Date(a.date || 0)
+      const dateB = new Date(b.date || 0)
+      return dateB - dateA
+    })
+
+    return related.slice(0, limit).map(postToCardConfig)
+  }
+
   const totalPosts = computed(() => blogPosts.value.length)
   const allPosts = computed(() => blogPosts.value)
 
@@ -214,6 +242,7 @@ export const useBlogStore = () => {
     getMostPopular,
     getLastMostViewedPost,
     getPostsByTag,
+    getRelatedPosts,
     postToCardConfig,
   }
 }

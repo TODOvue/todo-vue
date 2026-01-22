@@ -41,7 +41,8 @@
       "readBlog": "Leer blog",
       "untitled": "Entrada sin título",
       "cover": "Portada del blog"
-    }
+    },
+    "related": "Blogs relacionados"
   },
   "home": {
     "sections": {
