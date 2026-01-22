@@ -208,7 +208,7 @@ const configFooter = computed(() => ({
       items: footerPosts.value
     },
   ],
-  version: '0.2.0',
+  version: '1.0.0',
   legal: [
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
     { label: 'CrisDev', url: 'https://cris-dev.com', },
@@ -263,45 +263,47 @@ useHead({
 </script>
 
 <template>
-  <div class="menu-container">
-    <TvMenu
-      :menus="configMenu.menus"
-      :placeholder="configMenu.placeholder"
-      :title-button="configMenu.titleButton"
-      :image-menu="configMenu.imageMenu"
-      :results="configMenu.results"
-      :active-menu="validateActiveMenu"
-      :no-results-text="t('menu.search.noResults')"
-      @click-image="handleClickMenu({ url: '/' })"
-      @click-menu="handleClickMenu"
-      @search-menu="handleClickMenu"
-    />
-  </div>
-  <div class="settings-container">
-    <TvSettings direction="top" :label="t('home.settings.label')">
-      <template #default>
-        <div class="settings-content">
-          <TvThemeButton square @change-theme="changeValue" />
-          <TvButton
-            :aria-label="t('home.settings.language.button.aria')"
-            rounded
-            @click="changeLanguage(locale === 'es' ? 'en' : 'es')"
-          >
-            {{ locale === 'es' ? t('home.settings.language.button.en') : t('home.settings.language.button.es') }}
-          </TvButton>
-        </div>
-      </template>
-    </TvSettings>
-  </div>
-  
-  <slot />
+  <div>
+    <div class="menu-container">
+      <TvMenu
+        :menus="configMenu.menus"
+        :placeholder="configMenu.placeholder"
+        :title-button="configMenu.titleButton"
+        :image-menu="configMenu.imageMenu"
+        :results="configMenu.results"
+        :active-menu="validateActiveMenu"
+        :no-results-text="t('menu.search.noResults')"
+        @click-image="handleClickMenu({ url: '/' })"
+        @click-menu="handleClickMenu"
+        @search-menu="handleClickMenu"
+      />
+    </div>
+    <div class="settings-container">
+      <TvSettings direction="top" :label="t('home.settings.label')">
+        <template #default>
+          <div class="settings-content">
+            <TvThemeButton square @change-theme="changeValue" />
+            <TvButton
+              :aria-label="t('home.settings.language.button.aria')"
+              rounded
+              @click="changeLanguage(locale === 'es' ? 'en' : 'es')"
+            >
+              {{ locale === 'es' ? t('home.settings.language.button.en') : t('home.settings.language.button.es') }}
+            </TvButton>
+          </div>
+        </template>
+      </TvSettings>
+    </div>
 
-  <TvFooter
-    :key="`${isDarkMode}-${language}`"
-    :config="configFooter"
-  />
-  <TvAlert />
-  <TvScrollTop show-on-scroll-up />
+    <slot />
+
+    <TvFooter
+      :key="`${isDarkMode}-${language}`"
+      :config="configFooter"
+    />
+    <TvAlert />
+    <TvScrollTop show-on-scroll-up />
+  </div>
 </template>
 
 <style scoped>
