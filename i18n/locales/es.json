@@ -31,7 +31,8 @@
     "sidebar": {
       "popularBlogs": "Blogs populares",
       "labels": "Etiquetas",
-      "searchPlaceholder": "Buscar por etiqueta"
+      "searchPlaceholder": "Buscar por etiqueta",
+      "newLabelText": "Nueva"
     },
     "card": {
       "readBlog": "Leer blog",
