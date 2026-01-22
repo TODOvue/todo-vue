@@ -95,35 +95,56 @@ If your application starts to grow, these decisions matter more than they seem.
 * **`shallowRef` and `shallowReactive`:** useful when you’re working with large objects that don’t need deep reactivity.
 * **Be careful when destructuring:** doing this breaks reactivity:
 
-```js
-const { nombre } = estadoReactivo; // mal
+```javascript [index.js]
+const { name } = reactiveState; // wrong
 ```
 
 The correct way is:
 
-```js
+```javascript [index.js]
 import { reactive, toRefs } from 'vue';
 
-const estado = reactive({ nombre: 'Vue' });
-const { nombre } = toRefs(estado);
+const state = reactive({ name: 'Vue' });
+const { name } = toRefs(state);
 ```
 
 ## Practical example: the most honest counter in the world
 
-```vue
+```vue [Composition API]
 <script setup>
 import { ref } from 'vue';
 
-const tazasDeCafe = ref(0);
+const coffeeCups = ref(0);
 
-const incrementar = () => {
-  tazasDeCafe.value++;
+const increment = () => {
+  coffeeCups.value++;
 };
 </script>
 
 <template>
-  <button @click="incrementar">
-    Tazas consumidas: {{ tazasDeCafe }}
+  <button @click="increment">
+    Cups consumed: {{ coffeeCups }}
+  </button>
+</template>
+```
+```vue [Composition API]
+<script>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const coffeeCups = ref(0);
+    const increment = () => {
+      coffeeCups.value++;
+    };
+    return { coffeeCups, increment };
+  },
+};
+</script>
+
+<template>
+  <button @click="increment">
+    Cups consumed: {{ coffeeCups }}
   </button>
 </template>
 ```

@@ -95,13 +95,13 @@ Si tu aplicación empieza a crecer, estas decisiones importan más de lo que par
 * **`shallowRef` y `shallowReactive`:** útiles cuando trabajas con objetos grandes que no necesitan reactividad profunda.
 * **Cuidado al desestructurar:** hacer esto rompe la reactividad:
 
-```js
+```javascript [index.js]
 const { nombre } = estadoReactivo; // mal
 ```
 
 La forma correcta es:
 
-```js
+```javascript [index.js]
 import { reactive, toRefs } from 'vue';
 
 const estado = reactive({ nombre: 'Vue' });
@@ -110,7 +110,7 @@ const { nombre } = toRefs(estado);
 
 ## Ejemplo práctico: el contador más honesto del mundo
 
-```vue
+```vue [Composition API]
 <script setup>
 import { ref } from 'vue';
 
@@ -118,6 +118,28 @@ const tazasDeCafe = ref(0);
 
 const incrementar = () => {
   tazasDeCafe.value++;
+};
+</script>
+
+<template>
+  <button @click="incrementar">
+    Tazas consumidas: {{ tazasDeCafe }}
+  </button>
+</template>
+```
+```vue [Options API]
+<script>
+export default {
+  data() {
+    return {
+      tazasDeCafe: 0,
+    };
+  },
+  methods: {
+    incrementar() {
+      this.tazasDeCafe++;
+    },
+  },
 };
 </script>
 

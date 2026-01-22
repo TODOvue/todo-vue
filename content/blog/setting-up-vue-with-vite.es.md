@@ -45,16 +45,23 @@ Antes de empezar, asegúrate de tener instalado **Node.js** (versión 18 o super
 
 ```bash
 node -v
-
 ```
 
 ## Paso 1: Inicializar el proyecto
 
 Abre tu terminal en la carpeta donde quieras guardar tu proyecto y ejecuta el siguiente comando:
 
-```bash
+```bash [npm]
 npm create vite@latest mi-primer-proyecto-vue
-
+```
+```bash [pnpm]
+pnpm create vite mi-primer-proyecto-vue
+```
+```bash [yarn]
+yarn create vite mi-primer-proyecto-vue
+```
+```bash [bun]
+bun create vite mi-primer-proyecto-vue
 ```
 
 > **Nota:** `mi-primer-proyecto-vue` es el nombre de la carpeta que se creará. Puedes cambiarlo por el que prefieras.
@@ -70,13 +77,25 @@ Una vez ejecutado el comando, la terminal te hará unas preguntas interactivas. 
 
 Vite crea la estructura de archivos, pero no instala las librerías automáticamente para ahorrar tiempo. Debes entrar a la carpeta e instalarlas manualmente:
 
+Entra a la carpeta del proyecto
+
 ```bash
-# Entra a la carpeta del proyecto
 cd mi-primer-proyecto-vue
+```
 
-# Instala todas las librerías necesarias
+Instala todas las librerías necesarias
+
+```bash [npm]
 npm install
-
+```
+```bash [pnpm]
+pnpm install
+```
+```bash [yarn]
+yarn install
+```
+```bash [bun]
+bun install
 ```
 
 Este proceso creará la carpeta `node_modules`, que contiene todo el código necesario para que Vue funcione.
@@ -85,9 +104,17 @@ Este proceso creará la carpeta `node_modules`, que contiene todo el código nec
 
 ¡Ya estás listo! Ahora inicia el servidor para ver tu aplicación en el navegador:
 
-```bash
+```bash [npm]
 npm run dev
-
+```
+```bash [pnpm]
+pnpm dev
+```
+```bash [yarn]
+yarn dev
+```
+```bash [bun]
+bun run dev
 ```
 
 La terminal te mostrará una URL (normalmente `http://localhost:5173/`). Abre ese enlace en tu navegador y verás la página de bienvenida de Vue.
@@ -106,7 +133,7 @@ Aquí tienes una descripción de los archivos más importantes que verás en tu 
 
 Para empezar a programar, puedes abrir el archivo `src/App.vue` y reemplazar su contenido con este código sencillo para entender cómo funciona la reactividad:
 
-```vue
+```vue [Composition API]
 <template>
   <div>
     <h1>{{ mensaje }}</h1>
@@ -136,7 +163,42 @@ button {
   cursor: pointer;
 }
 </style>
+```
 
+```vue [Options API]
+<template>
+  <div>
+    <h1>{{ mensaje }}</h1>
+    <button @click="incrementar">Contador: {{ contador }}</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      mensaje: '¡Hola desde mi app con Vite!',
+      contador: 0
+    };
+  },
+  methods: {
+    incrementar() {
+      this.contador++;
+    }
+  }
+};
+</script>
+
+<style scoped>
+h1 {
+  color: #42b983;
+}
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+</style>
 ```
 
 ### Explicación del código:

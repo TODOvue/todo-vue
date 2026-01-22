@@ -82,7 +82,7 @@ Para entender por qué esto es una revolución, comparemos qué sucede "bajo el 
 
 ### Código Fuente
 
-```vue
+```vue [Composition API]
 <script setup>
 import { ref } from 'vue'
 const count = ref(0)
@@ -91,9 +91,10 @@ const count = ref(0)
 <template>
   <button @click="count++">Contador: {{ count }}</button>
 </template>
-
 ```
-
+```vue [Options API]
+// Vapor Mode es exclusivo de Composition API. No hay soporte disponible para Options API.
+```
 ### El enfoque tradicional (Virtual DOM)
 
 Vue crea un objeto de JavaScript (VNode) que representa el botón. Cuando `count` cambia, Vue crea un **nuevo** VNode, compara ambos (*diffing*) y decide qué parte del DOM real actualizar. Esto ocurre en milisegundos, pero tiene un costo de CPU y memoria.
@@ -102,7 +103,7 @@ Vue crea un objeto de JavaScript (VNode) que representa el botón. Cuando `count
 
 El compilador de Vapor genera código que "apunta" directamente al nodo de texto del botón.
 
-```javascript
+```javascript [Counter.vapor.compiled.js]
 import { delegateEvents, t, setInterpolation, renderEffect } from '@vue/runtime-vapor'
 
 const t0 = t('<button></button>') // Plantilla estática
@@ -118,7 +119,6 @@ export function render(_ctx) {
   
   return el0
 }
-
 ```
 
 **Resultado:** Cero Virtual DOM, cero algoritmos de comparación, solo manipulación directa del DOM con la máxima eficiencia posible.
@@ -139,17 +139,24 @@ Para experimentar con estas mejoras, debes usar la versión beta y configurar tu
 
 ### Paso 1: Instalación
 
-```bash
+```bash [npm]
+npm install vue@3.6.0-beta.1
+```
+```bash [pnpm]
 pnpm add vue@3.6.0-beta.1
-
+```
+```bash [yarn]
+yarn add vue@3.6.0-beta.1
+```
+```bash [bun]
+bun add vue@3.6.0-beta.1
 ```
 
 ### Paso 2: Configuración de Vite
 
 Activa el soporte para archivos `.vapor.vue` (la convención recomendada para diferenciar componentes):
 
-```typescript
-// vite.config.ts
+```javascript [vite.config.js]
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
@@ -160,18 +167,16 @@ export default defineConfig({
     })
   ]
 })
-
 ```
 
 ### Paso 3: Uso de componentes
 
 Puedes mezclar componentes estándar y Vapor. Para forzar a un componente a usar el nuevo motor, usa la extensión `.vapor.vue` o define el bloque script:
 
-```vue
+```vue [Index.vue]
 <script setup vapor>
 // Este componente se compilará sin Virtual DOM
 </script>
-
 ```
 
 ## Conclusión

@@ -44,7 +44,7 @@ A diferencia de otros frameworks monolíticos que te obligan a adoptar toda su e
 
 El corazón de Vue es su sistema de reactividad. En su versión 3, Vue utiliza los `Proxy` nativos de JavaScript para interceptar cambios en los datos. Esto permite que el framework sepa exactamente qué parte del DOM debe actualizarse, evitando renderizados innecesarios y procesos pesados de comparación de nodos.
 
-```vue
+```vue [Composition API]
 <script setup>
 import { ref, computed } from 'vue';
 
@@ -56,6 +56,35 @@ const esPar = computed(() => contador.value % 2 === 0);
 
 const incrementar = () => {
   contador.value++;
+};
+</script>
+
+<template>
+  <div class="contador">
+    <h3>Contador: {{ contador }}</h3>
+    <p>El número es: {{ esPar ? 'Par' : 'Impar' }}</p>
+    <button @click="incrementar">Incrementar</button>
+  </div>
+</template>
+```
+```vue [Options API]
+<script>
+export default {
+  data() {
+    return {
+      contador: 0
+    };
+  },
+  computed: {
+    esPar() {
+      return this.contador % 2 === 0;
+    }
+  },
+  methods: {
+    incrementar() {
+      this.contador++;
+    }
+  }
 };
 </script>
 

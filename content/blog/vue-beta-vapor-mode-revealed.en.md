@@ -58,7 +58,7 @@ For us developers, this means that Vapor is no longer just for "simple component
 
 The big technical surprise in Vue 3.6 is the integration of **alien-signals** concepts (an ultra-fast signals library created by Johnson Chu, a core team member) into Vue's core.
 
-### Why change the signals engine?
+### Why change the signals' engine?
 
 Vue 3's reactivity system based on `Proxy` was excellent, but it suffered in two areas: memory usage and dependency cleanup.
 The adoption of the `alien-signals` model solves this by changing the internal data structure.
@@ -82,7 +82,7 @@ To understand why this is a revolution, let's compare what happens "under the ho
 
 ### Source Code
 
-```vue
+```vue [Composition API]
 <script setup>
 import { ref } from 'vue'
 const count = ref(0)
@@ -91,9 +91,10 @@ const count = ref(0)
 <template>
   <button @click="count++">Counter: {{ count }}</button>
 </template>
-
 ```
-
+```vue [Options API]
+// Vapor Mode is exclusive to the Composition API. There is no support available for the Options API.
+```
 ### The traditional approach (Virtual DOM)
 
 Vue creates a JavaScript object (VNode) that represents the button. When `count` changes, Vue creates a **new** VNode, compares both (*diffing*), and decides which part of the real DOM to update. This happens in milliseconds, but has a CPU and memory cost.
@@ -102,7 +103,7 @@ Vue creates a JavaScript object (VNode) that represents the button. When `count`
 
 The Vapor compiler generates code that "points" directly to the button's text node.
 
-```javascript
+```javascript [Counter.vapor.compiled.js]
 import { delegateEvents, t, setInterpolation, renderEffect } from '@vue/runtime-vapor'
 
 const t0 = t('<button></button>') // Static template
@@ -118,7 +119,6 @@ export function render(_ctx) {
   
   return el0
 }
-
 ```
 
 **Result:** Zero Virtual DOM, zero comparison algorithms, only direct DOM manipulation with maximum efficiency.
@@ -139,17 +139,24 @@ To experiment with these improvements, you need to use the beta version and conf
 
 ### Step 1: Installation
 
-```bash
+```bash [npm]
+npm install vue@3.6.0-beta.1
+```
+```bash [pnpm]
 pnpm add vue@3.6.0-beta.1
-
+```
+```bash [yarn]
+yarn add vue@3.6.0-beta.1
+```
+```bash [bun]
+bun add vue@3.6.0-beta.1
 ```
 
 ### Step 2: Vite Configuration
 
 Enable support for `.vapor.vue` files (the recommended convention for differentiating components):
 
-```typescript
-// vite.config.ts
+```javascript [vite.config.js]
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
@@ -160,18 +167,16 @@ export default defineConfig({
     })
   ]
 })
-
 ```
 
 ### Step 3: Using Components
 
 You can mix standard and Vapor components. To force a component to use the new engine, use the `.vapor.vue` extension or define the script block:
 
-```vue
+```vue [Index.vue]
 <script setup vapor>
 // This component will compile without Virtual DOM
 </script>
-
 ```
 
 ## Conclusion

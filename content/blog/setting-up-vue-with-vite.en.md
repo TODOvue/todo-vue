@@ -45,16 +45,23 @@ Before you start, make sure you have **Node.js** installed (version 18 or higher
 
 ```bash
 node -v
-
 ```
 
 ## Step 1: Initialize the project
 
 Open your terminal in the folder where you want to save your project and run the following command:
 
-```bash
+```bash [npm]
 npm create vite@latest my-first-vue-project
-
+```
+```bash [pnpm]
+pnpm create vite my-first-vue-project
+```
+```bash [yarn]
+yarn create vite my-first-vue-project
+```
+```bash [bun]
+bun create vite my-first-vue-project
 ```
 
 > **Note:** `my-first-vue-project` is the name of the folder that will be created. You can change it to whatever you prefer.
@@ -70,13 +77,25 @@ Once you run the command, the terminal will ask you some interactive questions. 
 
 Vite creates the file structure, but doesn't install the libraries automatically to save time. You need to enter the folder and install them manually:
 
+Enter the project folder
+
 ```bash
-# Enter the project folder
 cd my-first-vue-project
+```
 
-# Install all the necessary libraries
+Install all the necessary libraries
+
+```bash [npm]
 npm install
-
+```
+```bash [pnpm]
+pnpm install
+```
+```bash [yarn]
+yarn install
+```
+```bash [bun]
+bun install
 ```
 
 This process will create the `node_modules` folder, which contains all the code needed for Vue to work.
@@ -85,9 +104,17 @@ This process will create the `node_modules` folder, which contains all the code 
 
 You're ready! Now start the server to see your application in the browser:
 
-```bash
+```bash [npm]
 npm run dev
-
+```
+```bash [pnpm]
+pnpm dev
+```
+```bash [yarn]
+yarn dev
+```
+```bash [bun]
+bun run dev
 ```
 
 The terminal will show you a URL (usually `http://localhost:5173/`). Open that link in your browser and you'll see the Vue welcome page.
@@ -106,7 +133,7 @@ Here's a description of the most important files you'll see in your code editor:
 
 To start programming, you can open the `src/App.vue` file and replace its content with this simple code to understand how reactivity works:
 
-```vue
+```vue [Composition API]
 <template>
   <div>
     <h1>{{ message }}</h1>
@@ -136,7 +163,41 @@ button {
   cursor: pointer;
 }
 </style>
+```
+```vue [Options API]
+<template>
+  <div>
+    <h1>{{ message }}</h1>
+    <button @click="increment">Counter: {{ counter }}</button>
+  </div>
+</template>
 
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      message: 'Hello from my app with Vite!',
+      counter: 0,
+    };
+  },
+  methods: {
+    increment() {
+      this.counter++;
+    },
+  },
+};
+</script>
+
+<style scoped>
+h1 {
+  color: #42b983;
+}
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+</style>
 ```
 
 ### Code explanation:

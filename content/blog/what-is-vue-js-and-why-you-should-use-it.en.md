@@ -44,7 +44,7 @@ Unlike other monolithic frameworks that force you to adopt their entire structur
 
 The heart of Vue is its reactivity system. In version 3, Vue uses native JavaScript `Proxy` to intercept data changes. This allows the framework to know exactly which part of the DOM needs to be updated, avoiding unnecessary renders and heavy node comparison processes.
 
-```vue
+```vue [Composition API]
 <script setup>
 import { ref, computed } from 'vue';
 
@@ -56,6 +56,35 @@ const isEven = computed(() => counter.value % 2 === 0);
 
 const increment = () => {
   counter.value++;
+};
+</script>
+
+<template>
+  <div class="counter">
+    <h3>Counter: {{ counter }}</h3>
+    <p>The number is: {{ isEven ? 'Even' : 'Odd' }}</p>
+    <button @click="increment">Increment</button>
+  </div>
+</template>
+```
+```vue [Options API]
+<script>
+export default {
+  data() {
+    return {
+      counter: 0
+    };
+  },
+  computed: {
+    isEven() {
+      return this.counter % 2 === 0;
+    }
+  },
+  methods: {
+    increment() {
+      this.counter++;
+    }
+  }
 };
 </script>
 
