@@ -186,15 +186,17 @@ const articleContainer = ref(null)
             class="blog-reading-zone__toc"
           >
             <div class="blog-reading-zone__toc-inner">
-              <TvToc :toc="tocData" />
+              <TvToc :toc="tocData"/>
             </div>
           </aside>
         </client-only>
-        <TvArticle
-          :content="articleData"
-          :lang="locale"
-          @label-click="handleLabelClick"
-        />
+        <div class="blog-reading-zone__article">
+          <TvArticle
+            :content="articleData"
+            :lang="locale"
+            @label-click="handleLabelClick"
+          />
+        </div>
       </section>
     </div>
   </main>
@@ -214,9 +216,11 @@ const articleContainer = ref(null)
 
 .blog-reading-zone__article {
   min-width: 0;
+  order: 2;
 }
 
 .blog-reading-zone__toc {
+  order: 1;
   border-top: 1px solid rgba(148, 163, 184, 0.4);
   padding-top: 1.5rem;
 }
