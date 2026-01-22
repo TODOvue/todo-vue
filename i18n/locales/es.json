@@ -9,7 +9,8 @@
       "errors": {
         "required": "El término de búsqueda es obligatorio",
         "minLength": "El término de búsqueda debe tener al menos 3 caracteres"
-      }
+      },
+      "noResults": "No se encontraron blogs para: "
     },
     "theme": {
       "light": "Cambiado a modo claro",

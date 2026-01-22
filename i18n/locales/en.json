@@ -9,7 +9,8 @@
       "errors": {
         "required": "Search term is required",
         "minLength": "Search term must be at least 3 characters long"
-      }
+      },
+      "noResults": "No blogs found for: "
     },
     "theme": {
       "light": "Switched to light mode",

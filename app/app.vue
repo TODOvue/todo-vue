@@ -190,6 +190,10 @@ const configFooter = computed(() => ({
   copyright: t('footer.copyright', { year: new Date().getFullYear() })
 }))
 
+const validateActiveMenu = computed(() => {
+  return configMenu.value.menus.find(m => m.url === route.path)?.id ?? 1
+})
+
 onMounted(() => {
   if (!import.meta.client) return
 
@@ -240,6 +244,8 @@ useHead({
       :title-button="configMenu.titleButton"
       :image-menu="configMenu.imageMenu"
       :results="configMenu.results"
+      :active-menu="validateActiveMenu"
+      :no-results-text="t('menu.search.noResults')"
       @click-image="handleClickMenu({ url: '/' })"
       @click-menu="handleClickMenu"
       @search-menu="handleClickMenu"
