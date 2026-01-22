@@ -20,7 +20,7 @@ schemaOrg:
     author:
       type: "Person"
       name: "TODOvue"
-    datePublished: "2025-12-19T00:00:00-05
+    datePublished: "2025-12-19T00:00:00-05"
 ---
 # Vue.js: La Evolución del Framework Progresivo
 
