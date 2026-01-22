@@ -9,7 +9,7 @@ tags:
     color: "#1D5BA1"
   - tag: "Básico"
     color: "#35495e"
-
+isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1767664201/magical_vue_coding_laboratory_p1incq.jpg
 coverAlt: "Ilustración de un laboratorio de codificación mágica de Vue.js"
 coverCaption: "Ilustración de un laboratorio de codificación mágica de Vue.js por TODOvue"

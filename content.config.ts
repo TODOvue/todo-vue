@@ -16,13 +16,16 @@ export default defineContentConfig({
             if (typeof arg === 'string' || typeof arg === 'number') return new Date(arg)
             return arg
           }, z.date()).optional(),
-          tags: z.array(z.object({
-            tag: z.string(),
-            color: z.string()
-          })),
+          tags: z.array(
+            z.object({
+              tag: z.string(),
+              color: z.string()
+            })
+          ).default([]),
           draft: z.boolean(),
           locale: z.enum(['en', 'es']).optional(),
-          slug: z.string().optional()
+          slug: z.string().optional(),
+          isNew: z.boolean().optional(),
         })
       })
     )

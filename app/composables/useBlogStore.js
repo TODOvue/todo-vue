@@ -163,13 +163,13 @@ export const useBlogStore = () => {
 
       return countB - countA
     })
-
     return {
       title: t('blogs.sidebar.popularBlogs'),
       list: sortedPosts.slice(0, 5).map((post, index) => ({
         id: index + 1,
         title: post.title ?? t('blogs.card.untitled'),
         link: localePath(post.path ?? post._path ?? '/'),
+        isNew: post.isNew || false,
       })),
     }
   })
