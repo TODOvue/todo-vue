@@ -92,7 +92,7 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    disallow: ['/components', '/admin', '/_nuxt/'],
+    disallow: [],
     allow: ['/', '/blog/'],
     sitemap: `${process.env.NUXT_PUBLIC_SITE_URL}/sitemap.xml`
   },
@@ -142,7 +142,7 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: true,
       autoSubfolderIndex: true,
-      routes: blogRoutes
+      routes: [...blogRoutes, '/rss.xml']
     }
   },
 
