@@ -30,8 +30,8 @@ importers:
         specifier: 1.2.0
         version: 1.2.0(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-article':
-        specifier: 1.3.2
-        version: 1.3.2(vue@3.5.27(typescript@5.9.3))
+        specifier: 1.3.3
+        version: 1.3.3(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-breadcrumbs':
         specifier: 1.1.3
         version: 1.1.3(vue@3.5.27(typescript@5.9.3))
@@ -2359,8 +2359,8 @@ packages:
     peerDependencies:
       vue: ^3.5.26
 
-  '@todovue/tv-article@1.3.2':
-    resolution: {integrity: sha512-2wmhc+UpAWgzj+66ZPKL+P+WcVqIZKOgCKD3ONcezxj/D0wWAEGd3QOz4bBeckO8l4qa9idVJxuOSClmFgJqWg==}
+  '@todovue/tv-article@1.3.3':
+    resolution: {integrity: sha512-p7skSLijepsX4dr1kMsIIopiA+LvQ0j3V3yfe8HPton5UIY8U+bXLm+YXfDz6v4XdDDK97c2xypvt4YfiVEiDw==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.5.26
@@ -8977,7 +8977,7 @@ snapshots:
     dependencies:
       vue: 3.5.27(typescript@5.9.3)
 
-  '@todovue/tv-article@1.3.2(vue@3.5.27(typescript@5.9.3))':
+  '@todovue/tv-article@1.3.3(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       '@todovue/tv-alert': 1.2.0(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-label': 1.2.1(vue@3.5.27(typescript@5.9.3))
