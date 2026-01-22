@@ -43,7 +43,7 @@ To complete this project, we will follow these steps:
 
 Before you start, make sure you have **Node.js** installed (version 18 or higher). You can verify this by opening a terminal and typing:
 
-```bash
+```bash [bash]
 node -v
 ```
 
@@ -79,7 +79,7 @@ Vite creates the file structure, but doesn't install the libraries automatically
 
 Enter the project folder
 
-```bash
+```bash [bash]
 cd my-first-vue-project
 ```
 
