@@ -270,7 +270,7 @@ useHead({
     :config="configFooter"
   />
   <TvAlert />
-  <TvScrollTop />
+  <TvScrollTop show-on-scroll-up />
 </template>
 
 <style scoped>
