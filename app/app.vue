@@ -71,11 +71,19 @@ const handleClickMenu = (menu) => {
     const query = menu.trim()
     const len = query.length
     if (len === 0) {
-      alert.error(t('menu.search.errors.required'), { position: 'top-right', timeout: 2000 })
+      alert.error(t('menu.search.errors.required'), {
+        position: 'top-right',
+        timeout: 2000,
+        title: t('menu.search.errors.title')
+      })
       return
     }
     if (len <= 3) {
-      alert.error(t('menu.search.errors.minLength'), { position: 'top-right', timeout: 2000 })
+      alert.error(t('menu.search.errors.minLength'), {
+        position: 'top-right',
+        timeout: 2000,
+        title: t('menu.search.errors.title')
+      })
       return
     }
     router.push({ path: '/blog', query: { search: query } })
@@ -96,7 +104,8 @@ const setTheme = (value, toButton = false) => {
       : t('menu.theme.light')
         , {
       position: 'top-right',
-      timeout: 4000
+      timeout: 4000,
+      title: t('menu.theme.title')
     })
   }
 }
@@ -111,7 +120,8 @@ const changeLanguage = async (lang) => {
   const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
   alert.info(t('home.settings.language.changed', { lang: langName }), {
     position: 'top-right',
-    timeout: 4000
+    timeout: 4000,
+    title: t('home.settings.language.title')
   })
   await blogStore.fetchBlogPosts(true)
   await refreshNuxtData('app-menu-posts')

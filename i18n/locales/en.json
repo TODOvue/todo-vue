@@ -7,12 +7,14 @@
       "placeholder": "Search blogs...",
       "button": "Search",
       "errors": {
+        "title": "Search Error",
         "required": "Search term is required",
         "minLength": "Search term must be at least 3 characters long"
       },
       "noResults": "No blogs found for: "
     },
     "theme": {
+      "title": "Theme",
       "light": "Switched to light mode",
       "dark": "Switched to dark mode"
     }
@@ -58,6 +60,7 @@
     "settings": {
       "label": "Open settings",
       "language": {
+        "title": "Language",
         "label": "Language",
         "es": "Español",
         "en": "English",
