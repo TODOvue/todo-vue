@@ -4,9 +4,6 @@ export default defineEventHandler(() => {
 
     return `User-agent: *
 Allow: /
-Disallow: /components/
-Disallow: /admin/
-Disallow: /_nuxt/
 
 Sitemap: ${siteUrl}/sitemap.xml`
 })
