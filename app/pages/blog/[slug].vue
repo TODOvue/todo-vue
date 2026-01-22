@@ -23,10 +23,8 @@ if (route.params.slug) {
 }
 
 if (!route.path.endsWith('/')) {
-  await navigateTo(`${route.path}/${route.fullPath.includes('?') ? route.fullPath.slice(route.fullPath.indexOf('?')) : ''}`, {
-    redirectCode: 301,
-    replace: true
-  })
+  const fullPath = `${route.path}/${route.fullPath.includes('?') ? route.fullPath.slice(route.fullPath.indexOf('?')) : ''}`
+  router.replace(fullPath)
 }
 
 const dataKey = computed(() => `blog-${route.params.slug}-${locale.value}`)
