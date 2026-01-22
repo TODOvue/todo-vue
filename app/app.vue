@@ -172,16 +172,6 @@ const configFooter = computed(() => ({
       ]
     },
     {
-      title: t('home.sections.lastestPosts'),
-      items: (posts.value ?? [])
-        .filter(post => post.path?.endsWith(`.${locale.value}`))
-        .slice(0, 3)
-        .map(post => ({
-          label: post.title,
-          url: post.url ?? post.path
-        }))
-    },
-    {
       title: t('footer.otherEntries'),
       items: getRandomPosts(
         (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`)),
@@ -192,7 +182,7 @@ const configFooter = computed(() => ({
       }))
     },
   ],
-  version: '0.1.7',
+  version: '0.2.0',
   legal: [
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
     { label: 'CrisDev', url: 'https://cris-dev.com', },
@@ -307,11 +297,5 @@ useHead({
   flex-direction: column;
   gap: 16px;
   align-items: center;
-}
-
-img {
-  max-width: 100%;
-  max-height: 450px;
-  background-size: cover;
 }
 </style>
