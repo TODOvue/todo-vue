@@ -141,6 +141,22 @@ const getRandomPosts = (posts, count = 3) => {
   return shuffled.slice(0, count)
 }
 
+const footerPosts = useState('footer-posts', () => {
+  const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
+  return getRandomPosts(p, 3).map(post => ({
+    label: post.title,
+    url: post.url ?? post.path
+  }))
+})
+
+watch([locale, posts], () => {
+  const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
+  footerPosts.value = getRandomPosts(p, 3).map(post => ({
+    label: post.title,
+    url: post.url ?? post.path
+  }))
+})
+
 watchEffect(() => {
   if (!import.meta.client) return
   isDarkMode.value = document.documentElement.classList.contains('dark-mode')
@@ -183,13 +199,7 @@ const configFooter = computed(() => ({
     },
     {
       title: t('footer.otherEntries'),
-      items: getRandomPosts(
-        (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`)),
-        3
-      ).map(post => ({
-        label: post.title,
-        url: post.url ?? post.path
-      }))
+      items: footerPosts.value
     },
   ],
   version: '0.2.0',
