@@ -191,7 +191,7 @@ const configFooter = computed(() => ({
 }))
 
 const validateActiveMenu = computed(() => {
-  return configMenu.value.menus.find(m => m.url === route.path)?.id ?? 1
+  return configMenu.value.menus.find(m => m.url === route.path)?.id ?? 0
 })
 
 onMounted(() => {
