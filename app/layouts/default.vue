@@ -11,6 +11,7 @@ import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
 import TODOvueIcon from '~/assets/icons/TODOvue.svg'
 import CrisDevIcon from '~/assets/icons/CrisDev.png'
+import RssIcon from '~/assets/icons/rss.svg'
 
 const router = useRouter()
 const route = useRoute()
@@ -186,6 +187,11 @@ const configFooter = computed(() => ({
       label: 'CrisDev',
       url: 'https://cris-dev.com',
       iconUrl: CrisDevIcon
+    },
+    {
+      label: 'RSS Feed',
+      url: '/rss.xml',
+      iconUrl: RssIcon
     }
   ],
   navigation: [
