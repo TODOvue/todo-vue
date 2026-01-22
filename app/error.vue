@@ -11,7 +11,9 @@ const props = defineProps({
   }
 })
 
-const handleError = () => clearError({ redirect: '/' })
+const handleError = (redirect) => {
+  clearError({ redirect })
+}
 
 const is404 = computed(() => props.error?.statusCode === 404)
 const title = computed(() => is404.value ? '404' : '500')
@@ -29,29 +31,31 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="error-container">
-    <div class="error-content">
-      <h1 class="error-code">{{ title }}</h1>
-      <h2 class="error-title">{{ description }}</h2>
-      <p class="error-message">{{ message }}</p>
+  <NuxtLayout name="default">
+    <div class="error-container">
+      <div class="error-content">
+        <h1 class="error-code">{{ title }}</h1>
+        <h2 class="error-title">{{ description }}</h2>
+        <p class="error-message">{{ message }}</p>
 
-      <div class="action-button">
-        <TvButton
-          rounded
-          @click="handleError"
-        >
-          {{ t('errorPage.homeButton') }}
-        </TvButton>
-        <TvButton
-          rounded
-          variant="info"
-          @click="handleError"
-        >
-          {{ t('errorPage.blogButton') }}
-        </TvButton>
+        <div class="action-button">
+          <TvButton
+            rounded
+            @click="handleError('/')"
+          >
+            {{ t('errorPage.homeButton') }}
+          </TvButton>
+          <TvButton
+            rounded
+            variant="info"
+            @click="handleError('/blog')"
+          >
+            {{ t('errorPage.blogButton') }}
+          </TvButton>
+        </div>
       </div>
     </div>
-  </div>
+  </NuxtLayout>
 </template>
 
 <style scoped>
@@ -59,16 +63,9 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 60vh;
   padding: 2rem;
-  background-color: var(--light-body-bg);
-  color: var(--light-text);
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-:global(.dark-mode) .error-container {
-  background-color: var(--dark-body-bg);
-  color: var(--dark-text);
 }
 
 .error-content {
