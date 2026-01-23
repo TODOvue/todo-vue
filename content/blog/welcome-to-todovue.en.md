@@ -2,13 +2,21 @@
 title: "TODOvue: A space dedicated to the Vue.js ecosystem"
 description: "Welcome to TODOvue. A technical blog designed by and for developers, where we deep-dive into Vue 3, Nuxt, and modern component architecture."
 date: 2025-12-17T00:00:00-05:00
-updatedAt: 2026-01-21T00:00:00-05:00
+updatedAt: 2026-01-22T23:30:00-05:00
 readingTime: 2
 tags:
   - tag: "TODOvue"
-    color: "#42b883"
+    color: "#42B883"
   - tag: "Offtopic"
-    color: "#35495e"
+    color: "#35495E"
+  - tag: "Ecosystem"
+    color: "#68D4F2"
+  - tag: "Architecture"
+    color: "#4CAF50"
+  - tag: "Design Patterns"
+    color: "#9C27B0"
+  - tag: "Best Practices"
+    color: "#2196F3"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766098456/TODOvue_idegxt.png
 coverAlt: TODOvue logo with source code background
 coverCaption: "Exploring the Vue.js universe from end to end"
@@ -21,8 +29,7 @@ schemaOrg:
       name: "TODOvue"
     datePublished: "2025-12-17T00:00:00-05:00"
 ---
-
-Welcome to **TODOvue**!
+# Welcome to **TODOvue**!
 
 This space was born from a clear need: to establish a meeting point for developers who, like me, find the **Vue.js** ecosystem to be one of the most powerful, elegant, and efficient toolsets for building the modern web.
 

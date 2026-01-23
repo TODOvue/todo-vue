@@ -2,15 +2,15 @@
 title: "How to create your first project with Vue using Vite?"
 description: "A step-by-step guide to setting up a modern development environment with Vue.js and Vite."
 date: 2025-12-24T00:00:00-05:00
-updatedAt: 2026-01-21T00:00:00-05:00
+updatedAt: 2026-01-22T23:30:00-05:00
 readingTime: 5
 tags:
   - tag: "Vite"
     color: "#646CFF"
   - tag: "Basics"
-    color: "#35495e"
+    color: "#35495E"
   - tag: "Guides"
-    color: "#42b983"
+    color: "#42B983"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766607505/setting_up_vue_with_vite_crikmp.png
 coverAlt: Vue.js logo with Vite logo in the background
 coverCaption: "Set up your development environment with Vue and Vite in minutes"
@@ -24,7 +24,6 @@ schemaOrg:
       name: "TODOvue"
     datePublished: "2025-12-24T00:00:00-05"
 ---
-
 # Guide: Creating your first project with Vue and Vite
 
 In this guide you will learn how to set up a modern development environment. **Vite** is a tool that replaces the old Vue CLI, offering almost instant loading speed during development.

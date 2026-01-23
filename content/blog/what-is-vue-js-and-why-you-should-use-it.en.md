@@ -2,11 +2,17 @@
 title: "What is Vue.js and Why Should You Use It?"
 description: "Discover Vue.js, a progressive JavaScript framework, and learn why it's an excellent choice for developing modern and reactive web applications."
 date: 2025-12-18T00:00:00-05:00
-updatedAt: 2026-01-21T00:00:00-05:00
+updatedAt: 2026-01-22T23:30:00-05:00
 readingTime: 4
 tags:
   - tag: "Ecosystem"
     color: "#68D4F2"
+  - tag: "Basics"
+    color: "#35495E"
+  - tag: "Guides"
+    color: "#42B983"
+  - tag: "Reactivity"
+    color: "#1D5BA1"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766101056/What_is_Vuejs_and_Why_Should_You_Use_It_mk5pmg.png
 coverAlt: Vue.js logo on a source code background
 coverCaption: "Exploring Vue.js: The progressive framework for the modern web"
@@ -22,7 +28,6 @@ schemaOrg:
       name: "TODOvue"
     datePublished: "2025-12-18T00:00:00-05"
 ---
-
 # Vue.js: The Progressive Framework for the Modern Web
 
 In the saturated JavaScript ecosystem, choosing a frontend tool can feel like trying to hit a moving target. However, **Vue.js** has managed to position itself not only as an alternative to giants like React or Angular, but as the preferred choice for those seeking a balance between power, simplicity, and performance.

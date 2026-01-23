@@ -6,9 +6,18 @@ updatedAt: 2026-01-21T00:00:00-05:00
 readingTime: 2
 tags:
   - tag: "TODOvue"
-    color: "#42b883"
-  - tag: "General"
-    color: "#35495e"
+    color: "#42B883"
+  - tag: "Offtopic"
+    color: "#35495E"
+  - tag: "Ecosistema"
+    color: "#68D4F2"
+  - tag: "Arquitectura"
+    color: "#4CAF50"
+  - tag: "Patrones de Diseño"
+    color: "#9C27B0"
+  - tag: "Buenas Prácticas"
+    color: "#2196F3"
+
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766098456/TODOvue_idegxt.png
 coverAlt: Logo de TODOvue con código fuente de fondo
 coverCaption: "Explorando el universo de Vue.js de principio a fin"
@@ -21,8 +30,7 @@ schemaOrg:
       name: "TODOvue"
     datePublished: "2025-12-17T00:00:00-05:00"
 ---
-
-¡Bienvenidos a **TODOvue**!
+# ¡Bienvenidos a **TODOvue**!
 
 Este espacio nace de una necesidad clara: establecer un punto de encuentro para desarrolladores que, al igual que yo, encuentran en el ecosistema de **Vue.js** una de las herramientas más potentes, elegantes y eficientes para construir la web moderna.
 
