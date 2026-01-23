@@ -1,7 +1,7 @@
 ---
 title: "Historia y Evolución de Vue.js: El Framework Progresivo"
 date: 2025-12-19T00:00:00-05:00
-updatedAt: 2026-01-21T00:00:00-05:00
+updatedAt: 2026-01-22T23:30:00-05:00
 description: "Desde sus inicios como un proyecto paralelo en Google hasta convertirse en uno de los pilares del desarrollo web moderno, exploramos la evolución y filosofía de Vue.js."
 readingTime: 3
 tags:
@@ -9,6 +9,12 @@ tags:
     color: "#F27E68"
   - tag: "Ecosistema"
     color: "#68D4F2"
+  - tag: "Vite"
+    color: "#646CFF"
+  - tag: "Guías"
+    color: "#42B983"
+  - tag: "Gestión de Estado"
+    color: "#FF9800"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766105778/historia_de_vue_wbwv72.png
 coverAlt: Logo de Vue.js con fondo de código fuente
 coverCaption: "Explorando la evolución de Vue.js desde sus inicios hasta la actualidad"

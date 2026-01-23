@@ -15,7 +15,6 @@ tags:
     color: "#2196F3"
   - tag: "State Management"
     color: "#FF9800"
-
 isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1769126104/vue-provide-inject-avoid-prop-drilling_pkd9s1.png
 coverAlt: "Provide and Inject in Vue 3: The Definitive Guide to Eliminating Prop Drilling"
@@ -37,7 +36,7 @@ schemaOrg:
       name: "TODOvue"
     datePublished: "2026-01-22T23:30:00-05:00"
 ---
-## Provide and Inject: How to Avoid Prop Drilling in Vue.js
+# Provide and Inject: How to Avoid Prop Drilling in Vue.js
 
 Imagine that in your project you have a "Grandparent" component that needs to send data to a "Grandchild" component. Traditionally, you would have to pass that data through the "Parent" component, even though the latter doesn't use it at all. This phenomenon is known as **Prop Drilling**, and it's one of the main causes of code becoming complex and difficult to maintain.
 

@@ -2,13 +2,18 @@
 title: "¿Qué es la reactividad? La magia detrás de Vue.js explicada con claridad"
 description: "Explora el sistema de reactividad de Vue.js, desde analogías simples hasta su implementación técnica con Proxies, y aprende a optimizar tus aplicaciones."
 date: 2026-01-05T22:00:00-05:00
-updatedAt: 2026-01-21T00:00:00-05:00
+updatedAt: 2026-01-22T23:30:00-05:00
 readingTime: 5
 tags:
   - tag: "Reactividad"
     color: "#1D5BA1"
   - tag: "Básico"
-    color: "#35495e"
+    color: "#35495E"
+  - tag: "Guías"
+    color: "#42B983"
+  - tag: "Historia"
+    color: "#F27E68"
+
 isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1767664201/magical_vue_coding_laboratory_p1incq.jpg
 coverAlt: "Ilustración de un laboratorio de codificación mágica de Vue.js"
@@ -30,7 +35,6 @@ schemaOrg:
       name: "TODOvue"
     datePublished: "2026-01-05T22:00:00-05:00"
 ---
-
 # ¿Qué es la reactividad? La magia detrás de Vue.js explicada con claridad
 
 La reactividad es el corazón de Vue.js. Es lo que hace que la interfaz no sea un adorno bonito, sino un sistema vivo que responde a los cambios de estado sin que tú tengas que perseguir el DOM como si fuera 2012.

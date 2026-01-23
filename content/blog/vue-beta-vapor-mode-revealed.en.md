@@ -2,18 +2,19 @@
 title: "Vue 3.6 Beta: The Vapor Mode Revolution and the New Reactivity Engine"
 description: "Explore the new features of Vue 3.6 Beta, including Vapor Mode and the alien-signals integration for more efficient reactivity."
 date: 2025-12-27T00:00:00-05:00
-updatedAt: 2026-01-21T00:00:00-05:00
+updatedAt: 2026-01-22T23:30:00-05:00
 readingTime: 7
 tags:
   - tag: "Beta"
-    color: "#42b883"
+    color: "#42B883"
+  - tag: "Vapor Mode"
+    color: "#41B2A6"
   - tag: "Reactivity"
     color: "#1D5BA1"
-  - tag: "Vapor Mode"
-    color: "#41b2a6"
   - tag: "Ecosystem"
     color: "#68D4F2"
-
+  - tag: "Advanced"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766870280/vue-beta-vapor-mode-revealed_snvcqg.png
 coverAlt: Vue.js logo on a source code background
 coverCaption: "Discover the innovations in Vue 3.6 Beta: Vapor Mode and a revamped reactivity engine"
@@ -29,7 +30,6 @@ schemaOrg:
       name: "TODOvue"
     datePublished: "2025-12-27T00:00:00-05"
 ---
-
 # Vue 3.6 Beta: The Vapor Mode Revolution and the New Reactivity Engine
 
 The Vue ecosystem has reached a turning point with the release of **version 3.6.0-beta.1**.
