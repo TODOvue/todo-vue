@@ -160,14 +160,17 @@ setPageSeo({
           />
         </div>
         <p v-else>{{ t('blogs.empty') }}</p>
-        <div v-if="safePosts.length > pageSize" class="pagination-container">
-          <TvPagination
-            v-model="currentPage"
-            :total-items="safePosts.length"
-            :page-size="pageSize"
-            :show-icons="true"
-          />
-        </div>
+        <ClientOnly>
+          <div v-if="safePosts.length > pageSize" class="pagination-container">
+            <TvPagination
+              v-model="currentPage"
+              :total-items="safePosts.length"
+              :page-size="pageSize"
+              show-icons
+              :show-first-last="false"
+            />
+          </div>
+        </ClientOnly>
       </section>
       <section class="container-sidebar">
         <TvSidebar
