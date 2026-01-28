@@ -67,7 +67,7 @@ const configMenu = computed(() => ({
 
 const handleClickMenu = (menu) => {
   if (menu?.url === '/components') {
-    window.open('https://ui.todovue.blog/', '_blank')
+    window.open('https://ui.todovue.blog/', '_self')
     return
   }
 
