@@ -1,5 +1,5 @@
 <script setup>
-import { TvButton } from '@todovue/tv-button'
+import { TvButton } from '@todovue/tv-ui'
 
 const { t } = useI18n()
 

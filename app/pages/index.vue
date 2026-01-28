@@ -1,8 +1,11 @@
 <script setup>
-import { TvHero } from '@todovue/tv-hero'
-import { TvCard } from '@todovue/tv-card'
-import { TvButton } from '@todovue/tv-button'
-import { TvLabel } from '@todovue/tv-label'
+import {
+  TvButton,
+  TvCard,
+  TvHero,
+  TvLabel,
+} from '@todovue/tv-ui'
+
 const { t } = useI18n()
 
 const router = useRouter()

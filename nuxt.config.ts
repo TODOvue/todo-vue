@@ -1,6 +1,8 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'
+import { createRequire } from 'module'
+
+const require = createRequire(import.meta.url)
 
 const blogRoutes = (() => {
   try {
@@ -63,23 +65,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
-    '@todovue/tv-alert/nuxt',
-    '@todovue/tv-article/nuxt',
-    '@todovue/tv-breadcrumbs/nuxt',
-    '@todovue/tv-button/nuxt',
-    '@todovue/tv-card/nuxt',
-    '@todovue/tv-footer/nuxt',
-    '@todovue/tv-hero/nuxt',
-    '@todovue/tv-label/nuxt',
-    '@todovue/tv-menu/nuxt',
-    '@todovue/tv-pagination/nuxt',
-    '@todovue/tv-progress-bar/nuxt',
-    '@todovue/tv-scroll-top/nuxt',
-    '@todovue/tv-search/nuxt',
-    '@todovue/tv-settings/nuxt',
-    '@todovue/tv-sidebar/nuxt',
-    '@todovue/tv-theme-button/nuxt',
-    '@todovue/tv-toc/nuxt'
+    '@todovue/tv-ui/nuxt',
   ],
 
   site: {
@@ -155,6 +141,19 @@ export default defineNuxtConfig({
       { name: 'Lato', provider: 'google', weights: [300], display: 'swap', preload: true },
       { name: 'Kanit', provider: 'google', weights: [600], display: 'swap', preload: true }
     ]
+  },
+
+  vite: {
+    resolve: {
+      alias: {
+        'highlight.js': require.resolve('highlight.js/lib/common'),
+        'markdown-it': require.resolve('markdown-it/dist/markdown-it.min.js'),
+        'vue3-markdown-it': require.resolve('vue3-markdown-it/dist/vue3-markdown-it.umd.min.js')
+      }
+    },
+    optimizeDeps: {
+      include: ['highlight.js', 'markdown-it', 'vue3-markdown-it']
+    }
   },
 
   i18n: {

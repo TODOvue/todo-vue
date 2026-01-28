@@ -1,9 +1,12 @@
 <script setup>
-import { TvCard } from '@todovue/tv-card'
-import { TvHero } from '@todovue/tv-hero'
-import { TvSidebar } from '@todovue/tv-sidebar'
-import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
-import { TvPagination } from '@todovue/tv-pagination'
+import {
+  TvBreadcrumbs,
+  TvCard,
+  TvHero,
+  TvPagination,
+  TvSidebar,
+} from '@todovue/tv-ui'
+
 import IconGrid from '~/assets/icons/IconGrid.vue'
 import IconList from '~/assets/icons/IconList.vue'
 

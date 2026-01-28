@@ -1,11 +1,14 @@
 <script setup>
-import { TvThemeButton } from '@todovue/tv-theme-button'
-import { TvMenu } from '@todovue/tv-menu'
-import { TvAlert, useAlert } from '@todovue/tv-alert'
-import { TvSettings } from '@todovue/tv-settings'
-import { TvButton } from '@todovue/tv-button'
-import { TvScrollTop } from '@todovue/tv-scroll-top'
-import { TvFooter } from '@todovue/tv-footer'
+import {
+  TvAlert,
+  TvButton,
+  TvFooter,
+  TvMenu,
+  TvScrollTop,
+  TvSettings,
+  TvThemeButton,
+  useAlert,
+} from '@todovue/tv-ui'
 
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
