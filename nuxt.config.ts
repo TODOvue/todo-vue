@@ -146,9 +146,9 @@ export default defineNuxtConfig({
   vite: {
     resolve: {
       alias: {
-        'highlight.js': require.resolve('highlight.js/lib/common'),
-        'markdown-it': require.resolve('markdown-it/dist/markdown-it.min.js'),
-        'vue3-markdown-it': require.resolve('vue3-markdown-it/dist/vue3-markdown-it.umd.min.js')
+        'highlight.js': require.resolve('highlight.js').replace('index.js', 'common.js'),
+        'markdown-it': require.resolve('markdown-it').replace('index.js', 'dist/markdown-it.min.js'),
+        'vue3-markdown-it': require.resolve('vue3-markdown-it')
       }
     },
     optimizeDeps: {
