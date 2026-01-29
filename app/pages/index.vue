@@ -1,8 +1,11 @@
 <script setup>
-import { TvHero } from '@todovue/tv-hero'
-import { TvCard } from '@todovue/tv-card'
-import { TvButton } from '@todovue/tv-button'
-import { TvLabel } from '@todovue/tv-label'
+import {
+  TvButton,
+  TvCard,
+  TvHero,
+  TvLabel,
+} from '@todovue/tv-ui'
+
 const { t } = useI18n()
 
 const router = useRouter()
@@ -15,12 +18,12 @@ const configHero = computed(() => ({
   description: t('home.hero.description'),
   image: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
   title: t('home.hero.title'),
-  buttonSecondary: `${t('home.hero.secondary')} ↗`
+  buttonSecondary: t('home.hero.secondary')
 }))
 
 const navigateTo = (path, isExternal = false) => {
   if (isExternal) {
-    window.open(path, '_blank')
+    window.open(path, '_self')
     return
   }
   router.push(path)

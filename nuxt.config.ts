@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'
 
@@ -63,23 +62,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
-    '@todovue/tv-alert/nuxt',
-    '@todovue/tv-article/nuxt',
-    '@todovue/tv-breadcrumbs/nuxt',
-    '@todovue/tv-button/nuxt',
-    '@todovue/tv-card/nuxt',
-    '@todovue/tv-footer/nuxt',
-    '@todovue/tv-hero/nuxt',
-    '@todovue/tv-label/nuxt',
-    '@todovue/tv-menu/nuxt',
-    '@todovue/tv-pagination/nuxt',
-    '@todovue/tv-progress-bar/nuxt',
-    '@todovue/tv-scroll-top/nuxt',
-    '@todovue/tv-search/nuxt',
-    '@todovue/tv-settings/nuxt',
-    '@todovue/tv-sidebar/nuxt',
-    '@todovue/tv-theme-button/nuxt',
-    '@todovue/tv-toc/nuxt'
+    '@todovue/tv-ui/nuxt',
   ],
 
   site: {

@@ -1,11 +1,14 @@
 <script setup>
-import { TvThemeButton } from '@todovue/tv-theme-button'
-import { TvMenu } from '@todovue/tv-menu'
-import { TvAlert, useAlert } from '@todovue/tv-alert'
-import { TvSettings } from '@todovue/tv-settings'
-import { TvButton } from '@todovue/tv-button'
-import { TvScrollTop } from '@todovue/tv-scroll-top'
-import { TvFooter } from '@todovue/tv-footer'
+import {
+  TvAlert,
+  TvButton,
+  TvFooter,
+  TvMenu,
+  TvScrollTop,
+  TvSettings,
+  TvThemeButton,
+  useAlert,
+} from '@todovue/tv-ui'
 
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
@@ -64,7 +67,7 @@ const configMenu = computed(() => ({
 
 const handleClickMenu = (menu) => {
   if (menu?.url === '/components') {
-    window.open('https://ui.todovue.blog/', '_blank')
+    window.open('https://ui.todovue.blog/', '_self')
     return
   }
 
@@ -208,7 +211,7 @@ const configFooter = computed(() => ({
       items: footerPosts.value
     },
   ],
-  version: '1.0.0',
+  version: 'v1.0.1',
   legal: [
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
     { label: 'CrisDev', url: 'https://cris-dev.com', },

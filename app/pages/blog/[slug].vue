@@ -1,10 +1,13 @@
 <script setup>
-import { TvArticle } from '@todovue/tv-article'
-import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
-import { TvCard } from '@todovue/tv-card'
-import { TvHero } from '@todovue/tv-hero'
-import { TvProgressBar } from '@todovue/tv-progress-bar'
-import { TvToc } from '@todovue/tv-toc'
+import {
+  TvArticle,
+  TvBreadcrumbs,
+  TvCard,
+  TvHero,
+  TvProgressBar,
+  TvToc,
+} from '@todovue/tv-ui'
+
 import { useI18n } from 'vue-i18n'
 
 const router = useRouter()
