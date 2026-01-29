@@ -1,8 +1,5 @@
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'
-import { createRequire } from 'module'
-
-const require = createRequire(import.meta.url)
 
 const blogRoutes = (() => {
   try {
@@ -141,19 +138,6 @@ export default defineNuxtConfig({
       { name: 'Lato', provider: 'google', weights: [300], display: 'swap', preload: true },
       { name: 'Kanit', provider: 'google', weights: [600], display: 'swap', preload: true }
     ]
-  },
-
-  vite: {
-    resolve: {
-      alias: {
-        'highlight.js': require.resolve('highlight.js').replace('index.js', 'common.js'),
-        'markdown-it': require.resolve('markdown-it').replace('index.js', 'dist/markdown-it.min.js'),
-        'vue3-markdown-it': require.resolve('vue3-markdown-it')
-      }
-    },
-    optimizeDeps: {
-      include: ['highlight.js', 'markdown-it', 'vue3-markdown-it']
-    }
   },
 
   i18n: {

@@ -20,10 +20,8 @@
     "@todovue/tv-ui": "^0.1.1",
     "better-sqlite3": "^12.6.2",
     "firebase": "^12.8.0",
-    "highlight.js": "^11.11.1",
     "nuxt": "^4.2.2",
-    "nuxt-schema-org": "^5.0.10",
-    "vue3-markdown-it": "^1.0.10"
+    "nuxt-schema-org": "^5.0.10"
   },
   "packageManager": "pnpm@10.28.0",
   "devDependencies": {
