@@ -3,6 +3,7 @@ import {
   TvBreadcrumbs,
   TvCard,
   TvHero,
+  TvLabel,
   TvPagination,
   TvSidebar,
 } from '@todovue/tv-ui'
@@ -14,7 +15,8 @@ const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
 const { t } = useI18n()
-const pageSize = 6 // Change later to make it configurable
+const pageSize = 6
+const filters = ref(null)
 
 const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
 
@@ -100,9 +102,46 @@ const toggleView = () => {
   localStorage.setItem('blog-view-preference', isHorizontalView.value ? 'horizontal' : 'grid')
 }
 
+const filtersPage = () => {
+  if (route.query.search) {
+    filters.value.push({
+      id: route.query.search,
+      name: route.query.search,
+      color: '#2196F3',
+    })
+  }
+  if (route.query.label) {
+    filters.value.push({
+      id: route.query.label,
+      name: route.query.label,
+      color: '#42b883',
+    })
+  }
+}
+
+const removeFilter = (filterId) => {
+  const query = { ...route.query }
+
+  if (query.search === filterId) delete query.search
+  if (query.label === filterId) delete query.label
+
+  query.page = '1'
+  router.push({ query })
+}
+
+watch(
+  () => route.query,
+  () => {
+    currentPage.value = parseInt(String(route.query.page || '1')) || 1
+    filters.value = []
+    filtersPage()
+  },
+  { immediate: true }
+)
+
 watch(currentPage, (newPage) => {
   router.push({
-    query: { page: newPage.toString() }
+    query: { ...route.query, page: newPage.toString() }
   })
 
   window.scrollTo({
@@ -134,9 +173,21 @@ setPageSeo({
         is-entry
       />
       <div class="main-container">
-       <TvBreadcrumbs
-         auto-generate
-       />
+         <TvBreadcrumbs
+           auto-generate
+         />
+
+        <div class="labels-container">
+          <TvLabel
+            v-for="filter in filters"
+            :key="filter.id"
+            :text-label="filter.name"
+            is-remove
+            :color="filter.color"
+            icon-position="left"
+            @click-label="removeFilter(filter.id)"
+          />
+        </div>
       </div>
     </section>
     <div class="container main-container">
@@ -198,6 +249,13 @@ setPageSeo({
   display: grid;
   grid-template-columns: 1fr 350px;
   gap: 30px;
+}
+
+.labels-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
 }
 
 .view-toggle-container {

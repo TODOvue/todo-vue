@@ -36,7 +36,7 @@ h1, h2, h3 {
 }
 
 .main-container {
-  margin: 40px auto;
+  margin: 20px auto 0;
   width: 95%;
   max-width: 1400px;
 }
