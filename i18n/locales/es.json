@@ -46,11 +46,11 @@
   },
   "home": {
     "sections": {
-      "lastPost": "Entrada destacada",
-      "lastestPosts": "Entradas recientes",
+      "lastPost": "Último blog",
+      "lastestPosts": "Blogs recientes",
+      "viewAllPosts": "Ver todos los blogs",
       "mostPopular": "Blogs más populares",
-      "viewAllPosts": "Ver todas las entradas",
-      "popularCategories": "Categorías populares"
+      "popularCategories": "Categorías"
     },
     "hero": {
       "title": "TODOvue Blog",
