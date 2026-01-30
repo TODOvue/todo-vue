@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.1.0",
   "name": "todo-vue",
   "type": "module",
   "private": false,
@@ -13,22 +13,22 @@
   "dependencies": {
     "@nuxt/content": "^3.11.0",
     "@nuxt/fonts": "^0.12.1",
-    "@nuxt/hints": "^1.0.0-alpha.5",
+    "@nuxt/hints": "1.0.0-alpha.6",
     "@nuxt/image": "^2.0.0",
     "@nuxtjs/i18n": "^10.2.1",
-    "@nuxtjs/seo": "^3.3.0",
+    "@nuxtjs/seo": "^3.4.0",
     "@todovue/tv-ui": "^1.0.0",
     "better-sqlite3": "^12.6.2",
     "firebase": "^12.8.0",
-    "nuxt": "^4.2.2",
+    "nuxt": "^4.3.0",
     "nuxt-schema-org": "^5.0.10"
   },
   "packageManager": "pnpm@10.28.0",
   "devDependencies": {
-    "@nuxt/eslint": "^1.12.1",
+    "@nuxt/eslint": "^1.13.0",
     "eslint": "^9.39.2",
     "vue": "^3.5.27",
-    "zod": "^4.3.5",
+    "zod": "^4.3.6",
     "zod-to-json-schema": "^3.25.1"
   }
 }
