@@ -237,7 +237,7 @@ setPageSeo({
           :new-label-text="t('blogs.sidebar.newLabelText')"
           is-label
           :data="renderLabels"
-          @click-label="handleSidebar"
+          @click="handleSidebar"
         />
       </section>
     </div>
@@ -327,6 +327,7 @@ setPageSeo({
   gap: 50px;
   display: flex;
   flex-direction: column;
+  padding-bottom: 20px;
 }
 
 @media (max-width: 1024px) {
