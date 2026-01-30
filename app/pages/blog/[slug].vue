@@ -4,7 +4,6 @@ import {
   TvBreadcrumbs,
   TvCard,
   TvHero,
-  TvProgressBar,
   TvToc,
 } from '@todovue/tv-ui'
 
@@ -202,7 +201,6 @@ const articleContainer = ref(null)
 
 <template>
   <main>
-    <TvProgressBar disabled :target="articleContainer" :offset-top="0" glow easing="easing-in-out" />
     <div ref="articleContainer" class="container-blog">
       <TvHero
         :config-hero="configHero"
