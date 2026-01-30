@@ -17,6 +17,7 @@ const blogStore = useBlogStore()
 const { t } = useI18n()
 const pageSize = 6
 const filters = ref(null)
+const labelFilters = ref(null)
 
 const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
 
@@ -79,6 +80,11 @@ const handleSidebar = (label) => {
   if (label) {
     const labelValue = label.name || label.tag
     if (labelValue) {
+      labelFilters.value = {
+        name: labelValue,
+        color: label.color,
+        id: label.id
+      }
       router.push({ query: { ...route.query, label: labelValue, page: '1' } })
     }
   }
@@ -111,10 +117,11 @@ const filtersPage = () => {
     })
   }
   if (route.query.label) {
+    const label = labelFilters.value
     filters.value.push({
-      id: route.query.label,
-      name: route.query.label,
-      color: '#42b883',
+      id: label?.id || route.query.label,
+      name: label?.name || route.query.label,
+      color: label?.color || '#4CAF50',
     })
   }
 }
@@ -123,7 +130,10 @@ const removeFilter = (filterId) => {
   const query = { ...route.query }
 
   if (query.search === filterId) delete query.search
-  if (query.label === filterId) delete query.label
+  if (query.label === filterId) {
+    labelFilters.value = {}
+    delete query.label
+  }
 
   query.page = '1'
   router.push({ query })
@@ -176,7 +186,6 @@ setPageSeo({
          <TvBreadcrumbs
            auto-generate
          />
-
         <div class="labels-container">
           <TvLabel
             v-for="filter in filters"
@@ -185,7 +194,8 @@ setPageSeo({
             is-remove
             :color="filter.color"
             icon-position="left"
-            @click-label="removeFilter(filter.id)"
+            size="sm"
+            @click-label="removeFilter(filter.name)"
           />
         </div>
       </div>
@@ -254,7 +264,7 @@ setPageSeo({
 .labels-container {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
+  margin-top: 20px;
   flex-wrap: wrap;
 }
 
