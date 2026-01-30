@@ -227,14 +227,11 @@ const validateActiveMenu = computed(() => {
 })
 
 const handleClickLinks = ({ url }) => {
-  console.log('Clicked link:', url)
-  if (url.includes('https://')) {
+  if (url.startsWith('http') || url === '/rss.xml') {
     window.open(url, '_blank')
-  } else if (url === '/rss.xml') {
-    window.open(url, '_blank')
-  } else {
-    router.push(url)
+    return
   }
+  router.push(url)
 }
 
 onMounted(() => {
