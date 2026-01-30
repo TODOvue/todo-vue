@@ -8,7 +8,7 @@ tags:
   - tag: "Reactividad"
     color: "#1D5BA1"
   - tag: "Básico"
-    color: "#35495E"
+    color: "#B173BF"
   - tag: "Guías"
     color: "#42B983"
   - tag: "Historia"

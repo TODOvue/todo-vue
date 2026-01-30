@@ -8,7 +8,7 @@ tags:
   - tag: "Ecosistema"
     color: "#68D4F2"
   - tag: "Básico"
-    color: "#35495E"
+    color: "#B173BF"
   - tag: "Guías"
     color: "#42B983"
   - tag: "Reactividad"

@@ -8,7 +8,7 @@ tags:
   - tag: "Vite"
     color: "#646CFF"
   - tag: "Básico"
-    color: "#35495E"
+    color: "#B173BF"
   - tag: "Guías"
     color: "#42B983"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766607505/setting_up_vue_with_vite_crikmp.png
