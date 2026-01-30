@@ -42,7 +42,10 @@
       "untitled": "Untitled post",
       "cover": "Blog cover"
     },
-    "related": "Related Blogs"
+    "related": "Related Blogs",
+    "toc": {
+      "title": "In this blog"
+    }
   },
   "home": {
     "sections": {

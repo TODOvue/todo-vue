@@ -42,7 +42,10 @@
       "untitled": "Entrada sin título",
       "cover": "Portada del blog"
     },
-    "related": "Blogs relacionados"
+    "related": "Blogs relacionados",
+    "toc": {
+      "title": "En este blog"
+    }
   },
   "home": {
     "sections": {
