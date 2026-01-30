@@ -327,7 +327,7 @@ setPageSeo({
 .pagination-container {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin: 40px 0;
 }
 
 .container-sidebar {
