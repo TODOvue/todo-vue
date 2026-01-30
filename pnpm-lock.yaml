@@ -27,8 +27,8 @@ importers:
         specifier: ^3.3.0
         version: 3.4.0(@unhead/vue@2.1.2(vue@3.5.27(typescript@5.9.3)))(db0@0.3.4(better-sqlite3@12.6.2))(ioredis@5.9.2)(magicast@0.5.1)(rollup@4.57.0)(unhead@2.1.2)(unstorage@1.17.4(db0@0.3.4(better-sqlite3@12.6.2))(ioredis@5.9.2))(vite@7.3.1(@types/node@25.1.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2))(vue@3.5.27(typescript@5.9.3))(zod@4.3.6)
       '@todovue/tv-ui':
-        specifier: ^0.1.3
-        version: 0.1.3(vue-highlight-code@0.2.0(typescript@5.9.3))(vue3-markdown-it@1.0.10(@types/markdown-it@14.1.2))(vue@3.5.27(typescript@5.9.3))
+        specifier: ^1.0.0
+        version: 1.0.0(vue-highlight-code@0.2.0(typescript@5.9.3))(vue3-markdown-it@1.0.10(@types/markdown-it@14.1.2))(vue@3.5.27(typescript@5.9.3))
       better-sqlite3:
         specifier: ^12.6.2
         version: 12.6.2
@@ -2454,8 +2454,8 @@ packages:
     peerDependencies:
       vue: ^3.5.27
 
-  '@todovue/tv-article@1.3.4':
-    resolution: {integrity: sha512-oBCFbsazY0HetWrd1bP81TlLpdpbIkZ+Tak/Cfopu1MlKqQ9rH0eufuRmLKLsZHAP/kEn4d4KptkvfShcoWqaA==}
+  '@todovue/tv-article@1.3.5':
+    resolution: {integrity: sha512-RdoJoTrCk1aY/4mwM/OwgOGOq6FGLkNqnYIDUkhnVrBPa/ulsDGDu1J54m/efi1/aH/LbogiN3sEsMif8QwMgA==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.5.27
@@ -2486,8 +2486,8 @@ packages:
       vue-highlight-code: ^0.2.0
       vue3-markdown-it: ^1.0.10
 
-  '@todovue/tv-footer@1.1.1':
-    resolution: {integrity: sha512-sEHwpci7ICeLg/+MzOEgRwlA5Y/HFWZNiUi26ESvU1jBMvnVFTZzgF4+R/bjjybYJk98dF/mpu/L+syaCwxjNw==}
+  '@todovue/tv-footer@1.1.2':
+    resolution: {integrity: sha512-romVNnAk2R3Zsu/xG+d/8gBfDU+UdOkmezfFkP/F0Vur/6IYOPGCNaR3yMkHuX315Rqv0UBC9GxmXxPblaxfzw==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.5.27
@@ -2504,8 +2504,8 @@ packages:
     peerDependencies:
       vue: ^3.5.27
 
-  '@todovue/tv-menu@1.1.4':
-    resolution: {integrity: sha512-mGUTZhQKX6YaWog2gkPr0+qJPR5XuE/FmJsTwOQL8+MxctoabyhmjzJzOUtZFWjh4tCnz725CNil6bPozYlIZQ==}
+  '@todovue/tv-menu@1.1.5':
+    resolution: {integrity: sha512-7H9JW1dttA1KAXDo9KQKB+cmWmtRcJLaw6mYITIzFeIYJXX+uXBoXcqzU/o64sdpCnElzOm6m0+5bTCOYIxgHw==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.5.27
@@ -2522,8 +2522,8 @@ packages:
     peerDependencies:
       vue: ^3.5.27
 
-  '@todovue/tv-progress-bar@1.1.1':
-    resolution: {integrity: sha512-HJOp9fJp4Pp1wpPzgK9VPx6IK8lfyHKXfvtbfQQRYh4nydBxARjPc0SuTPJ/jkEcv39ZyF49G4ODnFwcyz7m3Q==}
+  '@todovue/tv-progress-bar@1.1.2':
+    resolution: {integrity: sha512-PeAZpb0lMn1g2SVOoylBfckdiyO8QWZyF9MMgUhOJHL56gLJIMf2mRtYvWOr5GspL2lgSX6ohK/8Jif1sc9c6w==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.5.27
@@ -2534,8 +2534,8 @@ packages:
     peerDependencies:
       vue: ^3.5.27
 
-  '@todovue/tv-scroll-top@1.0.3':
-    resolution: {integrity: sha512-K1nMDsRTe/3ES8B2YJNyT38u49XX/IYuKAO0B6Ca0OM0Jf77qOGMOpdhMU2zNWLVCgVZHV6vb0K/FTbmCZnjRQ==}
+  '@todovue/tv-scroll-top@1.0.4':
+    resolution: {integrity: sha512-QOat7LvmZwtDAa4Lx0TfcC0KgDYLsPHUZ+ZvoxMdSEgTON1FcLhYKcuj0jgrzfijzSbzjisFJU8vEmfOlC0uJw==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.5.27
@@ -2564,14 +2564,14 @@ packages:
     peerDependencies:
       vue: ^3.5.27
 
-  '@todovue/tv-toc@1.1.1':
-    resolution: {integrity: sha512-4kXtzm3z1M9nBX57Yqn7Vfxm3s436vMmMH8rvX11XOcCQCPt+Rr+qBxIrEaMe+1Hw/n2mL5RcqKQXPgMLnHNdA==}
+  '@todovue/tv-toc@1.2.0':
+    resolution: {integrity: sha512-u61uONIa7Be/RkZ21+GrgbX6lPEobiApnEwD1FSG5Z0x8xVSDEVznnzxVUr96DzzmhThrIOlZpLN04+cEm50pg==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.5.27
 
-  '@todovue/tv-ui@0.1.3':
-    resolution: {integrity: sha512-YoDqINq3I2nDW0LF7LzhI++S10MYpc8Ll5uOH1s1jEVI6P3OhIPPhRAt6M/yZw6A4L8wsHR54Wf1WumphaB1mA==}
+  '@todovue/tv-ui@1.0.0':
+    resolution: {integrity: sha512-G5OGFjgqZKb/juoNCYj5t5KJBwKOXzCju2+d+Z9D0yw2h4M9WWEEV7Zx2otW3jNso7Xj7NF4tZDsAXFKES8M3w==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.5.27
@@ -9186,7 +9186,7 @@ snapshots:
     dependencies:
       vue: 3.5.27(typescript@5.9.3)
 
-  '@todovue/tv-article@1.3.4(vue@3.5.27(typescript@5.9.3))':
+  '@todovue/tv-article@1.3.5(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       '@todovue/tv-alert': 1.2.1(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-label': 1.2.4(vue@3.5.27(typescript@5.9.3))
@@ -9217,7 +9217,7 @@ snapshots:
       vue-highlight-code: 0.2.0(typescript@5.9.3)
       vue3-markdown-it: 1.0.10(@types/markdown-it@14.1.2)
 
-  '@todovue/tv-footer@1.1.1(vue@3.5.27(typescript@5.9.3))':
+  '@todovue/tv-footer@1.1.2(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       vue: 3.5.27(typescript@5.9.3)
 
@@ -9230,7 +9230,7 @@ snapshots:
     dependencies:
       vue: 3.5.27(typescript@5.9.3)
 
-  '@todovue/tv-menu@1.1.4(vue@3.5.27(typescript@5.9.3))':
+  '@todovue/tv-menu@1.1.5(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       '@todovue/tv-search': 1.2.1(vue@3.5.27(typescript@5.9.3))
       vue: 3.5.27(typescript@5.9.3)
@@ -9245,7 +9245,7 @@ snapshots:
       '@todovue/tv-button': 1.2.6(vue@3.5.27(typescript@5.9.3))
       vue: 3.5.27(typescript@5.9.3)
 
-  '@todovue/tv-progress-bar@1.1.1(vue@3.5.27(typescript@5.9.3))':
+  '@todovue/tv-progress-bar@1.1.2(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       vue: 3.5.27(typescript@5.9.3)
 
@@ -9253,7 +9253,7 @@ snapshots:
     dependencies:
       vue: 3.5.27(typescript@5.9.3)
 
-  '@todovue/tv-scroll-top@1.0.3(vue@3.5.27(typescript@5.9.3))':
+  '@todovue/tv-scroll-top@1.0.4(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       vue: 3.5.27(typescript@5.9.3)
 
@@ -9275,32 +9275,32 @@ snapshots:
     dependencies:
       vue: 3.5.27(typescript@5.9.3)
 
-  '@todovue/tv-toc@1.1.1(vue@3.5.27(typescript@5.9.3))':
+  '@todovue/tv-toc@1.2.0(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       vue: 3.5.27(typescript@5.9.3)
 
-  '@todovue/tv-ui@0.1.3(vue-highlight-code@0.2.0(typescript@5.9.3))(vue3-markdown-it@1.0.10(@types/markdown-it@14.1.2))(vue@3.5.27(typescript@5.9.3))':
+  '@todovue/tv-ui@1.0.0(vue-highlight-code@0.2.0(typescript@5.9.3))(vue3-markdown-it@1.0.10(@types/markdown-it@14.1.2))(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       '@todovue/tv-alert': 1.2.1(vue@3.5.27(typescript@5.9.3))
-      '@todovue/tv-article': 1.3.4(vue@3.5.27(typescript@5.9.3))
+      '@todovue/tv-article': 1.3.5(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-breadcrumbs': 1.1.4(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-button': 1.2.6(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-card': 1.1.4(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-demo': 1.4.11(vue-highlight-code@0.2.0(typescript@5.9.3))(vue3-markdown-it@1.0.10(@types/markdown-it@14.1.2))(vue@3.5.27(typescript@5.9.3))
-      '@todovue/tv-footer': 1.1.1(vue@3.5.27(typescript@5.9.3))
+      '@todovue/tv-footer': 1.1.2(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-hero': 1.2.1(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-label': 1.2.4(vue@3.5.27(typescript@5.9.3))
-      '@todovue/tv-menu': 1.1.4(vue@3.5.27(typescript@5.9.3))
+      '@todovue/tv-menu': 1.1.5(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-modal': 1.2.1(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-pagination': 1.1.4(vue@3.5.27(typescript@5.9.3))
-      '@todovue/tv-progress-bar': 1.1.1(vue@3.5.27(typescript@5.9.3))
+      '@todovue/tv-progress-bar': 1.1.2(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-relative-time': 1.3.1(vue@3.5.27(typescript@5.9.3))
-      '@todovue/tv-scroll-top': 1.0.3(vue@3.5.27(typescript@5.9.3))
+      '@todovue/tv-scroll-top': 1.0.4(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-search': 1.2.1(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-settings': 1.0.4(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-sidebar': 2.2.2(vue@3.5.27(typescript@5.9.3))
       '@todovue/tv-theme-button': 1.2.1(vue@3.5.27(typescript@5.9.3))
-      '@todovue/tv-toc': 1.1.1(vue@3.5.27(typescript@5.9.3))
+      '@todovue/tv-toc': 1.2.0(vue@3.5.27(typescript@5.9.3))
       highlight.js: 11.11.1
       markdown-it: 13.0.2
       vue: 3.5.27(typescript@5.9.3)

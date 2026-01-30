@@ -223,7 +223,7 @@ const articleContainer = ref(null)
             class="blog-reading-zone__toc"
           >
             <div class="blog-reading-zone__toc-inner">
-              <TvToc :toc="tocData" />
+              <TvToc :toc="tocData" compact />
             </div>
           </aside>
         </client-only>
@@ -299,8 +299,6 @@ const articleContainer = ref(null)
 
   .blog-reading-zone__toc-inner {
     overflow: auto;
-    padding-left: 1.5rem;
-    border-left: 1px solid rgba(148, 163, 184, 0.3);
   }
 }
 

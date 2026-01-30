@@ -226,6 +226,17 @@ const validateActiveMenu = computed(() => {
   return configMenu.value.menus.find(m => m.url === route.path)?.id ?? 0
 })
 
+const handleClickLinks = ({ url }) => {
+  console.log('Clicked link:', url)
+  if (url.includes('https://')) {
+    window.open(url, '_blank')
+  } else if (url === '/rss.xml') {
+    window.open(url, '_blank')
+  } else {
+    router.push(url)
+  }
+}
+
 onMounted(() => {
   if (!import.meta.client) return
 
@@ -310,6 +321,7 @@ useHead({
     <TvFooter
       :key="`${isDarkMode}-${language}`"
       :config="configFooter"
+      @link-click="handleClickLinks"
     />
     <TvAlert />
     <TvScrollTop show-on-scroll-up />
