@@ -4,6 +4,7 @@ import {
   TvButton,
   TvFooter,
   TvMenu,
+  TvProgressBar,
   TvScrollTop,
   TvSettings,
   TvThemeButton,
@@ -21,6 +22,8 @@ const route = useRoute()
 
 const { api } = useAlert()
 const alert = api()
+
+const { progress, isLoading } = useGlobalLoader()
 
 const isDarkMode = ref(false)
 const language = ref('es')
@@ -267,6 +270,10 @@ useHead({
 
 <template>
   <div>
+    <TvProgressBar
+      :model-value="progress"
+      :disabled="!isLoading"
+    />
     <div class="menu-container">
       <TvMenu
         :menus="configMenu.menus"
