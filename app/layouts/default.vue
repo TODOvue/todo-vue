@@ -4,6 +4,7 @@ import {
   TvButton,
   TvFooter,
   TvMenu,
+  TvProgressBar,
   TvScrollTop,
   TvSettings,
   TvThemeButton,
@@ -21,6 +22,8 @@ const route = useRoute()
 
 const { api } = useAlert()
 const alert = api()
+
+const { progress, isLoading } = useGlobalLoader()
 
 const isDarkMode = ref(false)
 const language = ref('es')
@@ -211,7 +214,7 @@ const configFooter = computed(() => ({
       items: footerPosts.value
     },
   ],
-  version: 'v1.0.1',
+  version: 'v1.1.0',
   legal: [
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
     { label: 'CrisDev', url: 'https://cris-dev.com', },
@@ -222,6 +225,14 @@ const configFooter = computed(() => ({
 const validateActiveMenu = computed(() => {
   return configMenu.value.menus.find(m => m.url === route.path)?.id ?? 0
 })
+
+const handleClickLinks = ({ url }) => {
+  if (url.startsWith('http') || url === '/rss.xml') {
+    window.open(url, '_blank')
+    return
+  }
+  router.push(url)
+}
 
 onMounted(() => {
   if (!import.meta.client) return
@@ -267,6 +278,10 @@ useHead({
 
 <template>
   <div>
+    <TvProgressBar
+      :model-value="progress"
+      :disabled="!isLoading"
+    />
     <div class="menu-container">
       <TvMenu
         :menus="configMenu.menus"
@@ -303,6 +318,7 @@ useHead({
     <TvFooter
       :key="`${isDarkMode}-${language}`"
       :config="configFooter"
+      @link-click="handleClickLinks"
     />
     <TvAlert />
     <TvScrollTop show-on-scroll-up />

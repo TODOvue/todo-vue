@@ -3,6 +3,7 @@ import {
   TvBreadcrumbs,
   TvCard,
   TvHero,
+  TvLabel,
   TvPagination,
   TvSidebar,
 } from '@todovue/tv-ui'
@@ -14,7 +15,9 @@ const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
 const { t } = useI18n()
-const pageSize = 6 // Change later to make it configurable
+const pageSize = 6
+const filters = ref(null)
+const labelFilters = ref(null)
 
 const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
 
@@ -77,6 +80,11 @@ const handleSidebar = (label) => {
   if (label) {
     const labelValue = label.name || label.tag
     if (labelValue) {
+      labelFilters.value = {
+        name: labelValue,
+        color: label.color,
+        id: label.id
+      }
       router.push({ query: { ...route.query, label: labelValue, page: '1' } })
     }
   }
@@ -100,9 +108,50 @@ const toggleView = () => {
   localStorage.setItem('blog-view-preference', isHorizontalView.value ? 'horizontal' : 'grid')
 }
 
+const filtersPage = () => {
+  if (route.query.search) {
+    filters.value.push({
+      id: route.query.search,
+      name: route.query.search,
+      color: '#2196F3',
+    })
+  }
+  if (route.query.label) {
+    const label = labelFilters.value
+    filters.value.push({
+      id: label?.id || route.query.label,
+      name: label?.name || route.query.label,
+      color: label?.color || '#4CAF50',
+    })
+  }
+}
+
+const removeFilter = (filterId) => {
+  const query = { ...route.query }
+
+  if (query.search === filterId) delete query.search
+  if (query.label === filterId) {
+    labelFilters.value = {}
+    delete query.label
+  }
+
+  query.page = '1'
+  router.push({ query })
+}
+
+watch(
+  () => route.query,
+  () => {
+    currentPage.value = parseInt(String(route.query.page || '1')) || 1
+    filters.value = []
+    filtersPage()
+  },
+  { immediate: true }
+)
+
 watch(currentPage, (newPage) => {
   router.push({
-    query: { page: newPage.toString() }
+    query: { ...route.query, page: newPage.toString() }
   })
 
   window.scrollTo({
@@ -134,9 +183,21 @@ setPageSeo({
         is-entry
       />
       <div class="main-container">
-       <TvBreadcrumbs
-         auto-generate
-       />
+         <TvBreadcrumbs
+           auto-generate
+         />
+        <div class="labels-container">
+          <TvLabel
+            v-for="filter in filters"
+            :key="filter.id"
+            :text-label="filter.name"
+            is-remove
+            :color="filter.color"
+            icon-position="left"
+            size="sm"
+            @click-label="removeFilter(filter.name)"
+          />
+        </div>
       </div>
     </section>
     <div class="container main-container">
@@ -186,7 +247,7 @@ setPageSeo({
           :new-label-text="t('blogs.sidebar.newLabelText')"
           is-label
           :data="renderLabels"
-          @click-label="handleSidebar"
+          @click="handleSidebar"
         />
       </section>
     </div>
@@ -198,6 +259,13 @@ setPageSeo({
   display: grid;
   grid-template-columns: 1fr 350px;
   gap: 30px;
+}
+
+.labels-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .view-toggle-container {
@@ -259,7 +327,7 @@ setPageSeo({
 .pagination-container {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin: 40px 0;
 }
 
 .container-sidebar {
@@ -269,6 +337,7 @@ setPageSeo({
   gap: 50px;
   display: flex;
   flex-direction: column;
+  padding-bottom: 20px;
 }
 
 @media (max-width: 1024px) {

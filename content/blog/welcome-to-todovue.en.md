@@ -8,7 +8,7 @@ tags:
   - tag: "TODOvue"
     color: "#42B883"
   - tag: "Offtopic"
-    color: "#35495E"
+    color: "#605AD1"
   - tag: "Ecosystem"
     color: "#68D4F2"
   - tag: "Architecture"

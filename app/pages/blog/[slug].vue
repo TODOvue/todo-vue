@@ -4,7 +4,6 @@ import {
   TvBreadcrumbs,
   TvCard,
   TvHero,
-  TvProgressBar,
   TvToc,
 } from '@todovue/tv-ui'
 
@@ -71,7 +70,33 @@ const relatedPosts = computed(() => {
   return blogStore.getRelatedPosts(post.value, 3)
 })
 
-const tocData = computed(() => post.value.body?.toc ?? null)
+const tocData = computed(() => {
+  const toc = post.value.body?.toc ?? null
+  if (!toc) return null
+  const enhancedToc = { ...toc }
+  if (!enhancedToc.title && post.value.title) {
+    enhancedToc.title = t('blogs.toc.title')
+  }
+
+  const hasH1 = enhancedToc.links && enhancedToc.links.length > 0 && enhancedToc.links[0].depth === 1
+
+  if (!hasH1 && post.value.title && Array.isArray(post.value.body?.value)) {
+   const h1Node = post.value.body.value.find(node => Array.isArray(node) && node[0] === 'h1')
+   const h1Id = h1Node?.[1]?.id
+
+   if (h1Id) {
+     const h1Link = {
+       id: h1Id,
+       depth: 1,
+       text: post.value.title
+     }
+     enhancedToc.links = [h1Link, ...(enhancedToc.links || [])]
+   }
+  }
+
+  return enhancedToc
+})
+
 const hasToc = computed(() => {
   const toc = tocData.value
   return Boolean(toc && Array.isArray(toc.links) && toc.links.length > 0)
@@ -176,7 +201,6 @@ const articleContainer = ref(null)
 
 <template>
   <main>
-    <TvProgressBar disabled :target="articleContainer" :offset-top="0" glow easing="easing-in-out" />
     <div ref="articleContainer" class="container-blog">
       <TvHero
         :config-hero="configHero"
@@ -197,7 +221,7 @@ const articleContainer = ref(null)
             class="blog-reading-zone__toc"
           >
             <div class="blog-reading-zone__toc-inner">
-              <TvToc :toc="tocData"/>
+              <TvToc :toc="tocData" compact />
             </div>
           </aside>
         </client-only>
@@ -273,8 +297,6 @@ const articleContainer = ref(null)
 
   .blog-reading-zone__toc-inner {
     overflow: auto;
-    padding-left: 1.5rem;
-    border-left: 1px solid rgba(148, 163, 184, 0.3);
   }
 }
 

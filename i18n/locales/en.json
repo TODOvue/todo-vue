@@ -42,15 +42,18 @@
       "untitled": "Untitled post",
       "cover": "Blog cover"
     },
-    "related": "Related Blogs"
+    "related": "Related Blogs",
+    "toc": {
+      "title": "In this blog"
+    }
   },
   "home": {
     "sections": {
-      "lastPost": "Featured Post",
-      "lastestPosts": "Latest Posts",
-      "mostPopular": "Most Popular Blogs",
-      "viewAllPosts": "View all posts",
-      "popularCategories": "Popular Categories"
+      "lastPost": "Last blog",
+      "lastestPosts": "Recent blogs",
+      "viewAllPosts": "View all blogs",
+      "mostPopular": "Most popular blogs",
+      "popularCategories": "Categories"
     },
     "hero": {
       "title": "TODOvue Blog",
