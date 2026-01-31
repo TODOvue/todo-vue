@@ -214,7 +214,7 @@ const configFooter = computed(() => ({
       items: footerPosts.value
     },
   ],
-  version: 'v1.1.1',
+  version: 'v1.1.0',
   legal: [
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
     { label: 'CrisDev', url: 'https://cris-dev.com', },
