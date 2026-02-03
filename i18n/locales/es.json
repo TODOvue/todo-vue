@@ -53,7 +53,7 @@
       "lastestPosts": "Blogs recientes",
       "viewAllPosts": "Ver todos los blogs",
       "mostPopular": "Blogs más populares",
-      "popularCategories": "Categorías"
+      "popularCategories": "Etiquetas"
     },
     "hero": {
       "title": "TODOvue Blog",
@@ -104,7 +104,7 @@
       "blogs": "Blogs",
       "components": "Componentes"
     },
-    "otherEntries": "Otras entradas",
+    "otherEntries": "Otros blogs",
     "copyright": "© {year} TODOvue. Designed & Developed by cris-dev.com. All rights reserved."
   },
   "errorPage": {
