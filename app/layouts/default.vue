@@ -318,6 +318,7 @@ useHead({
     <TvFooter
       :key="`${isDarkMode}-${language}`"
       :config="configFooter"
+      class="main-footer"
       @link-click="handleClickLinks"
     />
     <TvAlert />
@@ -349,5 +350,9 @@ useHead({
   flex-direction: column;
   gap: 16px;
   align-items: center;
+}
+
+.main-footer {
+  margin-top: 4rem;
 }
 </style>

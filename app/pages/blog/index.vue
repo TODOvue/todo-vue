@@ -327,7 +327,7 @@ setPageSeo({
 .pagination-container {
   display: flex;
   justify-content: center;
-  margin: 40px 0;
+  margin-top: 40px;
 }
 
 .container-sidebar {
@@ -337,7 +337,6 @@ setPageSeo({
   gap: 50px;
   display: flex;
   flex-direction: column;
-  padding-bottom: 20px;
 }
 
 @media (max-width: 1024px) {

@@ -181,7 +181,6 @@ setPageSeo({
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding-bottom: 50px;
 }
 
 @media (max-width: 1024px) {
