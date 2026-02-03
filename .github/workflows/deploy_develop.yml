@@ -30,6 +30,18 @@ jobs:
       - name: Rebuild SQLite for Linux
         run: pnpm rebuild better-sqlite3
 
+      - name: Resolve version for app
+        id: app_version
+        shell: bash
+        run: |
+          if [ -n "${{ steps.bump.outputs.NEW_VERSION }}" ]; then
+            V="${{ steps.bump.outputs.NEW_VERSION }}"
+          else
+            V=$(node -p "require('./package.json').version")
+          fi
+          echo "VERSION_APP=$V" >> $GITHUB_OUTPUT
+          echo "Using version: $V"
+
       - name: Create .env file
         run: |
           touch .env
@@ -48,6 +60,7 @@ jobs:
           echo NUXT_PUBLIC_SITE_INDEXABLE=${{ secrets.PUBLIC_SITE_INDEXABLE_DEV }} >> .env
           echo NUXT_PUBLIC_SITE_DEFAULT_LOCALE=${{ secrets.PUBLIC_SITE_DEFAULT_LOCALE }} >> .env
           echo NUXT_PUBLIC_SITE_TRAILING_SLASH=${{ secrets.PUBLIC_SITE_TRAILING_SLASH }} >> .env
+          echo NUXT_PUBLIC_VERSION_APP=v${{ steps.app_version.outputs.VERSION_APP }}-dev >> .env
 
       - name: Nuxt Generate
         run: pnpm run generate

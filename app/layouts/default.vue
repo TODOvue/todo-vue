@@ -19,9 +19,12 @@ import RssIcon from '~/assets/icons/rss.svg'
 
 const router = useRouter()
 const route = useRoute()
+const config = useRuntimeConfig()
 
 const { api } = useAlert()
 const alert = api()
+
+const VERSION_APP = config.public.version
 
 const { progress, isLoading } = useGlobalLoader()
 
@@ -214,7 +217,7 @@ const configFooter = computed(() => ({
       items: footerPosts.value
     },
   ],
-  version: 'v1.1.0',
+  version: VERSION_APP,
   legal: [
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
     { label: 'CrisDev', url: 'https://cris-dev.com', },

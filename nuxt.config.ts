@@ -50,7 +50,8 @@ export default defineNuxtConfig({
         databaseURL: process.env.NUXT_PUBLIC_FIREBASE_DATABASE_URL,
         measurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID
       },
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
+      version: process.env.NUXT_PUBLIC_VERSION_APP
     },
   },
 
