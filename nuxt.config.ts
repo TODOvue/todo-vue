@@ -1,6 +1,5 @@
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'
-import tailwindcss from '@tailwindcss/vite'
 
 const blogRoutes = (() => {
   try {
@@ -65,6 +64,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@todovue/tv-ui/nuxt',
+    '@nuxtjs/tailwindcss',
   ],
 
   site: {
@@ -154,8 +154,4 @@ export default defineNuxtConfig({
     trailingSlash: true,
     detectBrowserLanguage: false
   },
-
-  vite: {
-    plugins: [tailwindcss()]
-  }
 })
