@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   /* 🌙 Dark Theme */
   --dark-body-bg: #161E31;
