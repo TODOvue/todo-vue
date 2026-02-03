@@ -32,13 +32,13 @@ onMounted(() => {
 
 <template>
   <NuxtLayout name="default">
-    <div class="error-container">
-      <div class="error-content">
-        <h1 class="error-code">{{ title }}</h1>
-        <h2 class="error-title">{{ description }}</h2>
-        <p class="error-message">{{ message }}</p>
+    <div class="flex justify-center items-center min-h-[60vh] p-8 transition-colors duration-300 ease-in-out">
+      <div class="max-w-2xl text-center animation-fade-in">
+        <h1 class="text-9xl leading-none font-bold mb-4 text-primary opacity-0 animation-fade-in">{{ title }}</h1>
+        <h2 class="text-4 mb-4 font-semibold opacity-0 animation-fade-in">{{ description }}</h2>
+        <p class="text-2 mb-4 opacity-0 animation-fade-in">{{ message }}</p>
 
-        <div class="action-button">
+        <div class="opacity-0 animation-fade-in flex gap-4 justify-center">
           <TvButton
             rounded
             @click="handleError('/')"
@@ -57,73 +57,3 @@ onMounted(() => {
     </div>
   </NuxtLayout>
 </template>
-
-<style scoped>
-.error-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
-  padding: 2rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.error-content {
-  text-align: center;
-  max-width: 600px;
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-.error-code {
-  font-size: 8rem;
-  line-height: 1;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--button-bg);
-  opacity: 0;
-  animation: floatUp 0.8s ease-out 0.2s forwards;
-}
-
-.error-title {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  opacity: 0;
-  animation: floatUp 0.8s ease-out 0.4s forwards;
-}
-
-.error-message {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  opacity: 0.8;
-  animation: floatUp 0.8s ease-out 0.6s forwards;
-}
-
-.action-button {
-  opacity: 0;
-  animation: fadeIn 0.8s ease-out 0.8s forwards;
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-@keyframes floatUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-</style>

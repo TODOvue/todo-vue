@@ -69,9 +69,11 @@ setPageSeo({
       @click-secondary-button="navigateTo('https://ui.todovue.blog', true)"
     />
 
-    <div class="main-container">
-      <div class="section-header">
-        <h2 class="section-title">{{ t('home.sections.lastPost') }}</h2>
+    <div class="container-main">
+      <div class="mb-8 mt-12">
+        <h2 class="title-main">
+          {{ t('home.sections.lastPost') }}
+        </h2>
       </div>
       <TvCard
         v-if="lastBlogPosts"
@@ -82,11 +84,13 @@ setPageSeo({
       />
     </div>
 
-    <div v-if="latestPosts.length > 0" class="main-container">
-      <div class="section-header">
-        <h2 class="section-title">{{ t('home.sections.lastestPosts') }}</h2>
+    <div v-if="latestPosts.length > 0" class="container-main">
+      <div class="mb-8 mt-12">
+        <h2 class="title-main">
+          {{ t('home.sections.lastestPosts') }}
+        </h2>
       </div>
-      <div class="posts-grid">
+      <div class="flex flex-wrap gap-3 sm:justify-center md:justify-between">
         <TvCard
           v-for="post in latestPosts"
           :key="post.id"
@@ -127,7 +131,7 @@ setPageSeo({
   </section>
 </template>
 
-<style scoped>
+<style>
 .section-header {
   margin-bottom: 30px;
 }

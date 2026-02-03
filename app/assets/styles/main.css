@@ -35,3 +35,19 @@ h1, h2, h3 {
   width: 95%;
   max-width: 1400px;
 }
+
+.animation-fade-in {
+  @apply animate-fadeIn;
+}
+
+.title-main {
+  @apply text-3xl font-bold m-0 relative leading-tight inline-block;
+}
+
+.title-main::after {
+  @apply content-[''] absolute left-0 -bottom-2 w-16 h-1 rounded bg-primary;
+}
+
+.container-main {
+  @apply mt-5 mx-auto mb-0 w-4/5;
+}
