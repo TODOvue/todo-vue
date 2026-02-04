@@ -41,7 +41,9 @@ const latestPosts = computed(() => {
 })
 
 const popularCategories = computed(() => {
-  return blogStore.getAllLabels.value
+  const allLabels = blogStore.getAllLabels.value
+  console.log(allLabels)
+  return allLabels.slice(0, 6)
 })
 
 const handleCategoryClick = (label) => {
@@ -90,7 +92,7 @@ setPageSeo({
           {{ t('home.sections.lastestPosts') }}
         </h2>
       </div>
-      <div class="flex flex-wrap gap-3 sm:justify-center md:justify-between">
+      <div class="flex flex-wrap gap-2 justify-center sm:justify-center md:justify-around">
         <TvCard
           v-for="post in latestPosts"
           :key="post.id"
@@ -99,7 +101,7 @@ setPageSeo({
           @click-label="handleCategoryClick"
         />
       </div>
-      <div class="see-all-container">
+      <div class="mt-8 flex justify-center">
         <TvButton
           rounded
           large
@@ -111,12 +113,14 @@ setPageSeo({
       </div>
     </div>
 
-    <div class="main-container">
-      <div class="section-header">
-        <h2 class="section-title">{{ t('home.sections.popularCategories') }}</h2>
+    <div class="container-main">
+      <div class="mb-8 mt-12">
+        <h2 class="title-main">
+          {{ t('home.sections.popularCategories') }}
+        </h2>
       </div>
-      <div v-if="popularCategories.length > 0" class="categories-container">
-        <div class="labels-grid">
+      <div v-if="popularCategories.length > 0">
+        <div class="flex flex-wrap gap-2 justify-center sm:justify-center md:justify-start">
           <TvLabel
             v-for="label in popularCategories"
             :key="label.id"
@@ -131,90 +135,3 @@ setPageSeo({
   </section>
 </template>
 
-<style>
-.section-header {
-  margin-bottom: 30px;
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--dark-text);
-  margin: 0;
-  position: relative;
-  display: inline-block;
-}
-
-.light-mode .section-title {
-  color: var(--light-text);
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: var(--dark-card-bg);
-  border-radius: 2px;
-}
-
-.light-mode .section-title::after {
-  background: var(--light-card-bg);
-}
-
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-bottom: 40px;
-}
-
-.see-all-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.categories-container {
-  max-width: 100%;
-}
-
-.labels-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-@media (max-width: 1024px) {
-  .posts-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
-  }
-
-  .section-title {
-    font-size: 1.75rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .posts-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    justify-items: center;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-  }
-
-  .section-header {
-    margin-bottom: 20px;
-  }
-
-  .labels-grid {
-    justify-content: center;
-  }
-}
-</style>

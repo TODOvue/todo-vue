@@ -41,7 +41,7 @@ h1, h2, h3 {
 }
 
 .title-main {
-  @apply text-3xl font-bold m-0 relative leading-tight inline-block;
+  @apply text-3xl font-bold m-0 relative leading-tight inline-block ml-4 md:ml-0;
 }
 
 .title-main::after {
@@ -49,5 +49,5 @@ h1, h2, h3 {
 }
 
 .container-main {
-  @apply mt-5 mx-auto mb-0 w-4/5;
+  @apply mt-5 mx-auto mb-0 w-full md:w-4/5 justify-center;
 }
