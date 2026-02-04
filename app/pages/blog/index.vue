@@ -182,11 +182,9 @@ setPageSeo({
         :config-hero="configHero"
         is-entry
       />
-      <div class="main-container">
-         <TvBreadcrumbs
-           auto-generate
-         />
-        <div class="labels-container">
+      <div class="container-main">
+        <TvBreadcrumbs auto-generate />
+        <div class="mt-5 flex flex-wrap gap-2.5">
           <TvLabel
             v-for="filter in filters"
             :key="filter.id"
@@ -200,20 +198,33 @@ setPageSeo({
         </div>
       </div>
     </section>
-    <div class="container main-container">
+
+    <div
+      class="container-main grid grid-cols-1 gap-5 lg:grid-cols-[1fr_350px] lg:gap-[30px]"
+    >
       <section>
-        <div class="view-toggle-container">
+        <div class="mb-5 flex justify-center sm:justify-end">
           <button
             :aria-label="isHorizontalView ? t('blogs.switch.gridAria') : t('blogs.switch.listAria')"
-            class="view-toggle-btn"
+            class="flex items-center gap-2 rounded-lg border-0 bg-light-card-bg dark:bg-dark-card-bg px-5 py-2.5 text-sm font-medium text-text shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow"
             @click="toggleView"
           >
-            <IconGrid v-if="!isHorizontalView" />
-            <IconList v-else />
-            <span>{{ isHorizontalView ? t('blogs.switch.grid') : t('blogs.switch.list') }}</span>
+            <span class="[&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-[18px] sm:[&>svg]:w-[18px]">
+              <IconGrid v-if="!isHorizontalView" />
+              <IconList v-else />
+            </span>
+            <span class="text-sm">{{ isHorizontalView ? t('blogs.switch.grid') : t('blogs.switch.list') }}</span>
           </button>
         </div>
-        <div v-if="configCards.length" class="container-cards" :class="{ 'horizontal': isHorizontalView }">
+
+        <div
+          v-if="configCards.length"
+          :class="[
+            isHorizontalView
+              ? 'grid grid-cols-1 gap-px'
+              : 'grid grid-cols-1 gap-[15px] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] lg:gap-5'
+          ]"
+        >
           <TvCard
             v-for="post in configCards"
             :key="post.id"
@@ -224,8 +235,9 @@ setPageSeo({
           />
         </div>
         <p v-else>{{ t('blogs.empty') }}</p>
+
         <ClientOnly>
-          <div v-if="safePosts.length > pageSize" class="pagination-container">
+          <div v-if="safePosts.length > pageSize" class="mt-10 flex justify-center">
             <TvPagination
               v-model="currentPage"
               :total-items="safePosts.length"
@@ -236,7 +248,8 @@ setPageSeo({
           </div>
         </ClientOnly>
       </section>
-      <section class="container-sidebar">
+
+      <section class="static flex flex-col gap-10 lg:sticky lg:top-5 lg:h-fit">
         <TvSidebar
           :data="renderMostPopular"
           @click="handleLinkBlog"
@@ -253,129 +266,3 @@ setPageSeo({
     </div>
   </main>
 </template>
-
-<style scoped>
-.container {
-  display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: 30px;
-}
-
-.labels-container {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.view-toggle-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
-
-.view-toggle-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--dark-card-bg);
-  color: var(--dark-text);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(var(--dark-card-bg), 0.4);
-}
-
-.light-mode {
-  .view-toggle-btn {
-    background: var(--light-card-bg);
-    color: var(--light-text);
-    box-shadow: 0 2px 8px rgba(var(--light-card-bg), 0.4);
-  }
-}
-
-.view-toggle-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-}
-
-.view-toggle-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.view-toggle-btn svg {
-  width: 20px;
-  height: 20px;
-}
-
-.container-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.container-cards.horizontal {
-  grid-template-columns: 1fr;
-  gap: 1px;
-}
-
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
-
-.container-sidebar {
-  position: sticky;
-  top: 20px;
-  height: fit-content;
-  gap: 50px;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (max-width: 1024px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
-
-  .container-sidebar {
-    position: static;
-    max-width: 100vw;
-  }
-}
-
-@media (max-width: 640px) {
-  .container {
-    width: 100%;
-    padding: 0 15px;
-    margin: 20px auto;
-    gap: 20px;
-  }
-
-  .container-cards {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    justify-items: center;
-  }
-
-  .view-toggle-container {
-    justify-content: center;
-  }
-
-  .view-toggle-btn {
-    padding: 8px 16px;
-    font-size: 13px;
-  }
-
-  .view-toggle-btn svg {
-    width: 18px;
-    height: 18px;
-  }
-}
-</style>

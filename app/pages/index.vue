@@ -42,7 +42,6 @@ const latestPosts = computed(() => {
 
 const popularCategories = computed(() => {
   const allLabels = blogStore.getAllLabels.value
-  console.log(allLabels)
   return allLabels.slice(0, 6)
 })
 

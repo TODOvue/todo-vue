@@ -1,17 +1,3 @@
-
-.dark {
-  --body-bg: var(--dark-body-bg);
-  --card-bg: var(--dark-card-bg);
-  --text: var(--dark-text);
-}
-
-.light {
-  --body-bg: var(--light-body-bg);
-  --card-bg: var(--light-card-bg);
-  --text: var(--light-text);
-  --button-text: var(--light-button-text);
-}
-
 .dark-mode {
   background-color: var(--dark-body-bg);
   color: var(--dark-text);
@@ -49,5 +35,5 @@ h1, h2, h3 {
 }
 
 .container-main {
-  @apply mt-5 mx-auto mb-0 w-full md:w-4/5 justify-center;
+  @apply mt-5 mx-auto mb-0 sm:w-full md:w-[95%] max-w-[1400px] justify-center;
 }

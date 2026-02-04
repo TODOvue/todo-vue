@@ -2,6 +2,7 @@
 import type { Config } from 'tailwindcss'
 
 export default {
+  darkMode: ['selector', '.dark-mode'],
   content: [
     './app/**/*.{vue,js,ts}',
     './components/**/*.{vue,js,ts}',
@@ -14,11 +15,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        'body-bg': 'var(--body-bg)',
-        'card-bg': 'var(--card-bg)',
-        'text': 'var(--text)',
-        'button-bg': 'var(--button-bg)',
-        'button-text': 'var(--button-text)',
+        'dark-body-bg': 'var(--dark-body-bg)',
+        'dark-card-bg': 'var(--dark-card-bg)',
+        'dark-text': 'var(--dark-text)',
+        'dark-button-bg': 'var(--dark-button-bg)',
+        'dark-button-text': 'var(--dark-button-text)',
+        'light-body-bg': 'var(--light-body-bg)',
+        'light-card-bg': 'var(--light-card-bg)',
+        'light-text': 'var(--light-text)',
+        'light-button-bg': 'var(--light-button-bg)',
+        'light-button-text': 'var(--light-button-text)',
         'primary': 'var(--button-bg)',
       },
     },
