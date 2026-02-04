@@ -18,7 +18,8 @@ A modern, high-performance blog built with Nuxt 4 and Vue 3. This project levera
 
 - **Framework**: [Nuxt](https://nuxt.com/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: Vanilla CSS (Scoped & Global)
+- **Styling**: [@nuxtjs/tailwindcss](https://tailwindcss.nuxtjs.org/)
+- **Content Management**: [Nuxt Content](https://content.nuxtjs.org/)
 - **Database**: [Firebase](https://firebase.google.com/) (for backend services where needed)
 
 ## Getting Started
