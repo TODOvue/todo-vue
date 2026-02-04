@@ -213,7 +213,9 @@ setPageSeo({
               <IconGrid v-if="!isHorizontalView" />
               <IconList v-else />
             </span>
-            <span class="text-sm">{{ isHorizontalView ? t('blogs.switch.grid') : t('blogs.switch.list') }}</span>
+            <span class="text-sm">
+              {{ isHorizontalView ? t('blogs.switch.grid') : t('blogs.switch.list') }}
+            </span>
           </button>
         </div>
 

@@ -206,26 +206,26 @@ const articleContainer = ref(null)
         :config-hero="configHero"
         is-entry
       />
-      <div class="main-container">
+      <div class="container-main">
         <TvBreadcrumbs
           :items="breadcrumbs"
         />
       </div>
       <section
         v-if="post"
-        class="main-container blog-reading-zone"
+        class="container-main mt-0 mb-20 flex flex-col gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12"
       >
         <client-only>
           <aside
             v-if="hasToc"
-            class="blog-reading-zone__toc"
+            class="order-1 pt-6 lg:order-2 lg:border-t-0 lg:pt-0"
           >
-            <div class="blog-reading-zone__toc-inner">
+            <div class="sticky top-5 lg:overflow-auto">
               <TvToc :toc="tocData" compact />
             </div>
           </aside>
         </client-only>
-        <div class="blog-reading-zone__article">
+        <div class="order-2 min-w-0 lg:order-1">
           <TvArticle
             :content="articleData"
             :lang="locale"
@@ -234,9 +234,11 @@ const articleContainer = ref(null)
         </div>
       </section>
 
-      <section v-if="relatedPosts.length" class="main-container related-posts">
-        <h2 class="related-title">{{ t('blogs.related') }}</h2>
-        <div class="related-grid">
+      <section v-if="relatedPosts.length" class="container-main mb-16 mt-20">
+        <h2 class="title-main">
+          {{ t('blogs.related') }}
+        </h2>
+        <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
           <TvCard
             v-for="related in relatedPosts"
             :key="related.id"
@@ -253,75 +255,5 @@ const articleContainer = ref(null)
 <style scoped>
 :deep(.tv-article) {
   padding: 0 !important;
-}
-
-.blog-reading-zone {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-top: 0;
-}
-
-.blog-reading-zone__article {
-  min-width: 0;
-  order: 2;
-}
-
-.blog-reading-zone__toc {
-  order: 1;
-  border-top: 1px solid rgba(148, 163, 184, 0.4);
-  padding-top: 1.5rem;
-}
-
-.blog-reading-zone__toc-inner {
-  position: sticky;
-  top: 20px;
-}
-
-@media (min-width: 992px) {
-  .blog-reading-zone {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 280px;
-    gap: 3rem;
-  }
-
-  .blog-reading-zone__article {
-    order: 1;
-  }
-
-  .blog-reading-zone__toc {
-    order: 2;
-    border-top: none;
-    padding-top: 0;
-  }
-
-  .blog-reading-zone__toc-inner {
-    overflow: auto;
-  }
-}
-
-.related-posts {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-}
-
-.related-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-.related-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-@media (max-width: 640px) {
-  .related-grid {
-    grid-template-columns: 1fr;
-    justify-content: center;
-    justify-items: center;
-  }
 }
 </style>
