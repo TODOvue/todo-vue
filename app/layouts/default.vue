@@ -285,7 +285,7 @@ useHead({
       :model-value="progress"
       :disabled="!isLoading"
     />
-    <div class="menu-container">
+    <div class="mx-auto w-[95%] max-w-[1400px] py-4">
       <TvMenu
         :menus="configMenu.menus"
         :placeholder="configMenu.placeholder"
@@ -299,10 +299,10 @@ useHead({
         @search-menu="handleClickMenu"
       />
     </div>
-    <div class="settings-container">
+    <div class="fixed bottom-5 left-10 z-[1000]">
       <TvSettings direction="top" :label="t('home.settings.label')">
         <template #default>
-          <div class="settings-content">
+          <div class="flex flex-col items-center gap-4">
             <TvThemeButton square @change-theme="changeValue" />
             <TvButton
               :aria-label="t('home.settings.language.button.aria')"
@@ -321,7 +321,7 @@ useHead({
     <TvFooter
       :key="`${isDarkMode}-${language}`"
       :config="configFooter"
-      class="main-footer"
+      class="mt-16"
       @link-click="handleClickLinks"
     />
     <TvAlert />
@@ -333,29 +333,5 @@ useHead({
 :deep(.tv-menu-image img) {
   width: 40px !important;
   height: 40px !important;
-}
-
-.menu-container {
-  max-width: 80%;
-  margin: 0 auto;
-  padding: 1rem 0;
-}
-
-.settings-container {
-  position: fixed;
-  bottom: 40px;
-  left: 40px;
-  z-index: 1000;
-}
-
-.settings-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
-}
-
-.main-footer {
-  margin-top: 4rem;
 }
 </style>
