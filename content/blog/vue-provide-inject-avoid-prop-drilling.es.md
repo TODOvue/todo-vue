@@ -15,7 +15,6 @@ tags:
     color: "#2196F3"
   - tag: "Gestión de Estado"
     color: "#FF9800"
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1769126104/vue-provide-inject-avoid-prop-drilling_pkd9s1.png
 coverAlt: "Provide e Inject en Vue 3: Guía definitiva para eliminar el Prop Drilling"
 coverCaption: "Provide e Inject en Vue 3 por TODOvue"
