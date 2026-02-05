@@ -44,14 +44,6 @@ Nuestro objetivo es trascender los tutoriales introductorios. En TODOvue profund
 * **Rendimiento y Optimización**: Técnicas de *code-splitting*, optimización de bundles y estrategias para alcanzar la máxima velocidad en el lado del cliente.
 * **Herramientas y Librerías**: Análisis profundo de **Pinia**, **Vue Router**, **Vite** y las propuestas emergentes más disruptivas de la comunidad.
 
-```vue [App.vue]{2,4}
-<script setup>
-import LogicToggle from '@/components/LogicToggle.vue';
-import { ref } from 'vue';
-const isOpen = ref(false);
-</script>
-```
-
 ## "Dogfooding": Construido con lo que enseñamos
 
 Un aspecto diferencial de este blog es su propia arquitectura. Todo lo que interactúa en esta plataforma ha sido desarrollado bajo los principios de **Atomic Design**.

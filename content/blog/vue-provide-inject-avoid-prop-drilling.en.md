@@ -59,7 +59,7 @@ To implement this communication, we follow a key-value structure.
 
 #### **Provider Component (Grandparent):**
 
-```vue [Composition API]
+```vue [Composition API]{2,8}
 <script setup>
 import { ref, provide } from 'vue'
 import Child from './Child.vue'
@@ -74,7 +74,7 @@ provide('app-name-key', appName)
   <Child />
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{3}
 <script>
 export default {
 provide: {
@@ -90,7 +90,7 @@ provide: {
 
 #### **Consumer Component (Grandchild):**
 
-```vue [Composition API]
+```vue [Composition API]{2,5}
 <script setup>
 import { inject } from 'vue'
 
@@ -102,7 +102,7 @@ const appName = inject('app-name-key')
   <h1>{{ appName }}</h1>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{3}
 <script>
   export default {
     inject: ['appName'],
@@ -132,7 +132,7 @@ If any component can alter the injected state, we lose track of **who, when, and
 
 #### **Provider Component (Grandparent):**
 
-```vue [Composition API]{9}
+```vue [Composition API]{10}
 <script setup>
 import { ref, provide, readonly } from 'vue'
 
@@ -147,7 +147,7 @@ provide('config-language', {
 })
 </script>
 ```
-```vue [Options API]{21}
+```vue [Options API]{23}
 <script>
 import { computed } from 'vue'
 
@@ -180,7 +180,7 @@ provide() {
 
 #### **Consumer Component (Grandchild):**
 
-```vue [Composition API]
+```vue [Composition API]{4}
 <script setup>
 import { inject } from 'vue'
 
@@ -194,7 +194,7 @@ const { language, changeLanguage } = inject('config-language')
   </div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{7,14}
 <script>
 export default {
   inject: {
@@ -231,7 +231,7 @@ export default {
 
 To make your components more robust, you can define a default value in the `inject`. If the component is used outside of a tree that provides the key, you'll avoid runtime errors:
 
-```javascript [inject-default.js]
+```javascript [inject-default.js]{2}
 // If it doesn't find 'user-data', it will use the default object
 const user = inject('user-data', { name: 'Guest', premium: false })
 ```
@@ -246,7 +246,7 @@ In addition to using it between components, you can define global values directl
 
 #### **Implementation:**
 
-```javascript [main.js]
+```javascript [main.js]{7,8}
 import { createApp } from 'vue'
 import App from './App.vue'
 
@@ -266,7 +266,7 @@ app.mount('#app')
 
 #### **Consuming in any component:**
 
-```vue [SomeComponent.vue]
+```vue [SomeComponent.vue]{4,5}
 <script setup>
 import { inject } from 'vue'
 

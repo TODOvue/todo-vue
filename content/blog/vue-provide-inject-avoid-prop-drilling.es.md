@@ -59,7 +59,7 @@ Para implementar esta comunicación, seguimos una estructura de clave y valor.
 
 #### **Componente Emisor (Abuelo):**
 
-```vue [Composition API]
+```vue [Composition API]{2,8}
 <script setup>
 import { ref, provide } from 'vue'
 import Hijo from './Hijo.vue'
@@ -74,7 +74,7 @@ provide('app-name-key', nombreApp)
   <Hijo />
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{3}
 <script>
 export default {
   provide: {
@@ -90,7 +90,7 @@ export default {
 
 #### **Componente Receptor (Nieto):**
 
-```vue [Composition API]
+```vue [Composition API]{2,5}
 <script setup>
 import { inject } from 'vue'
 
@@ -102,7 +102,7 @@ const nombreApp = inject('app-name-key')
   <h1>{{ nombreApp }}</h1>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{3}
 <script>
 export default {
   inject: ['nombreApp'],
@@ -132,7 +132,7 @@ Si cualquier componente puede alterar el estado inyectado, perdemos el rastro de
 
 #### **Componente Emisor (Abuelo):**
 
-```vue [Composition API]{9}
+```vue [Composition API]{10}
 <script setup>
 import { ref, provide, readonly } from 'vue'
 
@@ -147,7 +147,7 @@ provide('config-idioma', {
 })
 </script>
 ```
-```vue [Options API]{21}
+```vue [Options API]{23}
 <script>
 import { computed } from 'vue'
 
@@ -180,7 +180,7 @@ export default {
 
 #### **Componente Receptor (Nieto):**
 
-```vue [Composition API]
+```vue [Composition API]{4}
 <script setup>
 import { inject } from 'vue'
 
@@ -194,7 +194,7 @@ const { idioma, cambiarIdioma } = inject('config-idioma')
   </div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{7,14}
 <script>
 export default {
   inject: {
@@ -231,7 +231,7 @@ export default {
 
 Para hacer tus componentes más robustos, puedes definir un valor por defecto en el `inject`. Si el componente se usa fuera de un árbol que provea la clave, evitarás errores de ejecución:
 
-```javascript [inject-default.js]
+```javascript [inject-default.js]{2}
 // Si no encuentra 'user-data', usará el objeto por defecto
 const usuario = inject('user-data', { nombre: 'Invitado', premium: false })
 ```
@@ -246,7 +246,7 @@ Además de usarlo entre componentes, puedes definir valores globales directament
 
 #### **Implementación:**
 
-```javascript [main.js]
+```javascript [main.js]{7,8}
 import { createApp } from 'vue'
 import App from './App.vue'
 
@@ -266,7 +266,7 @@ app.mount('#app')
 
 #### **Consumiendo en cualquier componente:**
 
-```vue [SomeComponent.vue]
+```vue [SomeComponent.vue]{4,5}
 <script setup>
 import { inject } from 'vue'
 
@@ -328,4 +328,3 @@ Esta arquitectura permite que un hijo "sobrescriba" un valor para sus propios de
 4. **Usarlo en el nivel adecuado:** componentes para estado jerárquico, Pinia para estado global complejo
 
 Dominar este patrón te permitirá construir aplicaciones Vue más escalables y fáciles de mantener.
-

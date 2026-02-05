@@ -55,7 +55,7 @@ Use it when:
 * It shouldn’t always exist
 * It depends on permissions or critical states
 
-```vue [Composition API]
+```vue [Composition API]{8-9}
 <script setup>
 import { ref } from 'vue'
 
@@ -67,7 +67,7 @@ const isLogged = ref(true)
   <p v-else>You’re not logged in</p>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12-13}
 <script>
 export default {
   data() {
@@ -93,7 +93,7 @@ Use it when:
 * The element is shown and hidden frequently
 * You don’t want to pay the cost of mounting and unmounting the node
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
   
@@ -104,7 +104,7 @@ const isVisible = ref(true)
   <p v-show="isVisible">Visible content</p>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -128,7 +128,7 @@ Mental key:
 
 > `v-for` describes **structure**, not logic.
 
-```vue [Composition API]
+```vue [Composition API]{11-13}
 <script setup>
 import { ref } from 'vue'
   
@@ -144,7 +144,7 @@ const items = ref([
   </li>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{15-17}
 <script>
 export default {
   data() {
@@ -176,7 +176,7 @@ Think of `v-bind` like:
 
 > “This attribute depends on state”
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -187,7 +187,7 @@ const imageUrl = ref('https://example.com/image.jpg')
   <img v-bind:src="imageUrl" alt="Dynamic image" />
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{13}
 <script>
 export default {
   data() {
@@ -214,7 +214,7 @@ It’s ideal for:
 * Controlled inputs
 * Reusable components
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -226,7 +226,7 @@ const username = ref('')
   <p>Hello, {{ username }}!</p>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -250,7 +250,7 @@ It’s not magic, but it definitely feels like it.
 
 It listens to DOM events and runs reactive logic.
 
-```vue [Composition API]
+```vue [Composition API]{11}
 <script setup>
 import { ref } from 'vue'
 
@@ -264,7 +264,7 @@ const increment = () => {
   <button v-on:click="increment">You’ve clicked {{ count }} times</button>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{17}
 <script>
 export default {
   data() {
@@ -292,7 +292,7 @@ It supports **modifiers** (`.stop`, `.prevent`, `.once`, etc.) that avoid unnece
 
 It inserts plain text into an element, replacing its content.
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -303,7 +303,7 @@ const message = ref('Hello World')
   <div v-text="message"></div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -325,7 +325,7 @@ It’s not used much, but it exists for very specific cases where you don’t wa
 
 It inserts unescaped HTML.
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -336,7 +336,7 @@ const rawHtml = ref('<strong>Bold text</strong>')
   <div v-html="rawHtml"></div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -359,7 +359,7 @@ It’s a direct door to XSS if you don’t know exactly what you’re rendering.
 
 It lets you define dynamic content inside components via slots.
 
-```vue [Composition API]
+```vue [Composition API]{6,10}
 <script setup>
 </script>
 
@@ -375,7 +375,7 @@ It lets you define dynamic content inside components via slots.
   </MyCard>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{9,13}
 <script>
 export default {
   components: { MyCard }
@@ -401,7 +401,7 @@ It’s key for building **flexible, composable, reusable** components.
 
 It renders content **only once** and excludes it from the reactive system.
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
   
@@ -413,7 +413,7 @@ const count = ref(0)
   <button @click="count++">Increment</button>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -436,7 +436,7 @@ Useful when content should never update, even if state changes.
 
 It prevents unnecessary re-renders when dependencies don’t change.
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -450,7 +450,7 @@ const count = ref(0)
   <button @click="count++">Increment</button>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -475,7 +475,7 @@ It’s not meant to be used “just because”, but in real bottlenecks.
 
 It prevents Vue from compiling the node’s content.
 
-```vue [Composition API]
+```vue [Composition API]{5}
 <script setup>
 </script>
 
@@ -485,7 +485,7 @@ It prevents Vue from compiling the node’s content.
   </div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{6}
 <script>
 export default {}
 </script>
@@ -503,7 +503,7 @@ Perfect for showing snippets, literal examples, or demo templates.
 
 It hides the template until Vue finishes mounting the app.
 
-```vue [Composition API]
+```vue [Composition API]{5}
 <script setup>
 </script>
 
@@ -513,7 +513,7 @@ It hides the template until Vue finishes mounting the app.
   </div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{6}
 <script>
 export default {}
 </script>
@@ -531,7 +531,7 @@ It prevents the initial flash in client-rendered apps.
 
 They let you extend Vue to directly manipulate the DOM when there’s no more declarative option.
 
-```js [main.js]
+```js [main.js]{4-8}
 import { createApp } from 'vue'
 import App from './App.vue'
 const app = createApp(App)
@@ -541,8 +541,7 @@ app.directive('focus', {
   }
 })
 ```
-
-```vue [App.vue]
+```vue [App.vue]{2}
 <template>
   <input v-focus />
 </template>

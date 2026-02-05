@@ -56,7 +56,7 @@ This pattern is implemented using **Scoped Slots**. Unlike a regular *slot*, a *
 
 Imagine a component that manages an “open/closed” state—something essential in menus and modals.
 
-```vue [LogicToggle.vue - Composition API]
+```vue [LogicToggle.vue - Composition API]{4-7,13}
 <script setup>
   import { ref } from 'vue';
 
@@ -72,7 +72,7 @@ Imagine a component that manages an “open/closed” state—something essentia
   <slot :isOpen="isOpen" :toggle="toggle"></slot>
 </template>
 ```
-```vue [LogicToggle.vue - Options API]
+```vue [LogicToggle.vue - Options API]{5,9-11,18}
 <script>
   export default {
     data() {
@@ -97,7 +97,7 @@ Imagine a component that manages an “open/closed” state—something essentia
 **Implementation in the Parent**
 When consuming this component, you get complete creative freedom:
 
-```vue [ParentComponent.vue]
+```vue [ParentComponent.vue]{2-4,6}
 <template>
   <LogicToggle v-slot="{ isOpen, toggle }">
     <button @click="toggle">
@@ -114,7 +114,7 @@ When consuming this component, you get complete creative freedom:
 
 To reach a production-grade level—especially in libraries distributed via NPM—it’s recommended to avoid the `<template>` block. By using a `render` function and the `h` (*hyperscript*) method, we eliminate **template compilation overhead** and avoid creating unnecessary extra DOM nodes.
 
-```javascript [LogicToggle.js]
+```javascript [LogicToggle.js]{4-6,10-13}
 import { ref, h } from 'vue';
 
 export default {

@@ -155,7 +155,7 @@ bun add vue@3.6.0-beta.1
 
 Activa el soporte para archivos `.vapor.vue` (la convención recomendada para diferenciar componentes):
 
-```javascript [vite.config.js]
+```javascript [vite.config.js]{7}
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
@@ -172,7 +172,7 @@ export default defineConfig({
 
 Puedes mezclar componentes estándar y Vapor. Para forzar a un componente a usar el nuevo motor, usa la extensión `.vapor.vue` o define el bloque script:
 
-```vue [Index.vue]
+```vue [Index.vue]{1}
 <script setup vapor>
 // Este componente se compilará sin Virtual DOM
 </script>

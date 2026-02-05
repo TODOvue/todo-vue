@@ -55,7 +55,7 @@ Si la condición es falsa, el elemento **no existe en el DOM**.
 * No siempre debe existir
 * Depende de permisos o estados críticos
 
-```vue [Composition API]
+```vue [Composition API]{8-9}
 <script setup>
 import { ref } from 'vue'
 
@@ -67,7 +67,7 @@ const isLogged = ref(true)
   <p v-else>No has iniciado sesión</p>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12-13}
 <script>
 export default {
   data() {
@@ -93,7 +93,7 @@ Controla la visibilidad usando CSS (`display: none`), pero **el elemento siempre
 * El elemento se muestra y oculta con frecuencia
 * No quieres pagar el costo de montar y desmontar el nodo
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
   
@@ -104,7 +104,7 @@ const isVisible = ref(true)
   <p v-show="isVisible">Contenido visible</p>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -128,7 +128,7 @@ Clave mental:
 
 > `v-for` describe **estructura**, no lógica.
 
-```vue [Composition API]
+```vue [Composition API]{11-13}
 <script setup>
 import { ref } from 'vue'
   
@@ -144,7 +144,7 @@ const items = ref([
   </li>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{15-17}
 <script>
 export default {
   data() {
@@ -176,7 +176,7 @@ Piensa en `v-bind` como:
 
 > “Este atributo depende del estado”
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -187,7 +187,7 @@ const imageUrl = ref('https://example.com/image.jpg')
   <img v-bind:src="imageUrl" alt="Imagen dinámica" />
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{13}
 <script>
 export default {
   data() {
@@ -214,7 +214,7 @@ Es ideal para:
 * Inputs controlados
 * Componentes reutilizables
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -226,7 +226,7 @@ const username = ref('')
   <p>Hola, {{ username }}!</p>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -250,7 +250,7 @@ No es magia, pero se le parece bastante.
 
 Escucha eventos del DOM y ejecuta lógica reactiva.
 
-```vue [Composition API]
+```vue [Composition API]{11}
 <script setup>
 import { ref } from 'vue'
 
@@ -264,7 +264,7 @@ const increment = () => {
   <button v-on:click="increment">Has hecho clic {{ count }} veces</button>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{17}
 <script>
 export default {
   data() {
@@ -292,7 +292,7 @@ Soporta **modificadores** (`.stop`, `.prevent`, `.once`, etc.) que evitan códig
 
 Inserta texto plano en un elemento, reemplazando su contenido.
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -303,7 +303,7 @@ const message = ref('Hola Mundo')
   <div v-text="message"></div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -325,7 +325,7 @@ No se usa mucho, pero existe para casos muy específicos donde no quieres interp
 
 Inserta HTML sin escapar.
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -336,7 +336,7 @@ const rawHtml = ref('<strong>Texto en negrita</strong>')
   <div v-html="rawHtml"></div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -359,7 +359,7 @@ Es una puerta directa a XSS si no sabes exactamente lo que estás renderizando.
 
 Permite definir contenido dinámico dentro de componentes mediante slots.
 
-```vue [Composition API]
+```vue [Composition API]{6,10}
 <script setup>
 </script>
 
@@ -375,7 +375,7 @@ Permite definir contenido dinámico dentro de componentes mediante slots.
   </MyCard>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{9,13}
 <script>
 export default {
   components: { MyCard }
@@ -401,7 +401,7 @@ Es clave para crear componentes **flexibles, composables y reutilizables**.
 
 Renderiza el contenido **una sola vez** y lo excluye del sistema reactivo.
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
   
@@ -413,7 +413,7 @@ const count = ref(0)
   <button @click="count++">Incrementar</button>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -436,7 +436,7 @@ export default {
 
 Evita renderizados innecesarios cuando las dependencias no cambian.
 
-```vue [Composition API]
+```vue [Composition API]{8}
 <script setup>
 import { ref } from 'vue'
 
@@ -450,7 +450,7 @@ const count = ref(0)
   <button @click="count++">Incrementar</button>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{12}
 <script>
 export default {
   data() {
@@ -475,7 +475,7 @@ No está pensada para usarse “porque sí”, sino en cuellos de botella reales
 
 Evita que Vue compile el contenido del nodo.
 
-```vue [Composition API]
+```vue [Composition API]{5}
 <script setup>
 </script>
 
@@ -485,7 +485,7 @@ Evita que Vue compile el contenido del nodo.
   </div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{6}
 <script>
 export default {}
 </script>
@@ -503,7 +503,7 @@ Perfecta para mostrar snippets, ejemplos literales o templates de demostración.
 
 Oculta el template hasta que Vue termine de montar la aplicación.
 
-```vue [Composition API]
+```vue [Composition API]{5}
 <script setup>
 </script>
 
@@ -513,7 +513,7 @@ Oculta el template hasta que Vue termine de montar la aplicación.
   </div>
 </template>
 ```
-```vue [Options API]
+```vue [Options API]{6}
 <script>
 export default {}
 </script>
@@ -531,7 +531,7 @@ Evita el parpadeo inicial en aplicaciones renderizadas del lado del cliente.
 
 Permiten extender Vue para manipular directamente el DOM cuando no hay otra opción más declarativa.
 
-```js [main.js]
+```js [main.js]{4-8}
 import { createApp } from 'vue'
 import App from './App.vue'
 const app = createApp(App)
@@ -541,8 +541,7 @@ app.directive('focus', {
   }
 })
 ```
-
-```vue [App.vue]
+```vue [App.vue]{2}
 <template>
   <input v-focus />
 </template>
