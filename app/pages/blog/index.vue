@@ -224,7 +224,7 @@ setPageSeo({
           :class="[
             isHorizontalView
               ? 'grid grid-cols-1 gap-px'
-              : 'grid grid-cols-1 gap-[15px] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] lg:gap-5'
+              : 'grid grid-cols-1 gap-[15px] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] lg:gap-5 justify-items-center'
           ]"
         >
           <TvCard

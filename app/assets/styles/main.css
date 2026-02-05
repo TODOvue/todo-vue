@@ -35,5 +35,5 @@ h1, h2, h3 {
 }
 
 .container-main {
-  @apply mt-5 mx-auto mb-0 sm:w-full md:w-[95%] max-w-[1400px] justify-center;
+  @apply mt-5 mx-auto mb-0 w-[95%] md:w-[90%] max-w-[1400px] justify-center;
 }
