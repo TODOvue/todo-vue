@@ -3,7 +3,6 @@ title: "Vue Directives: v-if, v-else, and v-show"
 description: "Learn how to use v-if, v-else, and v-show in Vue with clear examples, best practices, and key notes to correctly choose between conditional rendering and visibility."
 date: 2026-02-05T12:30:00-05:00
 updatedAt: 2026-02-05T12:30:00-05:00
-readingTime: 8
 tags:
   - tag: "Directives"
     color: "#6C5CE7"
