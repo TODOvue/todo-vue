@@ -2,7 +2,7 @@
 title: "Provide and Inject in Vue 3: The Definitive Guide to Eliminating Prop Drilling"
 description: "Learn how to use provide and inject in Vue.js to eliminate Prop Drilling, manage reactivity safely with readonly, and improve your component architecture."
 date: 2026-01-22T23:30:00-05:00
-updatedAt: 2026-01-22T23:30:00-05:00
+updatedAt: 2026-02-11T00:00:00-05:00
 tags:
   - tag: "Advanced"
     color: "#F54927"

@@ -2,7 +2,7 @@
 title: "Vue Directives: An Overview"
 description: "Explore Vue.js’ essential directives, their syntax, and common use cases."
 date: 2026-02-03T20:00:00-05:00
-updatedAt: 2026-02-03T20:00:00-05:00
+updatedAt: 2026-02-11T00:00:00-05:00
 readingTime: 6
 tags:
   - tag: "Directives"
