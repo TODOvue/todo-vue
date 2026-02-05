@@ -18,7 +18,6 @@ tags:
     color: "#68D4F2"
   - tag: "Componentes"
     color: "#41B883"
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1769789805/mastering-renderless-components-vue-3_f5mqbs.png
 coverAlt: "Patrones Avanzados en Vue 3: El Poder de los Renderless Components"
 coverCaption: "Imagen destacada que representa el concepto de Renderless Components en Vue 3."
