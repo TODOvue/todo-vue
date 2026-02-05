@@ -84,6 +84,8 @@ export default {
 </template>
 ```
 
+> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](https://todovue.blog/blog/directives-vue-v-if-v-else-v-show-guide.en/).
+
 ## `v-show`
 
 It controls visibility using CSS (`display: none`), but **the element always exists in the DOM**.
@@ -119,6 +121,7 @@ export default {
   <p v-show="isVisible">Visible content</p>
 </template>
 ```
+> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](https://todovue.blog/blog/directives-vue-v-if-v-else-v-show-guide.en/).
 
 ## `v-for`
 
