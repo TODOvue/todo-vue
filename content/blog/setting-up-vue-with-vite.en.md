@@ -3,7 +3,6 @@ title: "How to create your first project with Vue using Vite?"
 description: "A step-by-step guide to setting up a modern development environment with Vue.js and Vite."
 date: 2025-12-24T00:00:00-05:00
 updatedAt: 2026-01-22T23:30:00-05:00
-readingTime: 5
 tags:
   - tag: "Vite"
     color: "#646CFF"

@@ -3,7 +3,6 @@ title: "¿Qué es la reactividad? La magia detrás de Vue.js explicada con clari
 description: "Explora el sistema de reactividad de Vue.js, desde analogías simples hasta su implementación técnica con Proxies, y aprende a optimizar tus aplicaciones."
 date: 2026-01-05T22:00:00-05:00
 updatedAt: 2026-01-30T17:00:00-05:00
-readingTime: 5
 tags:
   - tag: "Reactividad"
     color: "#1D5BA1"

@@ -3,7 +3,6 @@ title: "TODOvue: Un espacio dedicado al ecosistema de Vue.js"
 description: "Bienvenidos a TODOvue. Un blog técnico diseñado por y para desarrolladores, donde exploramos a fondo Vue 3, Nuxt y la arquitectura de componentes moderna."
 date: 2025-12-17T00:00:00-05:00
 updatedAt: 2026-01-21T00:00:00-05:00
-readingTime: 2
 tags:
   - tag: "TODOvue"
     color: "#42B883"
@@ -44,6 +43,14 @@ Nuestro objetivo es trascender los tutoriales introductorios. En TODOvue profund
 * **Ecosistema Nuxt**: Estrategias de renderizado avanzado (**SSR**, **SSG**, **Hybrid Rendering / ISR**), gestión de módulos y despliegue optimizado.
 * **Rendimiento y Optimización**: Técnicas de *code-splitting*, optimización de bundles y estrategias para alcanzar la máxima velocidad en el lado del cliente.
 * **Herramientas y Librerías**: Análisis profundo de **Pinia**, **Vue Router**, **Vite** y las propuestas emergentes más disruptivas de la comunidad.
+
+```vue [App.vue]{2,4}
+<script setup>
+import LogicToggle from '@/components/LogicToggle.vue';
+import { ref } from 'vue';
+const isOpen = ref(false);
+</script>
+```
 
 ## "Dogfooding": Construido con lo que enseñamos
 

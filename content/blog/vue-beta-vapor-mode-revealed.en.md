@@ -3,7 +3,6 @@ title: "Vue 3.6 Beta: The Vapor Mode Revolution and the New Reactivity Engine"
 description: "Explore the new features of Vue 3.6 Beta, including Vapor Mode and the alien-signals integration for more efficient reactivity."
 date: 2025-12-27T00:00:00-05:00
 updatedAt: 2026-01-22T23:30:00-05:00
-readingTime: 7
 tags:
   - tag: "Beta"
     color: "#42B883"
