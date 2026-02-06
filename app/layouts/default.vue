@@ -27,6 +27,11 @@ const { api } = useAlert()
 const alert = api()
 
 const VERSION_APP = String(config.public.version ?? '')
+const preferredLocale = useCookie<'es' | 'en' | null>('todovue-locale', {
+  default: () => null,
+  sameSite: 'lax',
+  maxAge: 60 * 60 * 24 * 365
+})
 
 const { progress, isLoading } = useGlobalLoader()
 
@@ -135,6 +140,7 @@ const changeValue = (value: string): void => {
 
 const changeLanguage = async (lang: 'es' | 'en'): Promise<void> => {
   await setLocale(lang)
+  preferredLocale.value = lang
 
   const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
   alert.info(t('home.settings.language.changed', { lang: langName }), {

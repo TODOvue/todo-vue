@@ -14,7 +14,7 @@ import type { BreadcrumbItem, TagLike, TocData } from '@/types/views'
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
-const { locale, setLocale, t } = useI18n()
+const { locale, t } = useI18n()
 const runtimeConfig = useRuntimeConfig()
 const { registerVisit } = useVisit()
 
@@ -22,18 +22,6 @@ const getRouteSlug = (): string | undefined => {
   const slug = route.params.slug
   if (Array.isArray(slug)) return slug[0]
   return slug
-}
-
-const routeSlug = getRouteSlug()
-
-if (routeSlug) {
-  const match = routeSlug.match(/\.([a-z]{2})$/i)
-  if (match && match[1]) {
-    const targetLocale = match[1].toLowerCase()
-    if ((targetLocale === 'en' || targetLocale === 'es') && locale.value !== targetLocale) {
-      await setLocale(targetLocale)
-    }
-  }
 }
 
 if (!route.path.endsWith('/')) {
