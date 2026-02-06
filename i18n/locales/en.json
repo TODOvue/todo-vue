@@ -105,7 +105,13 @@
       "components": "Components"
     },
     "otherEntries": "Other blogs",
-    "copyright": "© {year} TODOvue. Designed & Developed by cris-dev.com. All rights reserved."
+    "copyright": "© {year} TODOvue. Designed & Developed by cris-dev.com. All rights reserved.",
+    "newsletter": {
+      "title": "Subscribe to our newsletter",
+      "description": "Receive the latest updates, tutorials, and news from TODOvue directly in your inbox. Join our Vue.js developer community and stay up to date with best practices, tips, and tricks for creating modern components with Vue.js.",
+      "placeholder": "Enter your email address",
+      "button": "Subscribe"
+    }
   },
   "errorPage": {
     "homeButton": "Go back home",

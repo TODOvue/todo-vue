@@ -238,7 +238,13 @@ const configFooter = computed(() => ({
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
     { label: 'CrisDev', url: 'https://cris-dev.com', },
   ],
-  copyright: t('footer.copyright', { year: new Date().getFullYear() })
+  copyright: t('footer.copyright', { year: new Date().getFullYear() }),
+  newsletter: {
+    title: t('footer.newsletter.title'),
+    description: t('footer.newsletter.description'),
+    placeholder: t('footer.newsletter.placeholder'),
+    button: t('footer.newsletter.button')
+  }
 }))
 
 const validateActiveMenu = computed(() => {
@@ -251,6 +257,22 @@ const handleClickLinks = ({ url }: { url: string }): void => {
     return
   }
   void router.push(url)
+}
+
+const handleSubscribe = (email: string): void => {
+  try {
+    alert.success(t('footer.newsletter.notification.success', { email }), {
+      position: 'top-right',
+      timeout: 4000,
+      title: t('footer.newsletter.notification.title')
+    })
+  } catch (error) {
+    alert.error(t('footer.newsletter.notification.error'), {
+      position: 'top-right',
+      timeout: 4000,
+      title: t('footer.newsletter.notification.title')
+    })
+  }
 }
 
 onMounted(() => {
@@ -339,6 +361,7 @@ useHead({
       :config="configFooter"
       class="mt-16"
       @link-click="handleClickLinks"
+      @subscribe="handleSubscribe"
     />
     <TvAlert />
     <TvScrollTop show-on-scroll-up />
