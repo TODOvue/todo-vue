@@ -95,10 +95,18 @@ export const useBlogStore = (): UseBlogStoreApi => {
     const preferredLocale = options?.preferredLocale
     const normalizedSlug = String(slug).replace(/\.[a-z]{2}$/i, '')
     const requestedLocale = getSlugLocale(String(slug))
-
-    const allPosts = await getBlogCollection().all()
+    let allPosts: BlogPost[] = []
+    try {
+      allPosts = await getBlogCollection().all()
+    } catch (error) {
+      console.error('Error loading blog collection for slug lookup:', error)
+      allPosts = await fetchBlogPosts(true)
+    }
     const filterByLocale = (posts: BlogPost[], localeToMatch: string): BlogPost[] =>
-      posts.filter((post) => String(post.path ?? post._path ?? '').toLowerCase().endsWith(`.${localeToMatch}/`))
+      posts.filter((post) => {
+        const path = String(post.path ?? post._path ?? '').toLowerCase()
+        return path.endsWith(`.${localeToMatch}/`) || path.endsWith(`.${localeToMatch}`)
+      })
 
     if (preferredLocale) {
       const localizedByPreferred = filterByLocale(allPosts, preferredLocale)

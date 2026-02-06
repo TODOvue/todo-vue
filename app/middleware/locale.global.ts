@@ -21,13 +21,18 @@ const setI18nLocale = async (i18n: ReturnType<typeof useNuxtApp>['$i18n'], local
 }
 
 const blogSlugExistsForLocale = async (baseSlug: string, locale: SiteLocale): Promise<boolean> => {
-  const collection = queryCollection as unknown as (name: string) => { all: () => Promise<Array<{ path?: string; _path?: string }>> }
-  const posts = await collection('blog').all()
-  return posts.some((post) => {
-    const path = post.path ?? post._path ?? ''
-    const postSlug = path.split('/').filter(Boolean).pop() ?? ''
-    return postSlug.toLowerCase() === `${baseSlug}.${locale}`.toLowerCase()
-  })
+  try {
+    const collection = queryCollection as unknown as (name: string) => { all: () => Promise<Array<{ path?: string; _path?: string }>> }
+    const posts = await collection('blog').all()
+    return posts.some((post) => {
+      const path = post.path ?? post._path ?? ''
+      const postSlug = path.split('/').filter(Boolean).pop() ?? ''
+      return postSlug.toLowerCase() === `${baseSlug}.${locale}`.toLowerCase()
+    })
+  } catch (error) {
+    console.error('Error validating localized slug in middleware:', error)
+    return false
+  }
 }
 
 const detectFromClient = (): SiteLocale => {

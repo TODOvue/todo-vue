@@ -23,6 +23,12 @@ const getRouteSlug = (): string | undefined => {
   if (Array.isArray(slug)) return slug[0]
   return slug
 }
+const getSlugLocale = (value: string): 'es' | 'en' | null => {
+  const match = value.match(/\.([a-z]{2})$/i)
+  const localeCode = match?.[1]?.toLowerCase()
+  if (localeCode === 'es' || localeCode === 'en') return localeCode
+  return null
+}
 
 if (!route.path.endsWith('/')) {
   const fullPath = `${route.path}/${route.fullPath.includes('?') ? route.fullPath.slice(route.fullPath.indexOf('?')) : ''}`
@@ -41,7 +47,18 @@ const { data: post } = await useAsyncData<BlogPost | null>(
     }
 
     try {
-      return await blogStore.getBlogBySlug(slug)
+      const direct = await blogStore.getBlogBySlug(slug)
+      if (direct) return direct
+
+      const routeLocale = getSlugLocale(slug)
+      if (routeLocale) {
+        const byRouteLocale = await blogStore.getBlogBySlug(slug, {
+          preferredLocale: routeLocale,
+          allowLocaleFallback: true
+        })
+        if (byRouteLocale) return byRouteLocale
+      }
+      return null
     } catch (error) {
       console.error('Error searching for post:', error)
       return null
