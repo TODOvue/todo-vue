@@ -3,6 +3,32 @@ type SiteLocale = 'es' | 'en'
 const LOCALE_COOKIE_KEY = 'todovue-locale'
 
 const isSupportedLocale = (value: unknown): value is SiteLocale => value === 'es' || value === 'en'
+const LOCALE_SUFFIX_REGEX = /\.([a-z]{2})$/i
+const stripLocaleSuffix = (value: string): string => value.replace(/\.(es|en)$/i, '')
+const getLocaleFromSlug = (slug: string): SiteLocale | null => {
+  const match = slug.match(LOCALE_SUFFIX_REGEX)
+  const locale = match?.[1]?.toLowerCase()
+  return isSupportedLocale(locale) ? locale : null
+}
+
+const setI18nLocale = async (i18n: ReturnType<typeof useNuxtApp>['$i18n'], locale: SiteLocale): Promise<void> => {
+  if (i18n.locale.value === locale) return
+  if (typeof (i18n as unknown as { setLocale?: (value: SiteLocale) => Promise<void> | void }).setLocale === 'function') {
+    await (i18n as unknown as { setLocale: (value: SiteLocale) => Promise<void> | void }).setLocale(locale)
+    return
+  }
+  i18n.locale.value = locale
+}
+
+const blogSlugExistsForLocale = async (baseSlug: string, locale: SiteLocale): Promise<boolean> => {
+  const collection = queryCollection as unknown as (name: string) => { all: () => Promise<Array<{ path?: string; _path?: string }>> }
+  const posts = await collection('blog').all()
+  return posts.some((post) => {
+    const path = post.path ?? post._path ?? ''
+    const postSlug = path.split('/').filter(Boolean).pop() ?? ''
+    return postSlug.toLowerCase() === `${baseSlug}.${locale}`.toLowerCase()
+  })
+}
 
 const detectFromClient = (): SiteLocale => {
   const browserLanguage = navigator.language || navigator.languages?.[0] || ''
@@ -31,27 +57,35 @@ export default defineNuxtRouteMiddleware(async (to) => {
     preferredLocale.value = targetLocale
   }
 
-  if (i18n.locale.value !== targetLocale) {
-    if (typeof (i18n as unknown as { setLocale?: (locale: SiteLocale) => Promise<void> | void }).setLocale === 'function') {
-      await (i18n as unknown as { setLocale: (locale: SiteLocale) => Promise<void> | void }).setLocale(targetLocale)
-    } else {
-      i18n.locale.value = targetLocale
-    }
-  }
-
   if (!to.path.startsWith('/blog/')) {
+    await setI18nLocale(i18n, targetLocale)
     return
   }
 
   const rawSlug = Array.isArray(to.params.slug) ? to.params.slug[0] : to.params.slug
   if (!rawSlug) return
-
-  const baseSlug = String(rawSlug).replace(/\.(es|en)$/i, '')
+  const normalizedRawSlug = String(rawSlug)
+  const routeLocale = getLocaleFromSlug(normalizedRawSlug)
+  const baseSlug = stripLocaleSuffix(normalizedRawSlug)
   const localizedSlug = `${baseSlug}.${targetLocale}`
 
-  if (String(rawSlug).toLowerCase() === localizedSlug.toLowerCase()) {
+  if (normalizedRawSlug.toLowerCase() === localizedSlug.toLowerCase()) {
+    await setI18nLocale(i18n, targetLocale)
     return
   }
+
+  let effectiveLocale: SiteLocale = targetLocale
+  const targetVariantExists = await blogSlugExistsForLocale(baseSlug, targetLocale)
+
+  if (!targetVariantExists) {
+    if (routeLocale) {
+      effectiveLocale = routeLocale
+    }
+    await setI18nLocale(i18n, effectiveLocale)
+    return
+  }
+
+  await setI18nLocale(i18n, effectiveLocale)
 
   return navigateTo({
     path: `/blog/${localizedSlug}/`,

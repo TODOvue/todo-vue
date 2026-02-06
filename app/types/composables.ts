@@ -53,6 +53,11 @@ export type RelatedItem = {
   matchCount: number
 }
 
+export type GetBlogBySlugOptions = {
+  preferredLocale?: 'es' | 'en'
+  allowLocaleFallback?: boolean
+}
+
 export type PopularItem = {
   id: number
   title: string
@@ -145,7 +150,7 @@ export type UseBlogStoreApi = {
   isLoading: DeepReadonly<Ref<boolean>>
   totalPosts: ComputedRef<number>
   fetchBlogPosts: (forceRefresh?: boolean) => Promise<BlogPost[]>
-  getBlogBySlug: (slug: string) => Promise<BlogPost | null>
+  getBlogBySlug: (slug: string, options?: GetBlogBySlugOptions) => Promise<BlogPost | null>
   fetchVisitCounts: () => Promise<void>
   getCardsConfig: ComputedRef<CardConfig[]>
   getPaginatedCards: (page: number, pageSize: number) => ComputedRef<CardConfig[]>

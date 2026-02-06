@@ -7,6 +7,7 @@ import type {
   BlogTag,
   CardConfig,
   CardLabel,
+  GetBlogBySlugOptions,
   LocalizedContentApi,
   RelatedItem,
   UseBlogStoreApi,
@@ -20,6 +21,8 @@ const getTagName = (tag: BlogTag): string => (typeof tag === 'string' ? tag : ta
 const getTagColor = (tag: BlogTag): string | undefined => (typeof tag === 'string' ? undefined : tag.color)
 const getDateValue = (value: BlogPost['date']): number => new Date(value ?? 0).getTime()
 const getPostId = (post: BlogPost): string | number => post.id ?? post._path ?? post._id ?? ''
+const LOCALE_SUFFIX_REGEX = /\.([a-z]{2})$/i
+const getSlugLocale = (slug: string): string | null => slug.match(LOCALE_SUFFIX_REGEX)?.[1]?.toLowerCase() ?? null
 
 const getBlogCollection = () => {
   const collection = queryCollection as unknown as (name: string) => { all: () => Promise<BlogPost[]> }
@@ -87,14 +90,34 @@ export const useBlogStore = (): UseBlogStoreApi => {
     }
   }
 
-  const getBlogBySlug = async (slug: string): Promise<BlogPost | null> => {
-    await fetchBlogPosts()
+  const getBlogBySlug = async (slug: string, options?: GetBlogBySlugOptions): Promise<BlogPost | null> => {
+    const allowLocaleFallback = options?.allowLocaleFallback ?? true
+    const preferredLocale = options?.preferredLocale
     const normalizedSlug = String(slug).replace(/\.[a-z]{2}$/i, '')
+    const requestedLocale = getSlugLocale(String(slug))
 
-    const direct = blogPosts.value.find((post) => matchesSlug(post, normalizedSlug))
+    const allPosts = await getBlogCollection().all()
+    const filterByLocale = (posts: BlogPost[], localeToMatch: string): BlogPost[] =>
+      posts.filter((post) => String(post.path ?? post._path ?? '').toLowerCase().endsWith(`.${localeToMatch}/`))
+
+    if (preferredLocale) {
+      const localizedByPreferred = filterByLocale(allPosts, preferredLocale)
+      const exactPreferred = localizedByPreferred.find((post) => matchesSlug(post, normalizedSlug))
+      if (exactPreferred) return exactPreferred
+      if (!allowLocaleFallback) return null
+    }
+
+    if (requestedLocale) {
+      const localizedByRequested = filterByLocale(allPosts, requestedLocale)
+      const exactRequested = localizedByRequested.find((post) => matchesSlug(post, normalizedSlug))
+      if (exactRequested) return exactRequested
+      if (!allowLocaleFallback) return null
+    }
+
+    const direct = allPosts.find((post) => matchesSlug(post, normalizedSlug))
     if (direct) return direct
 
-    return blogPosts.value.find((post) => {
+    return allPosts.find((post) => {
       if (!Array.isArray(post.alternate)) return false
       return post.alternate.some((alt) => {
         if (typeof alt === 'string') return alt === normalizedSlug
