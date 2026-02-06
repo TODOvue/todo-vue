@@ -71,30 +71,37 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (!rawSlug) return
   const normalizedRawSlug = String(rawSlug)
   const routeLocale = getLocaleFromSlug(normalizedRawSlug)
+
+  if (routeLocale) {
+    preferredLocale.value = routeLocale
+    await setI18nLocale(i18n, routeLocale)
+    return
+  }
+
   const baseSlug = stripLocaleSuffix(normalizedRawSlug)
   const localizedSlug = `${baseSlug}.${targetLocale}`
-
-  if (normalizedRawSlug.toLowerCase() === localizedSlug.toLowerCase()) {
-    await setI18nLocale(i18n, targetLocale)
-    return
-  }
-
-  let effectiveLocale: SiteLocale = targetLocale
   const targetVariantExists = await blogSlugExistsForLocale(baseSlug, targetLocale)
 
-  if (!targetVariantExists) {
-    if (routeLocale) {
-      effectiveLocale = routeLocale
-    }
-    await setI18nLocale(i18n, effectiveLocale)
-    return
+  if (targetVariantExists) {
+    await setI18nLocale(i18n, targetLocale)
+    return navigateTo({
+      path: `/blog/${localizedSlug}/`,
+      query: to.query,
+      hash: to.hash
+    }, { replace: true, redirectCode: 302 })
   }
 
-  await setI18nLocale(i18n, effectiveLocale)
+  const alternateLocale: SiteLocale = targetLocale === 'es' ? 'en' : 'es'
+  const alternateVariantExists = await blogSlugExistsForLocale(baseSlug, alternateLocale)
+  if (alternateVariantExists) {
+    preferredLocale.value = alternateLocale
+    await setI18nLocale(i18n, alternateLocale)
+    return navigateTo({
+      path: `/blog/${baseSlug}.${alternateLocale}/`,
+      query: to.query,
+      hash: to.hash
+    }, { replace: true, redirectCode: 302 })
+  }
 
-  return navigateTo({
-    path: `/blog/${localizedSlug}/`,
-    query: to.query,
-    hash: to.hash
-  }, { replace: true, redirectCode: 302 })
+  await setI18nLocale(i18n, targetLocale)
 })
