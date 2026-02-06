@@ -1,7 +1,7 @@
-import { type Database } from 'firebase/database'
 import { computed, onUnmounted, readonly } from 'vue'
 import { queryCollection, useI18n, useLocalePath, useNuxtApp, useState } from '#imports'
 import { FALLBACK_LOCALE, getDocumentSlug, getLocalizedPosts, matchesSlug } from '@/utils/contentLocale'
+import type { Database } from 'firebase/database'
 import type {
   BlogPost,
   BlogTag,

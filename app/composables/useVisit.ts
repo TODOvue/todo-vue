@@ -1,5 +1,6 @@
-import { ref, update, increment, type Database } from 'firebase/database'
+import { ref, update, increment } from 'firebase/database'
 import { useNuxtApp } from '#imports'
+import type { Database } from 'firebase/database'
 import type { UseVisitApi } from '@/types/composables'
 
 export const useVisit = (): UseVisitApi => {
