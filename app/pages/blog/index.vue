@@ -268,3 +268,9 @@ setPageSeo({
     </div>
   </main>
 </template>
+
+<style scoped>
+:deep(.tv-sidebar-body) {
+  height: auto !important;
+}
+</style>

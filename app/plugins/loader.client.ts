@@ -10,19 +10,23 @@ export default defineNuxtPlugin((nuxtApp) => {
   })
 
   const originalFetch = globalThis.$fetch
-  const newFetch = async (...args: any[]) => {
-    start()
+  const newFetch = Object.assign(
+    async (...args: Parameters<typeof originalFetch>) => {
+      start()
     try {
-      const response = await (originalFetch as any)(...args)
+      const response = await originalFetch(...args)
       finish()
       return response
     } catch (error) {
       finish()
-      throw error
+      if (error instanceof Error) {
+        throw error
+      }
+      throw new Error(error == null ? 'Unknown fetch error' : String(error))
     }
-  }
+  },
+  originalFetch
+)
 
-  Object.assign(newFetch, originalFetch)
-
-  globalThis.$fetch = newFetch as any
+  globalThis.$fetch = newFetch as typeof globalThis.$fetch
 })

@@ -40,10 +40,10 @@ const { data: posts } = await useAsyncData('app-menu-posts', async () => {
 
 const results = computed(() =>
   (posts.value ?? [])
-    .map(post => ({
+    .map((post, index) => ({
       title: post.title ?? '',
       url: post.path ?? '/',
-      id: post.id ?? post._id ?? post._path ?? crypto.randomUUID?.() ?? Math.random().toString()
+      id: post.id ?? post._id ?? post._path ?? `${post.path ?? post.title ?? 'post'}-${index}`
     }))
 )
 

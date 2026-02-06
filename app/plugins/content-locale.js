@@ -8,7 +8,12 @@ export default defineNuxtPlugin(() => {
   const setCached = (key, value) => cache.value.set(key, value)
 
   const getLocalized = (posts, currentLocale) => {
-    const key = `${currentLocale}-${Array.isArray(posts) ? posts.length : 0}`
+    const signature = Array.isArray(posts)
+      ? posts
+        .map((post) => post?._id ?? post?.id ?? post?._path ?? post?.path ?? '')
+        .join('|')
+      : 'no-posts'
+    const key = `${currentLocale}-${signature}`
     const cached = getCached(key)
     if (cached) return cached
     const localized = getLocalizedPosts(posts, currentLocale, FALLBACK_LOCALE)

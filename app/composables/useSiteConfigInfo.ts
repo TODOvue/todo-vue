@@ -1,4 +1,7 @@
-export const useSiteConfigInfo = () => {
+import { computed } from 'vue'
+import type { SiteConfigInfo } from '@/types/composables'
+
+export const useSiteConfigInfo = (): SiteConfigInfo => {
   const siteConfig = useSiteConfig()
 
   return {

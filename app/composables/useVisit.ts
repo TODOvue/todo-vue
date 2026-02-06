@@ -1,10 +1,14 @@
-import { ref, update, increment } from 'firebase/database'
+import { ref, update, increment, type Database } from 'firebase/database'
+import { useNuxtApp } from '#imports'
+import type { UseVisitApi } from '@/types/composables'
 
-export const useVisit = () => {
+export const useVisit = (): UseVisitApi => {
   const { $database } = useNuxtApp()
+  const database = $database as Database | undefined
 
-  const registerVisit = async (rawSlug: string) => {
+  const registerVisit = async (rawSlug: string): Promise<void> => {
     if (!rawSlug) return
+    if (!database) return
     const slug = rawSlug.replace(/\.(es|en)$/, '')
 
     const storageKey = `visited_${slug}`
@@ -17,7 +21,7 @@ export const useVisit = () => {
         return
       }
     }
-    const postRef = ref($database, `visit/${slug}`)
+    const postRef = ref(database, `visit/${slug}`)
 
     try {
       await update(postRef, {

@@ -1,7 +1,10 @@
-export const useGlobalLoader = () => {
+import { useState } from '#imports'
+import type { GlobalLoaderApi } from '@/types/composables'
+
+export const useGlobalLoader = (): GlobalLoaderApi => {
   const progress = useState('global-loader-progress', () => 0)
   const isLoading = useState('global-loader-is-loading', () => false)
-  let timer: any = null
+  let timer: ReturnType<typeof setInterval> | null = null
 
   const start = () => {
     isLoading.value = true
