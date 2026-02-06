@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import {
   TvButton,
   TvCard,
   TvHero,
   TvLabel,
 } from '@todovue/tv-ui'
+import type { CardConfig, CardLabel } from '@/types/composables'
 
 const { t } = useI18n()
 
@@ -21,12 +22,12 @@ const configHero = computed(() => ({
   buttonSecondary: t('home.hero.secondary')
 }))
 
-const navigateTo = (path, isExternal = false) => {
+const navigateTo = (path: string, isExternal = false): void => {
   if (isExternal) {
     window.open(path, '_self')
     return
   }
-  router.push(path)
+  void router.push(path)
 }
 
 await useAsyncData('index-home-blogs', async () => {
@@ -35,19 +36,19 @@ await useAsyncData('index-home-blogs', async () => {
 
 const lastBlogPosts = blogStore.getLastMostViewedPost
 
-const latestPosts = computed(() => {
+const latestPosts = computed<CardConfig[]>(() => {
   const allCards = blogStore.getCardsConfig.value
   return allCards.slice(1, 5)
 })
 
-const popularCategories = computed(() => {
+const popularCategories = computed<CardLabel[]>(() => {
   const allLabels = blogStore.getAllLabels.value
   return allLabels.slice(0, 6)
 })
 
-const handleCategoryClick = (label) => {
+const handleCategoryClick = (label: CardLabel): void => {
   if (label && label.name) {
-    router.push({  path: '/blog', query: { ...route.query, label: label.name, page: '1' } })
+    void router.push({ path: '/blog', query: { ...route.query, label: label.name, page: '1' } })
   }
 }
 

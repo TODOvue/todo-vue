@@ -1,17 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { TvButton } from '@todovue/tv-ui'
+import type { AppErrorLike } from '@/types/views'
 
 const { t } = useI18n()
 
-const props = defineProps({
-  error: {
-    type: Object,
-    required: false,
-    default: () => ({ statusCode: 404, message: 'Page Not Found' })
-  }
+const props = withDefaults(defineProps<{ error?: AppErrorLike }>(), {
+  error: () => ({ statusCode: 404, message: 'Page Not Found' })
 })
 
-const handleError = (redirect) => {
+const handleError = (redirect: string): void => {
   clearError({ redirect })
 }
 
@@ -22,12 +19,6 @@ const message = computed(() => is404.value
   ? t('errorPage.404.description')
   : t('errorPage.500.description'))
 
-const isDarkMode = ref(false)
-onMounted(() => {
-  if (import.meta.client) {
-    isDarkMode.value = document.documentElement.className.includes('dark-mode')
-  }
-})
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {
   TvBreadcrumbs,
   TvCard,
@@ -7,6 +7,8 @@ import {
   TvPagination,
   TvSidebar,
 } from '@todovue/tv-ui'
+import type { BlogPost, CardConfig, CardLabel, PopularConfig } from '@/types/composables'
+import type { ActiveFilter, SidebarBlogLink, TagLike } from '@/types/views'
 
 import IconGrid from '~/assets/icons/IconGrid.vue'
 import IconList from '~/assets/icons/IconList.vue'
@@ -16,10 +18,18 @@ const route = useRoute()
 const blogStore = useBlogStore()
 const { t } = useI18n()
 const pageSize = 6
-const filters = ref(null)
-const labelFilters = ref(null)
+const filters = ref<ActiveFilter[]>([])
+const labelFilters = ref<TagLike | null>(null)
 
-const currentPage = ref(parseInt(String(route.query.page || '1')) || 1)
+const queryValue = (value: unknown): string | undefined => {
+  if (Array.isArray(value)) {
+    const firstString = value.find((item): item is string => typeof item === 'string')
+    return firstString
+  }
+  return typeof value === 'string' ? value : undefined
+}
+
+const currentPage = ref<number>(parseInt(queryValue(route.query.page) ?? '1', 10) || 1)
 
 const isHorizontalView = ref(false)
 
@@ -36,25 +46,26 @@ await useAsyncData('blog-index-posts', async () => {
   return await blogStore.fetchBlogPosts()
 })
 
-const safePosts = computed(() => {
+const safePosts = computed<BlogPost[]>(() => {
   let posts = blogStore.blogPosts.value || []
 
-  if (route.query.search) {
-    const query = String(route.query.search).toLowerCase()
-    posts = posts.filter(post => {
+  const search = queryValue(route.query.search)
+  if (search) {
+    const query = search.toLowerCase()
+    posts = posts.filter((post) => {
       const title = (post.title ?? '').toLowerCase()
       const description = (post.description ?? '').toLowerCase()
       return title.includes(query) || description.includes(query)
     })
   }
 
-  if (route.query.label) {
-    const label = String(route.query.label)
-    posts = posts.filter(post => {
+  const labelQuery = queryValue(route.query.label)
+  if (labelQuery) {
+    posts = posts.filter((post) => {
       if (!Array.isArray(post.tags)) return false
-      return post.tags.some(tag => {
+      return post.tags.some((tag) => {
         const tagName = typeof tag === 'string' ? tag : tag.tag
-        return tagName === label
+        return tagName === labelQuery
       })
     })
   }
@@ -62,21 +73,21 @@ const safePosts = computed(() => {
   return posts
 })
 
-const paginatedPosts = computed(() => {
+const paginatedPosts = computed<BlogPost[]>(() => {
   const start = (currentPage.value - 1) * pageSize
   const end = start + pageSize
   return safePosts.value.slice(start, end)
 })
 
-const configCards = computed(() =>
+const configCards = computed<CardConfig[]>(() =>
   paginatedPosts.value.map((post) => blogStore.postToCardConfig(post))
 )
 
 const renderLabels = blogStore.getLabelsConfig
 
-const renderMostPopular = blogStore.getMostPopular
+const renderMostPopular = blogStore.getMostPopular as typeof blogStore.getMostPopular & { value: PopularConfig }
 
-const handleSidebar = (label) => {
+const handleSidebar = (label: TagLike): void => {
   if (label) {
     const labelValue = label.name || label.tag
     if (labelValue) {
@@ -85,13 +96,13 @@ const handleSidebar = (label) => {
         color: label.color,
         id: label.id
       }
-      router.push({ query: { ...route.query, label: labelValue, page: '1' } })
+      void router.push({ query: { ...route.query, label: labelValue, page: '1' } })
     }
   }
 }
 
-const handleLinkBlog = (blog) => {
-  router.push(blog.link)
+const handleLinkBlog = (blog: SidebarBlogLink): void => {
+  void router.push(blog.link)
 }
 
 const configHero = computed(() => ({
@@ -99,8 +110,8 @@ const configHero = computed(() => ({
   title: t('blogs.hero.title'),
 }))
 
-const handleButton = (path) => {
-  router.push(path)
+const handleButton = (path: string): void => {
+  void router.push(path)
 }
 
 const toggleView = () => {
@@ -108,49 +119,51 @@ const toggleView = () => {
   localStorage.setItem('blog-view-preference', isHorizontalView.value ? 'horizontal' : 'grid')
 }
 
-const filtersPage = () => {
-  if (route.query.search) {
+const filtersPage = (): void => {
+  const search = queryValue(route.query.search)
+  if (search) {
     filters.value.push({
-      id: route.query.search,
-      name: route.query.search,
+      id: search,
+      name: search,
       color: '#2196F3',
     })
   }
-  if (route.query.label) {
+  const labelQuery = queryValue(route.query.label)
+  if (labelQuery) {
     const label = labelFilters.value
     filters.value.push({
-      id: label?.id || route.query.label,
-      name: label?.name || route.query.label,
+      id: label?.id || labelQuery,
+      name: label?.name || labelQuery,
       color: label?.color || '#4CAF50',
     })
   }
 }
 
-const removeFilter = (filterId) => {
+const removeFilter = (filterId: string): void => {
   const query = { ...route.query }
 
-  if (query.search === filterId) delete query.search
-  if (query.label === filterId) {
-    labelFilters.value = {}
+  if (queryValue(query.search) === filterId) delete query.search
+  if (queryValue(query.label) === filterId) {
+    labelFilters.value = null
     delete query.label
   }
 
   query.page = '1'
-  router.push({ query })
+  void router.push({ query })
 }
 
 watch(
   () => route.query,
   () => {
-    currentPage.value = parseInt(String(route.query.page || '1')) || 1
+    currentPage.value = parseInt(queryValue(route.query.page) ?? '1', 10) || 1
     filters.value = []
     filtersPage()
   },
   { immediate: true }
 )
 
-watch(currentPage, (newPage) => {
-  router.push({
+watch(currentPage, (newPage: number) => {
+  void router.push({
     query: { ...route.query, page: newPage.toString() }
   })
 
@@ -161,7 +174,7 @@ watch(currentPage, (newPage) => {
 })
 
 watch(() => route.query.page, (newPageQuery) => {
-  const pageNum = parseInt(String(newPageQuery || '1')) || 1
+  const pageNum = parseInt(queryValue(newPageQuery) ?? '1', 10) || 1
   if (pageNum !== currentPage.value) {
     currentPage.value = pageNum
   }

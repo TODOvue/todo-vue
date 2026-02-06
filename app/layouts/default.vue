@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {
   TvAlert,
   TvButton,
@@ -10,6 +10,8 @@ import {
   TvThemeButton,
   useAlert,
 } from '@todovue/tv-ui'
+import type { BlogPost } from '@/types/composables'
+import type { FooterPostLink, MenuSelection } from '@/types/views'
 
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
@@ -24,12 +26,12 @@ const config = useRuntimeConfig()
 const { api } = useAlert()
 const alert = api()
 
-const VERSION_APP = config.public.version
+const VERSION_APP = String(config.public.version ?? '')
 
 const { progress, isLoading } = useGlobalLoader()
 
 const isDarkMode = ref(false)
-const language = ref('es')
+const language = ref<'es' | 'en'>('es')
 
 const blogStore = useBlogStore()
 const { t, locale, setLocale } = useI18n()
@@ -71,8 +73,15 @@ const configMenu = computed(() => ({
   results: results.value
 }))
 
-const handleClickMenu = (menu) => {
-  if (menu?.url === '/components') {
+const getPostUrl = (post: BlogPost): string => {
+  if (typeof post.url === 'string') return post.url
+  if (typeof post.path === 'string') return post.path
+  if (typeof post._path === 'string') return post._path
+  return '/'
+}
+
+const handleClickMenu = (menu: MenuSelection): void => {
+  if (typeof menu !== 'string' && menu?.url === '/components') {
     window.open('https://ui.todovue.blog/', '_self')
     return
   }
@@ -96,14 +105,14 @@ const handleClickMenu = (menu) => {
       })
       return
     }
-    router.push({ path: '/blog', query: { search: query } })
+    void router.push({ path: '/blog', query: { search: query } })
     return
   }
 
-  router.push(menu.url)
+  void router.push(menu.url)
 }
 
-const setTheme = (value, toButton = false) => {
+const setTheme = (value: string, toButton = false): void => {
   if (!import.meta.client) return
   document.documentElement.className = `${value}-mode`
   localStorage.setItem('theme', value)
@@ -120,11 +129,11 @@ const setTheme = (value, toButton = false) => {
   }
 }
 
-const changeValue = (value) => {
+const changeValue = (value: string): void => {
   setTheme(value, true)
 }
 
-const changeLanguage = async (lang) => {
+const changeLanguage = async (lang: 'es' | 'en'): Promise<void> => {
   await setLocale(lang)
 
   const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
@@ -146,24 +155,25 @@ const changeLanguage = async (lang) => {
   }
 }
 
-const getRandomPosts = (posts, count = 3) => {
+const getRandomPosts = (items: BlogPost[], count = 3): BlogPost[] => {
+  const posts = items
   const shuffled = [...posts].sort(() => Math.random() - 0.5)
   return shuffled.slice(0, count)
 }
 
-const footerPosts = useState('footer-posts', () => {
+const footerPosts = useState<FooterPostLink[]>('footer-posts', () => {
   const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
   return getRandomPosts(p, 3).map(post => ({
-    label: post.title,
-    url: post.url ?? post.path
+    label: post.title ?? '',
+    url: getPostUrl(post)
   }))
 })
 
 watch([locale, posts], () => {
   const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
   footerPosts.value = getRandomPosts(p, 3).map(post => ({
-    label: post.title,
-    url: post.url ?? post.path
+    label: post.title ?? '',
+    url: getPostUrl(post)
   }))
 })
 
@@ -229,12 +239,12 @@ const validateActiveMenu = computed(() => {
   return configMenu.value.menus.find(m => m.url === route.path)?.id ?? 0
 })
 
-const handleClickLinks = ({ url }) => {
+const handleClickLinks = ({ url }: { url: string }): void => {
   if (url.startsWith('http') || url === '/rss.xml') {
     window.open(url, '_blank')
     return
   }
-  router.push(url)
+  void router.push(url)
 }
 
 onMounted(() => {
@@ -244,7 +254,7 @@ onMounted(() => {
   const stored = localStorage.getItem('theme')
   const theme = stored || (prefersDark ? 'dark' : 'light')
   setTheme(theme)
-  blogStore.fetchBlogPosts()
+  void blogStore.fetchBlogPosts()
 })
 
 const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'

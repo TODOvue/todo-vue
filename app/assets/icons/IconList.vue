@@ -18,7 +18,3 @@
     <line x1="3" y1="18" x2="3.01" y2="18" />
   </svg>
 </template>
-
-<script setup>
-</script>
-

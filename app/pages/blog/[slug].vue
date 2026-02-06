@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {
   TvArticle,
   TvBreadcrumbs,
@@ -8,18 +8,29 @@ import {
 } from '@todovue/tv-ui'
 
 import { useI18n } from 'vue-i18n'
+import type { BlogPost, CardConfig } from '@/types/composables'
+import type { BreadcrumbItem, TagLike, TocData } from '@/types/views'
 
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
 const { locale, setLocale, t } = useI18n()
+const runtimeConfig = useRuntimeConfig()
+const { registerVisit } = useVisit()
 
-if (route.params.slug) {
-  const slug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
-  const match = slug.match(/\.([a-z]{2})$/i)
+const getRouteSlug = (): string | undefined => {
+  const slug = route.params.slug
+  if (Array.isArray(slug)) return slug[0]
+  return slug
+}
+
+const routeSlug = getRouteSlug()
+
+if (routeSlug) {
+  const match = routeSlug.match(/\.([a-z]{2})$/i)
   if (match && match[1]) {
     const targetLocale = match[1].toLowerCase()
-    if (['en', 'es'].includes(targetLocale) && locale.value !== targetLocale) {
+    if ((targetLocale === 'en' || targetLocale === 'es') && locale.value !== targetLocale) {
       await setLocale(targetLocale)
     }
   }
@@ -32,11 +43,11 @@ if (!route.path.endsWith('/')) {
 
 const dataKey = computed(() => `blog-${route.params.slug}-${locale.value}`)
 
-const { data: post } = await useAsyncData(
+const { data: post } = await useAsyncData<BlogPost | null>(
   dataKey,
-  async () => {
-    const slug = route.params.slug
-    if (!slug || typeof slug !== 'string') {
+  async (): Promise<BlogPost | null> => {
+    const slug = getRouteSlug()
+    if (!slug) {
       console.error('Slug not found:', slug)
       return null
     }
@@ -57,41 +68,44 @@ if (!post.value) {
   throw createError({ statusCode: 404, statusMessage: 'Post not found' })
 }
 
+const resolvedPost = computed<BlogPost>(() => post.value ?? {})
+
 const articleData = computed(() => ({
-  date: post.value.date,
-  readingTime: post.value.meta?.readingTime,
-  tags: post.value.tags,
-  coverCaption: post.value.meta?.coverCaption,
-  body: post.value.body
+  date: resolvedPost.value.date,
+  readingTime: resolvedPost.value.meta?.readingTime,
+  tags: resolvedPost.value.tags,
+  coverCaption: resolvedPost.value.meta?.coverCaption,
+  body: resolvedPost.value.body
 }))
 
-const relatedPosts = computed(() => {
-  if (!post.value) return []
-  return blogStore.getRelatedPosts(post.value, 3)
+const relatedPosts = computed<CardConfig[]>(() => {
+  if (!resolvedPost.value.tags) return []
+  return blogStore.getRelatedPosts(resolvedPost.value, 3)
 })
 
-const tocData = computed(() => {
-  const toc = post.value.body?.toc ?? null
+const tocData = computed<TocData | null>(() => {
+  const body = resolvedPost.value.body as { toc?: TocData; value?: unknown[] } | undefined
+  const toc = body?.toc ?? null
   if (!toc) return null
-  const enhancedToc = { ...toc }
-  if (!enhancedToc.title && post.value.title) {
+  const enhancedToc: TocData = { ...toc }
+  if (!enhancedToc.title && resolvedPost.value.title) {
     enhancedToc.title = t('blogs.toc.title')
   }
 
-  const hasH1 = enhancedToc.links && enhancedToc.links.length > 0 && enhancedToc.links[0].depth === 1
+  const hasH1 = Boolean(enhancedToc.links && enhancedToc.links.length > 0 && enhancedToc.links[0]?.depth === 1)
 
-  if (!hasH1 && post.value.title && Array.isArray(post.value.body?.value)) {
-   const h1Node = post.value.body.value.find(node => Array.isArray(node) && node[0] === 'h1')
-   const h1Id = h1Node?.[1]?.id
+  if (!hasH1 && resolvedPost.value.title && Array.isArray(body?.value)) {
+    const h1Node = body.value.find((node) => Array.isArray(node) && node[0] === 'h1') as [string, { id?: string }] | undefined
+    const h1Id = h1Node?.[1]?.id
 
-   if (h1Id) {
-     const h1Link = {
-       id: h1Id,
-       depth: 1,
-       text: post.value.title
-     }
-     enhancedToc.links = [h1Link, ...(enhancedToc.links || [])]
-   }
+    if (h1Id) {
+      const h1Link = {
+        id: h1Id,
+        depth: 1,
+        text: resolvedPost.value.title
+      }
+      enhancedToc.links = [h1Link, ...(enhancedToc.links || [])]
+    }
   }
 
   return enhancedToc
@@ -103,59 +117,62 @@ const hasToc = computed(() => {
 })
 
 const configHero = {
-  description: post.value.description,
-  title: post.value.title,
-  image: post.value.meta?.cover,
-  alt: post.value.meta?.coverAlt
+  description: resolvedPost.value.description,
+  title: resolvedPost.value.title,
+  image: resolvedPost.value.meta?.cover,
+  alt: resolvedPost.value.meta?.coverAlt
 }
 
-const breadcrumbs = computed(() => [
+const breadcrumbs = computed<BreadcrumbItem[]>(() => [
   { label: 'Home', href: '/' },
   { label: 'Blog', href: '/blog' },
-  { label: post.value.title, href: route.path }
+  { label: resolvedPost.value.title ?? '', href: route.path }
 ])
 
 const ogImage = computed(() => {
-  const cover = post.value.meta?.cover
+  const cover = resolvedPost.value.meta?.cover
   if (!cover) return '/default-og-image.png'
   if (cover.startsWith('http')) return cover
   return cover
 })
 
-const handleLabelClick = (label) => {
+const handleLabelClick = (label: TagLike): void => {
   if (label) {
     const labelValue = label.name || label.tag
     if (labelValue) {
-      router.push({  name: 'blog', query: { label: labelValue, page: '1' } })
+      void router.push({ name: 'blog', query: { label: labelValue, page: '1' } })
     }
   }
 }
 
-const handleRelatedClick = (path) => {
-  router.push(path)
+const handleRelatedClick = (path: string): void => {
+  void router.push(path)
 }
 
 const { setBlogPostSeo } = useSeo()
+const normalizeSeoDate = (value: string | number | Date | undefined): string | Date | undefined => {
+  if (typeof value === 'number') return String(value)
+  return value
+}
 
 setBlogPostSeo({
-  title: post.value.title,
-  description: post.value.description,
+  title: resolvedPost.value.title ?? '',
+  description: resolvedPost.value.description ?? '',
   image: ogImage.value,
   author: 'TODOvue',
-  publishedAt: post.value.date,
-  updatedAt: post.value.updatedAt || post.value.date,
-  tags: post.value.tags?.map(tag => typeof tag === 'string' ? tag : tag.tag) || [],
+  publishedAt: normalizeSeoDate(resolvedPost.value.date),
+  updatedAt: normalizeSeoDate(resolvedPost.value.updatedAt || resolvedPost.value.date),
+  tags: resolvedPost.value.tags?.map((tag) => typeof tag === 'string' ? tag : tag.tag).filter((tag): tag is string => Boolean(tag)) || [],
   url: route.path,
   locale: locale.value,
   breadcrumbs: breadcrumbs.value
 })
 
-const currentSlug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
+const currentSlug = getRouteSlug()
 const baseSlug = currentSlug ? currentSlug.replace(/\.(es|en)$/i, '') : ''
 
 if (baseSlug) {
-  const runtimeConfig = useRuntimeConfig()
-  const siteUrl = runtimeConfig.public.siteUrl
+  const siteUrl = runtimeConfig.public.siteUrl ?? ''
   const esUrl = `${siteUrl}/blog/${baseSlug}.es/`
   const enUrl = `${siteUrl}/blog/${baseSlug}.en/`
   const canonicalUrl = locale.value === 'en' ? enUrl : esUrl
@@ -170,11 +187,9 @@ if (baseSlug) {
   })
 }
 
-const { registerVisit } = useVisit()
-
 onMounted(() => {
   if (currentSlug) {
-    registerVisit(currentSlug)
+    void registerVisit(currentSlug)
   }
 
   if (route.hash) {
@@ -196,7 +211,7 @@ onMounted(() => {
   }
 })
 
-const articleContainer = ref(null)
+const articleContainer = ref<HTMLElement | null>(null)
 </script>
 
 <template>
