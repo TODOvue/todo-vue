@@ -455,7 +455,7 @@ export default {
 ```
 
 Esto puede romper el estado de cada fila al reordenar o insertar elementos.
-Usa una clave estable (`item.id`) cuando exista.
+> Usa una clave estable (`item.id`) cuando exista.
 
 ### 2) Mezclar `v-if` y `v-for` en el mismo nodo
 
@@ -465,7 +465,7 @@ Usa una clave estable (`item.id`) cuando exista.
 </li>
 ```
 
-Mejor: crea una lista `computed` filtrada y itera esa lista.
+> Crea una lista `computed` filtrada e itera esa lista.
 
 ### 3) Mutar directamente el resultado de un `computed`
 
