@@ -17,7 +17,6 @@ tags:
     color: "#41B883"
   - tag: "Buenas Prácticas"
     color: "#2196F3"
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770161262/vue-directives-overview_qyrngz.png
 coverAlt: "Directivas en Vue: Una Visión General"
 coverCaption: "Imagen destacada que representa las directivas en Vue.js."

@@ -17,7 +17,6 @@ tags:
     color: "#41B883"
   - tag: "Best Practices"
     color: "#2196F3"
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770161262/vue-directives-overview_qyrngz.png
 coverAlt: "Vue Directives: An Overview"
 coverCaption: "Cover image representing directives in Vue.js."

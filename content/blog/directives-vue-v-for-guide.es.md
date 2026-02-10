@@ -3,7 +3,6 @@ title: "Directiva en Vue: v-for"
 description: "Aprende a dominar v-for en Vue con ejemplos prácticos desde lo más básico hasta patrones avanzados, uso correcto de key, errores comunes y buenas prácticas en Composition API y Options API."
 date: 2026-02-09T21:30:00-05:00
 updatedAt: 2026-02-09T21:30:00-05:00
-readingTime: 11
 tags:
   - tag: "Directivas"
     color: "#6C5CE7"
