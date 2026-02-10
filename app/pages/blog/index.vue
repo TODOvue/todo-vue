@@ -7,7 +7,7 @@ import {
   TvPagination,
   TvSidebar,
 } from '@todovue/tv-ui'
-import type { BlogPost, CardConfig, CardLabel, PopularConfig } from '@/types/composables'
+import type { BlogPost, CardConfig, PopularConfig } from '@/types/composables'
 import type { ActiveFilter, SidebarBlogLink, TagLike } from '@/types/views'
 
 import IconGrid from '~/assets/icons/IconGrid.vue'
@@ -101,6 +101,16 @@ const handleSidebar = (label: TagLike): void => {
   }
 }
 
+const {
+  handleCardClick,
+  handleCardKeydown,
+  handleCardButtonClick,
+  handleCardLabelClick
+} = useCardNavigation<TagLike>({
+  navigateToPath: (path: string) => router.push(path),
+  onLabelClick: handleSidebar
+})
+
 const handleLinkBlog = (blog: SidebarBlogLink): void => {
   void router.push(blog.link)
 }
@@ -109,10 +119,6 @@ const configHero = computed(() => ({
   description: t('blogs.hero.description'),
   title: t('blogs.hero.title'),
 }))
-
-const handleButton = (path: string): void => {
-  void router.push(path)
-}
 
 const toggleView = () => {
   isHorizontalView.value = !isHorizontalView.value
@@ -240,14 +246,22 @@ setPageSeo({
               : 'grid grid-cols-1 gap-[15px] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] lg:gap-5 justify-items-center'
           ]"
         >
-          <TvCard
+          <div
             v-for="post in configCards"
             :key="post.id"
-            :is-horizontal="isHorizontalView"
-            :config-card="post"
-            @click-button="handleButton(post.path)"
-            @click-label="handleSidebar"
-          />
+            class="blog-card-shell w-full"
+            role="link"
+            tabindex="0"
+            @click="handleCardClick($event, post.path)"
+            @keydown="handleCardKeydown($event, post.path)"
+          >
+            <TvCard
+              :is-horizontal="isHorizontalView"
+              :config-card="post"
+              @click-button="handleCardButtonClick(post.path)"
+              @click-label="handleCardLabelClick"
+            />
+          </div>
         </div>
         <p v-else>{{ t('blogs.empty') }}</p>
 

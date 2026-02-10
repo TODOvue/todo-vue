@@ -52,6 +52,16 @@ const handleCategoryClick = (label: CardLabel): void => {
   }
 }
 
+const {
+  handleCardClick,
+  handleCardKeydown,
+  handleCardButtonClick,
+  handleCardLabelClick
+} = useCardNavigation<CardLabel>({
+  navigateToPath: (path: string) => navigateTo(path),
+  onLabelClick: handleCategoryClick
+})
+
 const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'
 
 const { setPageSeo } = useSeo()
@@ -77,13 +87,21 @@ setPageSeo({
           {{ t('home.sections.lastPost') }}
         </h2>
       </div>
-      <TvCard
+      <div
         v-if="lastBlogPosts"
-        :config-card="lastBlogPosts"
-        is-horizontal
-        @click-button="navigateTo(lastBlogPosts.path)"
-        @click-label="handleCategoryClick"
-      />
+        class="blog-card-shell"
+        role="link"
+        tabindex="0"
+        @click="handleCardClick($event, lastBlogPosts.path)"
+        @keydown="handleCardKeydown($event, lastBlogPosts.path)"
+      >
+        <TvCard
+          :config-card="lastBlogPosts"
+          is-horizontal
+          @click-button="handleCardButtonClick(lastBlogPosts.path)"
+          @click-label="handleCardLabelClick"
+        />
+      </div>
     </div>
 
     <div v-if="latestPosts.length > 0" class="container-main">
@@ -92,14 +110,22 @@ setPageSeo({
           {{ t('home.sections.lastestPosts') }}
         </h2>
       </div>
-      <div class="flex flex-wrap gap-2 justify-center sm:justify-center md:justify-around">
-        <TvCard
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div
           v-for="post in latestPosts"
           :key="post.id"
-          :config-card="post"
-          @click-button="navigateTo(post.path)"
-          @click-label="handleCategoryClick"
-        />
+          class="blog-card-shell w-full"
+          role="link"
+          tabindex="0"
+          @click="handleCardClick($event, post.path)"
+          @keydown="handleCardKeydown($event, post.path)"
+        >
+          <TvCard
+            :config-card="post"
+            @click-button="handleCardButtonClick(post.path)"
+            @click-label="handleCardLabelClick"
+          />
+        </div>
       </div>
       <div class="mt-8 flex justify-center">
         <TvButton
