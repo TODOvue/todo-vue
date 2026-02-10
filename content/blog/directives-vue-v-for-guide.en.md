@@ -473,7 +473,7 @@ This can break row state when reordering or inserting elements.
 </li>
 ```
 
-> Better: build a filtered `computed` list and iterate over that.
+> Build a filtered `computed` list and iterate over that.
 
 ### 3) Mutating a derived `computed` result directly
 

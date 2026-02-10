@@ -465,7 +465,7 @@ Esto puede romper el estado de cada fila al reordenar o insertar elementos.
 </li>
 ```
 
-> Mejor: crea una lista `computed` filtrada e itera esa lista.
+> Crea una lista `computed` filtrada e itera esa lista.
 
 ### 3) Mutar directamente el resultado de un `computed`
 
