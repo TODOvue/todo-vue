@@ -239,12 +239,12 @@ const configFooter = computed(() => ({
     { label: 'CrisDev', url: 'https://cris-dev.com', },
   ],
   copyright: t('footer.copyright', { year: new Date().getFullYear() }),
-  newsletter: {
-    title: t('footer.newsletter.title'),
-    description: t('footer.newsletter.description'),
-    placeholder: t('footer.newsletter.placeholder'),
-    button: t('footer.newsletter.button')
-  }
+  // newsletter: {
+  //   title: t('footer.newsletter.title'),
+  //   description: t('footer.newsletter.description'),
+  //   placeholder: t('footer.newsletter.placeholder'),
+  //   button: t('footer.newsletter.button')
+  // }
 }))
 
 const validateActiveMenu = computed(() => {
