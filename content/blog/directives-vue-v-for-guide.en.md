@@ -463,7 +463,7 @@ export default {
 ```
 
 This can break row state when reordering or inserting elements.
-Use a stable key (`item.id`) whenever possible.
+> Use a stable key (`item.id`) whenever possible.
 
 ### 2) Mixing `v-if` and `v-for` on the same node
 
@@ -473,7 +473,7 @@ Use a stable key (`item.id`) whenever possible.
 </li>
 ```
 
-Better: build a filtered `computed` list and iterate over that.
+> Better: build a filtered `computed` list and iterate over that.
 
 ### 3) Mutating a derived `computed` result directly
 
