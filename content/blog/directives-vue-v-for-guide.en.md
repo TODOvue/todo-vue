@@ -1,5 +1,5 @@
 ---
-title: "Vue Directive: v-for"
+title: "Vue Directives: v-for"
 description: "Learn to master v-for in Vue with practical examples from basics to advanced patterns, proper key usage, common mistakes, and best practices in Composition API and Options API."
 date: 2026-02-09T21:30:00-05:00
 updatedAt: 2026-02-09T21:30:00-05:00
@@ -36,7 +36,7 @@ schemaOrg:
     datePublished: "2026-02-09T21:30:00-05:00"
 ---
 
-# `v-for` in Vue: from basic to advanced
+# Directive `v-for` in Vue: from basic to advanced
 
 `v-for` is Vue's directive for rendering lists.
 It looks simple, but using it correctly makes a huge difference in performance, UI stability, and code readability.

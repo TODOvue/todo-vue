@@ -1,5 +1,5 @@
 ---
-title: "Directiva en Vue: v-for"
+title: "Directivas en Vue: v-for"
 description: "Aprende a dominar v-for en Vue con ejemplos prácticos desde lo más básico hasta patrones avanzados, uso correcto de key, errores comunes y buenas prácticas en Composition API y Options API."
 date: 2026-02-09T21:30:00-05:00
 updatedAt: 2026-02-09T21:30:00-05:00
@@ -36,7 +36,7 @@ schemaOrg:
     datePublished: "2026-02-09T21:30:00-05:00"
 ---
 
-# `v-for` en Vue: de lo básico a lo avanzado
+# Directiva `v-for` en Vue: de lo básico a lo avanzado
 
 `v-for` es la directiva de Vue para renderizar listas.
 Parece simple, pero usarla bien marca una diferencia enorme en rendimiento, estabilidad visual y legibilidad del código.
