@@ -181,6 +181,16 @@ setBlogPostSeo({
 
 const currentSlug = getRouteSlug()
 const baseSlug = currentSlug ? currentSlug.replace(/\.(es|en)$/i, '') : ''
+const editLocale = computed<'es' | 'en'>(() => {
+  const routeLocale = currentSlug ? getSlugLocale(currentSlug) : null
+  if (routeLocale) return routeLocale
+  return locale.value === 'en' ? 'en' : 'es'
+})
+const editOnGithubUrl = computed(() => {
+  if (!baseSlug) return ''
+  const filePath = `content/blog/${baseSlug}.${editLocale.value}.md`
+  return `https://github.com/TODOvue/todo-vue/edit/main/${filePath}`
+})
 
 if (baseSlug) {
   const siteUrl = runtimeConfig.public.siteUrl ?? ''
@@ -257,6 +267,22 @@ const articleContainer = ref<HTMLElement | null>(null)
             :lang="locale"
             @label-click="handleLabelClick"
           />
+          <div
+            v-if="editOnGithubUrl"
+            class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-3 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
+          >
+            <a
+              :href="editOnGithubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
+            >
+              {{ t('blogs.contribute.editOnGithub') }}
+            </a>
+            <p class="mt-2 text-sm opacity-90">
+              {{ t('blogs.contribute.helpImprove') }}
+            </p>
+          </div>
         </div>
       </section>
 

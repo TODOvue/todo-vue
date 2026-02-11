@@ -43,6 +43,10 @@
       "cover": "Portada del blog"
     },
     "related": "Blogs relacionados",
+    "contribute": {
+      "editOnGithub": "Editar esta página en GitHub",
+      "helpImprove": "¿Viste un error o quieres mejorar esta entrada? Puedes proponer cambios directamente."
+    },
     "toc": {
       "title": "En este blog"
     }
@@ -60,6 +64,13 @@
       "description": "Bienvenido a el blog TODOvue, tu recurso definitivo para guías, tutoriales y notas de desarrollo sobre la creación de componentes modernos con Vue.js.",
       "button": "Ver todos los blogs",
       "secondary": "Ver componentes"
+    },
+    "community": {
+      "title": "Contribuciones de la Comunidad",
+      "description": "¿Encontraste un error o quieres mejorar una guía? Envíanos sugerencias de corrección directamente en GitHub Issues para revisarlas con la comunidad.",
+      "button": "Sugerir corrección en GitHub",
+      "issueTitle": "Sugerencia de corrección",
+      "issueBody": "## Contexto\n\n- URL o sección afectada:\n- Idioma (es/en):\n\n## Sugerencia\n\nDescribe aquí la corrección propuesta.\n\n## Información adicional\n\nIncluye cualquier referencia útil, captura o detalle extra."
     },
     "settings": {
       "label": "Abrir configuración",

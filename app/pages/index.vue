@@ -30,6 +30,10 @@ const navigateTo = (path: string, isExternal = false): void => {
   void router.push(path)
 }
 
+const openInNewTab = (path: string): void => {
+  window.open(path, '_blank', 'noopener,noreferrer')
+}
+
 await useAsyncData('index-home-blogs', async () => {
   return await blogStore.fetchBlogPosts()
 })
@@ -63,6 +67,11 @@ const {
 })
 
 const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'
+const githubIssueUrl = computed(() => {
+  const title = encodeURIComponent(t('home.community.issueTitle'))
+  const template = encodeURIComponent('correction_suggestion.md')
+  return `https://github.com/TODOvue/todo-vue/issues/new?template=${template}&title=${title}`
+})
 
 const { setPageSeo } = useSeo()
 
@@ -155,6 +164,26 @@ setPageSeo({
             :limit="10"
             @click="handleCategoryClick(label)"
           />
+        </div>
+      </div>
+    </div>
+
+    <div class="container-main">
+      <div class="mt-14 rounded-2xl border border-primary/40 bg-light-card-bg p-6 text-light-text shadow-sm md:p-8 dark:bg-dark-card-bg dark:text-dark-text">
+        <h2 class="text-2xl font-bold leading-tight md:text-3xl">
+          {{ t('home.community.title') }}
+        </h2>
+        <p class="mt-3 max-w-3xl text-base leading-relaxed opacity-90">
+          {{ t('home.community.description') }}
+        </p>
+        <div class="mt-6">
+          <TvButton
+            rounded
+            :aria-label="t('home.community.button')"
+            @click="openInNewTab(githubIssueUrl)"
+          >
+            {{ t('home.community.button') }}
+          </TvButton>
         </div>
       </div>
     </div>
