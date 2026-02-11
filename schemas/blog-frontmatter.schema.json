@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://todovue.local/schemas/blog-frontmatter.schema.json",
+  "title": "TODOvue Blog Frontmatter",
+  "type": "object",
+  "properties": {
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "date": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "draft": { "type": "boolean" },
+    "locale": { "type": "string", "enum": ["en", "es"] },
+    "slug": { "type": "string" },
+    "isNew": { "type": "boolean" },
+    "author": { "type": "string" },
+    "keywords": { "type": "array" },
+    "cover": { "type": "string" },
+    "coverAlt": { "type": "string" },
+    "coverCaption": { "type": "string" },
+    "readingTime": { "type": "number" },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tag": { "type": "string" },
+          "color": { "type": "string" }
+        },
+        "required": ["tag", "color"],
+        "additionalProperties": false
+      }
+    },
+    "schemaOrg": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string" },
+          "headline": { "type": "string" },
+          "author": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string" },
+              "name": { "type": "string" }
+            },
+            "additionalProperties": true
+          },
+          "datePublished": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "required": ["title", "tags"],
+  "additionalProperties": true
+}

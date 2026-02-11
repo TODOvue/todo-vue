@@ -34,6 +34,21 @@ export default defineNuxtConfig({
         { rel: 'shortcut icon', href: '/favicon.ico' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' }
+      ],
+      script: [
+        {
+          key: 'theme-init',
+          innerHTML: `(function () {
+            var root = document.documentElement;
+            var stored = null;
+            try { stored = localStorage.getItem('theme'); } catch (e) {}
+            var prefersDark = false;
+            try { prefersDark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); } catch (e) {}
+            var theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+            root.classList.remove('dark-mode', 'light-mode');
+            root.classList.add(theme + '-mode');
+          })();`
+        }
       ]
     }
   },
@@ -50,7 +65,8 @@ export default defineNuxtConfig({
         databaseURL: process.env.NUXT_PUBLIC_FIREBASE_DATABASE_URL,
         measurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID
       },
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
+      version: process.env.NUXT_PUBLIC_VERSION_APP
     },
   },
 
@@ -63,6 +79,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@todovue/tv-ui/nuxt',
+    '@nuxtjs/tailwindcss',
   ],
 
   site: {
@@ -109,7 +126,7 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  css: ['@/assets/styles/main.css'],
+  css: ['@/assets/styles/tailwind.css', '@/assets/styles/main.css'],
 
   content: {},
 
@@ -135,8 +152,8 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
-      { name: 'Lato', provider: 'google', weights: [300], display: 'swap', preload: true },
-      { name: 'Kanit', provider: 'google', weights: [600], display: 'swap', preload: true }
+      { name: 'Lato', provider: 'google', weights: [300, 400, 700], display: 'swap', preload: true },
+      { name: 'Kanit', provider: 'google', weights: [500, 600, 700], display: 'swap', preload: true }
     ]
   },
 

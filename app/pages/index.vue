@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import {
   TvButton,
   TvCard,
   TvHero,
   TvLabel,
 } from '@todovue/tv-ui'
+import type { CardConfig, CardLabel } from '@/types/composables'
 
 const { t } = useI18n()
 
@@ -21,12 +22,16 @@ const configHero = computed(() => ({
   buttonSecondary: t('home.hero.secondary')
 }))
 
-const navigateTo = (path, isExternal = false) => {
+const navigateTo = (path: string, isExternal = false): void => {
   if (isExternal) {
     window.open(path, '_self')
     return
   }
-  router.push(path)
+  void router.push(path)
+}
+
+const openInNewTab = (path: string): void => {
+  window.open(path, '_blank', 'noopener,noreferrer')
 }
 
 await useAsyncData('index-home-blogs', async () => {
@@ -35,22 +40,38 @@ await useAsyncData('index-home-blogs', async () => {
 
 const lastBlogPosts = blogStore.getLastMostViewedPost
 
-const latestPosts = computed(() => {
+const latestPosts = computed<CardConfig[]>(() => {
   const allCards = blogStore.getCardsConfig.value
   return allCards.slice(1, 5)
 })
 
-const popularCategories = computed(() => {
-  return blogStore.getAllLabels.value
+const popularCategories = computed<CardLabel[]>(() => {
+  const allLabels = blogStore.getAllLabels.value
+  return allLabels.slice(0, 6)
 })
 
-const handleCategoryClick = (label) => {
+const handleCategoryClick = (label: CardLabel): void => {
   if (label && label.name) {
-    router.push({  path: '/blog', query: { ...route.query, label: label.name, page: '1' } })
+    void router.push({ path: '/blog', query: { ...route.query, label: label.name, page: '1' } })
   }
 }
 
+const {
+  handleCardClick,
+  handleCardKeydown,
+  handleCardButtonClick,
+  handleCardLabelClick
+} = useCardNavigation<CardLabel>({
+  navigateToPath: (path: string) => navigateTo(path),
+  onLabelClick: handleCategoryClick
+})
+
 const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'
+const githubIssueUrl = computed(() => {
+  const title = encodeURIComponent(t('home.community.issueTitle'))
+  const template = encodeURIComponent('correction_suggestion.md')
+  return `https://github.com/TODOvue/todo-vue/issues/new?template=${template}&title=${title}`
+})
 
 const { setPageSeo } = useSeo()
 
@@ -69,33 +90,53 @@ setPageSeo({
       @click-secondary-button="navigateTo('https://ui.todovue.blog', true)"
     />
 
-    <div class="main-container">
-      <div class="section-header">
-        <h2 class="section-title">{{ t('home.sections.lastPost') }}</h2>
+    <div class="container-main">
+      <div class="mb-8 mt-12">
+        <h2 class="title-main">
+          {{ t('home.sections.lastPost') }}
+        </h2>
       </div>
-      <TvCard
+      <div
         v-if="lastBlogPosts"
-        :config-card="lastBlogPosts"
-        is-horizontal
-        @click-button="navigateTo(lastBlogPosts.path)"
-        @click-label="handleCategoryClick"
-      />
-    </div>
-
-    <div v-if="latestPosts.length > 0" class="main-container">
-      <div class="section-header">
-        <h2 class="section-title">{{ t('home.sections.lastestPosts') }}</h2>
-      </div>
-      <div class="posts-grid">
+        class="blog-card-shell"
+        role="link"
+        tabindex="0"
+        @click="handleCardClick($event, lastBlogPosts.path)"
+        @keydown="handleCardKeydown($event, lastBlogPosts.path)"
+      >
         <TvCard
-          v-for="post in latestPosts"
-          :key="post.id"
-          :config-card="post"
-          @click-button="navigateTo(post.path)"
-          @click-label="handleCategoryClick"
+          :config-card="lastBlogPosts"
+          is-horizontal
+          @click-button="handleCardButtonClick(lastBlogPosts.path)"
+          @click-label="handleCardLabelClick"
         />
       </div>
-      <div class="see-all-container">
+    </div>
+
+    <div v-if="latestPosts.length > 0" class="container-main">
+      <div class="mb-8 mt-12">
+        <h2 class="title-main">
+          {{ t('home.sections.lastestPosts') }}
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div
+          v-for="post in latestPosts"
+          :key="post.id"
+          class="blog-card-shell w-full"
+          role="link"
+          tabindex="0"
+          @click="handleCardClick($event, post.path)"
+          @keydown="handleCardKeydown($event, post.path)"
+        >
+          <TvCard
+            :config-card="post"
+            @click-button="handleCardButtonClick(post.path)"
+            @click-label="handleCardLabelClick"
+          />
+        </div>
+      </div>
+      <div class="mt-8 flex justify-center">
         <TvButton
           rounded
           large
@@ -107,12 +148,14 @@ setPageSeo({
       </div>
     </div>
 
-    <div class="main-container">
-      <div class="section-header">
-        <h2 class="section-title">{{ t('home.sections.popularCategories') }}</h2>
+    <div class="container-main">
+      <div class="mb-8 mt-12">
+        <h2 class="title-main">
+          {{ t('home.sections.popularCategories') }}
+        </h2>
       </div>
-      <div v-if="popularCategories.length > 0" class="categories-container">
-        <div class="labels-grid">
+      <div v-if="popularCategories.length > 0">
+        <div class="flex flex-wrap gap-2 justify-center sm:justify-center md:justify-start">
           <TvLabel
             v-for="label in popularCategories"
             :key="label.id"
@@ -124,94 +167,26 @@ setPageSeo({
         </div>
       </div>
     </div>
+
+    <div class="container-main">
+      <div class="mt-14 rounded-2xl border border-primary/40 bg-light-card-bg p-6 text-light-text shadow-sm md:p-8 dark:bg-dark-card-bg dark:text-dark-text">
+        <h2 class="text-2xl font-bold leading-tight md:text-3xl">
+          {{ t('home.community.title') }}
+        </h2>
+        <p class="mt-3 max-w-3xl text-base leading-relaxed opacity-90">
+          {{ t('home.community.description') }}
+        </p>
+        <div class="mt-6">
+          <TvButton
+            rounded
+            :aria-label="t('home.community.button')"
+            @click="openInNewTab(githubIssueUrl)"
+          >
+            {{ t('home.community.button') }}
+          </TvButton>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
-<style scoped>
-.section-header {
-  margin-bottom: 30px;
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--dark-text);
-  margin: 0;
-  position: relative;
-  display: inline-block;
-}
-
-.light-mode .section-title {
-  color: var(--light-text);
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: var(--dark-card-bg);
-  border-radius: 2px;
-}
-
-.light-mode .section-title::after {
-  background: var(--light-card-bg);
-}
-
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-bottom: 40px;
-}
-
-.see-all-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.categories-container {
-  max-width: 100%;
-}
-
-.labels-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding-bottom: 50px;
-}
-
-@media (max-width: 1024px) {
-  .posts-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
-  }
-
-  .section-title {
-    font-size: 1.75rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .posts-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    justify-items: center;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-  }
-
-  .section-header {
-    margin-bottom: 20px;
-  }
-
-  .labels-grid {
-    justify-content: center;
-  }
-}
-</style>

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {
   TvAlert,
   TvButton,
@@ -10,6 +10,8 @@ import {
   TvThemeButton,
   useAlert,
 } from '@todovue/tv-ui'
+import type { BlogPost } from '@/types/composables'
+import type { FooterPostLink, MenuSelection } from '@/types/views'
 
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
@@ -19,14 +21,22 @@ import RssIcon from '~/assets/icons/rss.svg'
 
 const router = useRouter()
 const route = useRoute()
+const config = useRuntimeConfig()
 
 const { api } = useAlert()
 const alert = api()
 
-const { progress, isLoading } = useGlobalLoader()
+const VERSION_APP = String(config.public.version ?? '')
+const preferredLocale = useCookie<'es' | 'en' | null>('todovue-locale', {
+  default: () => null,
+  sameSite: 'lax',
+  maxAge: 60 * 60 * 24 * 365
+})
+
+const { progress, isLoading, start, finish } = useGlobalLoader()
 
 const isDarkMode = ref(false)
-const language = ref('es')
+const language = ref<'es' | 'en'>('es')
 
 const blogStore = useBlogStore()
 const { t, locale, setLocale } = useI18n()
@@ -37,10 +47,10 @@ const { data: posts } = await useAsyncData('app-menu-posts', async () => {
 
 const results = computed(() =>
   (posts.value ?? [])
-    .map(post => ({
+    .map((post, index) => ({
       title: post.title ?? '',
       url: post.path ?? '/',
-      id: post.id ?? post._id ?? post._path ?? crypto.randomUUID?.() ?? Math.random().toString()
+      id: post.id ?? post._id ?? post._path ?? `${post.path ?? post.title ?? 'post'}-${index}`
     }))
 )
 
@@ -68,8 +78,15 @@ const configMenu = computed(() => ({
   results: results.value
 }))
 
-const handleClickMenu = (menu) => {
-  if (menu?.url === '/components') {
+const getPostUrl = (post: BlogPost): string => {
+  if (typeof post.url === 'string') return post.url
+  if (typeof post.path === 'string') return post.path
+  if (typeof post._path === 'string') return post._path
+  return '/'
+}
+
+const handleClickMenu = (menu: MenuSelection): void => {
+  if (typeof menu !== 'string' && menu?.url === '/components') {
     window.open('https://ui.todovue.blog/', '_self')
     return
   }
@@ -93,16 +110,17 @@ const handleClickMenu = (menu) => {
       })
       return
     }
-    router.push({ path: '/blog', query: { search: query } })
+    void router.push({ path: '/blog', query: { search: query } })
     return
   }
 
-  router.push(menu.url)
+  void router.push(menu.url)
 }
 
-const setTheme = (value, toButton = false) => {
+const setTheme = (value: string, toButton = false): void => {
   if (!import.meta.client) return
-  document.documentElement.className = `${value}-mode`
+  document.documentElement.classList.remove('dark-mode', 'light-mode')
+  document.documentElement.classList.add(`${value}-mode`)
   localStorage.setItem('theme', value)
   isDarkMode.value = value === 'dark'
   if (toButton) {
@@ -117,50 +135,55 @@ const setTheme = (value, toButton = false) => {
   }
 }
 
-const changeValue = (value) => {
+const changeValue = (value: string): void => {
   setTheme(value, true)
 }
 
-const changeLanguage = async (lang) => {
-  await setLocale(lang)
+const changeLanguage = async (lang: 'es' | 'en'): Promise<void> => {
+  start()
+  try {
+    await setLocale(lang)
+    preferredLocale.value = lang
 
-  const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
-  alert.info(t('home.settings.language.changed', { lang: langName }), {
-    position: 'top-right',
-    timeout: 4000,
-    title: t('home.settings.language.title')
-  })
-  await blogStore.fetchBlogPosts(true)
-  await refreshNuxtData('app-menu-posts')
-  language.value = lang
-  if (route.path.startsWith('/blog/') && route.params.slug) {
-    const currentSlug = String(route.params.slug).replace(/\.(es|en)$/, '')
-    const post = await blogStore.getBlogBySlug(currentSlug)
+    const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
+    alert.info(t('home.settings.language.changed', { lang: langName }), {
+      position: 'top-right',
+      timeout: 4000,
+      title: t('home.settings.language.title')
+    })
+    await blogStore.fetchBlogPosts(true)
+    await refreshNuxtData('app-menu-posts')
+    language.value = lang
+    if (route.path.startsWith('/blog/') && route.params.slug) {
+      const currentSlug = String(route.params.slug).replace(/\.(es|en)$/, '')
+      const post = await blogStore.getBlogBySlug(currentSlug)
 
-    if (post && post.path) {
-      await router.push(post.path)
+      if (post && post.path) {
+        await router.push(post.path)
+      }
     }
+  } finally {
+    finish()
   }
 }
 
-const getRandomPosts = (posts, count = 3) => {
-  const shuffled = [...posts].sort(() => Math.random() - 0.5)
-  return shuffled.slice(0, count)
+const getFooterPosts = (items: BlogPost[], count = 3): BlogPost[] => {
+  return items.slice(0, count)
 }
 
-const footerPosts = useState('footer-posts', () => {
+const footerPosts = useState<FooterPostLink[]>('footer-posts', () => {
   const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
-  return getRandomPosts(p, 3).map(post => ({
-    label: post.title,
-    url: post.url ?? post.path
+  return getFooterPosts(p, 3).map(post => ({
+    label: post.title ?? '',
+    url: getPostUrl(post)
   }))
 })
 
 watch([locale, posts], () => {
   const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
-  footerPosts.value = getRandomPosts(p, 3).map(post => ({
-    label: post.title,
-    url: post.url ?? post.path
+  footerPosts.value = getFooterPosts(p, 3).map(post => ({
+    label: post.title ?? '',
+    url: getPostUrl(post)
   }))
 })
 
@@ -214,24 +237,46 @@ const configFooter = computed(() => ({
       items: footerPosts.value
     },
   ],
-  version: 'v1.1.0',
+  version: VERSION_APP,
   legal: [
     { label: 'TODOvue UI', url: 'https://ui.todovue.blog', },
     { label: 'CrisDev', url: 'https://cris-dev.com', },
   ],
-  copyright: t('footer.copyright', { year: new Date().getFullYear() })
+  copyright: t('footer.copyright', { year: new Date().getFullYear() }),
+  // newsletter: {
+  //   title: t('footer.newsletter.title'),
+  //   description: t('footer.newsletter.description'),
+  //   placeholder: t('footer.newsletter.placeholder'),
+  //   button: t('footer.newsletter.button')
+  // }
 }))
 
 const validateActiveMenu = computed(() => {
   return configMenu.value.menus.find(m => m.url === route.path)?.id ?? 0
 })
 
-const handleClickLinks = ({ url }) => {
+const handleClickLinks = ({ url }: { url: string }): void => {
   if (url.startsWith('http') || url === '/rss.xml') {
     window.open(url, '_blank')
     return
   }
-  router.push(url)
+  void router.push(url)
+}
+
+const handleSubscribe = (email: string): void => {
+  try {
+    alert.success(t('footer.newsletter.notification.success', { email }), {
+      position: 'top-right',
+      timeout: 4000,
+      title: t('footer.newsletter.notification.title')
+    })
+  } catch (error) {
+    alert.error(t('footer.newsletter.notification.error'), {
+      position: 'top-right',
+      timeout: 4000,
+      title: t('footer.newsletter.notification.title')
+    })
+  }
 }
 
 onMounted(() => {
@@ -241,7 +286,11 @@ onMounted(() => {
   const stored = localStorage.getItem('theme')
   const theme = stored || (prefersDark ? 'dark' : 'light')
   setTheme(theme)
+  start()
   blogStore.fetchBlogPosts()
+    .finally(() => {
+      finish()
+    })
 })
 
 const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'
@@ -282,7 +331,7 @@ useHead({
       :model-value="progress"
       :disabled="!isLoading"
     />
-    <div class="menu-container">
+    <div class="mx-auto w-[95%] max-w-[1400px] py-4">
       <TvMenu
         :menus="configMenu.menus"
         :placeholder="configMenu.placeholder"
@@ -296,10 +345,10 @@ useHead({
         @search-menu="handleClickMenu"
       />
     </div>
-    <div class="settings-container">
+    <div class="fixed bottom-5 left-10 z-[1000]">
       <TvSettings direction="top" :label="t('home.settings.label')">
         <template #default>
-          <div class="settings-content">
+          <div class="flex flex-col items-center gap-4">
             <TvThemeButton square @change-theme="changeValue" />
             <TvButton
               :aria-label="t('home.settings.language.button.aria')"
@@ -318,7 +367,9 @@ useHead({
     <TvFooter
       :key="`${isDarkMode}-${language}`"
       :config="configFooter"
+      class="mt-16"
       @link-click="handleClickLinks"
+      @subscribe="handleSubscribe"
     />
     <TvAlert />
     <TvScrollTop show-on-scroll-up />
@@ -329,25 +380,5 @@ useHead({
 :deep(.tv-menu-image img) {
   width: 40px !important;
   height: 40px !important;
-}
-
-.menu-container {
-  max-width: 80%;
-  margin: 0 auto;
-  padding: 1rem 0;
-}
-
-.settings-container {
-  position: fixed;
-  bottom: 40px;
-  left: 40px;
-  z-index: 1000;
-}
-
-.settings-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
 }
 </style>

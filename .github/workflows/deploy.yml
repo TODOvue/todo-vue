@@ -1,22 +1,61 @@
-name: Deploy TODOvue
+name: Deploy TODOvue (PR merge)
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
       - name: Get latest code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decide bump type
+        id: bump_type
+        shell: bash
+        run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          echo "PR title: $TITLE"
+          BUMP="patch"
+          if echo "$TITLE" | grep -qi "(major)"; then
+            BUMP="major"
+          elif echo "$TITLE" | grep -qi "(minor)"; then
+            BUMP="minor"
+          fi
+          echo "type=$BUMP" >> $GITHUB_OUTPUT
+
+      - name: Configure Git
+        if: github.event.pull_request.head.ref == 'develop'
+        run: |
+          git config user.name "TODOvue-release[bot]"
+          git config user.email "TODOvue-release[bot]@users.noreply.github.com"
+
+      - name: Bump version and push tag
+        id: bump
+        if: github.event.pull_request.head.ref == 'develop'
+        shell: bash
+        run: |
+          BUMP="${{ steps.bump_type.outputs.type }}"
+          echo "Bumping version ($BUMP) because PR is develop -> main"
+
+          npm version "$BUMP" -m "chore(release): 🔥 v%s [skip ci]"
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
+          git push origin main --follow-tags
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.28.0
+          version: 10.29.2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,6 +68,18 @@ jobs:
 
       - name: Rebuild SQLite for Linux
         run: pnpm rebuild better-sqlite3
+
+      - name: Resolve version for app
+        id: app_version
+        shell: bash
+        run: |
+          if [ -n "${{ steps.bump.outputs.NEW_VERSION }}" ]; then
+            V="${{ steps.bump.outputs.NEW_VERSION }}"
+          else
+            V=$(node -p "require('./package.json').version")
+          fi
+          echo "VERSION_APP=$V" >> $GITHUB_OUTPUT
+          echo "Using version: $V"
 
       - name: Create .env file
         run: |
@@ -48,6 +99,7 @@ jobs:
           echo NUXT_PUBLIC_SITE_INDEXABLE=${{ secrets.PUBLIC_SITE_INDEXABLE }} >> .env
           echo NUXT_PUBLIC_SITE_DEFAULT_LOCALE=${{ secrets.PUBLIC_SITE_DEFAULT_LOCALE }} >> .env
           echo NUXT_PUBLIC_SITE_TRAILING_SLASH=${{ secrets.PUBLIC_SITE_TRAILING_SLASH }} >> .env
+          echo NUXT_PUBLIC_VERSION_APP=v${{ steps.app_version.outputs.VERSION_APP }} >> .env
 
       - name: Nuxt Generate
         run: pnpm run generate

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {
   TvArticle,
   TvBreadcrumbs,
@@ -8,21 +8,26 @@ import {
 } from '@todovue/tv-ui'
 
 import { useI18n } from 'vue-i18n'
+import type { BlogPost, CardConfig } from '@/types/composables'
+import type { BreadcrumbItem, TagLike, TocData } from '@/types/views'
 
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
-const { locale, setLocale, t } = useI18n()
+const { locale, t } = useI18n()
+const runtimeConfig = useRuntimeConfig()
+const { registerVisit } = useVisit()
 
-if (route.params.slug) {
-  const slug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
-  const match = slug.match(/\.([a-z]{2})$/i)
-  if (match && match[1]) {
-    const targetLocale = match[1].toLowerCase()
-    if (['en', 'es'].includes(targetLocale) && locale.value !== targetLocale) {
-      await setLocale(targetLocale)
-    }
-  }
+const getRouteSlug = (): string | undefined => {
+  const slug = route.params.slug
+  if (Array.isArray(slug)) return slug[0]
+  return slug
+}
+const getSlugLocale = (value: string): 'es' | 'en' | null => {
+  const match = value.match(/\.([a-z]{2})$/i)
+  const localeCode = match?.[1]?.toLowerCase()
+  if (localeCode === 'es' || localeCode === 'en') return localeCode
+  return null
 }
 
 if (!route.path.endsWith('/')) {
@@ -32,17 +37,28 @@ if (!route.path.endsWith('/')) {
 
 const dataKey = computed(() => `blog-${route.params.slug}-${locale.value}`)
 
-const { data: post } = await useAsyncData(
+const { data: post } = await useAsyncData<BlogPost | null>(
   dataKey,
-  async () => {
-    const slug = route.params.slug
-    if (!slug || typeof slug !== 'string') {
+  async (): Promise<BlogPost | null> => {
+    const slug = getRouteSlug()
+    if (!slug) {
       console.error('Slug not found:', slug)
       return null
     }
 
     try {
-      return await blogStore.getBlogBySlug(slug)
+      const direct = await blogStore.getBlogBySlug(slug)
+      if (direct) return direct
+
+      const routeLocale = getSlugLocale(slug)
+      if (routeLocale) {
+        const byRouteLocale = await blogStore.getBlogBySlug(slug, {
+          preferredLocale: routeLocale,
+          allowLocaleFallback: true
+        })
+        if (byRouteLocale) return byRouteLocale
+      }
+      return null
     } catch (error) {
       console.error('Error searching for post:', error)
       return null
@@ -57,41 +73,44 @@ if (!post.value) {
   throw createError({ statusCode: 404, statusMessage: 'Post not found' })
 }
 
+const resolvedPost = computed<BlogPost>(() => post.value ?? {})
+
 const articleData = computed(() => ({
-  date: post.value.date,
-  readingTime: post.value.meta?.readingTime,
-  tags: post.value.tags,
-  coverCaption: post.value.meta?.coverCaption,
-  body: post.value.body
+  date: resolvedPost.value.date,
+  readingTime: resolvedPost.value.meta?.readingTime,
+  tags: resolvedPost.value.tags,
+  coverCaption: resolvedPost.value.meta?.coverCaption,
+  body: resolvedPost.value.body
 }))
 
-const relatedPosts = computed(() => {
-  if (!post.value) return []
-  return blogStore.getRelatedPosts(post.value, 3)
+const relatedPosts = computed<CardConfig[]>(() => {
+  if (!resolvedPost.value.tags) return []
+  return blogStore.getRelatedPosts(resolvedPost.value, 3)
 })
 
-const tocData = computed(() => {
-  const toc = post.value.body?.toc ?? null
+const tocData = computed<TocData | null>(() => {
+  const body = resolvedPost.value.body as { toc?: TocData; value?: unknown[] } | undefined
+  const toc = body?.toc ?? null
   if (!toc) return null
-  const enhancedToc = { ...toc }
-  if (!enhancedToc.title && post.value.title) {
+  const enhancedToc: TocData = { ...toc }
+  if (!enhancedToc.title && resolvedPost.value.title) {
     enhancedToc.title = t('blogs.toc.title')
   }
 
-  const hasH1 = enhancedToc.links && enhancedToc.links.length > 0 && enhancedToc.links[0].depth === 1
+  const hasH1 = Boolean(enhancedToc.links && enhancedToc.links.length > 0 && enhancedToc.links[0]?.depth === 1)
 
-  if (!hasH1 && post.value.title && Array.isArray(post.value.body?.value)) {
-   const h1Node = post.value.body.value.find(node => Array.isArray(node) && node[0] === 'h1')
-   const h1Id = h1Node?.[1]?.id
+  if (!hasH1 && resolvedPost.value.title && Array.isArray(body?.value)) {
+    const h1Node = body.value.find((node) => Array.isArray(node) && node[0] === 'h1') as [string, { id?: string }] | undefined
+    const h1Id = h1Node?.[1]?.id
 
-   if (h1Id) {
-     const h1Link = {
-       id: h1Id,
-       depth: 1,
-       text: post.value.title
-     }
-     enhancedToc.links = [h1Link, ...(enhancedToc.links || [])]
-   }
+    if (h1Id) {
+      const h1Link = {
+        id: h1Id,
+        depth: 1,
+        text: resolvedPost.value.title
+      }
+      enhancedToc.links = [h1Link, ...(enhancedToc.links || [])]
+    }
   }
 
   return enhancedToc
@@ -103,59 +122,78 @@ const hasToc = computed(() => {
 })
 
 const configHero = {
-  description: post.value.description,
-  title: post.value.title,
-  image: post.value.meta?.cover,
-  alt: post.value.meta?.coverAlt
+  description: resolvedPost.value.description,
+  title: resolvedPost.value.title,
+  image: resolvedPost.value.meta?.cover,
+  alt: resolvedPost.value.meta?.coverAlt
 }
 
-const breadcrumbs = computed(() => [
+const breadcrumbs = computed<BreadcrumbItem[]>(() => [
   { label: 'Home', href: '/' },
   { label: 'Blog', href: '/blog' },
-  { label: post.value.title, href: route.path }
+  { label: resolvedPost.value.title ?? '', href: route.path }
 ])
 
 const ogImage = computed(() => {
-  const cover = post.value.meta?.cover
+  const cover = resolvedPost.value.meta?.cover
   if (!cover) return '/default-og-image.png'
   if (cover.startsWith('http')) return cover
   return cover
 })
 
-const handleLabelClick = (label) => {
+const handleLabelClick = (label: TagLike): void => {
   if (label) {
     const labelValue = label.name || label.tag
     if (labelValue) {
-      router.push({  name: 'blog', query: { label: labelValue, page: '1' } })
+      void router.push({ name: 'blog', query: { label: labelValue, page: '1' } })
     }
   }
 }
 
-const handleRelatedClick = (path) => {
-  router.push(path)
-}
+const {
+  handleCardClick,
+  handleCardKeydown,
+  handleCardButtonClick,
+  handleCardLabelClick
+} = useCardNavigation<TagLike>({
+  navigateToPath: (path: string) => router.push(path),
+  onLabelClick: handleLabelClick
+})
 
 const { setBlogPostSeo } = useSeo()
+const normalizeSeoDate = (value: string | number | Date | undefined): string | Date | undefined => {
+  if (typeof value === 'number') return String(value)
+  return value
+}
 
 setBlogPostSeo({
-  title: post.value.title,
-  description: post.value.description,
+  title: resolvedPost.value.title ?? '',
+  description: resolvedPost.value.description ?? '',
   image: ogImage.value,
   author: 'TODOvue',
-  publishedAt: post.value.date,
-  updatedAt: post.value.updatedAt || post.value.date,
-  tags: post.value.tags?.map(tag => typeof tag === 'string' ? tag : tag.tag) || [],
+  publishedAt: normalizeSeoDate(resolvedPost.value.date),
+  updatedAt: normalizeSeoDate(resolvedPost.value.updatedAt || resolvedPost.value.date),
+  tags: resolvedPost.value.tags?.map((tag) => typeof tag === 'string' ? tag : tag.tag).filter((tag): tag is string => Boolean(tag)) || [],
   url: route.path,
   locale: locale.value,
   breadcrumbs: breadcrumbs.value
 })
 
-const currentSlug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
+const currentSlug = getRouteSlug()
 const baseSlug = currentSlug ? currentSlug.replace(/\.(es|en)$/i, '') : ''
+const editLocale = computed<'es' | 'en'>(() => {
+  const routeLocale = currentSlug ? getSlugLocale(currentSlug) : null
+  if (routeLocale) return routeLocale
+  return locale.value === 'en' ? 'en' : 'es'
+})
+const editOnGithubUrl = computed(() => {
+  if (!baseSlug) return ''
+  const filePath = `content/blog/${baseSlug}.${editLocale.value}.md`
+  return `https://github.com/TODOvue/todo-vue/edit/main/${filePath}`
+})
 
 if (baseSlug) {
-  const runtimeConfig = useRuntimeConfig()
-  const siteUrl = runtimeConfig.public.siteUrl
+  const siteUrl = runtimeConfig.public.siteUrl ?? ''
   const esUrl = `${siteUrl}/blog/${baseSlug}.es/`
   const enUrl = `${siteUrl}/blog/${baseSlug}.en/`
   const canonicalUrl = locale.value === 'en' ? enUrl : esUrl
@@ -170,11 +208,9 @@ if (baseSlug) {
   })
 }
 
-const { registerVisit } = useVisit()
-
 onMounted(() => {
   if (currentSlug) {
-    registerVisit(currentSlug)
+    void registerVisit(currentSlug)
   }
 
   if (route.hash) {
@@ -196,7 +232,7 @@ onMounted(() => {
   }
 })
 
-const articleContainer = ref(null)
+const articleContainer = ref<HTMLElement | null>(null)
 </script>
 
 <template>
@@ -206,44 +242,70 @@ const articleContainer = ref(null)
         :config-hero="configHero"
         is-entry
       />
-      <div class="main-container">
+      <div class="container-main">
         <TvBreadcrumbs
           :items="breadcrumbs"
         />
       </div>
       <section
         v-if="post"
-        class="main-container blog-reading-zone"
+        class="container-main mt-0 mb-20 flex flex-col gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12"
       >
         <client-only>
           <aside
             v-if="hasToc"
-            class="blog-reading-zone__toc"
+            class="order-1 pt-6 lg:order-2 lg:border-t-0 lg:pt-0"
           >
-            <div class="blog-reading-zone__toc-inner">
+            <div class="sticky top-5 lg:overflow-auto">
               <TvToc :toc="tocData" compact />
             </div>
           </aside>
         </client-only>
-        <div class="blog-reading-zone__article">
+        <div class="order-2 min-w-0 lg:order-1">
           <TvArticle
             :content="articleData"
             :lang="locale"
             @label-click="handleLabelClick"
           />
+          <div
+            v-if="editOnGithubUrl"
+            class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-3 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
+          >
+            <a
+              :href="editOnGithubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
+            >
+              {{ t('blogs.contribute.editOnGithub') }}
+            </a>
+            <p class="mt-2 text-sm opacity-90">
+              {{ t('blogs.contribute.helpImprove') }}
+            </p>
+          </div>
         </div>
       </section>
 
-      <section v-if="relatedPosts.length" class="main-container related-posts">
-        <h2 class="related-title">{{ t('blogs.related') }}</h2>
-        <div class="related-grid">
-          <TvCard
+      <section v-if="relatedPosts.length" class="container-main mb-16 mt-20">
+        <h2 class="title-main">
+          {{ t('blogs.related') }}
+        </h2>
+        <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
+          <div
             v-for="related in relatedPosts"
             :key="related.id"
-            :config-card="related"
-            @click-button="handleRelatedClick(related.path)"
-            @click-label="handleLabelClick"
-          />
+            class="blog-card-shell w-full"
+            role="link"
+            tabindex="0"
+            @click="handleCardClick($event, related.path)"
+            @keydown="handleCardKeydown($event, related.path)"
+          >
+            <TvCard
+              :config-card="related"
+              @click-button="handleCardButtonClick(related.path)"
+              @click-label="handleCardLabelClick"
+            />
+          </div>
         </div>
       </section>
     </div>
@@ -253,75 +315,5 @@ const articleContainer = ref(null)
 <style scoped>
 :deep(.tv-article) {
   padding: 0 !important;
-}
-
-.blog-reading-zone {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-top: 0;
-}
-
-.blog-reading-zone__article {
-  min-width: 0;
-  order: 2;
-}
-
-.blog-reading-zone__toc {
-  order: 1;
-  border-top: 1px solid rgba(148, 163, 184, 0.4);
-  padding-top: 1.5rem;
-}
-
-.blog-reading-zone__toc-inner {
-  position: sticky;
-  top: 20px;
-}
-
-@media (min-width: 992px) {
-  .blog-reading-zone {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 280px;
-    gap: 3rem;
-  }
-
-  .blog-reading-zone__article {
-    order: 1;
-  }
-
-  .blog-reading-zone__toc {
-    order: 2;
-    border-top: none;
-    padding-top: 0;
-  }
-
-  .blog-reading-zone__toc-inner {
-    overflow: auto;
-  }
-}
-
-.related-posts {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-}
-
-.related-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-.related-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-@media (max-width: 640px) {
-  .related-grid {
-    grid-template-columns: 1fr;
-    justify-content: center;
-    justify-items: center;
-  }
 }
 </style>

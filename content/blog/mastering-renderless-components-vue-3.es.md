@@ -2,8 +2,7 @@
 title: "Patrones Avanzados en Vue 3: El Poder de los Renderless Components"
 description: "Explora cómo los Renderless Components en Vue 3 pueden mejorar la reutilización de código y la separación de lógica y presentación en tus aplicaciones."
 date: 2026-01-30T17:00:00-05:00
-updatedAt: 2026-01-30T17:00:00-05:00
-readingTime: 5
+updatedAt: 2026-02-11T00:00:00-05:00
 tags:
   - tag: "Arquitectura"
     color: "#4CAF50"
@@ -56,7 +55,7 @@ La implementación de este patrón se apoya en los **Scoped Slots**. A diferenci
 
 Imagina un componente que gestiona el estado de "abierto/cerrado", algo esencial en menús y modales.
 
-```vue [LogicToggle.vue - Composition API]
+```vue [LogicToggle.vue - Composition API]{4-7,13}
 <script setup>
   import { ref } from 'vue';
 
@@ -72,7 +71,7 @@ Imagina un componente que gestiona el estado de "abierto/cerrado", algo esencial
   <slot :isOpen="isOpen" :toggle="toggle"></slot>
 </template>
 ```
-```vue [LogicToggle.vue - Options API]
+```vue [LogicToggle.vue - Options API]{5,9-11,18}
 <script>
   export default {
     data() {
@@ -97,7 +96,7 @@ Imagina un componente que gestiona el estado de "abierto/cerrado", algo esencial
 **Implementación en el Padre**
 Al consumir este componente, gozas de total libertad creativa:
 
-```vue [ParentComponent.vue]
+```vue [ParentComponent.vue]{2-4,6}
 <template>
   <LogicToggle v-slot="{ isOpen, toggle }">
     <button @click="toggle">
@@ -114,7 +113,7 @@ Al consumir este componente, gozas de total libertad creativa:
 
 Para alcanzar un nivel de producción profesional, especialmente en bibliotecas distribuidas vía NPM, es recomendable prescindir del bloque `<template>`. Al utilizar la función `render` y el método `h` (*hyperscript*), eliminamos la **sobrecarga** de la compilación de plantillas y evitamos la creación de nodos adicionales innecesarios en el DOM.
 
-```javascript [LogicToggle.js]
+```javascript [LogicToggle.js]{4-6,10-13}
 import { ref, h } from 'vue';
 
 export default {

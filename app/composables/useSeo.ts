@@ -1,4 +1,13 @@
-export const useSeo = () => {
+import { useHead, useRoute } from '#imports'
+import type {
+  BreadcrumbItem,
+  GenerateArticleSchemaOptions,
+  SetBlogPostSeoOptions,
+  SetPageSeoOptions,
+  UseSeoApi
+} from '@/types/composables'
+
+export const useSeo = (): UseSeoApi => {
   const siteConfig = useSiteConfig()
   const route = useRoute()
 
@@ -9,17 +18,7 @@ export const useSeo = () => {
     return `${baseUrl}${cleanPath}${trailingSlash}`
   }
 
-  const generateArticleSchema = (options: {
-    title: string
-    description: string
-    image?: string
-    author?: string
-    publishedTime?: string
-    modifiedTime?: string
-    tags?: string[]
-    url: string
-    locale?: string
-  }) => {
+  const generateArticleSchema = (options: GenerateArticleSchemaOptions): Record<string, unknown> => {
     const {
       title,
       description,
@@ -66,7 +65,7 @@ export const useSeo = () => {
     }
   }
 
-  const generateBreadcrumbSchema = (breadcrumbs: Array<{ label: string; href: string }>) => {
+  const generateBreadcrumbSchema = (breadcrumbs: BreadcrumbItem[]): Record<string, unknown> => {
     return {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
@@ -79,17 +78,7 @@ export const useSeo = () => {
     }
   }
 
-  const setPageSeo = (options: {
-    title?: string
-    description?: string
-    image?: string
-    type?: string
-    author?: string
-    publishedTime?: string
-    modifiedTime?: string
-    section?: string
-    tags?: string[]
-  }) => {
+  const setPageSeo = (options: SetPageSeoOptions): void => {
     const {
       title,
       description,
@@ -162,18 +151,7 @@ export const useSeo = () => {
     })
   }
 
-  const setBlogPostSeo = (post: {
-    title: string
-    description: string
-    image?: string
-    author?: string
-    publishedAt?: string | Date
-    updatedAt?: string | Date
-    tags?: string[]
-    url?: string
-    locale?: string
-    breadcrumbs?: Array<{ label: string; href: string }>
-  }) => {
+  const setBlogPostSeo = (post: SetBlogPostSeoOptions): void => {
     const publishedTime = post.publishedAt
       ? new Date(post.publishedAt).toISOString()
       : undefined

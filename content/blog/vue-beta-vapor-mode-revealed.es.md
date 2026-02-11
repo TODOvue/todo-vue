@@ -2,8 +2,7 @@
 title: "Vue 3.6 Beta: La Revolución de Vapor Mode y el Nuevo Motor de Reactividad"
 description: "Explora las novedades de Vue 3.6 Beta, incluyendo Vapor Mode y la integración de alien-signals para una reactividad más eficiente."
 date: 2025-12-27T00:00:00-05:00
-updatedAt: 2026-01-22T23:30:00-05:00
-readingTime: 7
+updatedAt: 2026-02-11T00:00:00-05:00
 tags:
   - tag: "Beta"
     color: "#42B883"
@@ -156,7 +155,7 @@ bun add vue@3.6.0-beta.1
 
 Activa el soporte para archivos `.vapor.vue` (la convención recomendada para diferenciar componentes):
 
-```javascript [vite.config.js]
+```javascript [vite.config.js]{7}
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
@@ -173,7 +172,7 @@ export default defineConfig({
 
 Puedes mezclar componentes estándar y Vapor. Para forzar a un componente a usar el nuevo motor, usa la extensión `.vapor.vue` o define el bloque script:
 
-```vue [Index.vue]
+```vue [Index.vue]{1}
 <script setup vapor>
 // Este componente se compilará sin Virtual DOM
 </script>

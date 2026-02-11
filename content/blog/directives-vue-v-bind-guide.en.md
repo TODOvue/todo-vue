@@ -3,7 +3,6 @@ title: "Vue Directive: v-bind"
 description: "Learn how to use v-bind in Vue from basic syntax to advanced patterns: dynamic attributes, reactive class/style bindings, component props, and common mistakes."
 date: 2026-02-11T18:00:00-05:00
 updatedAt: 2026-02-11T18:00:00-05:00
-readingTime: 10
 tags:
   - tag: "Directives"
     color: "#6C5CE7"

@@ -1,9 +1,8 @@
 ---
 title: "History and Evolution of Vue.js: The Progressive Framework"
 date: 2025-12-19T00:00:00-05:00
-updatedAt: 2026-01-22T23:30:00-05:00
+updatedAt: 2026-02-11T00:00:00-05:00
 description: "From its beginnings as a side project at Google to becoming one of the pillars of modern web development, we explore the evolution and philosophy of Vue.js."
-readingTime: 3
 tags:
   - tag: "History"
     color: "#F27E68"

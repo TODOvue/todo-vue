@@ -33,8 +33,8 @@
     "empty": "No hay artículos disponibles aún",
     "sidebar": {
       "popularBlogs": "Blogs populares",
-      "labels": "Etiquetas",
-      "searchPlaceholder": "Buscar por etiqueta",
+      "labels": "Todas las etiquetas",
+      "searchPlaceholder": "Filtrar por etiqueta",
       "newLabelText": "Nueva"
     },
     "card": {
@@ -43,6 +43,10 @@
       "cover": "Portada del blog"
     },
     "related": "Blogs relacionados",
+    "contribute": {
+      "editOnGithub": "Editar esta página en GitHub",
+      "helpImprove": "¿Viste un error o quieres mejorar esta entrada? Puedes proponer cambios directamente."
+    },
     "toc": {
       "title": "En este blog"
     }
@@ -53,13 +57,20 @@
       "lastestPosts": "Blogs recientes",
       "viewAllPosts": "Ver todos los blogs",
       "mostPopular": "Blogs más populares",
-      "popularCategories": "Categorías"
+      "popularCategories": "Etiquetas recientes"
     },
     "hero": {
       "title": "TODOvue Blog",
       "description": "Bienvenido a el blog TODOvue, tu recurso definitivo para guías, tutoriales y notas de desarrollo sobre la creación de componentes modernos con Vue.js.",
       "button": "Ver todos los blogs",
       "secondary": "Ver componentes"
+    },
+    "community": {
+      "title": "Contribuciones de la Comunidad",
+      "description": "¿Encontraste un error o quieres mejorar una guía? Envíanos sugerencias de corrección directamente en GitHub Issues para revisarlas con la comunidad.",
+      "button": "Sugerir corrección en GitHub",
+      "issueTitle": "Sugerencia de corrección",
+      "issueBody": "## Contexto\n\n- URL o sección afectada:\n- Idioma (es/en):\n\n## Sugerencia\n\nDescribe aquí la corrección propuesta.\n\n## Información adicional\n\nIncluye cualquier referencia útil, captura o detalle extra."
     },
     "settings": {
       "label": "Abrir configuración",
@@ -104,8 +115,19 @@
       "blogs": "Blogs",
       "components": "Componentes"
     },
-    "otherEntries": "Otras entradas",
-    "copyright": "© {year} TODOvue. Designed & Developed by cris-dev.com. All rights reserved."
+    "otherEntries": "Otros blogs",
+    "copyright": "© {year} TODOvue. Designed & Developed by cris-dev.com. All rights reserved.",
+    "newsletter": {
+      "title": "Suscríbete a nuestro boletín",
+      "description": "Recibe las últimas actualizaciones, tutoriales y noticias de TODOvue directamente en tu bandeja de entrada. Únete a nuestra comunidad de desarrolladores Vue.js y mantente al día con las mejores prácticas, consejos y trucos para crear componentes modernos con Vue.js.",
+      "placeholder": "Introduce tu correo electrónico",
+      "button": "Suscribirse",
+      "notification": {
+        "title": "Suscripción al boletín",
+        "success": "¡Gracias por suscribirte a nuestro boletín!",
+        "error": "Hubo un error al suscribirte. Por favor, inténtalo de nuevo."
+      }
+    }
   },
   "errorPage": {
     "homeButton": "Volver al inicio",
