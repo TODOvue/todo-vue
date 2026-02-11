@@ -122,6 +122,10 @@ export const useBlogStore = (): UseBlogStoreApi => {
       if (!allowLocaleFallback) return null
     }
 
+    const localizedByCurrent = filterByLocale(allPosts, locale.value)
+    const exactCurrent = localizedByCurrent.find((post) => matchesSlug(post, normalizedSlug))
+    if (exactCurrent) return exactCurrent
+
     const direct = allPosts.find((post) => matchesSlug(post, normalizedSlug))
     if (direct) return direct
 

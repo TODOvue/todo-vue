@@ -1,11 +1,12 @@
 import { useState } from '#imports'
 import type { GlobalLoaderApi } from '@/types/composables'
 
+let loaderTimer: ReturnType<typeof setInterval> | null = null
+
 export const useGlobalLoader = (): GlobalLoaderApi => {
   const progress = useState('global-loader-progress', () => 0)
   const isLoading = useState('global-loader-is-loading', () => false)
   const pendingCount = useState('global-loader-pending-count', () => 0)
-  let timer: ReturnType<typeof setInterval> | null = null
 
   const start = () => {
     pendingCount.value += 1
@@ -13,9 +14,12 @@ export const useGlobalLoader = (): GlobalLoaderApi => {
 
     isLoading.value = true
     progress.value = 12
-    if (timer) clearInterval(timer)
+    if (loaderTimer) {
+      clearInterval(loaderTimer)
+      loaderTimer = null
+    }
 
-    timer = setInterval(() => {
+    loaderTimer = setInterval(() => {
       if (progress.value >= 95) return
 
       let step = 0
@@ -38,7 +42,10 @@ export const useGlobalLoader = (): GlobalLoaderApi => {
     if (pendingCount.value > 0) return
 
     progress.value = 100
-    if (timer) clearInterval(timer)
+    if (loaderTimer) {
+      clearInterval(loaderTimer)
+      loaderTimer = null
+    }
 
     setTimeout(() => {
       isLoading.value = false
