@@ -152,8 +152,8 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
-      { name: 'Lato', provider: 'google', weights: [300], display: 'swap', preload: true },
-      { name: 'Kanit', provider: 'google', weights: [600], display: 'swap', preload: true }
+      { name: 'Lato', provider: 'google', weights: [300, 400, 700], display: 'swap', preload: true },
+      { name: 'Kanit', provider: 'google', weights: [500, 600, 700], display: 'swap', preload: true }
     ]
   },
 
