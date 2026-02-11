@@ -1,15 +1,14 @@
 import { defineNuxtPlugin } from '#app'
-import { useState } from '#imports'
 import { getLocalizedPosts, FALLBACK_LOCALE } from '@/utils/contentLocale'
 import type { BlogPost } from '@/types/composables'
-import type { ContentLocalePluginApi, LocalizedContentCache } from '@/types/plugins'
+import type { ContentLocalePluginApi } from '@/types/plugins'
 
 export default defineNuxtPlugin(() => {
-  const cache = useState<LocalizedContentCache>('localized-content', () => new Map())
+  const cache = new Map<string, BlogPost[]>()
 
-  const getCached = (key: string): BlogPost[] | undefined => cache.value.get(key)
+  const getCached = (key: string): BlogPost[] | undefined => cache.get(key)
   const setCached = (key: string, value: BlogPost[]): void => {
-    cache.value.set(key, value)
+    cache.set(key, value)
   }
 
   const getLocalized: ContentLocalePluginApi['getLocalized'] = (posts, currentLocale) => {

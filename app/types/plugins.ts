@@ -1,6 +1,6 @@
 import type { Database } from 'firebase/database'
 import type { Firestore } from 'firebase/firestore'
-import type { BlogPost, LocalizedContentApi } from '@/types/composables'
+import type { LocalizedContentApi } from '@/types/composables'
 
 export type FirebasePublicRuntimeConfig = {
   apiKey?: string
@@ -12,8 +12,6 @@ export type FirebasePublicRuntimeConfig = {
   databaseURL?: string
   measurementId?: string
 }
-
-export type LocalizedContentCache = Map<string, BlogPost[]>
 
 export type ContentLocalePluginApi = LocalizedContentApi
 

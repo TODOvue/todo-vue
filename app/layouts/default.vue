@@ -87,7 +87,6 @@ const getPostUrl = (post: BlogPost): string => {
 
 const handleClickMenu = (menu: MenuSelection): void => {
   if (typeof menu !== 'string' && menu?.url === '/components') {
-    start()
     window.open('https://ui.todovue.blog/', '_self')
     return
   }
@@ -111,12 +110,10 @@ const handleClickMenu = (menu: MenuSelection): void => {
       })
       return
     }
-    start()
     void router.push({ path: '/blog', query: { search: query } })
     return
   }
 
-  start()
   void router.push(menu.url)
 }
 
@@ -263,7 +260,6 @@ const handleClickLinks = ({ url }: { url: string }): void => {
     window.open(url, '_blank')
     return
   }
-  start()
   void router.push(url)
 }
 
