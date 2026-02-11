@@ -14,7 +14,6 @@ tags:
     color: "#42B983"
   - tag: "Reactividad"
     color: "#1D5BA1"
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770306351/directives-vue-v-if-v-else-v-show-guide_squcy7.png
 coverAlt: "Ilustración conceptual del renderizado condicional en Vue.js"
 coverCaption: "Renderizado condicional en Vue.js ilustrado por TODOvue"

@@ -3,7 +3,6 @@ title: "Directivas en Vue: v-bind"
 description: "Aprende a usar v-bind en Vue desde lo más básico hasta patrones avanzados: atributos dinámicos, class/style reactivos, props en componentes y errores comunes."
 date: 2026-02-11T18:00:00-05:00
 updatedAt: 2026-02-11T18:00:00-05:00
-readingTime: 10
 tags:
   - tag: "Directivas"
     color: "#6C5CE7"
