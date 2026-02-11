@@ -39,11 +39,5 @@ h1, h2, h3 {
 }
 
 .blog-card-shell {
-  @apply cursor-pointer rounded-2xl transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3b82f6];
-}
-
-@media (max-width: 767px) {
-  .blog-card-shell {
-    @apply flex justify-center;
-  }
+  @apply cursor-pointer rounded-2xl transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3b82f6] flex justify-center md:block;
 }
