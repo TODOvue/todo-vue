@@ -1,14 +1,7 @@
 <script setup lang="ts">
-import {
-  TvBreadcrumbs,
-  TvCard,
-  TvHero,
-  TvLabel,
-  TvPagination,
-  TvSidebar,
-} from '@todovue/tv-ui'
-import type { BlogPost, CardConfig, PopularConfig } from '@/types/composables'
-import type { ActiveFilter, SidebarBlogLink, TagLike } from '@/types/views'
+import {TvBreadcrumbs, TvCard, TvHero, TvLabel, TvPagination, TvSidebar,} from '@todovue/tv-ui'
+import type {BlogPost, CardConfig, PopularConfig} from '@/types/composables'
+import type {ActiveFilter, SidebarBlogLink, TagLike} from '@/types/views'
 
 import IconGrid from '~/assets/icons/IconGrid.vue'
 import IconList from '~/assets/icons/IconList.vue'
@@ -17,14 +10,13 @@ const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
 const { t } = useI18n()
-const pageSize = 6
+const pageSize = 9
 const filters = ref<ActiveFilter[]>([])
 const labelFilters = ref<TagLike | null>(null)
 
 const queryValue = (value: unknown): string | undefined => {
   if (Array.isArray(value)) {
-    const firstString = value.find((item): item is string => typeof item === 'string')
-    return firstString
+    return value.find((item): item is string => typeof item === 'string')
   }
   return typeof value === 'string' ? value : undefined
 }
