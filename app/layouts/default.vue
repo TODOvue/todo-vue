@@ -33,7 +33,7 @@ const preferredLocale = useCookie<'es' | 'en' | null>('todovue-locale', {
   maxAge: 60 * 60 * 24 * 365
 })
 
-const { progress, isLoading } = useGlobalLoader()
+const { progress, isLoading, start, finish } = useGlobalLoader()
 
 const isDarkMode = ref(false)
 const language = ref<'es' | 'en'>('es')
@@ -87,6 +87,7 @@ const getPostUrl = (post: BlogPost): string => {
 
 const handleClickMenu = (menu: MenuSelection): void => {
   if (typeof menu !== 'string' && menu?.url === '/components') {
+    start()
     window.open('https://ui.todovue.blog/', '_self')
     return
   }
@@ -110,16 +111,19 @@ const handleClickMenu = (menu: MenuSelection): void => {
       })
       return
     }
+    start()
     void router.push({ path: '/blog', query: { search: query } })
     return
   }
 
+  start()
   void router.push(menu.url)
 }
 
 const setTheme = (value: string, toButton = false): void => {
   if (!import.meta.client) return
-  document.documentElement.className = `${value}-mode`
+  document.documentElement.classList.remove('dark-mode', 'light-mode')
+  document.documentElement.classList.add(`${value}-mode`)
   localStorage.setItem('theme', value)
   isDarkMode.value = value === 'dark'
   if (toButton) {
@@ -139,37 +143,40 @@ const changeValue = (value: string): void => {
 }
 
 const changeLanguage = async (lang: 'es' | 'en'): Promise<void> => {
-  await setLocale(lang)
-  preferredLocale.value = lang
+  start()
+  try {
+    await setLocale(lang)
+    preferredLocale.value = lang
 
-  const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
-  alert.info(t('home.settings.language.changed', { lang: langName }), {
-    position: 'top-right',
-    timeout: 4000,
-    title: t('home.settings.language.title')
-  })
-  await blogStore.fetchBlogPosts(true)
-  await refreshNuxtData('app-menu-posts')
-  language.value = lang
-  if (route.path.startsWith('/blog/') && route.params.slug) {
-    const currentSlug = String(route.params.slug).replace(/\.(es|en)$/, '')
-    const post = await blogStore.getBlogBySlug(currentSlug)
+    const langName = lang === 'es' ? t('home.settings.language.es') : t('home.settings.language.en')
+    alert.info(t('home.settings.language.changed', { lang: langName }), {
+      position: 'top-right',
+      timeout: 4000,
+      title: t('home.settings.language.title')
+    })
+    await blogStore.fetchBlogPosts(true)
+    await refreshNuxtData('app-menu-posts')
+    language.value = lang
+    if (route.path.startsWith('/blog/') && route.params.slug) {
+      const currentSlug = String(route.params.slug).replace(/\.(es|en)$/, '')
+      const post = await blogStore.getBlogBySlug(currentSlug)
 
-    if (post && post.path) {
-      await router.push(post.path)
+      if (post && post.path) {
+        await router.push(post.path)
+      }
     }
+  } finally {
+    finish()
   }
 }
 
-const getRandomPosts = (items: BlogPost[], count = 3): BlogPost[] => {
-  const posts = items
-  const shuffled = [...posts].sort(() => Math.random() - 0.5)
-  return shuffled.slice(0, count)
+const getFooterPosts = (items: BlogPost[], count = 3): BlogPost[] => {
+  return items.slice(0, count)
 }
 
 const footerPosts = useState<FooterPostLink[]>('footer-posts', () => {
   const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
-  return getRandomPosts(p, 3).map(post => ({
+  return getFooterPosts(p, 3).map(post => ({
     label: post.title ?? '',
     url: getPostUrl(post)
   }))
@@ -177,7 +184,7 @@ const footerPosts = useState<FooterPostLink[]>('footer-posts', () => {
 
 watch([locale, posts], () => {
   const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
-  footerPosts.value = getRandomPosts(p, 3).map(post => ({
+  footerPosts.value = getFooterPosts(p, 3).map(post => ({
     label: post.title ?? '',
     url: getPostUrl(post)
   }))
@@ -256,6 +263,7 @@ const handleClickLinks = ({ url }: { url: string }): void => {
     window.open(url, '_blank')
     return
   }
+  start()
   void router.push(url)
 }
 
@@ -282,7 +290,11 @@ onMounted(() => {
   const stored = localStorage.getItem('theme')
   const theme = stored || (prefersDark ? 'dark' : 'light')
   setTheme(theme)
-  void blogStore.fetchBlogPosts()
+  start()
+  blogStore.fetchBlogPosts()
+    .finally(() => {
+      finish()
+    })
 })
 
 const img = 'https://res.cloudinary.com/denj4fg7f/image/upload/v1766183779/todovue_bg_veizqy.png'
