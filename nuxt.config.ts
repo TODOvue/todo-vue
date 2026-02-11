@@ -34,6 +34,21 @@ export default defineNuxtConfig({
         { rel: 'shortcut icon', href: '/favicon.ico' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' }
+      ],
+      script: [
+        {
+          key: 'theme-init',
+          innerHTML: `(function () {
+            var root = document.documentElement;
+            var stored = null;
+            try { stored = localStorage.getItem('theme'); } catch (e) {}
+            var prefersDark = false;
+            try { prefersDark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); } catch (e) {}
+            var theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+            root.classList.remove('dark-mode', 'light-mode');
+            root.classList.add(theme + '-mode');
+          })();`
+        }
       ]
     }
   },
