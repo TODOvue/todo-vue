@@ -150,9 +150,15 @@ const handleLabelClick = (label: TagLike): void => {
   }
 }
 
-const handleRelatedClick = (path: string): void => {
-  void router.push(path)
-}
+const {
+  handleCardClick,
+  handleCardKeydown,
+  handleCardButtonClick,
+  handleCardLabelClick
+} = useCardNavigation<TagLike>({
+  navigateToPath: (path: string) => router.push(path),
+  onLabelClick: handleLabelClick
+})
 
 const { setBlogPostSeo } = useSeo()
 const normalizeSeoDate = (value: string | number | Date | undefined): string | Date | undefined => {
@@ -259,13 +265,21 @@ const articleContainer = ref<HTMLElement | null>(null)
           {{ t('blogs.related') }}
         </h2>
         <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
-          <TvCard
+          <div
             v-for="related in relatedPosts"
             :key="related.id"
-            :config-card="related"
-            @click-button="handleRelatedClick(related.path)"
-            @click-label="handleLabelClick"
-          />
+            class="blog-card-shell w-full"
+            role="link"
+            tabindex="0"
+            @click="handleCardClick($event, related.path)"
+            @keydown="handleCardKeydown($event, related.path)"
+          >
+            <TvCard
+              :config-card="related"
+              @click-button="handleCardButtonClick(related.path)"
+              @click-label="handleCardLabelClick"
+            />
+          </div>
         </div>
       </section>
     </div>
