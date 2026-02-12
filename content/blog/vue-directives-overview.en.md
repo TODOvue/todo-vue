@@ -170,6 +170,8 @@ export default {
 `key` **is not optional**. It never was.
 It’s essential so Vue can properly optimize rendering.
 
+> If you want to learn more, read the guide [Vue Directives: v-for](https://todovue.blog/blog/directives-vue-v-for-guide.en/).
+
 ## `v-bind`
 
 It dynamically binds HTML attributes or component props.
@@ -205,6 +207,8 @@ export default {
   <img :src="imageUrl" :alt="description" />
 </template>
 ```
+
+> If you want to learn more, read the guide [Vue Directive: v-bind](https://todovue.blog/blog/directives-vue-v-bind-guide.en/).
 
 ## `v-model`
 
