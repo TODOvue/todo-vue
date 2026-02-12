@@ -28,7 +28,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           fetch-depth: 0
           persist-credentials: true
-          ref: main
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
 
       - name: Decide bump type
         id: bump_type
@@ -63,7 +63,7 @@ jobs:
           npm version "$BUMP" -m "chore(release): 🔥 v%s [skip ci]"
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
-          git push origin main --follow-tags
+          git push origin HEAD:main --follow-tags
         env:
           GIT_AUTHOR_NAME: "TODOvue-release[bot]"
           GIT_AUTHOR_EMAIL: "TODOvue-release[bot]@users.noreply.github.com"
