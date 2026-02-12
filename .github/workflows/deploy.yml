@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: read
 
 jobs:
   deploy:
@@ -14,10 +15,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Generate token from GitHub App
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Get latest code
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.generate_token.outputs.token }}
           fetch-depth: 0
+          persist-credentials: true
+          ref: main
 
       - name: Decide bump type
         id: bump_type
@@ -35,9 +46,11 @@ jobs:
 
       - name: Configure Git
         if: github.event.pull_request.head.ref == 'develop'
+        shell: bash
         run: |
           git config user.name "TODOvue-release[bot]"
           git config user.email "TODOvue-release[bot]@users.noreply.github.com"
+          git config url."https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/".insteadOf "https://github.com/"
 
       - name: Bump version and push tag
         id: bump
