@@ -64,6 +64,11 @@ jobs:
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
           git push origin main --follow-tags
+        env:
+          GIT_AUTHOR_NAME: "TODOvue-release[bot]"
+          GIT_AUTHOR_EMAIL: "TODOvue-release[bot]@users.noreply.github.com"
+          GIT_COMMITTER_NAME: "TODOvue-release[bot]"
+          GIT_COMMITTER_EMAIL: "TODOvue-release[bot]@users.noreply.github.com"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
