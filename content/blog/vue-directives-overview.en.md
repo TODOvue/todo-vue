@@ -2,7 +2,7 @@
 title: "Vue Directives: An Overview"
 description: "Explore Vue.js’ essential directives, their syntax, and common use cases."
 date: 2026-02-03T20:00:00-05:00
-updatedAt: 2026-02-11T00:00:00-05:00
+updatedAt: 2026-02-13T00:00:00-05:00
 readingTime: 6
 tags:
   - tag: "Directives"
@@ -293,6 +293,8 @@ export default {
 ```
 
 It supports **modifiers** (`.stop`, `.prevent`, `.once`, etc.) that avoid unnecessary code.
+
+> If you want to learn more, read the guide [Vue Directives: v-on](https://todovue.blog/blog/directives-vue-v-on-guide.en/).
 
 ## `v-text`
 
