@@ -316,4 +316,14 @@ const articleContainer = ref<HTMLElement | null>(null)
 :deep(.tv-article) {
   padding: 0 !important;
 }
+
+:deep(.tv-article .tv-prose ul) {
+  list-style-type: disc;
+  list-style-position: outside;
+}
+
+:deep(.tv-article .tv-prose ol) {
+  list-style-type: decimal;
+  list-style-position: outside;
+}
 </style>
