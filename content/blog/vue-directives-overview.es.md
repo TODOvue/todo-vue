@@ -2,7 +2,7 @@
 title: "Directivas en Vue: Una Visión General"
 description: "Explora las directivas esenciales de Vue.js, su sintaxis y casos de uso comunes."
 date: 2026-02-03T20:00:00-05:00
-updatedAt: 2026-02-11T00:00:00-05:00
+updatedAt: 2026-02-13T00:00:00-05:00
 readingTime: 6
 tags:
   - tag: "Directivas"
@@ -293,6 +293,8 @@ export default {
 ```
 
 Soporta **modificadores** (`.stop`, `.prevent`, `.once`, etc.) que evitan código innecesario.
+
+> Si quieres conocer más lee la guía de [Directivas en Vue: v-on](https://todovue.blog/blog/directives-vue-v-on-guide.es/).
 
 ## `v-text`
 
