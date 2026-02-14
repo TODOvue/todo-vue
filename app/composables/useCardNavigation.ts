@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
-type NavigateToPath = (path: string) => void | Promise<unknown>
-type HandleLabelClick<TLabel> = (label: TLabel) => void | Promise<unknown>
+type NavigateToPath = (path: string) => unknown
+type HandleLabelClick<TLabel> = (label: TLabel) => unknown
 
 export interface UseCardNavigationOptions<TLabel> {
   navigateToPath: NavigateToPath

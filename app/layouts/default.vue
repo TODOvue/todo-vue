@@ -270,7 +270,7 @@ const handleSubscribe = (email: string): void => {
       timeout: 4000,
       title: t('footer.newsletter.notification.title')
     })
-  } catch (error) {
+  } catch {
     alert.error(t('footer.newsletter.notification.error'), {
       position: 'top-right',
       timeout: 4000,

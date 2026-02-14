@@ -82,6 +82,13 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
   ],
 
+  eslint: {
+    config: {
+      standalone: true,
+      import: false
+    }
+  },
+
   site: {
     url: process.env.NUXT_PUBLIC_SITE_URL,
     name: process.env.NUXT_PUBLIC_SITE_NAME,
