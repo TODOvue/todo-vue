@@ -252,6 +252,8 @@ export default {
 Internamente, combina props y eventos (`modelValue` + `update:modelValue`).
 No es magia, pero se le parece bastante.
 
+> Si quieres conocer más lee la guía de [Directivas en Vue: v-model](https://todovue.blog/blog/directives-vue-v-model-guide.es/).
+
 ## `v-on`
 
 Escucha eventos del DOM y ejecuta lógica reactiva.
