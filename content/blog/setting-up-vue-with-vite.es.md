@@ -8,8 +8,8 @@ tags:
     color: "#646CFF"
   - tag: "Básico"
     color: "#B173BF"
-  - tag: "Guías"
-    color: "#42B983"
+  - tag: "Ecosistema"
+    color: "#68D4F2"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766607505/setting_up_vue_with_vite_crikmp.png
 coverAlt: Logo de Vue.js con el logo de Vite de fondo
 coverCaption: "Configura tu entorno de desarrollo con Vue y Vite en minutos"

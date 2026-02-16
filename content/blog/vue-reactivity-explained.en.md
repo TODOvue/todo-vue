@@ -8,8 +8,6 @@ tags:
     color: "#1D5BA1"
   - tag: "Basics"
     color: "#B173BF"
-  - tag: "Guides"
-    color: "#42B983"
   - tag: "History"
     color: "#F27E68"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1767664201/magical_vue_coding_laboratory_p1incq.jpg

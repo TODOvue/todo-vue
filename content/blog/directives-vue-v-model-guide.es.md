@@ -6,10 +6,12 @@ updatedAt: 2026-02-16T13:30:00-05:00
 tags:
   - tag: "Directivas"
     color: "#6C5CE7"
-  - tag: "Formularios"
-    color: "#FF7043"
-  - tag: "Guías"
-    color: "#42B983"
+  - tag: "Reactividad"
+    color: "#1D5BA1"
+  - tag: "Básico"
+    color: "#B173BF"
+  - tag: "Buenas Prácticas"
+    color: "#2196F3"
 draft: false
 isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771265788/directives-vue-v-model-guide_ticgya.png

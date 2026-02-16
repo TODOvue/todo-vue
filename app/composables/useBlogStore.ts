@@ -153,7 +153,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
       }))
       : [],
     path: localePath((post.path ?? post._path ?? '/') as string),
-    limitLabels: 10
+    limitLabels: 5
   })
 
   const getCardsConfig = computed<CardConfig[]>(() => blogPosts.value.map(postToCardConfig))
