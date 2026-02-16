@@ -10,12 +10,6 @@ tags:
     color: "#605AD1"
   - tag: "Ecosystem"
     color: "#68D4F2"
-  - tag: "Architecture"
-    color: "#4CAF50"
-  - tag: "Design Patterns"
-    color: "#9C27B0"
-  - tag: "Best Practices"
-    color: "#2196F3"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766098456/TODOvue_idegxt.png
 coverAlt: TODOvue logo with source code background
 coverCaption: "Exploring the Vue.js universe from end to end"

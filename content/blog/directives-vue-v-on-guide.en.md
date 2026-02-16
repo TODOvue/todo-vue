@@ -6,10 +6,10 @@ updatedAt: 2026-02-13T10:30:00-05:00
 tags:
   - tag: "Directives"
     color: "#6C5CE7"
-  - tag: "Events"
-    color: "#FF7043"
-  - tag: "Guides"
-    color: "#42B983"
+  - tag: "Basics"
+    color: "#B173BF"
+  - tag: "Best Practices"
+    color: "#2196F3"
 draft: false
 isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771022043/directives-vue-v-on-guide_hwtqel.png

@@ -6,9 +6,11 @@ updatedAt: 2026-02-11T18:00:00-05:00
 tags:
   - tag: "Directives"
     color: "#6C5CE7"
-  - tag: "Guides"
-    color: "#42B983"
   - tag: "Reactivity"
+    color: "#1D5BA1"
+  - tag: "Basics"
+    color: "#B173BF"
+  - tag: "Best Practices"
     color: "#2196F3"
 draft: false
 isNew: true

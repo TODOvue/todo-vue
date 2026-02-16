@@ -10,10 +10,10 @@ tags:
     color: "#41B2A6"
   - tag: "Reactividad"
     color: "#1D5BA1"
-  - tag: "Ecosistema"
-    color: "#68D4F2"
   - tag: "Avanzado"
     color: "#F54927"
+  - tag: "Ecosistema"
+    color: "#68D4F2"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766870280/vue-beta-vapor-mode-revealed_snvcqg.png
 coverAlt: Logo de Vue.js sobre un fondo de código fuente
 coverCaption: "Descubre las innovaciones de Vue 3.6 Beta: Vapor Mode y un motor de reactividad renovado"

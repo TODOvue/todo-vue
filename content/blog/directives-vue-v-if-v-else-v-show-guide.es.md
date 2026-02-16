@@ -10,10 +10,8 @@ tags:
     color: "#E056FD"
   - tag: "Básico"
     color: "#B173BF"
-  - tag: "Guías"
-    color: "#42B983"
-  - tag: "Reactividad"
-    color: "#1D5BA1"
+  - tag: "Buenas Prácticas"
+    color: "#2196F3"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771265982/directives-vue-v-if-v-else-v-show-guide_qmtjik.png
 coverAlt: "Ilustración conceptual del renderizado condicional en Vue.js"
 coverCaption: "Renderizado condicional en Vue.js ilustrado por TODOvue"
