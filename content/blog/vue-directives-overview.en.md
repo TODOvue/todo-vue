@@ -252,6 +252,8 @@ export default {
 Internally, it combines props and events (`modelValue` + `update:modelValue`).
 It’s not magic, but it definitely feels like it.
 
+> If you want to learn more, read the guide [Vue Directives: v-model](https://todovue.blog/blog/directives-vue-v-model-guide.en/).
+
 ## `v-on`
 
 It listens to DOM events and runs reactive logic.
