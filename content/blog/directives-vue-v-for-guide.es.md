@@ -8,8 +8,8 @@ tags:
     color: "#6C5CE7"
   - tag: "Listas"
     color: "#1D5BA1"
-  - tag: "Guías"
-    color: "#42B983"
+  - tag: "Básico"
+    color: "#B173BF"
   - tag: "Buenas Prácticas"
     color: "#2196F3"
 draft: false

@@ -10,10 +10,6 @@ tags:
     color: "#68D4F2"
   - tag: "Vite"
     color: "#646CFF"
-  - tag: "Guides"
-    color: "#42B983"
-  - tag: "State Management"
-    color: "#FF9800"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766105778/historia_de_vue_wbwv72.png
 coverAlt: Vue.js logo with source code background
 coverCaption: "Exploring the evolution of Vue.js from its beginnings to the present"

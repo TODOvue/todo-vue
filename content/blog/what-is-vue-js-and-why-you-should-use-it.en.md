@@ -8,10 +8,8 @@ tags:
     color: "#68D4F2"
   - tag: "Basics"
     color: "#B173BF"
-  - tag: "Guides"
-    color: "#42B983"
-  - tag: "Reactivity"
-    color: "#1D5BA1"
+  - tag: "History"
+    color: "#F27E68"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766101056/What_is_Vuejs_and_Why_Should_You_Use_It_mk5pmg.png
 coverAlt: Vue.js logo on a source code background
 coverCaption: "Exploring Vue.js: The progressive framework for the modern web"
