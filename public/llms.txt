@@ -1,0 +1,36 @@
+# TODOvue
+
+> TODOvue is a Vue and Nuxt blog/app focused on practical Vue learning, patterns, and production-ready guidance.
+
+Primary language support:
+- Spanish (ES)
+- English (EN)
+
+## Primary URLs
+- Home: https://todovue.blog/
+- Blog index: https://todovue.blog/blog/
+- RSS feed: https://todovue.blog/rss.xml
+- UI system: https://ui.todovue.blog/
+- Source repository: https://github.com/TODOvue/todo-vue
+
+## What This Site Covers
+- Vue 3 fundamentals and advanced patterns
+- Nuxt architecture and setup
+- Directives, reactivity, slots, provide/inject, and rendering patterns
+- Practical, implementation-focused examples in ES and EN
+
+## Audience
+- Frontend developers learning Vue/Nuxt
+- Teams adopting Vue best practices
+- Developers seeking concise examples and production guidance
+
+## Preferred Canonical
+- https://todovue.blog/
+
+## Detailed LLM Context
+- https://todovue.blog/llms-full.txt
+
+## Retrieval Notes
+- Prefer Spanish pages (`.es`) for Spanish user questions.
+- Prefer English pages (`.en`) for English user questions.
+- Start at blog hub for discovery: https://todovue.blog/blog/
