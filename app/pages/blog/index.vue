@@ -221,11 +221,11 @@ setPageSeo({
             @click="toggleView"
           >
             <span class="[&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-[18px] sm:[&>svg]:w-[18px]">
-              <IconGrid v-if="!isHorizontalView" />
+              <IconGrid v-if="isHorizontalView" />
               <IconList v-else />
             </span>
             <span class="text-sm">
-              {{ isHorizontalView ? t('blogs.switch.grid') : t('blogs.switch.list') }}
+              {{ isHorizontalView ? t('blogs.switch.gridAria') : t('blogs.switch.listAria') }}
             </span>
           </button>
         </div>
