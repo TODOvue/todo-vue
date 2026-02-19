@@ -2,7 +2,7 @@
 title: "Directivas en Vue: Una Visión General"
 description: "Explora las directivas esenciales de Vue.js, su sintaxis y casos de uso comunes."
 date: 2026-02-03T20:00:00-05:00
-updatedAt: 2026-02-13T00:00:00-05:00
+updatedAt: 2026-02-19T08:00:00-05:00
 readingTime: 6
 tags:
   - tag: "Directivas"
@@ -404,6 +404,8 @@ export default {
 ```
 
 Es clave para crear componentes **flexibles, composables y reutilizables**.
+
+> Si quieres conocer más lee la guía de [Directivas en Vue: v-slot](https://todovue.blog/blog/directives-vue-v-slot-guide.es/).
 
 ## `v-once`
 

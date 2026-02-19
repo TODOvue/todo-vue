@@ -2,7 +2,7 @@
 title: "Vue Directives: An Overview"
 description: "Explore Vue.js’ essential directives, their syntax, and common use cases."
 date: 2026-02-03T20:00:00-05:00
-updatedAt: 2026-02-13T00:00:00-05:00
+updatedAt: 2026-02-19T08:00:00-05:00
 readingTime: 6
 tags:
   - tag: "Directives"
@@ -404,6 +404,8 @@ export default {
 ```
 
 It’s key for building **flexible, composable, reusable** components.
+
+> If you want to learn more, read the guide [Vue Directives: v-slot](https://todovue.blog/blog/directives-vue-v-slot-guide.en/).
 
 ## `v-once`
 
