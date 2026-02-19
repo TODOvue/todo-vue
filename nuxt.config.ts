@@ -147,6 +147,12 @@ export default defineNuxtConfig({
     runtimeCompiler: true
   },
 
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1000
+    }
+  },
+
   nitro: {
     preset: 'static',
     prerender: {

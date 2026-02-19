@@ -52,7 +52,7 @@ const popularCategories = computed<CardLabel[]>(() => {
 
 const handleCategoryClick = (label: CardLabel): void => {
   if (label && label.name) {
-    void router.push({ path: '/blog', query: { ...route.query, label: label.name, page: '1' } })
+    void router.push({ path: '/blog/', query: { ...route.query, label: label.name, page: '1' } })
   }
 }
 
@@ -86,7 +86,7 @@ setPageSeo({
   <section>
     <TvHero
       :config-hero="configHero"
-      @click-button="navigateTo('/blog')"
+      @click-button="navigateTo('/blog/')"
       @click-secondary-button="navigateTo('https://ui.todovue.blog', true)"
     />
 
@@ -141,7 +141,7 @@ setPageSeo({
           rounded
           large
           :aria-label="t('home.sections.viewAllPosts')"
-          @click="navigateTo('/blog')"
+          @click="navigateTo('/blog/')"
         >
           {{ t('home.sections.viewAllPosts') }}
         </TvButton>

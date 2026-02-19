@@ -130,7 +130,7 @@ const configHero = {
 
 const breadcrumbs = computed<BreadcrumbItem[]>(() => [
   { label: 'Home', href: '/' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Blog', href: '/blog/' },
   { label: resolvedPost.value.title ?? '', href: route.path }
 ])
 

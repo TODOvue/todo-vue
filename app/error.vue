@@ -39,7 +39,7 @@ const message = computed(() => is404.value
           <TvButton
             rounded
             variant="info"
-            @click="handleError('/blog')"
+            @click="handleError('/blog/')"
           >
             {{ t('errorPage.blogButton') }}
           </TvButton>

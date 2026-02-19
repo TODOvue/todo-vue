@@ -81,7 +81,7 @@ export default {
 </template>
 ```
 
-> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](https://todovue.blog/blog/directives-vue-v-if-v-else-v-show-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](/blog/directives-vue-v-if-v-else-v-show-guide.en/).
 
 ## `v-show`
 
@@ -118,7 +118,7 @@ export default {
   <p v-show="isVisible">Visible content</p>
 </template>
 ```
-> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](https://todovue.blog/blog/directives-vue-v-if-v-else-v-show-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](/blog/directives-vue-v-if-v-else-v-show-guide.en/).
 
 ## `v-for`
 
@@ -168,7 +168,7 @@ export default {
 `key` **is not optional**. It never was.
 It’s essential so Vue can properly optimize rendering.
 
-> If you want to learn more, read the guide [Vue Directives: v-for](https://todovue.blog/blog/directives-vue-v-for-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-for](/blog/directives-vue-v-for-guide.en/).
 
 ## `v-bind`
 
@@ -206,7 +206,7 @@ export default {
 </template>
 ```
 
-> If you want to learn more, read the guide [Vue Directive: v-bind](https://todovue.blog/blog/directives-vue-v-bind-guide.en/).
+> If you want to learn more, read the guide [Vue Directive: v-bind](/blog/directives-vue-v-bind-guide.en/).
 
 ## `v-model`
 
@@ -250,7 +250,7 @@ export default {
 Internally, it combines props and events (`modelValue` + `update:modelValue`).
 It’s not magic, but it definitely feels like it.
 
-> If you want to learn more, read the guide [Vue Directives: v-model](https://todovue.blog/blog/directives-vue-v-model-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-model](/blog/directives-vue-v-model-guide.en/).
 
 ## `v-on`
 
@@ -294,7 +294,7 @@ export default {
 
 It supports **modifiers** (`.stop`, `.prevent`, `.once`, etc.) that avoid unnecessary code.
 
-> If you want to learn more, read the guide [Vue Directives: v-on](https://todovue.blog/blog/directives-vue-v-on-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-on](/blog/directives-vue-v-on-guide.en/).
 
 ## `v-text`
 
@@ -405,7 +405,7 @@ export default {
 
 It’s key for building **flexible, composable, reusable** components.
 
-> If you want to learn more, read the guide [Vue Directives: v-slot](https://todovue.blog/blog/directives-vue-v-slot-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-slot](/blog/directives-vue-v-slot-guide.en/).
 
 ## `v-once`
 

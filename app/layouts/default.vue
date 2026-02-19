@@ -17,7 +17,6 @@ import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
 import TODOvueIcon from '~/assets/icons/TODOvue.svg'
 import CrisDevIcon from '~/assets/icons/CrisDev.png'
-import RssIcon from '~/assets/icons/rss.svg'
 
 const router = useRouter()
 const route = useRoute()
@@ -64,7 +63,7 @@ const configMenu = computed(() => ({
     {
       id: 2,
       title: t('menu.blogs'),
-      url: '/blog'
+      url: '/blog/'
     },
     {
       id: 3,
@@ -110,7 +109,7 @@ const handleClickMenu = (menu: MenuSelection): void => {
       })
       return
     }
-    void router.push({ path: '/blog', query: { search: query } })
+    void router.push({ path: '/blog/', query: { search: query } })
     return
   }
 
@@ -198,6 +197,7 @@ const iconUrl = computed(() => {
 
 const configFooter = computed(() => ({
   brand: {
+    name: 'TODOvue',
     logo: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
     url: '/'
   },
@@ -219,8 +219,7 @@ const configFooter = computed(() => ({
     },
     {
       label: 'RSS Feed',
-      url: '/rss.xml',
-      iconUrl: RssIcon
+      url: '/rss.xml'
     }
   ],
   navigation: [
@@ -228,7 +227,7 @@ const configFooter = computed(() => ({
       title: t('footer.navigation.title'),
       items: [
         { label: t('footer.navigation.home'), url: '/' },
-        { label: t('footer.navigation.blogs'), url: '/blog' },
+        { label: t('footer.navigation.blogs'), url: '/blog/' },
         { label: t('footer.navigation.components'), url: 'https://ui.todovue.blog' }
       ]
     },
@@ -251,8 +250,11 @@ const configFooter = computed(() => ({
   // }
 }))
 
+const normalizePath = (path: string): string => path.replace(/\/+$/, '') || '/'
+
 const validateActiveMenu = computed(() => {
-  return configMenu.value.menus.find(m => m.url === route.path)?.id ?? 0
+  const currentPath = normalizePath(route.path)
+  return configMenu.value.menus.find(m => normalizePath(m.url) === currentPath)?.id ?? 0
 })
 
 const handleClickLinks = ({ url }: { url: string }): void => {
@@ -380,5 +382,21 @@ useHead({
 :deep(.tv-menu-image img) {
   width: 40px !important;
   height: 40px !important;
+}
+
+:deep(.tv-footer__social-link[href='/rss.xml'] span) {
+  font-size: 0;
+  line-height: 0;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+:deep(.tv-footer__social-link[href='/rss.xml'] span::before) {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url('@/assets/icons/rss.svg') center / contain no-repeat;
 }
 </style>
