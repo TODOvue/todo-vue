@@ -78,9 +78,11 @@ export type LabelsConfig = {
 export type GlobalLoaderApi = {
   progress: Ref<number>
   isLoading: Ref<boolean>
+  isNavigationLocked: Ref<boolean>
   start: () => void
   finish: () => void
   set: (value: number) => void
+  runNavigation: <T>(task: () => Promise<T> | T) => Promise<T | undefined>
 }
 
 export type SiteConfigInfo = {

@@ -18,6 +18,7 @@ const blogStore = useBlogStore()
 const { locale, t } = useI18n()
 const runtimeConfig = useRuntimeConfig()
 const { registerVisit } = useVisit()
+const { runNavigation } = useGlobalLoader()
 
 const getRouteSlug = (): string | undefined => {
   const slug = route.params.slug
@@ -152,13 +153,13 @@ const handleLabelClick = (label: TagLike): void => {
   if (label) {
     const labelValue = label.name || label.tag
     if (labelValue) {
-      void router.push({ name: 'blog', query: { label: labelValue, page: '1' } })
+      void runNavigation(() => router.push({ name: 'blog', query: { label: labelValue, page: '1' } }))
     }
   }
 }
 
 const handleSidebarBlogClick = (blog: SidebarBlogLink): void => {
-  void router.push(blog.link)
+  void runNavigation(() => router.push(blog.link))
 }
 
 const {

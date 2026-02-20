@@ -12,6 +12,7 @@ const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
+const { runNavigation } = useGlobalLoader()
 
 const configHero = computed(() => ({
   alt: 'TODOvue Logo',
@@ -27,7 +28,7 @@ const navigateTo = (path: string, isExternal = false): void => {
     window.open(path, '_self')
     return
   }
-  void router.push(path)
+  void runNavigation(() => router.push(path))
 }
 
 const openInNewTab = (path: string): void => {
@@ -52,7 +53,7 @@ const popularCategories = computed<CardLabel[]>(() => {
 
 const handleCategoryClick = (label: CardLabel): void => {
   if (label && label.name) {
-    void router.push({ path: '/blog/', query: { ...route.query, label: label.name, page: '1' } })
+    void runNavigation(() => router.push({ path: '/blog/', query: { ...route.query, label: label.name, page: '1' } }))
   }
 }
 
@@ -62,7 +63,7 @@ const {
   handleCardButtonClick,
   handleCardLabelClick
 } = useCardNavigation<CardLabel>({
-  navigateToPath: (path: string) => navigateTo(path),
+  navigateToPath: (path: string) => router.push(path),
   onLabelClick: handleCategoryClick
 })
 

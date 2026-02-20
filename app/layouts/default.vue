@@ -32,7 +32,7 @@ const preferredLocale = useCookie<'es' | 'en' | null>('todovue-locale', {
   maxAge: 60 * 60 * 24 * 365
 })
 
-const { progress, isLoading, start, finish } = useGlobalLoader()
+const { progress, isLoading, start, finish, runNavigation } = useGlobalLoader()
 
 const isDarkMode = ref(false)
 const language = ref<'es' | 'en'>('es')
@@ -109,11 +109,11 @@ const handleClickMenu = (menu: MenuSelection): void => {
       })
       return
     }
-    void router.push({ path: '/blog/', query: { search: query } })
+    void runNavigation(() => router.push({ path: '/blog/', query: { search: query } }))
     return
   }
 
-  void router.push(menu.url)
+  void runNavigation(() => router.push(menu.url))
 }
 
 const setTheme = (value: string, toButton = false): void => {
@@ -158,7 +158,7 @@ const changeLanguage = async (lang: 'es' | 'en'): Promise<void> => {
       const post = await blogStore.getBlogBySlug(currentSlug)
 
       if (post && post.path) {
-        await router.push(post.path)
+        await runNavigation(() => router.push(post.path))
       }
     }
   } finally {
@@ -262,7 +262,7 @@ const handleClickLinks = ({ url }: { url: string }): void => {
     window.open(url, '_blank')
     return
   }
-  void router.push(url)
+  void runNavigation(() => router.push(url))
 }
 
 const handleSubscribe = (email: string): void => {

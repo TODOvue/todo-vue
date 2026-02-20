@@ -19,6 +19,7 @@ export function useCardNavigation<TLabel>(
   options: UseCardNavigationOptions<TLabel>
 ): UseCardNavigationReturn<TLabel> {
   const suppressCardNavigation = ref(false)
+  const { runNavigation } = useGlobalLoader()
 
   const isInteractiveTarget = (target: EventTarget | null): boolean => {
     if (!(target instanceof HTMLElement)) return false
@@ -26,7 +27,9 @@ export function useCardNavigation<TLabel>(
   }
 
   const navigate = (path: string): void => {
-    void options.navigateToPath(path)
+    void runNavigation(async () => {
+      await options.navigateToPath(path)
+    })
   }
 
   const handleCardClick = (event: MouseEvent, path: string): void => {

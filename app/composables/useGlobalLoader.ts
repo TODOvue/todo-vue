@@ -7,6 +7,7 @@ export const useGlobalLoader = (): GlobalLoaderApi => {
   const progress = useState('global-loader-progress', () => 0)
   const isLoading = useState('global-loader-is-loading', () => false)
   const pendingCount = useState('global-loader-pending-count', () => 0)
+  const isNavigationLocked = useState('global-loader-navigation-lock', () => false)
 
   const start = () => {
     pendingCount.value += 1
@@ -57,11 +58,26 @@ export const useGlobalLoader = (): GlobalLoaderApi => {
     progress.value = value
   }
 
+  const runNavigation = async <T>(task: () => Promise<T> | T): Promise<T | undefined> => {
+    if (isNavigationLocked.value) return undefined
+
+    isNavigationLocked.value = true
+    start()
+    try {
+      return await task()
+    } finally {
+      finish()
+      isNavigationLocked.value = false
+    }
+  }
+
   return {
     progress,
     isLoading,
+    isNavigationLocked,
     start,
     finish,
-    set
+    set,
+    runNavigation
   }
 }
