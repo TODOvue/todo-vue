@@ -33,6 +33,7 @@
     "empty": "No articles available yet",
     "sidebar": {
       "popularBlogs": "Popular Blogs",
+      "latestBlogs": "Latest Blogs",
       "labels": "All Tags",
       "searchPlaceholder": "Filter by tag",
       "newLabelText": "New"

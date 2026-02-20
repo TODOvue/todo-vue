@@ -4,12 +4,13 @@ import {
   TvBreadcrumbs,
   TvCard,
   TvHero,
+  TvSidebar,
   TvToc,
 } from '@todovue/tv-ui'
 
 import { useI18n } from 'vue-i18n'
-import type { BlogPost, CardConfig } from '@/types/composables'
-import type { BreadcrumbItem, TagLike, TocData } from '@/types/views'
+import type { BlogPost, CardConfig, PopularConfig } from '@/types/composables'
+import type { BreadcrumbItem, SidebarBlogLink, TagLike, TocData } from '@/types/views'
 
 const router = useRouter()
 const route = useRoute()
@@ -69,6 +70,10 @@ const { data: post } = await useAsyncData<BlogPost | null>(
   }
 )
 
+await useAsyncData('blog-slug-sidebar-posts', async () => {
+  return await blogStore.fetchBlogPosts()
+})
+
 if (!post.value) {
   throw createError({ statusCode: 404, statusMessage: 'Post not found' })
 }
@@ -87,6 +92,8 @@ const relatedPosts = computed<CardConfig[]>(() => {
   if (!resolvedPost.value.tags) return []
   return blogStore.getRelatedPosts(resolvedPost.value, 3)
 })
+
+const renderLatestPosts = blogStore.getLatestPosts as typeof blogStore.getLatestPosts & { value: PopularConfig }
 
 const tocData = computed<TocData | null>(() => {
   const body = resolvedPost.value.body as { toc?: TocData; value?: unknown[] } | undefined
@@ -148,6 +155,10 @@ const handleLabelClick = (label: TagLike): void => {
       void router.push({ name: 'blog', query: { label: labelValue, page: '1' } })
     }
   }
+}
+
+const handleSidebarBlogClick = (blog: SidebarBlogLink): void => {
+  void router.push(blog.link)
 }
 
 const {
@@ -257,7 +268,7 @@ const articleContainer = ref<HTMLElement | null>(null)
             class="order-1 pt-6 lg:order-2 lg:border-t-0 lg:pt-0"
           >
             <div class="sticky top-5 lg:overflow-auto">
-              <TvToc :toc="tocData" compact />
+              <TvToc v-if="hasToc" :toc="tocData" compact />
             </div>
           </aside>
         </client-only>
@@ -286,24 +297,37 @@ const articleContainer = ref<HTMLElement | null>(null)
         </div>
       </section>
 
-      <section v-if="relatedPosts.length" class="container-main mb-16 mt-20">
-        <h2 class="title-main">
-          {{ t('blogs.related') }}
-        </h2>
-        <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
-          <div
-            v-for="related in relatedPosts"
-            :key="related.id"
-            class="blog-card-shell w-full"
-            role="link"
-            tabindex="0"
-            @click="handleCardClick($event, related.path)"
-            @keydown="handleCardKeydown($event, related.path)"
-          >
-            <TvCard
-              :config-card="related"
-              @click-button="handleCardButtonClick(related.path)"
-              @click-label="handleCardLabelClick"
+      <section
+        v-if="relatedPosts.length || renderLatestPosts.list.length"
+        class="container-main mb-16 mt-20"
+      >
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+          <div v-if="relatedPosts.length">
+            <h2 class="title-main">
+              {{ t('blogs.related') }}
+            </h2>
+            <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
+              <div
+                v-for="related in relatedPosts"
+                :key="related.id"
+                class="blog-card-shell w-full"
+                role="link"
+                tabindex="0"
+                @click="handleCardClick($event, related.path)"
+                @keydown="handleCardKeydown($event, related.path)"
+              >
+                <TvCard
+                  :config-card="related"
+                  @click-button="handleCardButtonClick(related.path)"
+                  @click-label="handleCardLabelClick"
+                />
+              </div>
+            </div>
+          </div>
+          <div v-if="renderLatestPosts.list.length" class="lg:pt-14">
+            <TvSidebar
+              :data="renderLatestPosts"
+              @click="handleSidebarBlogClick"
             />
           </div>
         </div>

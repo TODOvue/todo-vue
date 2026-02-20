@@ -250,6 +250,28 @@ export const useBlogStore = (): UseBlogStoreApi => {
     }
   })
 
+  const getLatestPosts = computed(() => {
+    const newestPostIds = new Set(
+      [...blogPosts.value]
+        .sort((a: BlogPost, b: BlogPost) => getDateValue(b.date) - getDateValue(a.date))
+        .slice(0, 3)
+        .map((post: BlogPost) => getPostId(post))
+    )
+
+    return {
+      title: t('blogs.sidebar.latestBlogs'),
+      list: [...blogPosts.value]
+        .sort((a: BlogPost, b: BlogPost) => getDateValue(b.date) - getDateValue(a.date))
+        .slice(0, 10)
+        .map((post: BlogPost, index: number) => ({
+          id: index + 1,
+          title: post.title ?? t('blogs.card.untitled'),
+          link: localePath((post.path ?? post._path ?? '/') as string),
+          isNew: newestPostIds.has(getPostId(post))
+        }))
+    }
+  })
+
   if (import.meta.client) {
     visitCountsConsumers += 1
     void fetchVisitCounts()
@@ -320,6 +342,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
     getAllLabels,
     getLabelsConfig,
     getMostPopular,
+    getLatestPosts,
     getLastMostViewedPost,
     getPostsByTag,
     getRelatedPosts,

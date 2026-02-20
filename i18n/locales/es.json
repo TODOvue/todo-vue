@@ -33,6 +33,7 @@
     "empty": "No hay artículos disponibles aún",
     "sidebar": {
       "popularBlogs": "Blogs populares",
+      "latestBlogs": "Últimos blogs",
       "labels": "Todas las etiquetas",
       "searchPlaceholder": "Filtrar por etiqueta",
       "newLabelText": "Nueva"

@@ -157,6 +157,7 @@ export type UseBlogStoreApi = {
   getAllLabels: ComputedRef<CardLabel[]>
   getLabelsConfig: ComputedRef<LabelsConfig>
   getMostPopular: ComputedRef<PopularConfig>
+  getLatestPosts: ComputedRef<PopularConfig>
   getLastMostViewedPost: ComputedRef<CardConfig | null>
   getPostsByTag: (tagName: string) => ComputedRef<BlogPost[]>
   getRelatedPosts: (currentPost: BlogPost, limit?: number) => CardConfig[]
