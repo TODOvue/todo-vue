@@ -13,7 +13,6 @@ tags:
   - tag: "Best Practices"
     color: "#2196F3"
 draft: false
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770849828/directives-vue-v-bind-guide_gqrgyj.png
 coverAlt: "Temporary cover image for the Vue v-bind article"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"

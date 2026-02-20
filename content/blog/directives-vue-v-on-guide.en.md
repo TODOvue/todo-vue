@@ -11,7 +11,6 @@ tags:
   - tag: "Best Practices"
     color: "#2196F3"
 draft: false
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771022043/directives-vue-v-on-guide_hwtqel.png
 coverAlt: "Temporary cover image for the Vue v-on article"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"

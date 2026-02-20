@@ -224,6 +224,13 @@ export const useBlogStore = (): UseBlogStoreApi => {
   }
 
   const getMostPopular = computed(() => {
+    const newestPostIds = new Set(
+      [...blogPosts.value]
+        .sort((a: BlogPost, b: BlogPost) => getDateValue(b.date) - getDateValue(a.date))
+        .slice(0, 3)
+        .map((post: BlogPost) => getPostId(post))
+    )
+
     const sortedPosts = [...blogPosts.value].sort((a: BlogPost, b: BlogPost) => {
       const slugA = getDocumentSlug(a)
       const slugB = getDocumentSlug(b)
@@ -238,7 +245,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
         id: index + 1,
         title: post.title ?? t('blogs.card.untitled'),
         link: localePath((post.path ?? post._path ?? '/') as string),
-        isNew: Boolean(post.isNew)
+        isNew: newestPostIds.has(getPostId(post))
       }))
     }
   })

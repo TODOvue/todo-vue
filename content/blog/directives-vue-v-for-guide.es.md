@@ -13,7 +13,6 @@ tags:
   - tag: "Buenas Prácticas"
     color: "#2196F3"
 draft: false
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770690176/directives-vue-v-for-guide_itbdds.png
 coverAlt: "Imagen temporal para portada del artículo sobre v-for en Vue"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"

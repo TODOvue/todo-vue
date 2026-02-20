@@ -13,7 +13,6 @@ tags:
   - tag: "Best Practices"
     color: "#2196F3"
 draft: false
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771265788/directives-vue-v-model-guide_ticgya.png
 coverAlt: "Temporary cover image for the article about v-model in Vue"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"
