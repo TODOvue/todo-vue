@@ -91,7 +91,7 @@ const articleData = computed(() => ({
 
 const relatedPosts = computed<CardConfig[]>(() => {
   if (!resolvedPost.value.tags) return []
-  return blogStore.getRelatedPosts(resolvedPost.value, 3)
+  return blogStore.getRelatedPosts(resolvedPost.value, 6)
 })
 
 const renderLatestPosts = blogStore.getLatestPosts as typeof blogStore.getLatestPosts & { value: PopularConfig }
@@ -300,7 +300,7 @@ const articleContainer = ref<HTMLElement | null>(null)
 
       <section
         v-if="relatedPosts.length || renderLatestPosts.list.length"
-        class="container-main mb-16 mt-20"
+        class="container-main mb-16 pt-20"
       >
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div v-if="relatedPosts.length">
