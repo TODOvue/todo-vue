@@ -307,7 +307,7 @@ const visibleTasks = computed(() =>
   <section
     v-for="task in visibleTasks"
     :key="task.id"
-    v-memo="[task.id, task.done, selectedOwner]"
+    v-memo="[task.id, task.title, task.owner, task.done, selectedOwner]"
     class="task-card"
   >
     <h3>{{ task.title }}</h3>
@@ -364,7 +364,7 @@ export default {
   <section
     v-for="task in visibleTasks"
     :key="task.id"
-    v-memo="[task.id, task.done, selectedOwner]"
+    v-memo="[task.id, task.title, task.owner, task.done, selectedOwner]"
     class="task-card"
   >
     <h3>{{ task.title }}</h3>
