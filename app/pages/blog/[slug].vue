@@ -4,6 +4,7 @@ import {
   TvBreadcrumbs,
   TvCard,
   TvHero,
+  TvPagination,
   TvSidebar,
   TvToc,
 } from '@todovue/tv-ui'
@@ -165,6 +166,20 @@ const seriesRelatedPosts = computed<CardConfig[]>(() =>
     .filter((item) => !isSamePost(item, resolvedPost.value))
     .map((item) => blogStore.postToCardConfig(item))
 )
+const seriesPageSize = 3
+const currentSeriesPage = ref(1)
+const paginatedSeriesRelatedPosts = computed<CardConfig[]>(() => {
+  const start = (currentSeriesPage.value - 1) * seriesPageSize
+  const end = start + seriesPageSize
+  return seriesRelatedPosts.value.slice(start, end)
+})
+
+watch(seriesRelatedPosts, (items) => {
+  const totalPages = Math.max(1, Math.ceil(items.length / seriesPageSize))
+  if (currentSeriesPage.value > totalPages) {
+    currentSeriesPage.value = totalPages
+  }
+}, { immediate: true })
 
 const renderLatestPosts = blogStore.getLatestPosts as typeof blogStore.getLatestPosts & { value: PopularConfig }
 
@@ -425,7 +440,7 @@ const articleContainer = ref<HTMLElement | null>(null)
               </h2>
               <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
                 <div
-                  v-for="seriesPost in seriesRelatedPosts"
+                  v-for="seriesPost in paginatedSeriesRelatedPosts"
                   :key="seriesPost.id"
                   class="blog-card-shell w-full"
                   role="link"
@@ -440,6 +455,17 @@ const articleContainer = ref<HTMLElement | null>(null)
                   />
                 </div>
               </div>
+              <ClientOnly>
+                <div v-if="seriesRelatedPosts.length > seriesPageSize" class="mt-10 flex justify-center">
+                  <TvPagination
+                    v-model="currentSeriesPage"
+                    :total-items="seriesRelatedPosts.length"
+                    :page-size="seriesPageSize"
+                    show-icons
+                    :show-first-last="false"
+                  />
+                </div>
+              </ClientOnly>
             </div>
             <div v-if="relatedPosts.length" :class="seriesRelatedPosts.length ? 'mt-14' : ''">
               <h2 class="title-main">
