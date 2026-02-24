@@ -67,6 +67,11 @@ const configMenu = computed(() => ({
     },
     {
       id: 3,
+      title: t('menu.series'),
+      url: '/series/'
+    },
+    {
+      id: 4,
       title: t('menu.components'),
       url: '/components'
     }
@@ -228,6 +233,7 @@ const configFooter = computed(() => ({
       items: [
         { label: t('footer.navigation.home'), url: '/' },
         { label: t('footer.navigation.blogs'), url: '/blog/' },
+        { label: t('footer.navigation.series'), url: '/series/' },
         { label: t('footer.navigation.components'), url: 'https://ui.todovue.blog' }
       ]
     },

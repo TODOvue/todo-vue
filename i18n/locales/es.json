@@ -3,6 +3,7 @@
     "blogs": "Blogs",
     "components": "Componentes",
     "home": "Inicio",
+    "series": "Series",
     "search": {
       "placeholder": "Buscar blogs...",
       "button": "Buscar",
@@ -128,6 +129,7 @@
       "title": "Menú",
       "home": "Inicio",
       "blogs": "Blogs",
+      "series": "Series",
       "components": "Componentes"
     },
     "otherEntries": "Otros blogs",
