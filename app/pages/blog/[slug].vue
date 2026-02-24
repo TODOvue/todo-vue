@@ -352,22 +352,6 @@ const articleContainer = ref<HTMLElement | null>(null)
             @label-click="handleLabelClick"
           />
           <div
-            v-if="editOnGithubUrl"
-            class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-3 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
-          >
-            <a
-              :href="editOnGithubUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
-            >
-              {{ t('blogs.contribute.editOnGithub') }}
-            </a>
-            <p class="mt-2 text-sm opacity-90">
-              {{ t('blogs.contribute.helpImprove') }}
-            </p>
-          </div>
-          <div
             v-if="seriesContext"
             class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-4 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
           >
@@ -409,6 +393,22 @@ const articleContainer = ref<HTMLElement | null>(null)
                 <span>{{ nextSeriesPost.title }}</span>
               </NuxtLink>
             </div>
+          </div>
+          <div
+            v-if="editOnGithubUrl"
+            class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-3 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
+          >
+            <a
+              :href="editOnGithubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline"
+            >
+              {{ t('blogs.contribute.editOnGithub') }}
+            </a>
+            <p class="mt-2 text-sm opacity-90">
+              {{ t('blogs.contribute.helpImprove') }}
+            </p>
           </div>
         </div>
       </section>
