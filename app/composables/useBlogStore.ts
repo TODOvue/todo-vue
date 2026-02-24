@@ -262,7 +262,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
       title: t('blogs.sidebar.latestBlogs'),
       list: [...blogPosts.value]
         .sort((a: BlogPost, b: BlogPost) => getDateValue(b.date) - getDateValue(a.date))
-        .slice(0, 10)
+        .slice(0, 5)
         .map((post: BlogPost, index: number) => ({
           id: index + 1,
           title: post.title ?? t('blogs.card.untitled'),

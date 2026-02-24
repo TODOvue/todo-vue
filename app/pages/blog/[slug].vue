@@ -103,13 +103,16 @@ const articleData = computed(() => ({
   body: resolvedPost.value.body
 }))
 
+const currentSeriesKey = computed<string>(() => normalizeSeriesKey(resolvedPost.value.series))
+
 const relatedPosts = computed<CardConfig[]>(() => {
+  if (currentSeriesKey.value) return []
   if (!resolvedPost.value.tags) return []
-  return blogStore.getRelatedPosts(resolvedPost.value, 6)
+  return blogStore.getRelatedPosts(resolvedPost.value, 9)
 })
 
 const seriesPosts = computed<BlogPost[]>(() => {
-  const seriesKey = normalizeSeriesKey(resolvedPost.value.series)
+  const seriesKey = currentSeriesKey.value
   if (!seriesKey) return []
 
   return [...blogStore.blogPosts.value]
@@ -180,6 +183,29 @@ watch(seriesRelatedPosts, (items) => {
     currentSeriesPage.value = totalPages
   }
 }, { immediate: true })
+
+const relatedPageSize = 3
+const currentRelatedPage = ref(1)
+const paginatedRelatedPosts = computed<CardConfig[]>(() => {
+  const start = (currentRelatedPage.value - 1) * relatedPageSize
+  const end = start + relatedPageSize
+  return relatedPosts.value.slice(start, end)
+})
+
+watch(relatedPosts, (items) => {
+  const totalPages = Math.max(1, Math.ceil(items.length / relatedPageSize))
+  if (currentRelatedPage.value > totalPages) {
+    currentRelatedPage.value = totalPages
+  }
+}, { immediate: true })
+
+const showSeriesSection = computed<boolean>(() =>
+  Boolean(currentSeriesKey.value) && seriesRelatedPosts.value.length > 0
+)
+
+const showRelatedSection = computed<boolean>(() =>
+  !currentSeriesKey.value && relatedPosts.value.length > 0
+)
 
 const renderLatestPosts = blogStore.getLatestPosts as typeof blogStore.getLatestPosts & { value: PopularConfig }
 
@@ -429,12 +455,12 @@ const articleContainer = ref<HTMLElement | null>(null)
       </section>
 
       <section
-        v-if="seriesRelatedPosts.length || relatedPosts.length || renderLatestPosts.list.length"
+        v-if="showSeriesSection || showRelatedSection || renderLatestPosts.list.length"
         class="container-main mb-16 pt-20"
       >
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div>
-            <div v-if="seriesRelatedPosts.length">
+            <div v-if="showSeriesSection">
               <h2 class="title-main">
                 {{ t('blogs.series.label') }}
               </h2>
@@ -467,13 +493,13 @@ const articleContainer = ref<HTMLElement | null>(null)
                 </div>
               </ClientOnly>
             </div>
-            <div v-if="relatedPosts.length" :class="seriesRelatedPosts.length ? 'mt-14' : ''">
+            <div v-if="showRelatedSection">
               <h2 class="title-main">
                 {{ t('blogs.related') }}
               </h2>
               <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
                 <div
-                  v-for="related in relatedPosts"
+                  v-for="related in paginatedRelatedPosts"
                   :key="related.id"
                   class="blog-card-shell w-full"
                   role="link"
@@ -488,6 +514,17 @@ const articleContainer = ref<HTMLElement | null>(null)
                   />
                 </div>
               </div>
+              <ClientOnly>
+                <div v-if="relatedPosts.length > relatedPageSize" class="mt-10 flex justify-center">
+                  <TvPagination
+                    v-model="currentRelatedPage"
+                    :total-items="relatedPosts.length"
+                    :page-size="relatedPageSize"
+                    show-icons
+                    :show-first-last="false"
+                  />
+                </div>
+              </ClientOnly>
             </div>
           </div>
           <div v-if="renderLatestPosts.list.length" class="lg:pt-14">
