@@ -202,7 +202,6 @@ const iconUrl = computed(() => {
 
 const configFooter = computed(() => ({
   brand: {
-    name: 'TODOvue',
     logo: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
     url: '/'
   },
