@@ -11,7 +11,7 @@ const route = useRoute()
 const blogStore = useBlogStore()
 const { t } = useI18n()
 const { runNavigation } = useGlobalLoader()
-const pageSize = 9
+const pageSize = 12
 const filters = ref<ActiveFilter[]>([])
 const labelFilters = ref<TagLike | null>(null)
 
