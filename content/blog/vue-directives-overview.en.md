@@ -19,6 +19,10 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770161262/vue-directi
 coverAlt: "Vue Directives: An Overview"
 coverCaption: "Cover image representing directives in Vue.js."
 locale: en
+series: directivas-en-vue
+seriesOrder: 1
+seriesTitle: "Vue Directives"
+seriesDescription: "A step-by-step path to master Vue core directives."
 author: TODOvue
 keywords:
   - Vue.js
@@ -329,6 +333,8 @@ export default {
 
 It’s not used much, but it exists for very specific cases where you don’t want interpolations.
 
+> If you want to learn more, read the guide [Vue Directives: v-text and v-html](/blog/directives-vue-v-text-v-html-guide.en/).
+
 ## `v-html`
 
 It inserts unescaped HTML.
@@ -362,6 +368,8 @@ export default {
 
 > ⚠️ **Never use it with untrusted content**.
 It’s a direct door to XSS if you don’t know exactly what you’re rendering.
+
+> If you want to learn more, read the guide [Vue Directives: v-text and v-html](/blog/directives-vue-v-text-v-html-guide.en/)
 
 ## `v-slot`
 

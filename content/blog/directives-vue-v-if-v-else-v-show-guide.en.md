@@ -16,6 +16,10 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771265982/directives-
 coverAlt: "Conceptual illustration of conditional rendering in Vue.js"
 coverCaption: "Conditional rendering in Vue.js illustrated by TODOvue"
 locale: en
+series: directivas-en-vue
+seriesOrder: 2
+seriesTitle: "Vue Directives"
+seriesDescription: "A step-by-step path to master Vue core directives."
 author: TODOvue
 keywords:
   - Vue.js

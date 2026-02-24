@@ -17,6 +17,10 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770690176/directives-
 coverAlt: "Temporary cover image for the Vue v-for article"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"
 locale: en
+series: directivas-en-vue
+seriesOrder: 3
+seriesTitle: "Vue Directives"
+seriesDescription: "A step-by-step path to master Vue core directives."
 author: TODOvue
 keywords:
   - Vue.js

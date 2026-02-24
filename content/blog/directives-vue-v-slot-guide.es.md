@@ -17,6 +17,10 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771508914/directives-
 coverAlt: "Portada del artículo Directivas en Vue: v-slot"
 coverCaption: "Usa v-slot para construir componentes más flexibles y reutilizables."
 locale: es
+series: directivas-en-vue
+seriesOrder: 7
+seriesTitle: "Directivas en Vue"
+seriesDescription: "Ruta paso a paso para dominar las directivas principales de Vue."
 author: TODOvue
 keywords:
   - Vue.js

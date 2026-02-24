@@ -17,6 +17,10 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770690176/directives-
 coverAlt: "Imagen temporal para portada del artículo sobre v-for en Vue"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"
 locale: es
+series: directivas-en-vue
+seriesOrder: 3
+seriesTitle: "Directivas en Vue"
+seriesDescription: "Ruta paso a paso para dominar las directivas principales de Vue."
 author: TODOvue
 keywords:
   - Vue.js

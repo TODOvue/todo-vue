@@ -21,6 +21,10 @@ export type BlogPost = {
   body?: unknown
   alternate?: Array<BlogPost | string>
   isNew?: boolean
+  series?: string
+  seriesOrder?: number
+  seriesTitle?: string
+  seriesDescription?: string
   [key: string]: unknown
 }
 

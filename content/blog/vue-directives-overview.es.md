@@ -19,6 +19,10 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770161262/vue-directi
 coverAlt: "Directivas en Vue: Una Visión General"
 coverCaption: "Imagen destacada que representa las directivas en Vue.js."
 locale: es
+series: directivas-en-vue
+seriesOrder: 1
+seriesTitle: "Directivas en Vue"
+seriesDescription: "Ruta paso a paso para dominar las directivas principales de Vue."
 author: TODOvue
 keywords:
   - Vue.js
@@ -329,6 +333,8 @@ export default {
 
 No se usa mucho, pero existe para casos muy específicos donde no quieres interpolaciones.
 
+> Si quieres conocer más lee la guía de [Directivas en Vue: v-text y v-html](/blog/directives-vue-v-text-v-html-guide.es/).
+
 ## `v-html`
 
 Inserta HTML sin escapar.
@@ -362,6 +368,8 @@ export default {
 
 > ⚠️ **Nunca lo uses con contenido no confiable**.
 Es una puerta directa a XSS si no sabes exactamente lo que estás renderizando.
+
+> Si quieres conocer más lee la guía de [Directivas en Vue: v-text y v-html](/blog/directives-vue-v-text-v-html-guide.es/).
 
 ## `v-slot`
 

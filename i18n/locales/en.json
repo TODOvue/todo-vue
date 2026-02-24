@@ -48,6 +48,15 @@
       "editOnGithub": "Edit this page on GitHub",
       "helpImprove": "Found an issue or want to improve this post? You can propose changes directly."
     },
+    "series": {
+      "label": "Series",
+      "progress": "Part {current} of {total}",
+      "previous": "Previous chapter",
+      "next": "Next chapter",
+      "chapter": "Chapter {number}",
+      "defaultTitle": "TODOvue Series",
+      "defaultDescription": "Explore this content in a recommended order."
+    },
     "toc": {
       "title": "In this blog"
     }
@@ -56,9 +65,14 @@
     "sections": {
       "lastPost": "Last blog",
       "lastestPosts": "Recent blogs",
+      "series": "Series",
       "viewAllPosts": "View all blogs",
       "mostPopular": "Most popular blogs",
       "popularCategories": "Recent labels"
+    },
+    "series": {
+      "readSeries": "View series",
+      "parts": "{count} chapters"
     },
     "hero": {
       "title": "TODOvue Blog",
