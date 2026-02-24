@@ -26,6 +26,12 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - Vue directives overview (updated 2026-02-19):
   - ES: https://todovue.blog/blog/vue-directives-overview.es/
   - EN: https://todovue.blog/blog/vue-directives-overview.en/
+- v-once / v-memo / v-pre guide (published 2026-02-23):
+  - ES: https://todovue.blog/blog/directives-vue-v-once-v-memo-v-pre-guide.es/
+  - EN: https://todovue.blog/blog/directives-vue-v-once-v-memo-v-pre-guide.en/
+- v-text / v-html guide (published 2026-02-20):
+  - ES: https://todovue.blog/blog/directives-vue-v-text-v-html-guide.es/
+  - EN: https://todovue.blog/blog/directives-vue-v-text-v-html-guide.en/
 - v-slot guide (published 2026-02-19):
   - ES: https://todovue.blog/blog/directives-vue-v-slot-guide.es/
   - EN: https://todovue.blog/blog/directives-vue-v-slot-guide.en/

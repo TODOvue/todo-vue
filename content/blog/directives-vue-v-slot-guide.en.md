@@ -17,7 +17,7 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771508914/directives-
 coverAlt: "Cover image for the Vue Directives: v-slot article"
 coverCaption: "Use v-slot to build more flexible and reusable components."
 locale: en
-series: directivas-en-vue
+series: vue-directives
 seriesOrder: 7
 seriesTitle: "Vue Directives"
 seriesDescription: "A step-by-step path to master Vue core directives."

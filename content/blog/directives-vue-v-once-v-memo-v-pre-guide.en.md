@@ -18,6 +18,10 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771897190/directives-
 coverAlt: "Temporary cover image for the article about v-once, v-memo, and v-pre in Vue"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"
 locale: en
+series: vue-directives
+seriesOrder: 9
+seriesTitle: "Vue Directives"
+seriesDescription: "A step-by-step path to master Vue core directives."
 author: TODOvue
 keywords:
   - Vue.js

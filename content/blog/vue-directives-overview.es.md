@@ -19,7 +19,7 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770161262/vue-directi
 coverAlt: "Directivas en Vue: Una Visión General"
 coverCaption: "Imagen destacada que representa las directivas en Vue.js."
 locale: es
-series: directivas-en-vue
+series: vue-directives
 seriesOrder: 1
 seriesTitle: "Directivas en Vue"
 seriesDescription: "Ruta paso a paso para dominar las directivas principales de Vue."
@@ -450,6 +450,8 @@ export default {
 
 Útil cuando el contenido no debe actualizarse jamás, incluso si el estado cambia.
 
+> Si quieres conocer más lee la guía de [Directivas en Vue: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.es/).
+
 ## `v-memo`
 
 Evita renderizados innecesarios cuando las dependencias no cambian.
@@ -489,6 +491,8 @@ export default {
 Es una **optimización avanzada**.
 No está pensada para usarse “porque sí”, sino en cuellos de botella reales.
 
+> Si quieres conocer más lee la guía de [Directivas en Vue: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.es/).
+
 ## `v-pre`
 
 Evita que Vue compile el contenido del nodo.
@@ -516,6 +520,8 @@ export default {}
 ```
 
 Perfecta para mostrar snippets, ejemplos literales o templates de demostración.
+
+> Si quieres conocer más lee la guía de [Directivas en Vue: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.es/).
 
 ## `v-cloak`
 

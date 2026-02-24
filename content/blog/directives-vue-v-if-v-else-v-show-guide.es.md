@@ -16,7 +16,7 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771265982/directives-
 coverAlt: "Ilustración conceptual del renderizado condicional en Vue.js"
 coverCaption: "Renderizado condicional en Vue.js ilustrado por TODOvue"
 locale: es
-series: directivas-en-vue
+series: vue-directives
 seriesOrder: 2
 seriesTitle: "Directivas en Vue"
 seriesDescription: "Ruta paso a paso para dominar las directivas principales de Vue."

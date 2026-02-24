@@ -17,7 +17,7 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770849828/directives-
 coverAlt: "Imagen temporal para portada del artículo sobre v-bind en Vue"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"
 locale: es
-series: directivas-en-vue
+series: vue-directives
 seriesOrder: 4
 seriesTitle: "Directivas en Vue"
 seriesDescription: "Ruta paso a paso para dominar las directivas principales de Vue."

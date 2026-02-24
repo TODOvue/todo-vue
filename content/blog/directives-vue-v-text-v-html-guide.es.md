@@ -19,6 +19,10 @@ author: TODOvue
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771635700/directives-vue-v-text-v-html-guide_n0cemz.png
 coverAlt: "Ejemplo de uso de v-text y v-html en Vue.js"
 coverCaption: "Aprende a usar v-text y v-html de forma segura y efectiva en tus proyectos Vue"
+series: vue-directives
+seriesOrder: 8
+seriesTitle: "Directivas en Vue"
+seriesDescription: "Ruta paso a paso para dominar las directivas principales de Vue."
 keywords:
   - Vue.js
   - v-text
