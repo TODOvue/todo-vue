@@ -4,19 +4,24 @@ import {
   TvBreadcrumbs,
   TvCard,
   TvHero,
+  TvPagination,
+  TvSidebar,
   TvToc,
 } from '@todovue/tv-ui'
 
 import { useI18n } from 'vue-i18n'
-import type { BlogPost, CardConfig } from '@/types/composables'
-import type { BreadcrumbItem, TagLike, TocData } from '@/types/views'
+import type { BlogPost, CardConfig, PopularConfig } from '@/types/composables'
+import type { BreadcrumbItem, SidebarBlogLink, TagLike, TocData } from '@/types/views'
+import { getDocumentSlug } from '@/utils/contentLocale'
 
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
 const { locale, t } = useI18n()
+const localePath = useLocalePath()
 const runtimeConfig = useRuntimeConfig()
 const { registerVisit } = useVisit()
+const { runNavigation } = useGlobalLoader()
 
 const getRouteSlug = (): string | undefined => {
   const slug = route.params.slug
@@ -28,6 +33,17 @@ const getSlugLocale = (value: string): 'es' | 'en' | null => {
   const localeCode = match?.[1]?.toLowerCase()
   if (localeCode === 'es' || localeCode === 'en') return localeCode
   return null
+}
+const getDateValue = (value: BlogPost['date']): number => new Date(value ?? 0).getTime()
+const normalizeSeriesKey = (value: unknown): string => typeof value === 'string' ? value.trim().toLowerCase() : ''
+const resolvePostPath = (value: BlogPost): string =>
+  String((value.path ?? value._path ?? '/') as string)
+const toLocalizedPostPath = (value: BlogPost): string => localePath(resolvePostPath(value))
+const isSamePost = (first: BlogPost, second: BlogPost): boolean => {
+  const firstPath = resolvePostPath(first)
+  const secondPath = resolvePostPath(second)
+  if (firstPath && secondPath && firstPath === secondPath) return true
+  return getDocumentSlug(first) === getDocumentSlug(second)
 }
 
 if (!route.path.endsWith('/')) {
@@ -69,6 +85,10 @@ const { data: post } = await useAsyncData<BlogPost | null>(
   }
 )
 
+await useAsyncData('blog-slug-sidebar-posts', async () => {
+  return await blogStore.fetchBlogPosts()
+})
+
 if (!post.value) {
   throw createError({ statusCode: 404, statusMessage: 'Post not found' })
 }
@@ -83,10 +103,111 @@ const articleData = computed(() => ({
   body: resolvedPost.value.body
 }))
 
+const currentSeriesKey = computed<string>(() => normalizeSeriesKey(resolvedPost.value.series))
+
 const relatedPosts = computed<CardConfig[]>(() => {
+  if (currentSeriesKey.value) return []
   if (!resolvedPost.value.tags) return []
-  return blogStore.getRelatedPosts(resolvedPost.value, 3)
+  return blogStore.getRelatedPosts(resolvedPost.value, 9)
 })
+
+const seriesPosts = computed<BlogPost[]>(() => {
+  const seriesKey = currentSeriesKey.value
+  if (!seriesKey) return []
+
+  return [...blogStore.blogPosts.value]
+    .filter((item) => normalizeSeriesKey(item.series) === seriesKey)
+    .sort((first, second) => {
+      const firstOrder = typeof first.seriesOrder === 'number' ? first.seriesOrder : Number.MAX_SAFE_INTEGER
+      const secondOrder = typeof second.seriesOrder === 'number' ? second.seriesOrder : Number.MAX_SAFE_INTEGER
+      if (firstOrder !== secondOrder) return firstOrder - secondOrder
+      return getDateValue(first.date) - getDateValue(second.date)
+    })
+})
+
+const currentSeriesIndex = computed<number>(() =>
+  seriesPosts.value.findIndex((item) => isSamePost(item, resolvedPost.value))
+)
+
+const previousSeriesPost = computed<BlogPost | null>(() => {
+  const index = currentSeriesIndex.value
+  if (index <= 0) return null
+  return seriesPosts.value[index - 1] ?? null
+})
+
+const nextSeriesPost = computed<BlogPost | null>(() => {
+  const index = currentSeriesIndex.value
+  if (index < 0 || index >= seriesPosts.value.length - 1) return null
+  return seriesPosts.value[index + 1] ?? null
+})
+
+const seriesContext = computed(() => {
+  const posts = seriesPosts.value
+  const currentIndex = currentSeriesIndex.value
+  if (!posts.length || currentIndex < 0) return null
+
+  const currentPost = posts[currentIndex]
+  const seriesKey = normalizeSeriesKey(currentPost.series)
+  if (!seriesKey) return null
+
+  return {
+    key: seriesKey,
+    title: typeof currentPost.seriesTitle === 'string' && currentPost.seriesTitle.trim()
+      ? currentPost.seriesTitle
+      : t('blogs.series.defaultTitle'),
+    description: typeof currentPost.seriesDescription === 'string' && currentPost.seriesDescription.trim()
+      ? currentPost.seriesDescription
+      : t('blogs.series.defaultDescription'),
+    current: currentIndex + 1,
+    total: posts.length,
+    path: `/series/${seriesKey}/`
+  }
+})
+
+const seriesRelatedPosts = computed<CardConfig[]>(() =>
+  seriesPosts.value
+    .filter((item) => !isSamePost(item, resolvedPost.value))
+    .map((item) => blogStore.postToCardConfig(item))
+)
+const seriesPageSize = 3
+const currentSeriesPage = ref(1)
+const paginatedSeriesRelatedPosts = computed<CardConfig[]>(() => {
+  const start = (currentSeriesPage.value - 1) * seriesPageSize
+  const end = start + seriesPageSize
+  return seriesRelatedPosts.value.slice(start, end)
+})
+
+watch(seriesRelatedPosts, (items) => {
+  const totalPages = Math.max(1, Math.ceil(items.length / seriesPageSize))
+  if (currentSeriesPage.value > totalPages) {
+    currentSeriesPage.value = totalPages
+  }
+}, { immediate: true })
+
+const relatedPageSize = 3
+const currentRelatedPage = ref(1)
+const paginatedRelatedPosts = computed<CardConfig[]>(() => {
+  const start = (currentRelatedPage.value - 1) * relatedPageSize
+  const end = start + relatedPageSize
+  return relatedPosts.value.slice(start, end)
+})
+
+watch(relatedPosts, (items) => {
+  const totalPages = Math.max(1, Math.ceil(items.length / relatedPageSize))
+  if (currentRelatedPage.value > totalPages) {
+    currentRelatedPage.value = totalPages
+  }
+}, { immediate: true })
+
+const showSeriesSection = computed<boolean>(() =>
+  Boolean(currentSeriesKey.value) && seriesRelatedPosts.value.length > 0
+)
+
+const showRelatedSection = computed<boolean>(() =>
+  !currentSeriesKey.value && relatedPosts.value.length > 0
+)
+
+const renderLatestPosts = blogStore.getLatestPosts as typeof blogStore.getLatestPosts & { value: PopularConfig }
 
 const tocData = computed<TocData | null>(() => {
   const body = resolvedPost.value.body as { toc?: TocData; value?: unknown[] } | undefined
@@ -130,7 +251,7 @@ const configHero = {
 
 const breadcrumbs = computed<BreadcrumbItem[]>(() => [
   { label: 'Home', href: '/' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Blog', href: '/blog/' },
   { label: resolvedPost.value.title ?? '', href: route.path }
 ])
 
@@ -145,9 +266,13 @@ const handleLabelClick = (label: TagLike): void => {
   if (label) {
     const labelValue = label.name || label.tag
     if (labelValue) {
-      void router.push({ name: 'blog', query: { label: labelValue, page: '1' } })
+      void runNavigation(() => router.push({ name: 'blog', query: { label: labelValue, page: '1' } }))
     }
   }
+}
+
+const handleSidebarBlogClick = (blog: SidebarBlogLink): void => {
+  void runNavigation(() => router.push(blog.link))
 }
 
 const {
@@ -257,7 +382,7 @@ const articleContainer = ref<HTMLElement | null>(null)
             class="order-1 pt-6 lg:order-2 lg:border-t-0 lg:pt-0"
           >
             <div class="sticky top-5 lg:overflow-auto">
-              <TvToc :toc="tocData" compact />
+              <TvToc v-if="hasToc" :toc="tocData" compact />
             </div>
           </aside>
         </client-only>
@@ -267,6 +392,49 @@ const articleContainer = ref<HTMLElement | null>(null)
             :lang="locale"
             @label-click="handleLabelClick"
           />
+          <div
+            v-if="seriesContext"
+            class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-4 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
+          >
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-semibold text-primary">
+                {{ t('blogs.series.label') }}
+              </p>
+              <NuxtLink
+                :to="seriesContext.path"
+                class="text-lg font-bold underline-offset-4 hover:underline focus-visible:underline"
+              >
+                {{ seriesContext.title }}
+              </NuxtLink>
+              <p class="text-sm opacity-90">
+                {{ seriesContext.description }}
+              </p>
+              <p class="text-sm font-medium">
+                {{ t('blogs.series.progress', { current: seriesContext.current, total: seriesContext.total }) }}
+              </p>
+            </div>
+            <div
+              v-if="previousSeriesPost || nextSeriesPost"
+              class="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2"
+            >
+              <NuxtLink
+                v-if="previousSeriesPost"
+                :to="toLocalizedPostPath(previousSeriesPost)"
+                class="rounded-lg border border-primary/20 px-3 py-2 text-sm transition-colors hover:bg-primary/5"
+              >
+                <span class="block text-xs opacity-80">{{ t('blogs.series.previous') }}</span>
+                <span>{{ previousSeriesPost.title }}</span>
+              </NuxtLink>
+              <NuxtLink
+                v-if="nextSeriesPost"
+                :to="toLocalizedPostPath(nextSeriesPost)"
+                class="rounded-lg border border-primary/20 px-3 py-2 text-sm transition-colors hover:bg-primary/5"
+              >
+                <span class="block text-xs opacity-80">{{ t('blogs.series.next') }}</span>
+                <span>{{ nextSeriesPost.title }}</span>
+              </NuxtLink>
+            </div>
+          </div>
           <div
             v-if="editOnGithubUrl"
             class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-3 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
@@ -286,24 +454,83 @@ const articleContainer = ref<HTMLElement | null>(null)
         </div>
       </section>
 
-      <section v-if="relatedPosts.length" class="container-main mb-16 mt-20">
-        <h2 class="title-main">
-          {{ t('blogs.related') }}
-        </h2>
-        <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
-          <div
-            v-for="related in relatedPosts"
-            :key="related.id"
-            class="blog-card-shell w-full"
-            role="link"
-            tabindex="0"
-            @click="handleCardClick($event, related.path)"
-            @keydown="handleCardKeydown($event, related.path)"
-          >
-            <TvCard
-              :config-card="related"
-              @click-button="handleCardButtonClick(related.path)"
-              @click-label="handleCardLabelClick"
+      <section
+        v-if="showSeriesSection || showRelatedSection || renderLatestPosts.list.length"
+        class="container-main mb-16 pt-20"
+      >
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+          <div>
+            <div v-if="showSeriesSection">
+              <h2 class="title-main">
+                {{ t('blogs.series.label') }}
+              </h2>
+              <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
+                <div
+                  v-for="seriesPost in paginatedSeriesRelatedPosts"
+                  :key="seriesPost.id"
+                  class="blog-card-shell w-full"
+                  role="link"
+                  tabindex="0"
+                  @click="handleCardClick($event, seriesPost.path)"
+                  @keydown="handleCardKeydown($event, seriesPost.path)"
+                >
+                  <TvCard
+                    :config-card="seriesPost"
+                    @click-button="handleCardButtonClick(seriesPost.path)"
+                    @click-label="handleCardLabelClick"
+                  />
+                </div>
+              </div>
+              <ClientOnly>
+                <div v-if="seriesRelatedPosts.length > seriesPageSize" class="mt-10 flex justify-center">
+                  <TvPagination
+                    v-model="currentSeriesPage"
+                    :total-items="seriesRelatedPosts.length"
+                    :page-size="seriesPageSize"
+                    show-icons
+                    :show-first-last="false"
+                  />
+                </div>
+              </ClientOnly>
+            </div>
+            <div v-if="showRelatedSection">
+              <h2 class="title-main">
+                {{ t('blogs.related') }}
+              </h2>
+              <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
+                <div
+                  v-for="related in paginatedRelatedPosts"
+                  :key="related.id"
+                  class="blog-card-shell w-full"
+                  role="link"
+                  tabindex="0"
+                  @click="handleCardClick($event, related.path)"
+                  @keydown="handleCardKeydown($event, related.path)"
+                >
+                  <TvCard
+                    :config-card="related"
+                    @click-button="handleCardButtonClick(related.path)"
+                    @click-label="handleCardLabelClick"
+                  />
+                </div>
+              </div>
+              <ClientOnly>
+                <div v-if="relatedPosts.length > relatedPageSize" class="mt-10 flex justify-center">
+                  <TvPagination
+                    v-model="currentRelatedPage"
+                    :total-items="relatedPosts.length"
+                    :page-size="relatedPageSize"
+                    show-icons
+                    :show-first-last="false"
+                  />
+                </div>
+              </ClientOnly>
+            </div>
+          </div>
+          <div v-if="renderLatestPosts.list.length" class="lg:pt-14">
+            <TvSidebar
+              :data="renderLatestPosts"
+              @click="handleSidebarBlogClick"
             />
           </div>
         </div>

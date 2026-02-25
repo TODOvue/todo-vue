@@ -13,11 +13,14 @@ tags:
   - tag: "Buenas Prácticas"
     color: "#2196F3"
 draft: false
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771508914/directives-vue-v-slot-guide_wr2iyy.png
 coverAlt: "Portada del artículo Directivas en Vue: v-slot"
 coverCaption: "Usa v-slot para construir componentes más flexibles y reutilizables."
 locale: es
+series: vue-directives
+seriesOrder: 7
+seriesTitle: "Directivas en Vue"
+seriesDescription: "Ruta paso a paso para dominar las directivas principales de Vue."
 author: TODOvue
 keywords:
   - Vue.js

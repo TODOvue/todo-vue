@@ -14,6 +14,33 @@ const blogRoutes = (() => {
   }
 })()
 
+const tvUiStyleFallback = '@todovue/tv-ui/style.css'
+const tvUiMissingStyleAliases = [
+  '@todovue/tv-alert/style.css',
+  '@todovue/tv-article/style.css',
+  '@todovue/tv-breadcrumbs/style.css',
+  '@todovue/tv-button/style.css',
+  '@todovue/tv-card/style.css',
+  '@todovue/tv-demo/style.css',
+  '@todovue/tv-footer/style.css',
+  '@todovue/tv-hero/style.css',
+  '@todovue/tv-label/style.css',
+  '@todovue/tv-menu/style.css',
+  '@todovue/tv-modal/style.css',
+  '@todovue/tv-pagination/style.css',
+  '@todovue/tv-progress-bar/style.css',
+  '@todovue/tv-scroll-top/style.css',
+  '@todovue/tv-search/style.css',
+  '@todovue/tv-settings/style.css',
+  '@todovue/tv-sidebar/style.css',
+  '@todovue/tv-theme-button/style.css',
+  '@todovue/tv-toc/style.css'
+]
+
+const tvUiAliasMap = Object.fromEntries(
+  tvUiMissingStyleAliases.map((stylePath) => [stylePath, tvUiStyleFallback])
+)
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -82,6 +109,13 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
   ],
 
+  eslint: {
+    config: {
+      standalone: true,
+      import: false
+    }
+  },
+
   site: {
     url: process.env.NUXT_PUBLIC_SITE_URL,
     name: process.env.NUXT_PUBLIC_SITE_NAME,
@@ -126,7 +160,7 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  css: ['@/assets/styles/tailwind.css', '@/assets/styles/main.css'],
+  css: [tvUiStyleFallback, '@/assets/styles/tailwind.css', '@/assets/styles/main.css'],
 
   content: {},
 
@@ -138,6 +172,15 @@ export default defineNuxtConfig({
 
   vue: {
     runtimeCompiler: true
+  },
+
+  vite: {
+    resolve: {
+      alias: tvUiAliasMap
+    },
+    build: {
+      chunkSizeWarningLimit: 1000
+    }
   },
 
   nitro: {

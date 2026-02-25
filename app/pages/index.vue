@@ -12,6 +12,7 @@ const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
+const { runNavigation } = useGlobalLoader()
 
 const configHero = computed(() => ({
   alt: 'TODOvue Logo',
@@ -27,7 +28,7 @@ const navigateTo = (path: string, isExternal = false): void => {
     window.open(path, '_self')
     return
   }
-  void router.push(path)
+  void runNavigation(() => router.push(path))
 }
 
 const openInNewTab = (path: string): void => {
@@ -45,6 +46,24 @@ const latestPosts = computed<CardConfig[]>(() => {
   return allCards.slice(1, 5)
 })
 
+const homeSeries = useSeriesAggregation(blogStore.blogPosts, 4)
+
+const seriesCards = computed<CardConfig[]>(() => homeSeries.value.map((series, index) => ({
+  title: series.title,
+  description: series.description,
+  id: `series-${series.slug}-${index + 1}`,
+  primaryButtonText: t('home.series.readSeries'),
+  alt: series.coverAlt,
+  image: series.cover,
+  labels: [{
+    id: index + 1,
+    name: t('home.series.parts', { count: series.chapters }),
+    color: '#1D5BA1'
+  }],
+  path: series.path,
+  limitLabels: 1
+})))
+
 const popularCategories = computed<CardLabel[]>(() => {
   const allLabels = blogStore.getAllLabels.value
   return allLabels.slice(0, 6)
@@ -52,8 +71,26 @@ const popularCategories = computed<CardLabel[]>(() => {
 
 const handleCategoryClick = (label: CardLabel): void => {
   if (label && label.name) {
-    void router.push({ path: '/blog', query: { ...route.query, label: label.name, page: '1' } })
+    void runNavigation(() => router.push({ path: '/blog/', query: { ...route.query, label: label.name, page: '1' } }))
   }
+}
+
+const handleSeriesNavigation = (path: string): void => {
+  void runNavigation(() => router.push(path))
+}
+
+const handleSeriesCardClick = (event: MouseEvent, path: string): void => {
+  const target = event.target
+  if (target instanceof HTMLElement && target.closest('a, button, input, select, textarea, [role="button"]')) {
+    return
+  }
+  handleSeriesNavigation(path)
+}
+
+const handleSeriesCardKeydown = (event: KeyboardEvent, path: string): void => {
+  if (event.key !== 'Enter' && event.key !== ' ') return
+  event.preventDefault()
+  handleSeriesNavigation(path)
 }
 
 const {
@@ -62,7 +99,7 @@ const {
   handleCardButtonClick,
   handleCardLabelClick
 } = useCardNavigation<CardLabel>({
-  navigateToPath: (path: string) => navigateTo(path),
+  navigateToPath: (path: string) => router.push(path),
   onLabelClick: handleCategoryClick
 })
 
@@ -86,7 +123,7 @@ setPageSeo({
   <section>
     <TvHero
       :config-hero="configHero"
-      @click-button="navigateTo('/blog')"
+      @click-button="navigateTo('/blog/')"
       @click-secondary-button="navigateTo('https://ui.todovue.blog', true)"
     />
 
@@ -141,10 +178,34 @@ setPageSeo({
           rounded
           large
           :aria-label="t('home.sections.viewAllPosts')"
-          @click="navigateTo('/blog')"
+          @click="navigateTo('/blog/')"
         >
           {{ t('home.sections.viewAllPosts') }}
         </TvButton>
+      </div>
+    </div>
+
+    <div v-if="seriesCards.length > 0" class="container-main">
+      <div class="mb-8 mt-12">
+        <h2 class="title-main">
+          {{ t('home.sections.series') }}
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div
+          v-for="seriesCard in seriesCards"
+          :key="seriesCard.id"
+          class="blog-card-shell w-full"
+          role="link"
+          tabindex="0"
+          @click="handleSeriesCardClick($event, seriesCard.path)"
+          @keydown="handleSeriesCardKeydown($event, seriesCard.path)"
+        >
+          <TvCard
+            :config-card="seriesCard"
+            @click-button="handleSeriesNavigation(seriesCard.path)"
+          />
+        </div>
       </div>
     </div>
 

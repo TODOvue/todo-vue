@@ -10,7 +10,8 @@ const router = useRouter()
 const route = useRoute()
 const blogStore = useBlogStore()
 const { t } = useI18n()
-const pageSize = 9
+const { runNavigation } = useGlobalLoader()
+const pageSize = 12
 const filters = ref<ActiveFilter[]>([])
 const labelFilters = ref<TagLike | null>(null)
 
@@ -88,7 +89,7 @@ const handleSidebar = (label: TagLike): void => {
         color: label.color,
         id: label.id
       }
-      void router.push({ query: { ...route.query, label: labelValue, page: '1' } })
+      void runNavigation(() => router.push({ query: { ...route.query, label: labelValue, page: '1' } }))
     }
   }
 }
@@ -104,7 +105,7 @@ const {
 })
 
 const handleLinkBlog = (blog: SidebarBlogLink): void => {
-  void router.push(blog.link)
+  void runNavigation(() => router.push(blog.link))
 }
 
 const configHero = computed(() => ({
@@ -147,7 +148,7 @@ const removeFilter = (filterId: string): void => {
   }
 
   query.page = '1'
-  void router.push({ query })
+  void runNavigation(() => router.push({ query }))
 }
 
 watch(
@@ -161,9 +162,9 @@ watch(
 )
 
 watch(currentPage, (newPage: number) => {
-  void router.push({
+  void runNavigation(() => router.push({
     query: { ...route.query, page: newPage.toString() }
-  })
+  }))
 
   window.scrollTo({
     top: 0,
@@ -221,11 +222,11 @@ setPageSeo({
             @click="toggleView"
           >
             <span class="[&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-[18px] sm:[&>svg]:w-[18px]">
-              <IconGrid v-if="!isHorizontalView" />
+              <IconGrid v-if="isHorizontalView" />
               <IconList v-else />
             </span>
             <span class="text-sm">
-              {{ isHorizontalView ? t('blogs.switch.grid') : t('blogs.switch.list') }}
+              {{ isHorizontalView ? t('blogs.switch.gridAria') : t('blogs.switch.listAria') }}
             </span>
           </button>
         </div>

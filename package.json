@@ -6,6 +6,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -25,9 +27,19 @@
   },
   "packageManager": "pnpm@10.29.2",
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@nuxt/eslint": "^1.15.1",
     "@nuxtjs/tailwindcss": "^6.14.0",
+    "@types/node": "^25.0.0",
     "eslint": "^9.39.2",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-n": "^17.23.1",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-vue": "^10.7.0",
+    "jiti": "^2.6.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.3",
     "vue": "^3.5.28",
     "zod": "^4.3.6",
     "zod-to-json-schema": "^3.25.1"

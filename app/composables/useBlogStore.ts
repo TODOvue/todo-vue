@@ -95,7 +95,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
     const preferredLocale = options?.preferredLocale
     const normalizedSlug = String(slug).replace(/\.[a-z]{2}$/i, '')
     const requestedLocale = getSlugLocale(String(slug))
-    let allPosts: BlogPost[] = []
+    let allPosts: BlogPost[]
     try {
       allPosts = await getBlogCollection().all()
     } catch (error) {
@@ -224,6 +224,13 @@ export const useBlogStore = (): UseBlogStoreApi => {
   }
 
   const getMostPopular = computed(() => {
+    const newestPostIds = new Set(
+      [...blogPosts.value]
+        .sort((a: BlogPost, b: BlogPost) => getDateValue(b.date) - getDateValue(a.date))
+        .slice(0, 3)
+        .map((post: BlogPost) => getPostId(post))
+    )
+
     const sortedPosts = [...blogPosts.value].sort((a: BlogPost, b: BlogPost) => {
       const slugA = getDocumentSlug(a)
       const slugB = getDocumentSlug(b)
@@ -238,8 +245,30 @@ export const useBlogStore = (): UseBlogStoreApi => {
         id: index + 1,
         title: post.title ?? t('blogs.card.untitled'),
         link: localePath((post.path ?? post._path ?? '/') as string),
-        isNew: Boolean(post.isNew)
+        isNew: newestPostIds.has(getPostId(post))
       }))
+    }
+  })
+
+  const getLatestPosts = computed(() => {
+    const newestPostIds = new Set(
+      [...blogPosts.value]
+        .sort((a: BlogPost, b: BlogPost) => getDateValue(b.date) - getDateValue(a.date))
+        .slice(0, 3)
+        .map((post: BlogPost) => getPostId(post))
+    )
+
+    return {
+      title: t('blogs.sidebar.latestBlogs'),
+      list: [...blogPosts.value]
+        .sort((a: BlogPost, b: BlogPost) => getDateValue(b.date) - getDateValue(a.date))
+        .slice(0, 5)
+        .map((post: BlogPost, index: number) => ({
+          id: index + 1,
+          title: post.title ?? t('blogs.card.untitled'),
+          link: localePath((post.path ?? post._path ?? '/') as string),
+          isNew: newestPostIds.has(getPostId(post))
+        }))
     }
   })
 
@@ -313,6 +342,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
     getAllLabels,
     getLabelsConfig,
     getMostPopular,
+    getLatestPosts,
     getLastMostViewedPost,
     getPostsByTag,
     getRelatedPosts,

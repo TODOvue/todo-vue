@@ -13,11 +13,14 @@ tags:
   - tag: "Buenas Prácticas"
     color: "#2196F3"
 draft: false
-isNew: true
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771897190/directives-vue-v-once-v-memo-v-pre-guide_ljsdlv.png
 coverAlt: "Imagen temporal para portada del artículo sobre v-once, v-memo y v-pre en Vue"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"
 locale: es
+series: vue-directives
+seriesOrder: 9
+seriesTitle: "Directivas en Vue"
+seriesDescription: "Ruta paso a paso para dominar las directivas principales de Vue."
 author: TODOvue
 keywords:
   - Vue.js

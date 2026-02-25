@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
 
     steps:
@@ -60,7 +60,7 @@ jobs:
           BUMP="${{ steps.bump_type.outputs.type }}"
           echo "Bumping version ($BUMP) because PR is develop -> main"
 
-          npm version "$BUMP" -m "chore(release): 🔥 v%s [skip ci]"
+          npm version "$BUMP" -m "chore(release): 🔥 v%s"
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
           git push origin HEAD:main --follow-tags

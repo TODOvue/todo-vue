@@ -21,6 +21,10 @@ export type BlogPost = {
   body?: unknown
   alternate?: Array<BlogPost | string>
   isNew?: boolean
+  series?: string
+  seriesOrder?: number
+  seriesTitle?: string
+  seriesDescription?: string
   [key: string]: unknown
 }
 
@@ -78,9 +82,11 @@ export type LabelsConfig = {
 export type GlobalLoaderApi = {
   progress: Ref<number>
   isLoading: Ref<boolean>
+  isNavigationLocked: Ref<boolean>
   start: () => void
   finish: () => void
   set: (value: number) => void
+  runNavigation: <T>(task: () => Promise<T> | T) => Promise<T | undefined>
 }
 
 export type SiteConfigInfo = {
@@ -93,6 +99,18 @@ export type SiteConfigInfo = {
   siteEnv: ComputedRef<string | undefined>
   createSiteUrl: (path: string) => string
   isProduction: ComputedRef<boolean>
+}
+
+export type SeriesItem = {
+  slug: string
+  title: string
+  description: string
+  path: string
+  cover: string
+  coverAlt: string
+  chapters: number
+  latestDate: number
+  firstOrder: number
 }
 
 export type BreadcrumbItem = { label: string; href: string }
@@ -157,6 +175,7 @@ export type UseBlogStoreApi = {
   getAllLabels: ComputedRef<CardLabel[]>
   getLabelsConfig: ComputedRef<LabelsConfig>
   getMostPopular: ComputedRef<PopularConfig>
+  getLatestPosts: ComputedRef<PopularConfig>
   getLastMostViewedPost: ComputedRef<CardConfig | null>
   getPostsByTag: (tagName: string) => ComputedRef<BlogPost[]>
   getRelatedPosts: (currentPost: BlogPost, limit?: number) => CardConfig[]

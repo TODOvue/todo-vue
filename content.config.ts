@@ -25,7 +25,10 @@ export default defineContentConfig({
           draft: z.boolean(),
           locale: z.enum(['en', 'es']).optional(),
           slug: z.string().optional(),
-          isNew: z.boolean().optional(),
+          series: z.string().optional(),
+          seriesOrder: z.number().int().positive().optional(),
+          seriesTitle: z.string().optional(),
+          seriesDescription: z.string().optional(),
         })
       })
     )

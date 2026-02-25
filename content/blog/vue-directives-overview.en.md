@@ -19,6 +19,10 @@ cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770161262/vue-directi
 coverAlt: "Vue Directives: An Overview"
 coverCaption: "Cover image representing directives in Vue.js."
 locale: en
+series: vue-directives
+seriesOrder: 1
+seriesTitle: "Vue Directives"
+seriesDescription: "A step-by-step path to master Vue core directives."
 author: TODOvue
 keywords:
   - Vue.js
@@ -81,7 +85,7 @@ export default {
 </template>
 ```
 
-> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](https://todovue.blog/blog/directives-vue-v-if-v-else-v-show-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](/blog/directives-vue-v-if-v-else-v-show-guide.en/).
 
 ## `v-show`
 
@@ -118,7 +122,7 @@ export default {
   <p v-show="isVisible">Visible content</p>
 </template>
 ```
-> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](https://todovue.blog/blog/directives-vue-v-if-v-else-v-show-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](/blog/directives-vue-v-if-v-else-v-show-guide.en/).
 
 ## `v-for`
 
@@ -168,7 +172,7 @@ export default {
 `key` **is not optional**. It never was.
 It’s essential so Vue can properly optimize rendering.
 
-> If you want to learn more, read the guide [Vue Directives: v-for](https://todovue.blog/blog/directives-vue-v-for-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-for](/blog/directives-vue-v-for-guide.en/).
 
 ## `v-bind`
 
@@ -206,7 +210,7 @@ export default {
 </template>
 ```
 
-> If you want to learn more, read the guide [Vue Directive: v-bind](https://todovue.blog/blog/directives-vue-v-bind-guide.en/).
+> If you want to learn more, read the guide [Vue Directive: v-bind](/blog/directives-vue-v-bind-guide.en/).
 
 ## `v-model`
 
@@ -250,7 +254,7 @@ export default {
 Internally, it combines props and events (`modelValue` + `update:modelValue`).
 It’s not magic, but it definitely feels like it.
 
-> If you want to learn more, read the guide [Vue Directives: v-model](https://todovue.blog/blog/directives-vue-v-model-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-model](/blog/directives-vue-v-model-guide.en/).
 
 ## `v-on`
 
@@ -294,7 +298,7 @@ export default {
 
 It supports **modifiers** (`.stop`, `.prevent`, `.once`, etc.) that avoid unnecessary code.
 
-> If you want to learn more, read the guide [Vue Directives: v-on](https://todovue.blog/blog/directives-vue-v-on-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-on](/blog/directives-vue-v-on-guide.en/).
 
 ## `v-text`
 
@@ -329,6 +333,8 @@ export default {
 
 It’s not used much, but it exists for very specific cases where you don’t want interpolations.
 
+> If you want to learn more, read the guide [Vue Directives: v-text and v-html](/blog/directives-vue-v-text-v-html-guide.en/).
+
 ## `v-html`
 
 It inserts unescaped HTML.
@@ -362,6 +368,8 @@ export default {
 
 > ⚠️ **Never use it with untrusted content**.
 It’s a direct door to XSS if you don’t know exactly what you’re rendering.
+
+> If you want to learn more, read the guide [Vue Directives: v-text and v-html](/blog/directives-vue-v-text-v-html-guide.en/)
 
 ## `v-slot`
 
@@ -405,7 +413,7 @@ export default {
 
 It’s key for building **flexible, composable, reusable** components.
 
-> If you want to learn more, read the guide [Vue Directives: v-slot](https://todovue.blog/blog/directives-vue-v-slot-guide.en/).
+> If you want to learn more, read the guide [Vue Directives: v-slot](/blog/directives-vue-v-slot-guide.en/).
 
 ## `v-once`
 
@@ -441,6 +449,8 @@ export default {
 ```
 
 Useful when content should never update, even if state changes.
+
+> If you want to learn more, read the guide [Vue Directives: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.en).
 
 ## `v-memo`
 
@@ -481,6 +491,8 @@ export default {
 It’s an **advanced optimization**.
 It’s not meant to be used “just because”, but in real bottlenecks.
 
+> If you want to learn more, read the guide [Vue Directives: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.en).
+
 ## `v-pre`
 
 It prevents Vue from compiling the node’s content.
@@ -508,6 +520,8 @@ export default {}
 ```
 
 Perfect for showing snippets, literal examples, or demo templates.
+
+> If you want to learn more, read the guide [Vue Directives: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.en).
 
 ## `v-cloak`
 

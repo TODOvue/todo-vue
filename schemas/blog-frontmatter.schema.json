@@ -11,7 +11,6 @@
     "draft": { "type": "boolean" },
     "locale": { "type": "string", "enum": ["en", "es"] },
     "slug": { "type": "string" },
-    "isNew": { "type": "boolean" },
     "author": { "type": "string" },
     "keywords": { "type": "array" },
     "cover": { "type": "string" },

@@ -3,6 +3,7 @@
     "blogs": "Blogs",
     "components": "Components",
     "home": "Home",
+    "series": "Series",
     "search": {
       "placeholder": "Search blogs...",
       "button": "Search",
@@ -33,6 +34,7 @@
     "empty": "No articles available yet",
     "sidebar": {
       "popularBlogs": "Popular Blogs",
+      "latestBlogs": "Latest Blogs",
       "labels": "All Tags",
       "searchPlaceholder": "Filter by tag",
       "newLabelText": "New"
@@ -47,6 +49,15 @@
       "editOnGithub": "Edit this page on GitHub",
       "helpImprove": "Found an issue or want to improve this post? You can propose changes directly."
     },
+    "series": {
+      "label": "Series",
+      "progress": "Part {current} of {total}",
+      "previous": "Previous chapter",
+      "next": "Next chapter",
+      "chapter": "Chapter {number}",
+      "defaultTitle": "TODOvue Series",
+      "defaultDescription": "Explore this content in a recommended order."
+    },
     "toc": {
       "title": "In this blog"
     }
@@ -55,9 +66,14 @@
     "sections": {
       "lastPost": "Last blog",
       "lastestPosts": "Recent blogs",
+      "series": "Series",
       "viewAllPosts": "View all blogs",
       "mostPopular": "Most popular blogs",
       "popularCategories": "Recent labels"
+    },
+    "series": {
+      "readSeries": "View series",
+      "parts": "{count} chapters"
     },
     "hero": {
       "title": "TODOvue Blog",
@@ -113,6 +129,7 @@
       "title": "Menu",
       "home": "Home",
       "blogs": "Blogs",
+      "series": "Series",
       "components": "Components"
     },
     "otherEntries": "Other blogs",

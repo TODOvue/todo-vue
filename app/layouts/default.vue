@@ -17,7 +17,6 @@ import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
 import TODOvueIcon from '~/assets/icons/TODOvue.svg'
 import CrisDevIcon from '~/assets/icons/CrisDev.png'
-import RssIcon from '~/assets/icons/rss.svg'
 
 const router = useRouter()
 const route = useRoute()
@@ -33,7 +32,7 @@ const preferredLocale = useCookie<'es' | 'en' | null>('todovue-locale', {
   maxAge: 60 * 60 * 24 * 365
 })
 
-const { progress, isLoading, start, finish } = useGlobalLoader()
+const { progress, isLoading, start, finish, runNavigation } = useGlobalLoader()
 
 const isDarkMode = ref(false)
 const language = ref<'es' | 'en'>('es')
@@ -64,10 +63,15 @@ const configMenu = computed(() => ({
     {
       id: 2,
       title: t('menu.blogs'),
-      url: '/blog'
+      url: '/blog/'
     },
     {
       id: 3,
+      title: t('menu.series'),
+      url: '/series/'
+    },
+    {
+      id: 4,
       title: t('menu.components'),
       url: '/components'
     }
@@ -110,11 +114,11 @@ const handleClickMenu = (menu: MenuSelection): void => {
       })
       return
     }
-    void router.push({ path: '/blog', query: { search: query } })
+    void runNavigation(() => router.push({ path: '/blog/', query: { search: query } }))
     return
   }
 
-  void router.push(menu.url)
+  void runNavigation(() => router.push(menu.url))
 }
 
 const setTheme = (value: string, toButton = false): void => {
@@ -159,7 +163,7 @@ const changeLanguage = async (lang: 'es' | 'en'): Promise<void> => {
       const post = await blogStore.getBlogBySlug(currentSlug)
 
       if (post && post.path) {
-        await router.push(post.path)
+        await runNavigation(() => router.push(post.path))
       }
     }
   } finally {
@@ -219,8 +223,7 @@ const configFooter = computed(() => ({
     },
     {
       label: 'RSS Feed',
-      url: '/rss.xml',
-      iconUrl: RssIcon
+      url: '/rss.xml'
     }
   ],
   navigation: [
@@ -228,7 +231,8 @@ const configFooter = computed(() => ({
       title: t('footer.navigation.title'),
       items: [
         { label: t('footer.navigation.home'), url: '/' },
-        { label: t('footer.navigation.blogs'), url: '/blog' },
+        { label: t('footer.navigation.blogs'), url: '/blog/' },
+        { label: t('footer.navigation.series'), url: '/series/' },
         { label: t('footer.navigation.components'), url: 'https://ui.todovue.blog' }
       ]
     },
@@ -251,8 +255,11 @@ const configFooter = computed(() => ({
   // }
 }))
 
+const normalizePath = (path: string): string => path.replace(/\/+$/, '') || '/'
+
 const validateActiveMenu = computed(() => {
-  return configMenu.value.menus.find(m => m.url === route.path)?.id ?? 0
+  const currentPath = normalizePath(route.path)
+  return configMenu.value.menus.find(m => normalizePath(m.url) === currentPath)?.id ?? 0
 })
 
 const handleClickLinks = ({ url }: { url: string }): void => {
@@ -260,7 +267,7 @@ const handleClickLinks = ({ url }: { url: string }): void => {
     window.open(url, '_blank')
     return
   }
-  void router.push(url)
+  void runNavigation(() => router.push(url))
 }
 
 const handleSubscribe = (email: string): void => {
@@ -270,7 +277,7 @@ const handleSubscribe = (email: string): void => {
       timeout: 4000,
       title: t('footer.newsletter.notification.title')
     })
-  } catch (error) {
+  } catch {
     alert.error(t('footer.newsletter.notification.error'), {
       position: 'top-right',
       timeout: 4000,
@@ -380,5 +387,21 @@ useHead({
 :deep(.tv-menu-image img) {
   width: 40px !important;
   height: 40px !important;
+}
+
+:deep(.tv-footer__social-link[href='/rss.xml'] span) {
+  font-size: 0;
+  line-height: 0;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+:deep(.tv-footer__social-link[href='/rss.xml'] span::before) {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url('@/assets/icons/rss.svg') center / contain no-repeat;
 }
 </style>
