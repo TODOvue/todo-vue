@@ -105,6 +105,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
+    '@todovue/tv-ui/nuxt',
     '@nuxtjs/tailwindcss',
   ],
 
