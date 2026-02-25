@@ -1,11 +1,9 @@
 name: Deploy TODOvue (PR merge)
 
 on:
-  push:
-    branches: [main]
   pull_request:
-    branches: [main, develop]
-    types: [opened, synchronize, reopened, closed]
+    branches: [main]
+    types: [closed]
 
 permissions:
   contents: write
@@ -37,7 +35,7 @@ jobs:
         run: pnpm run lint
 
   deploy:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
     needs: lint
     runs-on: ubuntu-latest
 
