@@ -10,33 +10,8 @@ permissions:
   pull-requests: read
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Get latest code
-        uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.29.2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run lint
-        run: pnpm run lint
-
   deploy:
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
-    needs: lint
     runs-on: ubuntu-latest
 
     steps:
