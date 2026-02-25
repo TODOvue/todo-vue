@@ -101,6 +101,18 @@ export type SiteConfigInfo = {
   isProduction: ComputedRef<boolean>
 }
 
+export type SeriesItem = {
+  slug: string
+  title: string
+  description: string
+  path: string
+  cover: string
+  coverAlt: string
+  chapters: number
+  latestDate: number
+  firstOrder: number
+}
+
 export type BreadcrumbItem = { label: string; href: string }
 
 export type GenerateArticleSchemaOptions = {
