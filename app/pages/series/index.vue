@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { TvBreadcrumbs, TvCard, TvHero } from '@todovue/tv-ui'
-import type { BlogPost, CardConfig } from '@/types/composables'
 import type { BreadcrumbItem } from '@/types/views'
 
 const router = useRouter()
@@ -9,89 +8,11 @@ const blogStore = useBlogStore()
 const { setPageSeo } = useSeo()
 const { runNavigation } = useGlobalLoader()
 
-type SeriesItem = {
-  slug: string
-  title: string
-  description: string
-  path: string
-  cover: string
-  coverAlt: string
-  chapters: number
-  latestDate: number
-  firstOrder: number
-}
-
-const normalizeSeriesKey = (value: unknown): string => typeof value === 'string' ? value.trim().toLowerCase() : ''
-const getDateValue = (value: BlogPost['date']): number => new Date(value ?? 0).getTime()
+const { seriesCards } = useSeriesAggregation()
 
 await useAsyncData('series-index-posts', async () => {
   return await blogStore.fetchBlogPosts()
 })
-
-const seriesList = computed<SeriesItem[]>(() => {
-  const seriesMap = new Map<string, SeriesItem>()
-
-  blogStore.blogPosts.value.forEach((post) => {
-    const seriesSlug = normalizeSeriesKey(post.series)
-    if (!seriesSlug) return
-
-    const existing = seriesMap.get(seriesSlug)
-    const postDate = getDateValue(post.date)
-    const postTitle = typeof post.seriesTitle === 'string' && post.seriesTitle.trim()
-      ? post.seriesTitle
-      : t('blogs.series.defaultTitle')
-    const postDescription = typeof post.seriesDescription === 'string' && post.seriesDescription.trim()
-      ? post.seriesDescription
-      : t('blogs.series.defaultDescription')
-    const postPath = `/series/${seriesSlug}/`
-
-    if (!existing) {
-      const initialOrder = typeof post.seriesOrder === 'number' ? post.seriesOrder : Number.MAX_SAFE_INTEGER
-      seriesMap.set(seriesSlug, {
-        slug: seriesSlug,
-        title: postTitle,
-        description: postDescription,
-        path: postPath,
-        cover: post.meta?.cover ?? '',
-        coverAlt: post.meta?.coverAlt ?? postTitle,
-        chapters: 1,
-        latestDate: postDate,
-        firstOrder: initialOrder
-      })
-      return
-    }
-
-    existing.chapters += 1
-    if (postDate > existing.latestDate) {
-      existing.latestDate = postDate
-    }
-
-    const currentOrder = typeof post.seriesOrder === 'number' ? post.seriesOrder : Number.MAX_SAFE_INTEGER
-    if (currentOrder <= existing.firstOrder && post.meta?.cover) {
-      existing.firstOrder = currentOrder
-      existing.cover = post.meta.cover
-      existing.coverAlt = post.meta?.coverAlt ?? postTitle
-    }
-  })
-
-  return Array.from(seriesMap.values()).sort((first, second) => second.latestDate - first.latestDate)
-})
-
-const seriesCards = computed<CardConfig[]>(() => seriesList.value.map((series, index) => ({
-  title: series.title,
-  description: series.description,
-  id: `series-${series.slug}-${index + 1}`,
-  primaryButtonText: t('home.series.readSeries'),
-  alt: series.coverAlt,
-  image: series.cover,
-  labels: [{
-    id: index + 1,
-    name: t('home.series.parts', { count: series.chapters }),
-    color: '#1D5BA1'
-  }],
-  path: series.path,
-  limitLabels: 1
-})))
 
 const configHero = computed(() => ({
   title: t('home.sections.series'),
