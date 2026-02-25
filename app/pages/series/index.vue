@@ -67,7 +67,7 @@ const seriesList = computed<SeriesItem[]>(() => {
     }
 
     const currentOrder = typeof post.seriesOrder === 'number' ? post.seriesOrder : Number.MAX_SAFE_INTEGER
-    if (currentOrder <= existing.firstOrder && post.meta?.cover) {
+    if (currentOrder < existing.firstOrder && post.meta?.cover) {
       existing.firstOrder = currentOrder
       existing.cover = post.meta.cover
       existing.coverAlt = post.meta?.coverAlt ?? postTitle
