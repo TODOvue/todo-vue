@@ -51,16 +51,16 @@ export function useSeriesAggregation(posts: ComputedRef<BlogPost[]>, limit?: num
       }
 
       const currentOrder = typeof post.seriesOrder === 'number' ? post.seriesOrder : Number.MAX_SAFE_INTEGER
-      if (
-        post.meta?.cover &&
-        (
-          currentOrder < existing.firstOrder ||
-          (currentOrder === existing.firstOrder && !existing.cover)
-        )
-      ) {
-        existing.firstOrder = currentOrder
-        existing.cover = post.meta.cover
-        existing.coverAlt = post.meta?.coverAlt ?? postTitle
+      if (post.meta?.cover) {
+        if (!existing.cover) {
+          existing.cover = post.meta.cover
+          existing.coverAlt = post.meta?.coverAlt ?? postTitle
+          existing.firstOrder = Math.min(existing.firstOrder, currentOrder)
+        } else if (currentOrder < existing.firstOrder) {
+          existing.firstOrder = currentOrder
+          existing.cover = post.meta.cover
+          existing.coverAlt = post.meta?.coverAlt ?? postTitle
+        }
       }
     })
 
