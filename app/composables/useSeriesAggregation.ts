@@ -1,3 +1,5 @@
+import { computed } from 'vue'
+import { useI18n } from '#imports'
 import type { ComputedRef } from 'vue'
 import type { BlogPost } from '@/types/composables'
 
