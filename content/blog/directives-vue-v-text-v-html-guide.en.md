@@ -13,7 +13,6 @@ tags:
   - tag: "Reactivity"
     color: "#1D5BA1"
 draft: false
-isNew: true
 locale: en
 author: TODOvue
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771635700/directives-vue-v-text-v-html-guide_n0cemz.png
