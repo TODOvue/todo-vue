@@ -1,19 +1,7 @@
 import { computed } from 'vue'
 import { useI18n } from '#imports'
 import type { ComputedRef } from 'vue'
-import type { BlogPost } from '@/types/composables'
-
-export type SeriesItem = {
-  slug: string
-  title: string
-  description: string
-  path: string
-  cover: string
-  coverAlt: string
-  chapters: number
-  latestDate: number
-  firstOrder: number
-}
+import type { BlogPost, SeriesItem } from '@/types/composables'
 
 const normalizeSeriesKey = (value: unknown): string =>
   typeof value === 'string' ? value.trim().toLowerCase() : ''
