@@ -34,11 +34,7 @@ jobs:
         id: app_version
         shell: bash
         run: |
-          if [ -n "${{ steps.bump.outputs.NEW_VERSION }}" ]; then
-            V="${{ steps.bump.outputs.NEW_VERSION }}"
-          else
-            V=$(node -p "require('./package.json').version")
-          fi
+          V=$(node -p "require('./package.json').version")
           echo "VERSION_APP=$V" >> $GITHUB_OUTPUT
           echo "Using version: $V"
 

@@ -45,7 +45,7 @@ jobs:
           echo "type=$BUMP" >> $GITHUB_OUTPUT
 
       - name: Configure Git
-        if: github.event.pull_request.head.ref == 'develop'
+        if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'develop'
         shell: bash
         run: |
           git config user.name "TODOvue-release[bot]"
@@ -54,7 +54,7 @@ jobs:
 
       - name: Bump version and push tag
         id: bump
-        if: github.event.pull_request.head.ref == 'develop'
+        if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'develop'
         shell: bash
         run: |
           BUMP="${{ steps.bump_type.outputs.type }}"
