@@ -319,12 +319,43 @@ const editOnGithubUrl = computed(() => {
 
 const seriesListContainer = ref<HTMLElement | null>(null)
 const relatedListContainer = ref<HTMLElement | null>(null)
-const mobileBreakpointPx = 768
 const scrollOffsetPx = 96
+const paginationScrollDurationMs = 520
+let paginationScrollFrame: number | null = null
+
+const easeOutCubic = (value: number): number => 1 - ((1 - value) ** 3)
+
+const smoothScrollTo = (targetY: number): void => {
+  if (paginationScrollFrame !== null) {
+    window.cancelAnimationFrame(paginationScrollFrame)
+    paginationScrollFrame = null
+  }
+
+  const startY = window.scrollY
+  const deltaY = targetY - startY
+  if (Math.abs(deltaY) < 2) return
+
+  const startTime = performance.now()
+
+  const animate = (currentTime: number): void => {
+    const elapsed = currentTime - startTime
+    const progress = Math.min(1, elapsed / paginationScrollDurationMs)
+    const easedProgress = easeOutCubic(progress)
+    window.scrollTo(0, startY + (deltaY * easedProgress))
+
+    if (progress < 1) {
+      paginationScrollFrame = window.requestAnimationFrame(animate)
+      return
+    }
+
+    paginationScrollFrame = null
+  }
+
+  paginationScrollFrame = window.requestAnimationFrame(animate)
+}
 
 const maybeScrollListIntoView = (element: HTMLElement | null): void => {
   if (!element) return
-  if (window.innerWidth >= mobileBreakpointPx) return
 
   const rect = element.getBoundingClientRect()
   const currentScroll = window.scrollY
@@ -333,10 +364,7 @@ const maybeScrollListIntoView = (element: HTMLElement | null): void => {
 
   if (!shouldScrollUpToList) return
 
-  window.scrollTo({
-    top: Math.max(0, top),
-    behavior: 'smooth'
-  })
+  smoothScrollTo(Math.max(0, top))
 }
 
 const handleListPaginationChange = (section: 'series' | 'related'): void => {
@@ -383,6 +411,13 @@ onMounted(() => {
         }
       }, 300)
     })
+  }
+})
+
+onBeforeUnmount(() => {
+  if (paginationScrollFrame !== null) {
+    window.cancelAnimationFrame(paginationScrollFrame)
+    paginationScrollFrame = null
   }
 })
 
