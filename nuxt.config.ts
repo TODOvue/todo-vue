@@ -179,9 +179,6 @@ export default defineNuxtConfig({
   },
 
   vite: {
-    resolve: {
-      alias: tvUiAliasMap
-    },
     build: {
       chunkSizeWarningLimit: 1000
     }
