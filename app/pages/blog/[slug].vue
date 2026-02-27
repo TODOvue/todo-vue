@@ -317,6 +317,35 @@ const editOnGithubUrl = computed(() => {
   return `https://github.com/TODOvue/todo-vue/edit/main/${filePath}`
 })
 
+const seriesListContainer = ref<HTMLElement | null>(null)
+const relatedListContainer = ref<HTMLElement | null>(null)
+const mobileBreakpointPx = 768
+const scrollOffsetPx = 96
+
+const maybeScrollListIntoView = (element: HTMLElement | null): void => {
+  if (!element) return
+  if (window.innerWidth >= mobileBreakpointPx) return
+
+  const rect = element.getBoundingClientRect()
+  const currentScroll = window.scrollY
+  const top = currentScroll + rect.top - scrollOffsetPx
+  const shouldScrollUpToList = top < currentScroll - 24
+
+  if (!shouldScrollUpToList) return
+
+  window.scrollTo({
+    top: Math.max(0, top),
+    behavior: 'smooth'
+  })
+}
+
+const handleListPaginationChange = (section: 'series' | 'related'): void => {
+  nextTick(() => {
+    const container = section === 'series' ? seriesListContainer.value : relatedListContainer.value
+    maybeScrollListIntoView(container)
+  })
+}
+
 if (baseSlug) {
   const siteUrl = runtimeConfig.public.siteUrl ?? ''
   const esUrl = `${siteUrl}/blog/${baseSlug}.es/`
@@ -464,7 +493,7 @@ const articleContainer = ref<HTMLElement | null>(null)
               <h2 class="title-main">
                 {{ t('blogs.series.label') }}
               </h2>
-              <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
+              <div ref="seriesListContainer" class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
                 <div
                   v-for="seriesPost in paginatedSeriesRelatedPosts"
                   :key="seriesPost.id"
@@ -489,6 +518,7 @@ const articleContainer = ref<HTMLElement | null>(null)
                     :page-size="seriesPageSize"
                     show-icons
                     :show-first-last="false"
+                    @update:model-value="handleListPaginationChange('series')"
                   />
                 </div>
               </ClientOnly>
@@ -497,7 +527,7 @@ const articleContainer = ref<HTMLElement | null>(null)
               <h2 class="title-main">
                 {{ t('blogs.related') }}
               </h2>
-              <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
+              <div ref="relatedListContainer" class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
                 <div
                   v-for="related in paginatedRelatedPosts"
                   :key="related.id"
@@ -522,6 +552,7 @@ const articleContainer = ref<HTMLElement | null>(null)
                     :page-size="relatedPageSize"
                     show-icons
                     :show-first-last="false"
+                    @update:model-value="handleListPaginationChange('related')"
                   />
                 </div>
               </ClientOnly>
