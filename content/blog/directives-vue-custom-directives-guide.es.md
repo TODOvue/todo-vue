@@ -332,14 +332,14 @@ export const vIntersect: Directive<ElWithObserver, IntersectValue> = {
 export const vIntersect = {
   mounted(el, binding) {
     const { onEnter, onLeave, options } = binding.value ?? {};
-   
+
     const io = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) onEnter?.(entry);
         else onLeave?.(entry);
       }
-   }, options);
-   
+    }, options);
+    
     io.observe(el);
     el.__io__ = io;
   },
