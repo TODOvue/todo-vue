@@ -26,6 +26,9 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - Vue directives overview (updated 2026-02-19):
   - ES: https://todovue.blog/blog/vue-directives-overview.es/
   - EN: https://todovue.blog/blog/vue-directives-overview.en/
+- Custom directives guide (published 2026-02-27):
+  - ES: https://todovue.blog/blog/directives-vue-custom-directives-guide.es/
+  - EN: https://todovue.blog/blog/directives-vue-custom-directives-guide.en/
 - v-cloak guide (published 2026-02-25):
   - ES: https://todovue.blog/blog/directives-vue-v-cloak-guide.es/
   - EN: https://todovue.blog/blog/directives-vue-v-cloak-guide.en/

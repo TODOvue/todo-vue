@@ -551,6 +551,8 @@ export default {}
 
 It prevents the initial flash in client-rendered apps.
 
+> If you want to learn more, read the guide [Vue Directives: v-cloak](/blog/directives-vue-v-cloak-guide.en/).
+
 ## Custom directives
 
 They let you extend Vue to directly manipulate the DOM when there’s no more declarative option.
@@ -573,6 +575,8 @@ app.directive('focus', {
 
 They’re powerful, but they must be used carefully:
 if you abuse them, you’re probably breaking Vue’s mental model.
+
+> If you want to learn more, read the guide [Vue Directives: Custom Directives](/blog/directives-vue-custom-directives-guide.en/).
 
 ## Conclusion
 

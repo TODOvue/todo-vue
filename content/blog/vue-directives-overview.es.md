@@ -551,6 +551,8 @@ export default {}
 
 Evita el parpadeo inicial en aplicaciones renderizadas del lado del cliente.
 
+> Si quieres conocer más lee la guía de [Directivas en Vue: v-cloak](/blog/directives-vue-v-cloak-guide.es/).
+
 ## Directivas personalizadas
 
 Permiten extender Vue para manipular directamente el DOM cuando no hay otra opción más declarativa.
@@ -573,6 +575,8 @@ app.directive('focus', {
 
 Son poderosas, pero deben usarse con cuidado:
 si abusas de ellas, probablemente estás rompiendo el modelo mental de Vue.
+
+> Si quieres conocer más lee la guía de [Directivas en Vue: Directivas personalizadas](/blog/directives-vue-custom-directives-guide.es/).
 
 ## Conclusión
 
