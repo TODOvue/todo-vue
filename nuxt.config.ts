@@ -1,5 +1,6 @@
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const blogRoutes = (() => {
   try {
@@ -15,6 +16,7 @@ const blogRoutes = (() => {
 })()
 
 const tvUiStyleFallback = '@todovue/tv-ui/style.css'
+const tvUiNoopStyle = fileURLToPath(new URL('./assets/styles/tv-ui-noop.css', import.meta.url))
 const tvUiMissingStyleAliases = [
   '@todovue/tv-alert/style.css',
   '@todovue/tv-article/style.css',
@@ -38,10 +40,12 @@ const tvUiMissingStyleAliases = [
 ]
 
 const tvUiAliasMap = Object.fromEntries(
-  tvUiMissingStyleAliases.map((stylePath) => [stylePath, tvUiStyleFallback])
+  tvUiMissingStyleAliases.map((stylePath) => [stylePath, tvUiNoopStyle])
 )
 
 export default defineNuxtConfig({
+  alias: tvUiAliasMap,
+
   app: {
     head: {
       htmlAttrs: {
@@ -175,9 +179,6 @@ export default defineNuxtConfig({
   },
 
   vite: {
-    resolve: {
-      alias: tvUiAliasMap
-    },
     build: {
       chunkSizeWarningLimit: 1000
     }
