@@ -312,7 +312,15 @@ export const vIntersect: Directive<ElWithObserver, IntersectValue> = {
     // Aquí lo dejamos simple y explícito:
     el.__io__?.disconnect();
     delete el.__io__;
-    this.mounted?.(el, binding);
+    const { onEnter, onLeave, options } = binding.value ?? {};
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) onEnter?.(entry);
+        else onLeave?.(entry);
+      }
+    }, options);
+    io.observe(el);
+    el.__io__ = io;
   },
   unmounted(el) {
     el.__io__?.disconnect();
@@ -341,7 +349,15 @@ export const vIntersect = {
     // Aquí lo dejamos simple y explícito:
     el.__io__?.disconnect();
     delete el.__io__;
-    this.mounted?.(el, binding);
+    const { onEnter, onLeave, options } = binding.value ?? {};
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) onEnter?.(entry);
+        else onLeave?.(entry);
+      }
+    }, options);
+    io.observe(el);
+    el.__io__ = io;
   },
   unmounted(el) {
     el.__io__?.disconnect();
