@@ -175,17 +175,27 @@ const getFooterPosts = (items: BlogPost[], count = 3): BlogPost[] => {
   return items.slice(0, count)
 }
 
+const localizedPosts = computed<BlogPost[]>(() =>
+  (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
+)
+
 const footerPosts = useState<FooterPostLink[]>('footer-posts', () => {
-  const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
-  return getFooterPosts(p, 3).map(post => ({
+  return getFooterPosts(localizedPosts.value, 3).map(post => ({
     label: post.title ?? '',
     url: getPostUrl(post)
   }))
 })
 
+const footerSeries = useSeriesAggregation(localizedPosts, 3)
+const footerSeriesLinks = computed<FooterPostLink[]>(() =>
+  footerSeries.value.map(series => ({
+    label: series.title,
+    url: series.path
+  }))
+)
+
 watch([locale, posts], () => {
-  const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
-  footerPosts.value = getFooterPosts(p, 3).map(post => ({
+  footerPosts.value = getFooterPosts(localizedPosts.value, 3).map(post => ({
     label: post.title ?? '',
     url: getPostUrl(post)
   }))
@@ -212,11 +222,6 @@ const configFooter = computed(() => ({
       iconUrl: iconUrl.value
     },
     {
-      label: 'TODOvue UI',
-      url: 'https://ui.todovue.blog',
-      iconUrl: TODOvueIcon
-    },
-    {
       label: 'CrisDev',
       url: 'https://cris-dev.com',
       iconUrl: CrisDevIcon
@@ -235,6 +240,10 @@ const configFooter = computed(() => ({
         { label: t('footer.navigation.series'), url: '/series/' },
         { label: t('footer.navigation.components'), url: 'https://ui.todovue.blog' }
       ]
+    },
+    {
+      title: t('footer.navigation.series'),
+      items: footerSeriesLinks.value
     },
     {
       title: t('footer.otherEntries'),
