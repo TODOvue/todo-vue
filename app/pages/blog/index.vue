@@ -13,7 +13,6 @@ const { t } = useI18n()
 const { runNavigation } = useGlobalLoader()
 const pageSize = 12
 const filters = ref<ActiveFilter[]>([])
-const labelFilters = ref<TagLike | null>(null)
 
 const queryValue = (value: unknown): string | undefined => {
   if (Array.isArray(value)) {
@@ -77,6 +76,7 @@ const configCards = computed<CardConfig[]>(() =>
 )
 
 const renderLabels = blogStore.getLabelsConfig
+const allLabels = blogStore.getAllLabels
 
 const renderMostPopular = blogStore.getMostPopular as typeof blogStore.getMostPopular & { value: PopularConfig }
 
@@ -84,11 +84,6 @@ const handleSidebar = (label: TagLike): void => {
   if (label) {
     const labelValue = label.name || label.tag
     if (labelValue) {
-      labelFilters.value = {
-        name: labelValue,
-        color: label.color,
-        id: label.id
-      }
       void runNavigation(() => router.push({ query: { ...route.query, label: labelValue, page: '1' } }))
     }
   }
@@ -129,10 +124,13 @@ const filtersPage = (): void => {
   }
   const labelQuery = queryValue(route.query.label)
   if (labelQuery) {
-    const label = labelFilters.value
+    const label = allLabels.value.find((item) => {
+      const itemName = item.name || item.tag
+      return itemName === labelQuery
+    })
     filters.value.push({
-      id: label?.id || labelQuery,
-      name: label?.name || labelQuery,
+      id: label?.id ?? labelQuery,
+      name: label?.name || label?.tag || labelQuery,
       color: label?.color || '#4CAF50',
     })
   }
@@ -143,7 +141,6 @@ const removeFilter = (filterId: string): void => {
 
   if (queryValue(query.search) === filterId) delete query.search
   if (queryValue(query.label) === filterId) {
-    labelFilters.value = null
     delete query.label
   }
 
