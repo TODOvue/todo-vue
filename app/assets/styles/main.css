@@ -8,6 +8,26 @@
   color: var(--light-text);
 }
 
+.dark-mode .tv-toc {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode .tv-toc.compact {
+  background-color: transparent;
+}
+
+.dark-mode .tv-toc .tv-toc-link,
+.dark-mode .tv-toc .tv-toc-sublink,
+.dark-mode .tv-toc .tv-toc-title,
+.dark-mode .tv-toc .tv-toc-toggle {
+  color: inherit;
+}
+
+.dark-mode .tv-toc .tv-toc-sublist {
+  border-left-color: rgba(244, 250, 255, 0.1);
+}
+
 body {
   font-family: var(--font-text), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif !important;
 }
