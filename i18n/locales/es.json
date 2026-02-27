@@ -49,6 +49,11 @@
       "editOnGithub": "Editar esta página en GitHub",
       "helpImprove": "¿Viste un error o quieres mejorar esta entrada? Puedes proponer cambios directamente."
     },
+    "navigation": {
+      "label": "Sigue leyendo",
+      "newer": "Entrada más nueva",
+      "older": "Entrada más antigua"
+    },
     "series": {
       "label": "Serie",
       "progress": "Parte {current} de {total}",

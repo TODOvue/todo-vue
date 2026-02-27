@@ -164,6 +164,26 @@ const seriesContext = computed(() => {
   }
 })
 
+const chronologicalPosts = computed<BlogPost[]>(() =>
+  [...blogStore.blogPosts.value].sort((first, second) => getDateValue(second.date) - getDateValue(first.date))
+)
+
+const chronologicalIndex = computed<number>(() =>
+  chronologicalPosts.value.findIndex((item) => isSamePost(item, resolvedPost.value))
+)
+
+const newerPost = computed<BlogPost | null>(() => {
+  const index = chronologicalIndex.value
+  if (index <= 0) return null
+  return chronologicalPosts.value[index - 1] ?? null
+})
+
+const olderPost = computed<BlogPost | null>(() => {
+  const index = chronologicalIndex.value
+  if (index < 0 || index >= chronologicalPosts.value.length - 1) return null
+  return chronologicalPosts.value[index + 1] ?? null
+})
+
 const seriesRelatedPosts = computed<CardConfig[]>(() =>
   seriesPosts.value
     .filter((item) => !isSamePost(item, resolvedPost.value))
@@ -456,6 +476,32 @@ const articleContainer = ref<HTMLElement | null>(null)
             :lang="locale"
             @label-click="handleLabelClick"
           />
+          <div
+            v-if="!seriesContext && (newerPost || olderPost)"
+            class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-4 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
+          >
+            <p class="text-sm font-semibold text-primary">
+              {{ t('blogs.navigation.label') }}
+            </p>
+            <div class="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
+              <NuxtLink
+                v-if="newerPost"
+                :to="toLocalizedPostPath(newerPost)"
+                class="rounded-lg border border-primary/20 px-3 py-2 text-sm transition-colors hover:bg-primary/5"
+              >
+                <span class="block text-xs opacity-80">{{ t('blogs.navigation.newer') }}</span>
+                <span>{{ newerPost.title }}</span>
+              </NuxtLink>
+              <NuxtLink
+                v-if="olderPost"
+                :to="toLocalizedPostPath(olderPost)"
+                class="rounded-lg border border-primary/20 px-3 py-2 text-sm transition-colors hover:bg-primary/5"
+              >
+                <span class="block text-xs opacity-80">{{ t('blogs.navigation.older') }}</span>
+                <span>{{ olderPost.title }}</span>
+              </NuxtLink>
+            </div>
+          </div>
           <div
             v-if="seriesContext"
             class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-4 text-light-text dark:bg-dark-card-bg dark:text-dark-text"

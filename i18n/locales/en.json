@@ -49,6 +49,11 @@
       "editOnGithub": "Edit this page on GitHub",
       "helpImprove": "Found an issue or want to improve this post? You can propose changes directly."
     },
+    "navigation": {
+      "label": "Keep reading",
+      "newer": "Newer post",
+      "older": "Older post"
+    },
     "series": {
       "label": "Series",
       "progress": "Part {current} of {total}",
