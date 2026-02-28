@@ -11,11 +11,12 @@ import {
   useAlert,
 } from '@todovue/tv-ui'
 import type { BlogPost } from '@/types/composables'
+import type { ThemeMode } from '@/types/theme'
 import type { FooterPostLink, MenuSelection } from '@/types/views'
 
+import CrisDevIcon from '~/assets/icons/CrisDev.png'
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
-import CrisDevIcon from '~/assets/icons/CrisDev.png'
 
 const router = useRouter()
 const route = useRoute()
@@ -33,7 +34,16 @@ const preferredLocale = useCookie<'es' | 'en' | null>('todovue-locale', {
 
 const { progress, isLoading, start, finish, runNavigation } = useGlobalLoader()
 
-const isDarkMode = ref(false)
+const resolveTheme = (): ThemeMode => {
+  if (!import.meta.client) return 'light'
+  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
+  const stored = localStorage.getItem('theme')
+  if (stored === 'dark' || stored === 'light') return stored
+  return prefersDark ? 'dark' : 'light'
+}
+
+const isDarkMode = ref(resolveTheme() === 'dark')
+const footerRevision = ref(0)
 const language = ref<'es' | 'en'>('es')
 
 const blogStore = useBlogStore()
@@ -122,12 +132,13 @@ const handleClickMenu = (menu: MenuSelection): void => {
 
 const setTheme = (value: string, toButton = false): void => {
   if (!import.meta.client) return
+  const mode: ThemeMode = value === 'dark' ? 'dark' : 'light'
   document.documentElement.classList.remove('dark-mode', 'light-mode')
-  document.documentElement.classList.add(`${value}-mode`)
-  localStorage.setItem('theme', value)
-  isDarkMode.value = value === 'dark'
+  document.documentElement.classList.add(`${mode}-mode`)
+  localStorage.setItem('theme', mode)
+  isDarkMode.value = mode === 'dark'
   if (toButton) {
-    alert.info(value === 'dark'
+    alert.info(mode === 'dark'
       ? t('menu.theme.dark')
       : t('menu.theme.light')
         , {
@@ -140,6 +151,10 @@ const setTheme = (value: string, toButton = false): void => {
 
 const changeValue = (value: string): void => {
   setTheme(value, true)
+}
+
+if (import.meta.client) {
+  setTheme(resolveTheme())
 }
 
 const changeLanguage = async (lang: 'es' | 'en'): Promise<void> => {
@@ -200,14 +215,8 @@ watch([locale, posts], () => {
   }))
 })
 
-watchEffect(() => {
-  if (!import.meta.client) return
-  isDarkMode.value = document.documentElement.classList.contains('dark-mode')
-})
-
-const iconUrl = computed(() => {
-  return isDarkMode.value ? GitHubWhiteIcon : GitHubIcon
-})
+const footerKey = computed(() => `${isDarkMode.value}-${language.value}-${footerRevision.value}`)
+const githubIconUrl = computed(() => isDarkMode.value ? GitHubWhiteIcon : GitHubIcon)
 
 const configFooter = computed(() => ({
   brand: {
@@ -218,7 +227,7 @@ const configFooter = computed(() => ({
     {
       label: 'GitHub',
       url: 'https://github.com/TODOvue',
-      iconUrl: iconUrl.value
+      iconUrl: githubIconUrl.value
     },
     {
       label: 'CrisDev',
@@ -296,11 +305,11 @@ const handleSubscribe = (email: string): void => {
 
 onMounted(() => {
   if (!import.meta.client) return
+  setTheme(resolveTheme())
+  requestAnimationFrame(() => {
+    footerRevision.value += 1
+  })
 
-  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
-  const stored = localStorage.getItem('theme')
-  const theme = stored || (prefersDark ? 'dark' : 'light')
-  setTheme(theme)
   start()
   blogStore.fetchBlogPosts()
     .finally(() => {
@@ -380,7 +389,7 @@ useHead({
     <slot />
 
     <TvFooter
-      :key="`${isDarkMode}-${language}`"
+      :key="footerKey"
       :config="configFooter"
       class="mt-16"
       @link-click="handleClickLinks"
@@ -412,4 +421,5 @@ useHead({
   height: 20px;
   background: url('@/assets/icons/rss.svg') center / contain no-repeat;
 }
+
 </style>
