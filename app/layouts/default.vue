@@ -15,7 +15,6 @@ import type { FooterPostLink, MenuSelection } from '@/types/views'
 
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
-import TODOvueIcon from '~/assets/icons/TODOvue.svg'
 import CrisDevIcon from '~/assets/icons/CrisDev.png'
 
 const router = useRouter()
