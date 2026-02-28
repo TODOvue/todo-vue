@@ -172,16 +172,26 @@ const chronologicalIndex = computed<number>(() =>
   chronologicalPosts.value.findIndex((item) => isSamePost(item, resolvedPost.value))
 )
 
-const newerPost = computed<BlogPost | null>(() => {
+const previousPost = computed<BlogPost | null>(() => {
+  const posts = chronologicalPosts.value
+  const total = posts.length
+  if (total <= 1) return null
+
   const index = chronologicalIndex.value
-  if (index <= 0) return null
-  return chronologicalPosts.value[index - 1] ?? null
+  if (index < 0) return null
+  const previousIndex = (index - 1 + total) % total
+  return posts[previousIndex] ?? null
 })
 
-const olderPost = computed<BlogPost | null>(() => {
+const nextPost = computed<BlogPost | null>(() => {
+  const posts = chronologicalPosts.value
+  const total = posts.length
+  if (total <= 1) return null
+
   const index = chronologicalIndex.value
-  if (index < 0 || index >= chronologicalPosts.value.length - 1) return null
-  return chronologicalPosts.value[index + 1] ?? null
+  if (index < 0) return null
+  const nextIndex = (index + 1) % total
+  return posts[nextIndex] ?? null
 })
 
 const seriesRelatedPosts = computed<CardConfig[]>(() =>
@@ -477,7 +487,7 @@ const articleContainer = ref<HTMLElement | null>(null)
             @label-click="handleLabelClick"
           />
           <div
-            v-if="!seriesContext && (newerPost || olderPost)"
+            v-if="!seriesContext && (previousPost || nextPost)"
             class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-4 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
           >
             <p class="text-sm font-semibold text-primary">
@@ -485,20 +495,20 @@ const articleContainer = ref<HTMLElement | null>(null)
             </p>
             <div class="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
               <NuxtLink
-                v-if="newerPost"
-                :to="toLocalizedPostPath(newerPost)"
+                v-if="previousPost"
+                :to="toLocalizedPostPath(previousPost)"
                 class="rounded-lg border border-primary/20 px-3 py-2 text-sm transition-colors hover:bg-primary/5"
               >
-                <span class="block text-xs opacity-80">{{ t('blogs.navigation.newer') }}</span>
-                <span>{{ newerPost.title }}</span>
+                <span class="block text-xs opacity-80">{{ t('blogs.navigation.previous') }}</span>
+                <span>{{ previousPost.title }}</span>
               </NuxtLink>
               <NuxtLink
-                v-if="olderPost"
-                :to="toLocalizedPostPath(olderPost)"
+                v-if="nextPost"
+                :to="toLocalizedPostPath(nextPost)"
                 class="rounded-lg border border-primary/20 px-3 py-2 text-sm transition-colors hover:bg-primary/5"
               >
-                <span class="block text-xs opacity-80">{{ t('blogs.navigation.older') }}</span>
-                <span>{{ olderPost.title }}</span>
+                <span class="block text-xs opacity-80">{{ t('blogs.navigation.next') }}</span>
+                <span>{{ nextPost.title }}</span>
               </NuxtLink>
             </div>
           </div>

@@ -51,8 +51,8 @@
     },
     "navigation": {
       "label": "Keep reading",
-      "newer": "Newer post",
-      "older": "Older post"
+      "previous": "Previous blog",
+      "next": "Next blog"
     },
     "series": {
       "label": "Series",

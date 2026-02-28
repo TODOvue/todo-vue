@@ -51,8 +51,8 @@
     },
     "navigation": {
       "label": "Sigue leyendo",
-      "newer": "Entrada más nueva",
-      "older": "Entrada más antigua"
+      "previous": "Blog anterior",
+      "next": "Blog siguiente"
     },
     "series": {
       "label": "Serie",
