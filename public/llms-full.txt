@@ -23,6 +23,9 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - EN: Directives, Reactivity, Basics, Advanced, Architecture, Design Patterns, State Management, Ecosystem, History, Vite, Conditional Rendering, Components, Lists, Best Practices
 
 ## Top Pages to Retrieve First (High Utility + Freshness)
+- Vue 3 reactivity internals (published 2026-03-03):
+  - ES: https://todovue.blog/blog/vue-3-reactivity-internals.es/
+  - EN: https://todovue.blog/blog/vue-3-reactivity-internals.en/
 - Vue directives overview (updated 2026-02-19):
   - ES: https://todovue.blog/blog/vue-directives-overview.es/
   - EN: https://todovue.blog/blog/vue-directives-overview.en/
