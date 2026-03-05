@@ -75,6 +75,13 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
   - ES: https://todovue.blog/blog/vue-beta-vapor-mode-revealed.es/
   - EN: https://todovue.blog/blog/vue-beta-vapor-mode-revealed.en/
 
+## Auto-Synced Recent Posts
+- This section is maintained automatically by scaffold_post.py.
+- Ciclos de vida en Vue: Una visión general (ES, 2026-03-04)
+  - URL: https://todovue.blog/blog/vue-lifecycle-hooks-overview.es/
+- Vue Lifecycle Hooks: An Overview (EN, 2026-03-04)
+  - URL: https://todovue.blog/blog/vue-lifecycle-hooks-overview.en/
+
 ## Query Routing Hints
 - If question includes "directivas", "v-model", "v-for", "v-if", "v-slot", start from the directives overview and then the specific directive page.
 - If question includes "reactividad" or "signals", prioritize reactivity + Vapor Mode articles.
