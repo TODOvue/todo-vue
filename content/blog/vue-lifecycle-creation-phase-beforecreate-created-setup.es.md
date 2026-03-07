@@ -3,7 +3,6 @@ title: "Ciclos de vida en Vue: fase de creación (beforeCreate, created, setup)"
 description: "Qué pasa realmente en la fase de creación de un componente Vue y cómo decidir entre beforeCreate, created y setup."
 date: 2026-03-06T20:00:00-05:00
 updatedAt: 2026-03-06T20:00:00-05:00
-readingTime: 7
 tags:
   - tag: "Básico"
     color: "#B173BF"

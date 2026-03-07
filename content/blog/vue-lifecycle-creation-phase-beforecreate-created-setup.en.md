@@ -3,7 +3,6 @@ title: "Vue Lifecycle: creation phase (beforeCreate, created, setup)"
 description: "What really happens during a Vue component's creation phase and how to choose between beforeCreate, created, and setup."
 date: 2026-03-06T20:00:00-05:00
 updatedAt: 2026-03-06T20:00:00-05:00
-readingTime: 7
 tags:
   - tag: "Basics"
     color: "#B173BF"
