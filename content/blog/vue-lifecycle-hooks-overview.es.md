@@ -181,8 +181,6 @@ Usos típicos:
 * Enfocar inputs
 * Integrar librerías externas
 
-### Composition API
-
 ```vue [Composition API]{4}
 <script setup>
 import { onMounted } from 'vue'

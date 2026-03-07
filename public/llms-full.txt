@@ -77,6 +77,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Auto-Synced Recent Posts
 - This section is maintained automatically by scaffold_post.py.
+- Vue Lifecycle: creation phase (beforeCreate, created, setup) (EN, 2026-03-06)
+  - URL: https://todovue.blog/blog/vue-lifecycle-creation-phase-beforecreate-created-setup.en/
+- Ciclos de vida en Vue: fase de creación (beforeCreate, created, setup) (ES, 2026-03-06)
+  - URL: https://todovue.blog/blog/vue-lifecycle-creation-phase-beforecreate-created-setup.es/
 - Ciclos de vida en Vue: Una visión general (ES, 2026-03-04)
   - URL: https://todovue.blog/blog/vue-lifecycle-hooks-overview.es/
 - Vue Lifecycle Hooks: An Overview (EN, 2026-03-04)
