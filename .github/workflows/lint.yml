@@ -1,10 +1,9 @@
 name: Quality TODOvue
 
 on:
-  push:
-    branches: [main, develop]
   pull_request:
     branches: [main, develop]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   lint:
@@ -33,7 +32,8 @@ jobs:
       - name: Run lint
         run: pnpm run lint
 
-  deploy-check:
+  generate-check:
+    needs: lint
     runs-on: ubuntu-latest
     permissions:
       contents: read
