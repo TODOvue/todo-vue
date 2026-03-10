@@ -77,6 +77,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Auto-Synced Recent Posts
 - This section is maintained automatically by scaffold_post.py.
+- Vue Lifecycle: mounting phase (beforeMount, mounted) (EN, 2026-03-09)
+  - URL: https://todovue.blog/blog/vue-lifecycle-mounting-phase-beforemount-mounted.en/
+- Ciclos de vida en Vue: fase de montaje (beforeMount, mounted) (ES, 2026-03-09)
+  - URL: https://todovue.blog/blog/vue-lifecycle-mounting-phase-beforemount-mounted.es/
 - Vue Lifecycle: creation phase (beforeCreate, created, setup) (EN, 2026-03-06)
   - URL: https://todovue.blog/blog/vue-lifecycle-creation-phase-beforecreate-created-setup.en/
 - Ciclos de vida en Vue: fase de creación (beforeCreate, created, setup) (ES, 2026-03-06)
