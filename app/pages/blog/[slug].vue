@@ -39,6 +39,9 @@ const normalizeSeriesKey = (value: unknown): string => typeof value === 'string'
 const resolvePostPath = (value: BlogPost): string =>
   String((value.path ?? value._path ?? '/') as string)
 const toLocalizedPostPath = (value: BlogPost): string => localePath(resolvePostPath(value))
+const getPostCover = (value: BlogPost): string => value.cover ?? value.meta?.cover ?? ''
+const getPostCoverAlt = (value: BlogPost): string | undefined => value.coverAlt ?? value.meta?.coverAlt
+const getPostCoverCaption = (value: BlogPost): string | undefined => value.coverCaption ?? value.meta?.coverCaption
 const isSamePost = (first: BlogPost, second: BlogPost): boolean => {
   const firstPath = resolvePostPath(first)
   const secondPath = resolvePostPath(second)
@@ -99,7 +102,7 @@ const articleData = computed(() => ({
   date: resolvedPost.value.date,
   readingTime: resolvedPost.value.meta?.readingTime,
   tags: resolvedPost.value.tags,
-  coverCaption: resolvedPost.value.meta?.coverCaption,
+  coverCaption: getPostCoverCaption(resolvedPost.value),
   body: resolvedPost.value.body
 }))
 
@@ -275,8 +278,8 @@ const hasToc = computed(() => {
 const configHero = {
   description: resolvedPost.value.description,
   title: resolvedPost.value.title,
-  image: resolvedPost.value.meta?.cover,
-  alt: resolvedPost.value.meta?.coverAlt
+  image: getPostCover(resolvedPost.value),
+  alt: getPostCoverAlt(resolvedPost.value)
 }
 
 const breadcrumbs = computed<BreadcrumbItem[]>(() => [
@@ -286,7 +289,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => [
 ])
 
 const ogImage = computed(() => {
-  const cover = resolvedPost.value.meta?.cover
+  const cover = getPostCover(resolvedPost.value)
   if (!cover) return '/default-og-image.png'
   if (cover.startsWith('http')) return cover
   return cover

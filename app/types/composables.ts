@@ -9,6 +9,9 @@ export type BlogPost = {
   path?: string
   title?: string
   description?: string
+  cover?: string
+  coverAlt?: string
+  coverCaption?: string
   date?: string | number | Date
   updatedAt?: string | Date
   tags?: BlogTag[]

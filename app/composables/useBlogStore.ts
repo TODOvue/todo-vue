@@ -23,6 +23,7 @@ const getDateValue = (value: BlogPost['date']): number => new Date(value ?? 0).g
 const getPostId = (post: BlogPost): string | number => post.id ?? post._path ?? post._id ?? ''
 const LOCALE_SUFFIX_REGEX = /\.([a-z]{2})$/i
 const getSlugLocale = (slug: string): string | null => slug.match(LOCALE_SUFFIX_REGEX)?.[1]?.toLowerCase() ?? null
+const getPostCover = (post: BlogPost): string => post.cover ?? post.meta?.cover ?? ''
 
 const getBlogCollection = () => {
   const collection = queryCollection as unknown as (name: string) => { all: () => Promise<BlogPost[]> }
@@ -144,7 +145,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
     id: post.id ?? post._id ?? post._path ?? '',
     primaryButtonText: t('blogs.card.readBlog'),
     alt: post.title ?? t('blogs.card.cover'),
-    image: post.meta?.cover ?? '',
+    image: getPostCover(post),
     labels: Array.isArray(post.tags)
       ? post.tags.map((tag: BlogTag, index: number) => ({
         id: index + 1,

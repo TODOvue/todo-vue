@@ -5,6 +5,8 @@ import type { BlogPost, SeriesItem } from '@/types/composables'
 
 const normalizeSeriesKey = (value: unknown): string =>
   typeof value === 'string' ? value.trim().toLowerCase() : ''
+const getPostCover = (post: BlogPost): string => post.cover ?? post.meta?.cover ?? ''
+const getPostCoverAlt = (post: BlogPost, fallback: string): string => post.coverAlt ?? post.meta?.coverAlt ?? fallback
 
 const getDateValue = (value: BlogPost['date']): number =>
   new Date(value ?? 0).getTime()
@@ -36,8 +38,8 @@ export function useSeriesAggregation(posts: ComputedRef<BlogPost[]>, limit?: num
           title: postTitle,
           description: postDescription,
           path: postPath,
-          cover: post.meta?.cover ?? '',
-          coverAlt: post.meta?.coverAlt ?? postTitle,
+          cover: getPostCover(post),
+          coverAlt: getPostCoverAlt(post, postTitle),
           chapters: 1,
           latestDate: postDate,
           firstOrder: initialOrder
@@ -51,15 +53,15 @@ export function useSeriesAggregation(posts: ComputedRef<BlogPost[]>, limit?: num
       }
 
       const currentOrder = typeof post.seriesOrder === 'number' ? post.seriesOrder : Number.MAX_SAFE_INTEGER
-      if (post.meta?.cover) {
+      if (getPostCover(post)) {
         if (!existing.cover) {
-          existing.cover = post.meta.cover
-          existing.coverAlt = post.meta?.coverAlt ?? postTitle
+          existing.cover = getPostCover(post)
+          existing.coverAlt = getPostCoverAlt(post, postTitle)
           existing.firstOrder = Math.min(existing.firstOrder, currentOrder)
         } else if (currentOrder < existing.firstOrder) {
           existing.firstOrder = currentOrder
-          existing.cover = post.meta.cover
-          existing.coverAlt = post.meta?.coverAlt ?? postTitle
+          existing.cover = getPostCover(post)
+          existing.coverAlt = getPostCoverAlt(post, postTitle)
         }
       }
     })
