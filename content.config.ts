@@ -12,6 +12,8 @@ export default defineContentConfig({
         schema: z.object({
           title: z.string(),
           description: z.string().optional(),
+          cover: z.string().url().optional(),
+          coverAlt: z.string().optional(),
           date: z.preprocess((arg) => {
             if (typeof arg === 'string' || typeof arg === 'number') return new Date(arg)
             return arg

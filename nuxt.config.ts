@@ -190,7 +190,7 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: true,
       autoSubfolderIndex: true,
-      routes: [...blogRoutes, '/rss.xml']
+      routes: [...blogRoutes, '/rss.xml', '/rss.en.xml']
     }
   },
 

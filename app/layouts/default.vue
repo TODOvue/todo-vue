@@ -48,6 +48,7 @@ const language = ref<'es' | 'en'>('es')
 
 const blogStore = useBlogStore()
 const { t, locale, setLocale } = useI18n()
+const rssFeedUrl = computed(() => locale.value === 'en' ? '/rss.en.xml' : '/rss.xml')
 
 const { data: posts } = await useAsyncData('app-menu-posts', async () => {
   return await blogStore.fetchBlogPosts()
@@ -236,7 +237,7 @@ const configFooter = computed(() => ({
     },
     {
       label: 'RSS Feed',
-      url: '/rss.xml'
+      url: rssFeedUrl.value
     }
   ],
   navigation: [
@@ -280,7 +281,7 @@ const validateActiveMenu = computed(() => {
 })
 
 const handleClickLinks = ({ url }: { url: string }): void => {
-  if (url.startsWith('http') || url === '/rss.xml') {
+  if (url.startsWith('http') || url === '/rss.xml' || url === '/rss.en.xml') {
     window.open(url, '_blank')
     return
   }
