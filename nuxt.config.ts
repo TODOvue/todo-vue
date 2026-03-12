@@ -162,6 +162,10 @@ export default defineNuxtConfig({
     redirectToCanonicalSiteUrl: true
   },
 
+  linkChecker: {
+    excludeLinks: ['/rss.xml', '/rss.en.xml']
+  },
+
   devtools: { enabled: true },
 
   css: [tvUiStyleFallback, '@/assets/styles/tailwind.css', '@/assets/styles/main.css'],
