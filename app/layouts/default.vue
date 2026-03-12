@@ -17,6 +17,7 @@ import type { FooterPostLink, MenuSelection } from '@/types/views'
 import CrisDevIcon from '~/assets/icons/CrisDev.png'
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
+import RssIcon from '~/assets/icons/rss.svg'
 
 const router = useRouter()
 const route = useRoute()
@@ -237,7 +238,8 @@ const configFooter = computed(() => ({
     },
     {
       label: 'RSS Feed',
-      url: rssFeedUrl.value
+      url: rssFeedUrl.value,
+      iconUrl: RssIcon
     }
   ],
   navigation: [
