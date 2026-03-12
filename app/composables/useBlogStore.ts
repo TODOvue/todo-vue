@@ -1,5 +1,4 @@
 import { computed, onUnmounted, readonly } from 'vue'
-import { onValue, ref } from 'firebase/database'
 import { queryCollection, useI18n, useLocalePath, useNuxtApp, useState } from '#imports'
 import { FALLBACK_LOCALE, getDocumentSlug, getLocalizedPosts, matchesSlug } from '@/utils/contentLocale'
 import type { Database } from 'firebase/database'
@@ -17,6 +16,7 @@ import type {
 
 let visitCountsUnsubscribe: (() => void) | null = null
 let visitCountsConsumers = 0
+let firebaseDatabaseModulePromise: Promise<typeof import('firebase/database')> | null = null
 
 const getTagName = (tag: BlogTag): string => (typeof tag === 'string' ? tag : tag.tag ?? '')
 const getTagColor = (tag: BlogTag): string | undefined => (typeof tag === 'string' ? undefined : tag.color)
@@ -32,6 +32,10 @@ const getBlogCollection = () => {
 }
 
 const isRelatedItem = (value: RelatedItem | null): value is RelatedItem => value !== null
+const loadFirebaseDatabaseModule = () => {
+  firebaseDatabaseModulePromise ??= import('firebase/database')
+  return firebaseDatabaseModulePromise
+}
 
 export const useBlogStore = (): UseBlogStoreApi => {
   const nuxtApp = useNuxtApp()
@@ -209,6 +213,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
     }
 
     try {
+      const { onValue, ref } = await loadFirebaseDatabaseModule()
       const visitRef = ref(database, 'visit')
 
       visitCountsUnsubscribe = onValue(visitRef, (snapshot) => {

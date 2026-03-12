@@ -14,7 +14,7 @@ tags:
     color: "#4CAF50"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284773/vue-lifecycle-unmounting-phase-beforeunmount-unmounted_f9gqy0.png
 coverAlt: "Illustration of the unmounting phase of the Vue lifecycle with beforeUnmount and unmounted"
-coverCaption: "The unmounting phase happens when Vue removes a component from the active tree
+coverCaption: "The unmounting phase happens when Vue removes a component from the active tree"
 draft: false
 locale: en
 series: vue-lifecycle-hooks

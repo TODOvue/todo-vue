@@ -14,7 +14,7 @@ tags:
     color: "#4CAF50"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284773/vue-lifecycle-unmounting-phase-beforeunmount-unmounted_f9gqy0.png
 coverAlt: "Ilustración de la fase de desmontaje del ciclo de vida de Vue con beforeUnmount y unmounted"
-coverCaption: "La fase de desmontaje ocurre cuando Vue retira un componente del árbol activo
+coverCaption: "La fase de desmontaje ocurre cuando Vue retira un componente del árbol activo"
 draft: false
 locale: es
 series: vue-lifecycle-hooks
