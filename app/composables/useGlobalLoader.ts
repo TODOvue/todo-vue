@@ -2,23 +2,42 @@ import { useState } from '#imports'
 import type { GlobalLoaderApi } from '@/types/composables'
 
 let loaderTimer: ReturnType<typeof setInterval> | null = null
+let loaderHideTimer: ReturnType<typeof setTimeout> | null = null
 
 export const useGlobalLoader = (): GlobalLoaderApi => {
   const progress = useState('global-loader-progress', () => 0)
   const isLoading = useState('global-loader-is-loading', () => false)
   const pendingCount = useState('global-loader-pending-count', () => 0)
   const isNavigationLocked = useState('global-loader-navigation-lock', () => false)
+  const navigationCount = useState('global-loader-navigation-count', () => 0)
 
-  const start = () => {
-    pendingCount.value += 1
-    if (isLoading.value) return
+  const stopLoaderTimer = () => {
+    if (!loaderTimer) return
 
+    clearInterval(loaderTimer)
+    loaderTimer = null
+  }
+
+  const clearLoaderHideTimer = () => {
+    if (!loaderHideTimer) return
+
+    clearTimeout(loaderHideTimer)
+    loaderHideTimer = null
+  }
+
+  const syncNavigationState = () => {
+    isNavigationLocked.value = navigationCount.value > 0
+  }
+
+  const ensureLoader = (restartProgress = false) => {
+    clearLoaderHideTimer()
     isLoading.value = true
-    progress.value = 12
-    if (loaderTimer) {
-      clearInterval(loaderTimer)
-      loaderTimer = null
+
+    if (restartProgress || progress.value <= 0 || progress.value >= 95) {
+      progress.value = 12
     }
+
+    stopLoaderTimer()
 
     loaderTimer = setInterval(() => {
       if (progress.value >= 95) return
@@ -38,19 +57,23 @@ export const useGlobalLoader = (): GlobalLoaderApi => {
     }, 120)
   }
 
+  const start = () => {
+    pendingCount.value += 1
+    ensureLoader()
+  }
+
   const finish = () => {
+    clearLoaderHideTimer()
     pendingCount.value = Math.max(0, pendingCount.value - 1)
     if (pendingCount.value > 0) return
 
     progress.value = 100
-    if (loaderTimer) {
-      clearInterval(loaderTimer)
-      loaderTimer = null
-    }
+    stopLoaderTimer()
 
-    setTimeout(() => {
+    loaderHideTimer = setTimeout(() => {
       isLoading.value = false
       progress.value = 0
+      loaderHideTimer = null
     }, 500)
   }
 
@@ -59,15 +82,17 @@ export const useGlobalLoader = (): GlobalLoaderApi => {
   }
 
   const runNavigation = async <T>(task: () => Promise<T> | T): Promise<T | undefined> => {
-    if (isNavigationLocked.value) return undefined
+    navigationCount.value += 1
+    syncNavigationState()
+    pendingCount.value += 1
+    ensureLoader(navigationCount.value > 1)
 
-    isNavigationLocked.value = true
-    start()
     try {
       return await task()
     } finally {
       finish()
-      isNavigationLocked.value = false
+      navigationCount.value = Math.max(0, navigationCount.value - 1)
+      syncNavigationState()
     }
   }
 

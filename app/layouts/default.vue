@@ -11,12 +11,14 @@ import {
   useAlert,
 } from '@todovue/tv-ui'
 import type { BlogPost } from '@/types/composables'
+import type { ThemeMode } from '@/types/theme'
 import type { FooterPostLink, MenuSelection } from '@/types/views'
 
+import CrisDevIcon from '~/assets/icons/CrisDev.png'
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
-import TODOvueIcon from '~/assets/icons/TODOvue.svg'
-import CrisDevIcon from '~/assets/icons/CrisDev.png'
+import RssIcon from '~/assets/icons/rss.svg'
+import RssWhiteIcon from '~/assets/icons/rss-white.svg'
 
 const router = useRouter()
 const route = useRoute()
@@ -34,11 +36,21 @@ const preferredLocale = useCookie<'es' | 'en' | null>('todovue-locale', {
 
 const { progress, isLoading, start, finish, runNavigation } = useGlobalLoader()
 
-const isDarkMode = ref(false)
+const resolveTheme = (): ThemeMode => {
+  if (!import.meta.client) return 'light'
+  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
+  const stored = localStorage.getItem('theme')
+  if (stored === 'dark' || stored === 'light') return stored
+  return prefersDark ? 'dark' : 'light'
+}
+
+const isDarkMode = ref(resolveTheme() === 'dark')
+const footerRevision = ref(0)
 const language = ref<'es' | 'en'>('es')
 
 const blogStore = useBlogStore()
 const { t, locale, setLocale } = useI18n()
+const rssFeedUrl = computed(() => locale.value === 'en' ? '/rss.en.xml' : '/rss.xml')
 
 const { data: posts } = await useAsyncData('app-menu-posts', async () => {
   return await blogStore.fetchBlogPosts()
@@ -123,12 +135,13 @@ const handleClickMenu = (menu: MenuSelection): void => {
 
 const setTheme = (value: string, toButton = false): void => {
   if (!import.meta.client) return
+  const mode: ThemeMode = value === 'dark' ? 'dark' : 'light'
   document.documentElement.classList.remove('dark-mode', 'light-mode')
-  document.documentElement.classList.add(`${value}-mode`)
-  localStorage.setItem('theme', value)
-  isDarkMode.value = value === 'dark'
+  document.documentElement.classList.add(`${mode}-mode`)
+  localStorage.setItem('theme', mode)
+  isDarkMode.value = mode === 'dark'
   if (toButton) {
-    alert.info(value === 'dark'
+    alert.info(mode === 'dark'
       ? t('menu.theme.dark')
       : t('menu.theme.light')
         , {
@@ -141,6 +154,10 @@ const setTheme = (value: string, toButton = false): void => {
 
 const changeValue = (value: string): void => {
   setTheme(value, true)
+}
+
+if (import.meta.client) {
+  setTheme(resolveTheme())
 }
 
 const changeLanguage = async (lang: 'es' | 'en'): Promise<void> => {
@@ -175,33 +192,40 @@ const getFooterPosts = (items: BlogPost[], count = 3): BlogPost[] => {
   return items.slice(0, count)
 }
 
+const localizedPosts = computed<BlogPost[]>(() =>
+  (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
+)
+
 const footerPosts = useState<FooterPostLink[]>('footer-posts', () => {
-  const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
-  return getFooterPosts(p, 3).map(post => ({
+  return getFooterPosts(localizedPosts.value, 3).map(post => ({
     label: post.title ?? '',
     url: getPostUrl(post)
   }))
 })
+
+const footerSeries = useSeriesAggregation(localizedPosts, 3)
+const footerSeriesLinks = computed<FooterPostLink[]>(() =>
+  footerSeries.value.map(series => ({
+    label: series.title,
+    url: series.path
+  }))
+)
 
 watch([locale, posts], () => {
-  const p = (posts.value ?? []).filter(post => post.path?.endsWith(`.${locale.value}`))
-  footerPosts.value = getFooterPosts(p, 3).map(post => ({
+  footerPosts.value = getFooterPosts(localizedPosts.value, 3).map(post => ({
     label: post.title ?? '',
     url: getPostUrl(post)
   }))
 })
 
-watchEffect(() => {
-  if (!import.meta.client) return
-  isDarkMode.value = document.documentElement.classList.contains('dark-mode')
-})
-
-const iconUrl = computed(() => {
-  return isDarkMode.value ? GitHubWhiteIcon : GitHubIcon
-})
+const footerKey = computed(() => `${isDarkMode.value}-${language.value}-${footerRevision.value}`)
+const githubIconUrl = computed(() => isDarkMode.value ? GitHubWhiteIcon : GitHubIcon)
+const rssIconUrl = computed(() => isDarkMode.value ? RssWhiteIcon : RssIcon)
+const rssIconBackground = computed(() => `url("${rssIconUrl.value}") center / contain no-repeat`)
 
 const configFooter = computed(() => ({
   brand: {
+    name: 'Blog',
     logo: 'https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png',
     url: '/'
   },
@@ -209,12 +233,7 @@ const configFooter = computed(() => ({
     {
       label: 'GitHub',
       url: 'https://github.com/TODOvue',
-      iconUrl: iconUrl.value
-    },
-    {
-      label: 'TODOvue UI',
-      url: 'https://ui.todovue.blog',
-      iconUrl: TODOvueIcon
+      iconUrl: githubIconUrl.value
     },
     {
       label: 'CrisDev',
@@ -223,7 +242,8 @@ const configFooter = computed(() => ({
     },
     {
       label: 'RSS Feed',
-      url: '/rss.xml'
+      url: rssFeedUrl.value,
+      iconUrl: rssIconUrl.value
     }
   ],
   navigation: [
@@ -235,6 +255,10 @@ const configFooter = computed(() => ({
         { label: t('footer.navigation.series'), url: '/series/' },
         { label: t('footer.navigation.components'), url: 'https://ui.todovue.blog' }
       ]
+    },
+    {
+      title: t('footer.navigation.series'),
+      items: footerSeriesLinks.value
     },
     {
       title: t('footer.otherEntries'),
@@ -263,7 +287,7 @@ const validateActiveMenu = computed(() => {
 })
 
 const handleClickLinks = ({ url }: { url: string }): void => {
-  if (url.startsWith('http') || url === '/rss.xml') {
+  if (url.startsWith('http') || url === '/rss.xml' || url === '/rss.en.xml') {
     window.open(url, '_blank')
     return
   }
@@ -288,11 +312,11 @@ const handleSubscribe = (email: string): void => {
 
 onMounted(() => {
   if (!import.meta.client) return
+  setTheme(resolveTheme())
+  requestAnimationFrame(() => {
+    footerRevision.value += 1
+  })
 
-  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
-  const stored = localStorage.getItem('theme')
-  const theme = stored || (prefersDark ? 'dark' : 'light')
-  setTheme(theme)
   start()
   blogStore.fetchBlogPosts()
     .finally(() => {
@@ -372,7 +396,7 @@ useHead({
     <slot />
 
     <TvFooter
-      :key="`${isDarkMode}-${language}`"
+      :key="footerKey"
       :config="configFooter"
       class="mt-16"
       @link-click="handleClickLinks"
@@ -389,7 +413,8 @@ useHead({
   height: 40px !important;
 }
 
-:deep(.tv-footer__social-link[href='/rss.xml'] span) {
+:deep(.tv-footer__social-link[href='/rss.xml'] span),
+:deep(.tv-footer__social-link[href='/rss.en.xml'] span) {
   font-size: 0;
   line-height: 0;
   display: inline-block;
@@ -397,11 +422,13 @@ useHead({
   height: 20px;
 }
 
-:deep(.tv-footer__social-link[href='/rss.xml'] span::before) {
+:deep(.tv-footer__social-link[href='/rss.xml'] span::before),
+:deep(.tv-footer__social-link[href='/rss.en.xml'] span::before) {
   content: '';
   display: block;
   width: 20px;
   height: 20px;
-  background: url('@/assets/icons/rss.svg') center / contain no-repeat;
+  background: v-bind(rssIconBackground);
 }
+
 </style>

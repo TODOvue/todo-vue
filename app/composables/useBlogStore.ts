@@ -16,6 +16,7 @@ import type {
 
 let visitCountsUnsubscribe: (() => void) | null = null
 let visitCountsConsumers = 0
+let firebaseDatabaseModulePromise: Promise<typeof import('firebase/database')> | null = null
 
 const getTagName = (tag: BlogTag): string => (typeof tag === 'string' ? tag : tag.tag ?? '')
 const getTagColor = (tag: BlogTag): string | undefined => (typeof tag === 'string' ? undefined : tag.color)
@@ -23,6 +24,7 @@ const getDateValue = (value: BlogPost['date']): number => new Date(value ?? 0).g
 const getPostId = (post: BlogPost): string | number => post.id ?? post._path ?? post._id ?? ''
 const LOCALE_SUFFIX_REGEX = /\.([a-z]{2})$/i
 const getSlugLocale = (slug: string): string | null => slug.match(LOCALE_SUFFIX_REGEX)?.[1]?.toLowerCase() ?? null
+const getPostCover = (post: BlogPost): string => post.cover ?? post.meta?.cover ?? ''
 
 const getBlogCollection = () => {
   const collection = queryCollection as unknown as (name: string) => { all: () => Promise<BlogPost[]> }
@@ -30,6 +32,10 @@ const getBlogCollection = () => {
 }
 
 const isRelatedItem = (value: RelatedItem | null): value is RelatedItem => value !== null
+const loadFirebaseDatabaseModule = () => {
+  firebaseDatabaseModulePromise ??= import('firebase/database')
+  return firebaseDatabaseModulePromise
+}
 
 export const useBlogStore = (): UseBlogStoreApi => {
   const nuxtApp = useNuxtApp()
@@ -144,7 +150,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
     id: post.id ?? post._id ?? post._path ?? '',
     primaryButtonText: t('blogs.card.readBlog'),
     alt: post.title ?? t('blogs.card.cover'),
-    image: post.meta?.cover ?? '',
+    image: getPostCover(post),
     labels: Array.isArray(post.tags)
       ? post.tags.map((tag: BlogTag, index: number) => ({
         id: index + 1,
@@ -207,7 +213,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
     }
 
     try {
-      const { onValue, ref } = await import('firebase/database')
+      const { onValue, ref } = await loadFirebaseDatabaseModule()
       const visitRef = ref(database, 'visit')
 
       visitCountsUnsubscribe = onValue(visitRef, (snapshot) => {

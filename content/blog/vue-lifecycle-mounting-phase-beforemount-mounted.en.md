@@ -10,7 +10,7 @@ tags:
     color: "#41B883"
   - tag: "Best Practices"
     color: "#2196F3"
-cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773110330/vue-lifecycle-mounting-phase-beforemount-mounted_a6dreq.png
+cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284431/vue-lifecycle-mounting-phase-beforemount-mounted_wkrzal.png
 coverAlt: "Illustration of a Vue component lifecycle focused on the DOM mounting phase"
 coverCaption: "The mounting phase is the moment when Vue creates and inserts the component DOM into the page."
 draft: false

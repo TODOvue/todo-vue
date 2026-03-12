@@ -39,6 +39,9 @@ const normalizeSeriesKey = (value: unknown): string => typeof value === 'string'
 const resolvePostPath = (value: BlogPost): string =>
   String((value.path ?? value._path ?? '/') as string)
 const toLocalizedPostPath = (value: BlogPost): string => localePath(resolvePostPath(value))
+const getPostCover = (value: BlogPost): string => value.cover ?? value.meta?.cover ?? ''
+const getPostCoverAlt = (value: BlogPost): string | undefined => value.coverAlt ?? value.meta?.coverAlt
+const getPostCoverCaption = (value: BlogPost): string | undefined => value.coverCaption ?? value.meta?.coverCaption
 const isSamePost = (first: BlogPost, second: BlogPost): boolean => {
   const firstPath = resolvePostPath(first)
   const secondPath = resolvePostPath(second)
@@ -99,7 +102,7 @@ const articleData = computed(() => ({
   date: resolvedPost.value.date,
   readingTime: resolvedPost.value.meta?.readingTime,
   tags: resolvedPost.value.tags,
-  coverCaption: resolvedPost.value.meta?.coverCaption,
+  coverCaption: getPostCoverCaption(resolvedPost.value),
   body: resolvedPost.value.body
 }))
 
@@ -162,6 +165,36 @@ const seriesContext = computed(() => {
     total: posts.length,
     path: `/series/${seriesKey}/`
   }
+})
+
+const chronologicalPosts = computed<BlogPost[]>(() =>
+  [...blogStore.blogPosts.value].sort((first, second) => getDateValue(second.date) - getDateValue(first.date))
+)
+
+const chronologicalIndex = computed<number>(() =>
+  chronologicalPosts.value.findIndex((item) => isSamePost(item, resolvedPost.value))
+)
+
+const previousPost = computed<BlogPost | null>(() => {
+  const posts = chronologicalPosts.value
+  const total = posts.length
+  if (total <= 1) return null
+
+  const index = chronologicalIndex.value
+  if (index < 0) return null
+  const previousIndex = (index - 1 + total) % total
+  return posts[previousIndex] ?? null
+})
+
+const nextPost = computed<BlogPost | null>(() => {
+  const posts = chronologicalPosts.value
+  const total = posts.length
+  if (total <= 1) return null
+
+  const index = chronologicalIndex.value
+  if (index < 0) return null
+  const nextIndex = (index + 1) % total
+  return posts[nextIndex] ?? null
 })
 
 const seriesRelatedPosts = computed<CardConfig[]>(() =>
@@ -245,8 +278,8 @@ const hasToc = computed(() => {
 const configHero = {
   description: resolvedPost.value.description,
   title: resolvedPost.value.title,
-  image: resolvedPost.value.meta?.cover,
-  alt: resolvedPost.value.meta?.coverAlt
+  image: getPostCover(resolvedPost.value),
+  alt: getPostCoverAlt(resolvedPost.value)
 }
 
 const breadcrumbs = computed<BreadcrumbItem[]>(() => [
@@ -256,7 +289,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => [
 ])
 
 const ogImage = computed(() => {
-  const cover = resolvedPost.value.meta?.cover
+  const cover = getPostCover(resolvedPost.value)
   if (!cover) return '/default-og-image.png'
   if (cover.startsWith('http')) return cover
   return cover
@@ -317,6 +350,63 @@ const editOnGithubUrl = computed(() => {
   return `https://github.com/TODOvue/todo-vue/edit/main/${filePath}`
 })
 
+const seriesListContainer = ref<HTMLElement | null>(null)
+const relatedListContainer = ref<HTMLElement | null>(null)
+const scrollOffsetPx = 96
+const paginationScrollDurationMs = 520
+let paginationScrollFrame: number | null = null
+
+const easeOutCubic = (value: number): number => 1 - ((1 - value) ** 3)
+
+const smoothScrollTo = (targetY: number): void => {
+  if (paginationScrollFrame !== null) {
+    window.cancelAnimationFrame(paginationScrollFrame)
+    paginationScrollFrame = null
+  }
+
+  const startY = window.scrollY
+  const deltaY = targetY - startY
+  if (Math.abs(deltaY) < 2) return
+
+  const startTime = performance.now()
+
+  const animate = (currentTime: number): void => {
+    const elapsed = currentTime - startTime
+    const progress = Math.min(1, elapsed / paginationScrollDurationMs)
+    const easedProgress = easeOutCubic(progress)
+    window.scrollTo(0, startY + (deltaY * easedProgress))
+
+    if (progress < 1) {
+      paginationScrollFrame = window.requestAnimationFrame(animate)
+      return
+    }
+
+    paginationScrollFrame = null
+  }
+
+  paginationScrollFrame = window.requestAnimationFrame(animate)
+}
+
+const maybeScrollListIntoView = (element: HTMLElement | null): void => {
+  if (!element) return
+
+  const rect = element.getBoundingClientRect()
+  const currentScroll = window.scrollY
+  const top = currentScroll + rect.top - scrollOffsetPx
+  const shouldScrollUpToList = top < currentScroll - 24
+
+  if (!shouldScrollUpToList) return
+
+  smoothScrollTo(Math.max(0, top))
+}
+
+const handleListPaginationChange = (section: 'series' | 'related'): void => {
+  nextTick(() => {
+    const container = section === 'series' ? seriesListContainer.value : relatedListContainer.value
+    maybeScrollListIntoView(container)
+  })
+}
+
 if (baseSlug) {
   const siteUrl = runtimeConfig.public.siteUrl ?? ''
   const esUrl = `${siteUrl}/blog/${baseSlug}.es/`
@@ -357,6 +447,13 @@ onMounted(() => {
   }
 })
 
+onBeforeUnmount(() => {
+  if (paginationScrollFrame !== null) {
+    window.cancelAnimationFrame(paginationScrollFrame)
+    paginationScrollFrame = null
+  }
+})
+
 const articleContainer = ref<HTMLElement | null>(null)
 </script>
 
@@ -392,6 +489,32 @@ const articleContainer = ref<HTMLElement | null>(null)
             :lang="locale"
             @label-click="handleLabelClick"
           />
+          <div
+            v-if="!seriesContext && (previousPost || nextPost)"
+            class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-4 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
+          >
+            <p class="text-sm font-semibold text-primary">
+              {{ t('blogs.navigation.label') }}
+            </p>
+            <div class="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
+              <NuxtLink
+                v-if="previousPost"
+                :to="toLocalizedPostPath(previousPost)"
+                class="rounded-lg border border-primary/20 px-3 py-2 text-sm transition-colors hover:bg-primary/5"
+              >
+                <span class="block text-xs opacity-80">{{ t('blogs.navigation.previous') }}</span>
+                <span>{{ previousPost.title }}</span>
+              </NuxtLink>
+              <NuxtLink
+                v-if="nextPost"
+                :to="toLocalizedPostPath(nextPost)"
+                class="rounded-lg border border-primary/20 px-3 py-2 text-sm transition-colors hover:bg-primary/5"
+              >
+                <span class="block text-xs opacity-80">{{ t('blogs.navigation.next') }}</span>
+                <span>{{ nextPost.title }}</span>
+              </NuxtLink>
+            </div>
+          </div>
           <div
             v-if="seriesContext"
             class="mt-8 rounded-xl border border-primary/30 bg-light-card-bg px-4 py-4 text-light-text dark:bg-dark-card-bg dark:text-dark-text"
@@ -464,7 +587,7 @@ const articleContainer = ref<HTMLElement | null>(null)
               <h2 class="title-main">
                 {{ t('blogs.series.label') }}
               </h2>
-              <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
+              <div ref="seriesListContainer" class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
                 <div
                   v-for="seriesPost in paginatedSeriesRelatedPosts"
                   :key="seriesPost.id"
@@ -489,6 +612,7 @@ const articleContainer = ref<HTMLElement | null>(null)
                     :page-size="seriesPageSize"
                     show-icons
                     :show-first-last="false"
+                    @update:model-value="handleListPaginationChange('series')"
                   />
                 </div>
               </ClientOnly>
@@ -497,7 +621,7 @@ const articleContainer = ref<HTMLElement | null>(null)
               <h2 class="title-main">
                 {{ t('blogs.related') }}
               </h2>
-              <div class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
+              <div ref="relatedListContainer" class="mt-8 grid grid-cols-1 justify-items-center gap-8 sm:justify-items-stretch sm:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
                 <div
                   v-for="related in paginatedRelatedPosts"
                   :key="related.id"
@@ -522,6 +646,7 @@ const articleContainer = ref<HTMLElement | null>(null)
                     :page-size="relatedPageSize"
                     show-icons
                     :show-first-last="false"
+                    @update:model-value="handleListPaginationChange('related')"
                   />
                 </div>
               </ClientOnly>

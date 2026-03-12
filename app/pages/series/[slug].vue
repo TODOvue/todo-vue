@@ -2,10 +2,11 @@
 import { TvBreadcrumbs, TvCard, TvHero } from '@todovue/tv-ui'
 import type { BlogPost, CardConfig } from '@/types/composables'
 import type { BreadcrumbItem, TagLike } from '@/types/views'
+import { FALLBACK_LOCALE, getDocumentLocale } from '@/utils/contentLocale'
 
 const router = useRouter()
 const route = useRoute()
-const { t } = useI18n()
+const { locale, t } = useI18n()
 const blogStore = useBlogStore()
 const { setPageSeo } = useSeo()
 const { runNavigation } = useGlobalLoader()
@@ -18,9 +19,20 @@ const getRouteSlug = (): string => {
 
 const normalizeSeriesKey = (value: unknown): string => typeof value === 'string' ? value.trim().toLowerCase() : ''
 const getDateValue = (value: BlogPost['date']): number => new Date(value ?? 0).getTime()
+const sortSeriesPosts = (posts: BlogPost[]): BlogPost[] =>
+  [...posts].sort((first, second) => {
+    const firstOrder = typeof first.seriesOrder === 'number' ? first.seriesOrder : Number.MAX_SAFE_INTEGER
+    const secondOrder = typeof second.seriesOrder === 'number' ? second.seriesOrder : Number.MAX_SAFE_INTEGER
+    if (firstOrder !== secondOrder) return firstOrder - secondOrder
+    return getDateValue(first.date) - getDateValue(second.date)
+  })
 
-await useAsyncData('series-page-posts', async () => {
-  return await blogStore.fetchBlogPosts()
+const { data: allBlogPosts } = await useAsyncData<BlogPost[]>('series-page-all-posts', async () => {
+  const collection = queryCollection as unknown as (name: string) => { all: () => Promise<BlogPost[]> }
+  const posts = await collection('blog').all()
+  return Array.isArray(posts) ? posts : []
+}, {
+  watch: [() => locale.value]
 })
 
 const seriesSlug = computed<string>(() => normalizeSeriesKey(getRouteSlug()))
@@ -28,14 +40,18 @@ const seriesSlug = computed<string>(() => normalizeSeriesKey(getRouteSlug()))
 const seriesPosts = computed<BlogPost[]>(() => {
   if (!seriesSlug.value) return []
 
-  return [...blogStore.blogPosts.value]
+  const allSeriesPosts = (allBlogPosts.value ?? [])
     .filter((post) => normalizeSeriesKey(post.series) === seriesSlug.value)
-    .sort((first, second) => {
-      const firstOrder = typeof first.seriesOrder === 'number' ? first.seriesOrder : Number.MAX_SAFE_INTEGER
-      const secondOrder = typeof second.seriesOrder === 'number' ? second.seriesOrder : Number.MAX_SAFE_INTEGER
-      if (firstOrder !== secondOrder) return firstOrder - secondOrder
-      return getDateValue(first.date) - getDateValue(second.date)
-    })
+
+  if (!allSeriesPosts.length) return []
+
+  const currentLocalePosts = allSeriesPosts.filter((post) => getDocumentLocale(post) === locale.value)
+  if (currentLocalePosts.length) return sortSeriesPosts(currentLocalePosts)
+
+  const fallbackLocalePosts = allSeriesPosts.filter((post) => getDocumentLocale(post) === FALLBACK_LOCALE)
+  if (fallbackLocalePosts.length) return sortSeriesPosts(fallbackLocalePosts)
+
+  return sortSeriesPosts(allSeriesPosts)
 })
 
 if (!seriesPosts.value.length) {
@@ -97,13 +113,13 @@ const {
         <div
           v-for="(card, index) in seriesCards"
           :key="card.id"
-          class="blog-card-shell w-full"
+          class="blog-card-shell w-full flex-col items-stretch gap-3"
           role="link"
           tabindex="0"
           @click="handleCardClick($event, card.path)"
           @keydown="handleCardKeydown($event, card.path)"
         >
-          <p class="text-sm font-semibold text-primary">
+          <p class="w-full pl-1 text-sm font-semibold text-primary">
             {{ t('blogs.series.chapter', { number: index + 1 }) }}
           </p>
           <TvCard

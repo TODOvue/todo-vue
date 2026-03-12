@@ -59,5 +59,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .blog-card-shell {
-  @apply cursor-pointer rounded-2xl transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3b82f6] flex justify-center md:block;
+  @apply relative inline-flex max-w-full cursor-pointer justify-center rounded-2xl transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3b82f6];
+  width: fit-content;
 }

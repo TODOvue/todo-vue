@@ -12,7 +12,7 @@ tags:
     color: "#1D5BA1"
   - tag: "Buenas Prácticas"
     color: "#2196F3"
-cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773202087/vue-lifecycle-update-phase-beforeupdate-updated_lkp7kk.png
+cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284616/vue-lifecycle-update-phase-beforeupdate-updated_qql7os.png
 coverAlt: "Ilustración de la fase de actualización del ciclo de vida de Vue con beforeUpdate y updated"
 coverCaption: "La fase de actualización ocurre cuando un cambio reactivo obliga a Vue a volver a renderizar el componente."
 draft: false

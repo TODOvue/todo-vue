@@ -77,6 +77,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Auto-Synced Recent Posts
 - This section is maintained automatically by scaffold_post.py.
+- Vue Lifecycle: unmounting phase (beforeUnmount, unmounted) (EN, 2026-03-11)
+  - URL: https://todovue.blog/blog/vue-lifecycle-unmounting-phase-beforeunmount-unmounted.en/
+- Ciclos de vida en Vue: fase de desmontaje (beforeUnmount, unmounted) (ES, 2026-03-11)
+  - URL: https://todovue.blog/blog/vue-lifecycle-unmounting-phase-beforeunmount-unmounted.es/
 - Vue Lifecycle: update phase (beforeUpdate, updated) (EN, 2026-03-10)
   - URL: https://todovue.blog/blog/vue-lifecycle-update-phase-beforeupdate-updated.en/
 - Ciclos de vida en Vue: fase de actualización (beforeUpdate, updated) (ES, 2026-03-10)
