@@ -1,4 +1,5 @@
 import { computed, onUnmounted, readonly } from 'vue'
+import { onValue, ref } from 'firebase/database'
 import { queryCollection, useI18n, useLocalePath, useNuxtApp, useState } from '#imports'
 import { FALLBACK_LOCALE, getDocumentSlug, getLocalizedPosts, matchesSlug } from '@/utils/contentLocale'
 import type { Database } from 'firebase/database'
@@ -208,7 +209,6 @@ export const useBlogStore = (): UseBlogStoreApi => {
     }
 
     try {
-      const { onValue, ref } = await import('firebase/database')
       const visitRef = ref(database, 'visit')
 
       visitCountsUnsubscribe = onValue(visitRef, (snapshot) => {

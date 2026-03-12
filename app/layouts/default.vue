@@ -221,6 +221,7 @@ watch([locale, posts], () => {
 const footerKey = computed(() => `${isDarkMode.value}-${language.value}-${footerRevision.value}`)
 const githubIconUrl = computed(() => isDarkMode.value ? GitHubWhiteIcon : GitHubIcon)
 const rssIconUrl = computed(() => isDarkMode.value ? RssWhiteIcon : RssIcon)
+const rssIconBackground = computed(() => `url("${rssIconUrl.value}") center / contain no-repeat`)
 
 const configFooter = computed(() => ({
   brand: {
@@ -427,7 +428,7 @@ useHead({
   display: block;
   width: 20px;
   height: 20px;
-  background: url(v-bind(rssIconUrl)) center / contain no-repeat;
+  background: v-bind(rssIconBackground);
 }
 
 </style>
