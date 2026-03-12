@@ -26,6 +26,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: '20'
+          package-manager-cache: false
 
       - name: Enable Corepack
         run: corepack enable
@@ -66,6 +67,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: '20'
+          package-manager-cache: false
 
       - name: Enable Corepack
         run: corepack enable
@@ -127,6 +129,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: '20'
+          package-manager-cache: false
 
       - name: Enable Corepack
         run: corepack enable
@@ -200,6 +203,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: '20'
+          package-manager-cache: false
 
       - name: Enable Corepack
         run: corepack enable
