@@ -12,7 +12,7 @@ tags:
     color: "#1D5BA1"
   - tag: "Best Practices"
     color: "#2196F3"
-cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1772844495/vue-lifecycle-creation-phase-beforecreate-created-setup_c9z7py.png
+cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284254/vue-lifecycle-creation-phase-beforecreate-created-setup_fkkyiw.png
 coverAlt: "Illustration of a Vue component lifecycle highlighting the creation phase with beforeCreate, created, and setup"
 coverCaption: "This image shows a Vue component lifecycle, focusing on the creation phase where beforeCreate, created, and setup run."
 draft: false

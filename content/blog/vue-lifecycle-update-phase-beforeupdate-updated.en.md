@@ -12,7 +12,7 @@ tags:
     color: "#1D5BA1"
   - tag: "Best Practices"
     color: "#2196F3"
-cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773202087/vue-lifecycle-update-phase-beforeupdate-updated_lkp7kk.png
+cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284616/vue-lifecycle-update-phase-beforeupdate-updated_qql7os.png
 coverAlt: "Illustration of the Vue lifecycle update phase with beforeUpdate and updated"
 coverCaption: "The update phase happens when a reactive change forces Vue to render the component again."
 draft: false

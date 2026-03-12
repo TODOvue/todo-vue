@@ -10,7 +10,7 @@ tags:
     color: "#41B883"
   - tag: "Buenas Prácticas"
     color: "#2196F3"
-cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773110330/vue-lifecycle-mounting-phase-beforemount-mounted_a6dreq.png
+cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284431/vue-lifecycle-mounting-phase-beforemount-mounted_wkrzal.png
 coverAlt: "Ilustración del ciclo de vida de un componente Vue enfocada en la fase de montaje del DOM"
 coverCaption: "La fase de montaje es el momento en el que Vue crea e inserta el DOM del componente en la página."
 draft: false

@@ -12,7 +12,7 @@ tags:
     color: "#1D5BA1"
   - tag: "Buenas Prácticas"
     color: "#2196F3"
-cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1772844495/vue-lifecycle-creation-phase-beforecreate-created-setup_c9z7py.png
+cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284254/vue-lifecycle-creation-phase-beforecreate-created-setup_fkkyiw.png
 coverAlt: "Ilustración de un ciclo de vida de un componente Vue, destacando la fase de creación con beforeCreate, created y setup"
 coverCaption: "En esta imagen se muestra el ciclo de vida de un componente Vue, con énfasis en la fase de creación donde se ejecutan los hooks beforeCreate, created y setup."
 draft: false
