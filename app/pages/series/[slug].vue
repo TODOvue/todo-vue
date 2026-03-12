@@ -113,13 +113,13 @@ const {
         <div
           v-for="(card, index) in seriesCards"
           :key="card.id"
-          class="blog-card-shell w-full"
+          class="blog-card-shell w-full flex-col items-stretch gap-3"
           role="link"
           tabindex="0"
           @click="handleCardClick($event, card.path)"
           @keydown="handleCardKeydown($event, card.path)"
         >
-          <p class="text-sm font-semibold text-primary">
+          <p class="w-full pl-1 text-sm font-semibold text-primary">
             {{ t('blogs.series.chapter', { number: index + 1 }) }}
           </p>
           <TvCard
