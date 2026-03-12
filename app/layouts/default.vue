@@ -18,6 +18,7 @@ import CrisDevIcon from '~/assets/icons/CrisDev.png'
 import GitHubIcon from '~/assets/icons/github.svg'
 import GitHubWhiteIcon from '~/assets/icons/github-white.svg'
 import RssIcon from '~/assets/icons/rss.svg'
+import RssWhiteIcon from '~/assets/icons/rss-white.svg'
 
 const router = useRouter()
 const route = useRoute()
@@ -219,6 +220,7 @@ watch([locale, posts], () => {
 
 const footerKey = computed(() => `${isDarkMode.value}-${language.value}-${footerRevision.value}`)
 const githubIconUrl = computed(() => isDarkMode.value ? GitHubWhiteIcon : GitHubIcon)
+const rssIconUrl = computed(() => isDarkMode.value ? RssWhiteIcon : RssIcon)
 
 const configFooter = computed(() => ({
   brand: {
@@ -239,7 +241,7 @@ const configFooter = computed(() => ({
     {
       label: 'RSS Feed',
       url: rssFeedUrl.value,
-      iconUrl: RssIcon
+      iconUrl: rssIconUrl.value
     }
   ],
   navigation: [
@@ -409,7 +411,8 @@ useHead({
   height: 40px !important;
 }
 
-:deep(.tv-footer__social-link[href='/rss.xml'] span) {
+:deep(.tv-footer__social-link[href='/rss.xml'] span),
+:deep(.tv-footer__social-link[href='/rss.en.xml'] span) {
   font-size: 0;
   line-height: 0;
   display: inline-block;
@@ -417,12 +420,13 @@ useHead({
   height: 20px;
 }
 
-:deep(.tv-footer__social-link[href='/rss.xml'] span::before) {
+:deep(.tv-footer__social-link[href='/rss.xml'] span::before),
+:deep(.tv-footer__social-link[href='/rss.en.xml'] span::before) {
   content: '';
   display: block;
   width: 20px;
   height: 20px;
-  background: url('@/assets/icons/rss.svg') center / contain no-repeat;
+  background: url(v-bind(rssIconUrl)) center / contain no-repeat;
 }
 
 </style>
