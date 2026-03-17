@@ -141,16 +141,19 @@ jobs:
         run: |
           TITLE="${{ github.event.pull_request.title }}"
           echo "PR title: $TITLE"
-          BUMP="patch"
+          BUMP=""
           if echo "$TITLE" | grep -qi "(major)"; then
             BUMP="major"
           elif echo "$TITLE" | grep -qi "(minor)"; then
             BUMP="minor"
+          elif echo "$TITLE" | grep -qi "(patch)"; then
+            BUMP="patch"
           fi
           echo "type=$BUMP" >> "$GITHUB_OUTPUT"
 
       - name: Bump version and push tag
         id: bump
+        if: steps.bump_type.outputs.type != ''
         shell: bash
         run: |
           BUMP="${{ steps.bump_type.outputs.type }}"
@@ -165,6 +168,11 @@ jobs:
           GIT_AUTHOR_EMAIL: "TODOvue-release[bot]@users.noreply.github.com"
           GIT_COMMITTER_NAME: "TODOvue-release[bot]"
           GIT_COMMITTER_EMAIL: "TODOvue-release[bot]@users.noreply.github.com"
+
+      - name: Skip version bump
+        if: steps.bump_type.outputs.type == ''
+        shell: bash
+        run: echo "No version bump marker found in PR title. Skipping version bump."
 
   deploy-main:
     needs: [prepare, lint, bump_version]
