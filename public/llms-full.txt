@@ -77,6 +77,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Auto-Synced Recent Posts
 - This section is maintained automatically by scaffold_post.py.
+- Vue Lifecycle: error handling with errorCaptured (EN, 2026-03-16)
+  - URL: https://todovue.blog/blog/vue-lifecycle-error-handling-errorcaptured.en/
+- Ciclos de vida en Vue: manejo de errores con errorCaptured (ES, 2026-03-16)
+  - URL: https://todovue.blog/blog/vue-lifecycle-error-handling-errorcaptured.es/
 - Vue Lifecycle: cached components with <KeepAlive> (activated, deactivated) (EN, 2026-03-12)
   - URL: https://todovue.blog/blog/vue-lifecycle-keepalive-activated-deactivated.en/
 - Ciclos de vida en Vue: componentes cacheados con <KeepAlive> (activated, deactivated) (ES, 2026-03-12)
