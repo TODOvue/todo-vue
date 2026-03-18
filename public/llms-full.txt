@@ -77,6 +77,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Auto-Synced Recent Posts
 - This section is maintained automatically by scaffold_post.py.
+- Vue Lifecycle: render debugging (renderTracked, renderTriggered) (EN, 2026-03-17)
+  - URL: https://todovue.blog/blog/vue-lifecycle-render-debug-rendertracked-rendertriggered.en/
+- Ciclos de vida en Vue: depuración del render (renderTracked, renderTriggered) (ES, 2026-03-17)
+  - URL: https://todovue.blog/blog/vue-lifecycle-render-debug-rendertracked-rendertriggered.es/
 - Vue Lifecycle: error handling with errorCaptured (EN, 2026-03-16)
   - URL: https://todovue.blog/blog/vue-lifecycle-error-handling-errorcaptured.en/
 - Ciclos de vida en Vue: manejo de errores con errorCaptured (ES, 2026-03-16)
