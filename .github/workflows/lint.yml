@@ -5,6 +5,10 @@ on:
     branches: [main, develop]
     types: [opened, synchronize, reopened, ready_for_review]
 
+concurrency:
+  group: quality-${{ github.event.pull_request.base.ref }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -33,7 +37,7 @@ jobs:
       - name: Run lint
         run: pnpm run lint
 
-  generate-check:
+  build:
     needs: lint
     runs-on: ubuntu-latest
     permissions:
@@ -81,5 +85,5 @@ jobs:
           echo NUXT_PUBLIC_SITE_TRAILING_SLASH=true >> .env
           echo NUXT_PUBLIC_VERSION_APP=ci >> .env
 
-      - name: Validate static generate
+      - name: Validate build
         run: pnpm run generate

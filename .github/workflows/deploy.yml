@@ -1,17 +1,74 @@
-name: Deploy TODOvue (PR merge)
+name: Deploy TODOvue (main)
 
 on:
-  pull_request:
-    branches: [main, develop]
-    types: [closed]
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy-todovue-main
+  cancel-in-progress: false
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: read
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.decide.outputs.should_run }}
+      should_bump: ${{ steps.decide.outputs.should_bump }}
+      should_lint: ${{ steps.decide.outputs.should_lint }}
+      source_ref: ${{ steps.decide.outputs.source_ref }}
+      pr_title: ${{ steps.decide.outputs.pr_title }}
+
+    steps:
+      - name: Decide whether this event should deploy
+        id: decide
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const message = context.payload.head_commit?.message || ''
+            const actor = context.actor || ''
+
+            if (actor === 'todovue-release[bot]' || message.startsWith('chore(release):')) {
+              core.info('Skipping push deploy for release bot commit.')
+              core.setOutput('should_run', 'false')
+              core.setOutput('should_bump', 'false')
+              core.setOutput('should_lint', 'false')
+              core.setOutput('source_ref', context.sha)
+              core.setOutput('pr_title', '')
+              return
+            }
+
+            const pulls = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+            })
+
+            const mergedPull = pulls.data.find((pull) => pull.merged_at)
+
+            if (mergedPull) {
+              core.info(`Running deploy for merged PR #${mergedPull.number}.`)
+              core.setOutput('should_run', 'true')
+              core.setOutput('should_bump', 'true')
+              core.setOutput('should_lint', 'false')
+              core.setOutput('source_ref', context.sha)
+              core.setOutput('pr_title', mergedPull.title || '')
+              return
+            }
+
+            core.info('Running deploy for direct push to main.')
+            core.setOutput('should_run', 'true')
+            core.setOutput('should_bump', 'false')
+            core.setOutput('should_lint', 'true')
+            core.setOutput('source_ref', context.sha)
+            core.setOutput('pr_title', '')
+
   lint:
-    if: github.event.pull_request.merged == true
+    needs: prepare
+    if: needs.prepare.outputs.should_run == 'true' && needs.prepare.outputs.should_lint == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -20,7 +77,7 @@ jobs:
       - name: Get latest code
         uses: actions/checkout@v5
         with:
-          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
+          ref: ${{ needs.prepare.outputs.source_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -41,11 +98,15 @@ jobs:
         run: pnpm run lint
 
   bump_version:
-    needs: lint
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    needs: [prepare, lint]
+    if: needs.prepare.outputs.should_bump == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
     outputs:
       new_version: ${{ steps.bump.outputs.new_version }}
+      deploy_ref: ${{ steps.resolve_deploy_ref.outputs.deploy_ref }}
 
     steps:
       - name: Generate token from GitHub App
@@ -82,11 +143,18 @@ jobs:
           git config user.email "TODOvue-release[bot]@users.noreply.github.com"
           git config url."https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/".insteadOf "https://github.com/"
 
+      - name: Sync with latest main
+        shell: bash
+        run: |
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+
       - name: Decide bump type
         id: bump_type
         shell: bash
         run: |
-          TITLE="${{ github.event.pull_request.title }}"
+          TITLE="${{ needs.prepare.outputs.pr_title }}"
           echo "PR title: $TITLE"
           BUMP=""
           if echo "$TITLE" | grep -qi "(major)"; then
@@ -121,9 +189,14 @@ jobs:
         shell: bash
         run: echo "No version bump marker found in PR title. Skipping version bump."
 
+      - name: Resolve deploy ref
+        id: resolve_deploy_ref
+        shell: bash
+        run: echo "deploy_ref=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
   deploy-main:
-    needs: [lint, bump_version]
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    needs: [prepare, lint, bump_version]
+    if: needs.prepare.outputs.should_run == 'true' && (needs.lint.result == 'success' || needs.lint.result == 'skipped') && (needs.bump_version.result == 'success' || needs.bump_version.result == 'skipped')
     runs-on: ubuntu-latest
 
     steps:
@@ -131,7 +204,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-          ref: main
+          ref: ${{ needs.bump_version.outputs.deploy_ref || needs.prepare.outputs.source_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -194,77 +267,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: .output/public/
           server-dir: ${{ secrets.FTP_DIR }}
-          dangerous-clean-slate: true
-
-  deploy-develop:
-    needs: lint
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Get latest code
-        uses: actions/checkout@v5
-        with:
-          ref: develop
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: '20'
-          package-manager-cache: false
-
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Activate pnpm
-        run: corepack prepare pnpm@10.32.1 --activate
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Rebuild SQLite for Linux
-        run: pnpm rebuild better-sqlite3
-
-      - name: Resolve version for app
-        id: app_version
-        shell: bash
-        run: |
-          V=$(node -p "require('./package.json').version")
-          echo "version_app=$V" >> "$GITHUB_OUTPUT"
-          echo "Using version: $V"
-
-      - name: Create .env file
-        run: |
-          touch .env
-          echo NUXT_PUBLIC_FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY_DEV }} >> .env
-          echo NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN_DEV }} >> .env
-          echo NUXT_PUBLIC_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID_DEV }} >> .env
-          echo NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET_DEV }} >> .env
-          echo NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID_DEV }} >> .env
-          echo NUXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID_DEV }} >> .env
-          echo NUXT_PUBLIC_FIREBASE_DATABASE_URL=${{ secrets.FIREBASE_DATABASE_URL_DEV }} >> .env
-          echo NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID }} >> .env
-          echo NUXT_PUBLIC_SITE_URL=${{ secrets.PUBLIC_SITE_URL_DEV }} >> .env
-          echo NUXT_PUBLIC_SITE_NAME=${{ secrets.PUBLIC_SITE_NAME }} >> .env
-          echo NUXT_PUBLIC_SITE_DESCRIPTION=${{ secrets.PUBLIC_SITE_DESCRIPTION }} >> .env
-          echo NUXT_PUBLIC_SITE_ENV=${{ secrets.PUBLIC_SITE_ENV_DEV }} >> .env
-          echo NUXT_PUBLIC_SITE_INDEXABLE=${{ secrets.PUBLIC_SITE_INDEXABLE_DEV }} >> .env
-          echo NUXT_PUBLIC_SITE_DEFAULT_LOCALE=${{ secrets.PUBLIC_SITE_DEFAULT_LOCALE }} >> .env
-          echo NUXT_PUBLIC_SITE_TRAILING_SLASH=${{ secrets.PUBLIC_SITE_TRAILING_SLASH }} >> .env
-          echo NUXT_PUBLIC_VERSION_APP=v${{ steps.app_version.outputs.version_app }}-dev >> .env
-
-      - name: Nuxt Generate
-        run: pnpm run generate
-
-      - name: Create robots.txt for development
-        run: 'echo -e "User-agent: *\nDisallow: /" > .output/public/robots.txt'
-
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: .output/public/
-          server-dir: ${{ secrets.FTP_DIR_DEVELOP }}
           dangerous-clean-slate: true

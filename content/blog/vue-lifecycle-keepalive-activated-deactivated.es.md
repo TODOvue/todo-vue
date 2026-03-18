@@ -40,15 +40,15 @@ schemaOrg:
 
 # Ciclos de vida en Vue: componentes cacheados con `<KeepAlive>` (`activated`, `deactivated`)
 
-No todos los componentes desaparecen realmente cuando dejan de verse. En Vue, un componente envuelto en `<KeepAlive>` puede salir del DOM activo y, aun así, seguir vivo en memoria. Ese detalle cambia por completo la forma de entender su ciclo de vida. ([Vue.js][1])
+No todos los componentes desaparecen realmente cuando dejan de verse. En Vue, un componente envuelto en `<KeepAlive>` puede salir del DOM activo y, aun así, seguir vivo en memoria. Ese detalle cambia por completo la forma de entender su ciclo de vida.
 
 Si tratas un componente cacheado como si siempre se montara desde cero, es fácil terminar recargando datos sin necesidad, dejando timers o polling corriendo cuando la vista ya no está visible, o mostrando información obsoleta al volver a una pestaña.
 
-Los hooks `activated` y `deactivated` existen precisamente para ese escenario: componentes que entran y salen de pantalla sin destruirse en cada cambio. ([Vue.js][2])
+Los hooks `activated` y `deactivated` existen precisamente para ese escenario: componentes que entran y salen de pantalla sin destruirse en cada cambio.
 
 ## Concepto clave
 
-`<KeepAlive>` cachea instancias de componentes dinámicos para preservar su estado entre cambios. En lugar de desmontar el componente cuando deja de mostrarse, Vue lo mueve a un estado desactivado. ([Vue.js][1])
+`<KeepAlive>` cachea instancias de componentes dinámicos para preservar su estado entre cambios. En lugar de desmontar el componente cuando deja de mostrarse, Vue lo mueve a un estado desactivado.
 
 Eso significa que el flujo ya no es solo:
 
@@ -70,14 +70,14 @@ Los hooks implicados son:
 Hay dos matices clave que conviene tener claros:
 
 * `activated` también se ejecuta en el montaje inicial del componente cacheado.
-* `deactivated` se ejecuta cuando el componente sale del DOM activo hacia la caché y también cuando finalmente se desmonta. ([Vue.js][3])
+* `deactivated` se ejecuta cuando el componente sale del DOM activo hacia la caché y también cuando finalmente se desmonta.
 
 En términos prácticos:
 
 * `mounted` sirve para inicialización única.
 * `activated` sirve para cada momento en que la vista vuelve a estar activa.
 * `deactivated` sirve para pausar, guardar o limpiar trabajo mientras la instancia queda en segundo plano.
-* `unmounted` solo entra en juego cuando la instancia realmente deja de existir. ([Vue.js][2])
+* `unmounted` solo entra en juego cuando la instancia realmente deja de existir.
 
 ## Cuándo usarlo
 
@@ -110,18 +110,18 @@ También conviene no meter aquí lógica que pertenece a otro sitio:
 
 * Si dependes de un dato concreto, un `watch()` suele expresar mejor la intención.
 * Si solo necesitas inicializar una vez, `mounted` o `setup()` suelen ser suficientes.
-* Si el componente no está dentro de `<KeepAlive>`, estos hooks no se dispararán. ([Vue.js][4])
+* Si el componente no está dentro de `<KeepAlive>`, estos hooks no se dispararán.
 
 ## Comparación rápida
 
 | Hook          | Cuándo se dispara                                               | Para qué encaja mejor                                         | Error habitual                                                         |
-| ------------- | --------------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------- |
+|---------------|-----------------------------------------------------------------|---------------------------------------------------------------|------------------------------------------------------------------------|
 | `mounted`     | Cuando la instancia se monta por primera vez                    | Inicialización única                                          | Poner aquí lógica que debería ejecutarse cada vez que la vista regresa |
 | `activated`   | En el montaje inicial y en cada reactivación desde caché        | Refrescar, resincronizar o retomar trabajo visible            | Asumir que el componente vuelve desde estado limpio                    |
 | `deactivated` | Cuando sale del DOM activo hacia caché y también al desmontarse | Pausar polling, timers, observers o persistir estado temporal | Tratarlo como si equivaliera a destrucción completa                    |
 | `unmounted`   | Cuando la instancia realmente se destruye                       | Limpieza final                                                | Esperar que ocurra en cada cambio entre vistas cacheadas               |
 
-La diferencia decisiva es esta: un componente cacheado no muere cuando deja de verse. Simplemente queda en pausa. ([Vue.js][1])
+La diferencia decisiva es esta: un componente cacheado no muere cuando deja de verse. Simplemente queda en pausa.
 
 ## Errores comunes
 
@@ -361,11 +361,11 @@ export default {
 * `onActivated()` cubre tanto la primera activación como cada regreso desde caché.
 * `onDeactivated()` pausa el polling para no seguir consumiendo recursos fuera de pantalla.
 * El filtro local se conserva porque la instancia no se destruye.
-* `onMounted()` queda reservado para trabajo realmente inicial; aquí solo marca que la instancia ya pasó por su montaje inicial. ([Vue.js][5])
+* `onMounted()` queda reservado para trabajo realmente inicial; aquí solo marca que la instancia ya pasó por su montaje inicial.
 
 ## Resumen
 
-* `<KeepAlive>` conserva la instancia y su estado local entre cambios de vista. ([Vue.js][1])
+* `<KeepAlive>` conserva la instancia y su estado local entre cambios de vista.
 * `activated` no significa “montar otra vez”, sino “volver a estar activo”.
 * `deactivated` es el hook adecuado para pausar trabajo cuando la instancia queda cacheada.
 * Conservar estado no evita que tengas que revalidar datos cuando la vista regresa.
