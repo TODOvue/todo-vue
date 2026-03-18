@@ -1,7 +1,7 @@
 name: Deploy TODOvue (main)
 
 on:
-  pull_request:
+  pull_request_target:
     branches: [main]
     types: [closed]
   push:
@@ -29,7 +29,7 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            if (context.eventName === 'pull_request') {
+            if (context.payload.pull_request) {
               const merged = context.payload.pull_request?.merged === true
               const sourceRef = context.payload.pull_request?.merge_commit_sha || context.sha
               core.setOutput('should_run', merged ? 'true' : 'false')
@@ -122,7 +122,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           fetch-depth: 0
           persist-credentials: true
-          ref: ${{ needs.prepare.outputs.source_ref }}
+          ref: main
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -142,6 +142,13 @@ jobs:
           git config user.name "TODOvue-release[bot]"
           git config user.email "TODOvue-release[bot]@users.noreply.github.com"
           git config url."https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/".insteadOf "https://github.com/"
+
+      - name: Sync with latest main
+        shell: bash
+        run: |
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
 
       - name: Decide bump type
         id: bump_type
@@ -215,6 +222,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run lint for deployed revision
+        if: needs.bump_version.outputs.deploy_ref != '' && needs.bump_version.outputs.deploy_ref != needs.prepare.outputs.source_ref
         run: pnpm run lint
 
       - name: Rebuild SQLite for Linux
