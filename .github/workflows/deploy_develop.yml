@@ -1,9 +1,6 @@
 name: Deploy TODOvue (develop)
 
 on:
-  pull_request_target:
-    branches: [develop]
-    types: [closed]
   push:
     branches: [develop]
 
@@ -20,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       should_run: ${{ steps.decide.outputs.should_run }}
+      should_lint: ${{ steps.decide.outputs.should_lint }}
       source_ref: ${{ steps.decide.outputs.source_ref }}
 
     steps:
@@ -28,33 +26,30 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            if (context.payload.pull_request) {
-              const merged = context.payload.pull_request?.merged === true
-              const sourceRef = context.payload.pull_request?.merge_commit_sha || context.sha
-              core.setOutput('should_run', merged ? 'true' : 'false')
-              core.setOutput('source_ref', sourceRef)
-              return
-            }
-
             const pulls = await github.rest.repos.listPullRequestsAssociatedWithCommit({
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: context.sha,
             })
 
-            if (pulls.data.length > 0) {
-              core.info('Skipping push deploy because commit is associated with a pull request.')
-              core.setOutput('should_run', 'false')
+            const mergedPull = pulls.data.find((pull) => pull.merged_at)
+
+            if (mergedPull) {
+              core.info(`Running deploy for merged PR #${mergedPull.number} to develop.`)
+              core.setOutput('should_run', 'true')
+              core.setOutput('should_lint', 'false')
+              core.setOutput('source_ref', context.sha)
               return
             }
 
             core.info('Running deploy for direct push to develop.')
             core.setOutput('should_run', 'true')
+            core.setOutput('should_lint', 'true')
             core.setOutput('source_ref', context.sha)
 
   lint:
     needs: prepare
-    if: needs.prepare.outputs.should_run == 'true'
+    if: needs.prepare.outputs.should_run == 'true' && needs.prepare.outputs.should_lint == 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -83,7 +78,7 @@ jobs:
 
   deploy-develop:
     needs: [prepare, lint]
-    if: needs.prepare.outputs.should_run == 'true'
+    if: needs.prepare.outputs.should_run == 'true' && (needs.lint.result == 'success' || needs.lint.result == 'skipped')
     runs-on: ubuntu-latest
 
     steps:
