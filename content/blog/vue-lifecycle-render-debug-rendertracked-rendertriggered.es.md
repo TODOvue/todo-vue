@@ -119,7 +119,7 @@ Guardar eventos en un `ref` puede introducir renders adicionales y contaminar la
 
 ### 3. Culpar a Vue en lugar del alcance reactivo
 
-Si el templete accede a un objeto grande, Vue hará lo correcto: suscribirse a todo lo que se use.
+Si el template accede a un objeto grande, Vue hará lo correcto: suscribirse a todo lo que se use.
 
 ### 4. Asumir comportamiento estable en producción
 
@@ -139,7 +139,7 @@ Una tabla puede estar leyendo más estado del necesario (filtros, flags, metadat
 
 Permite validar si el componente depende solo de lo necesario o si está sobre-suscrito a estado global.
 
-## Ejemplo con completo
+## Ejemplo completo
 
 ```vue [Composition API]
 <script setup lang="ts">

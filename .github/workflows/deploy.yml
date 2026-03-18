@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: read
 
 jobs:
@@ -21,6 +21,7 @@ jobs:
     outputs:
       should_run: ${{ steps.decide.outputs.should_run }}
       should_bump: ${{ steps.decide.outputs.should_bump }}
+      source_ref: ${{ steps.decide.outputs.source_ref }}
 
     steps:
       - name: Decide whether this event should deploy
@@ -30,8 +31,10 @@ jobs:
           script: |
             if (context.eventName === 'pull_request') {
               const merged = context.payload.pull_request?.merged === true
+              const sourceRef = context.payload.pull_request?.merge_commit_sha || context.sha
               core.setOutput('should_run', merged ? 'true' : 'false')
               core.setOutput('should_bump', merged ? 'true' : 'false')
+              core.setOutput('source_ref', sourceRef)
               return
             }
 
@@ -61,6 +64,7 @@ jobs:
             core.info('Running deploy for direct push to main.')
             core.setOutput('should_run', 'true')
             core.setOutput('should_bump', 'false')
+            core.setOutput('source_ref', context.sha)
 
   lint:
     needs: prepare
@@ -73,7 +77,7 @@ jobs:
       - name: Get latest code
         uses: actions/checkout@v5
         with:
-          ref: ${{ github.event_name == 'pull_request' && (github.event.pull_request.merge_commit_sha || github.sha) || github.sha }}
+          ref: ${{ needs.prepare.outputs.source_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -97,8 +101,12 @@ jobs:
     needs: [prepare, lint]
     if: needs.prepare.outputs.should_bump == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
     outputs:
       new_version: ${{ steps.bump.outputs.new_version }}
+      deploy_ref: ${{ steps.resolve_deploy_ref.outputs.deploy_ref }}
 
     steps:
       - name: Generate token from GitHub App
@@ -114,7 +122,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           fetch-depth: 0
           persist-credentials: true
-          ref: main
+          ref: ${{ needs.prepare.outputs.source_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -174,6 +182,11 @@ jobs:
         shell: bash
         run: echo "No version bump marker found in PR title. Skipping version bump."
 
+      - name: Resolve deploy ref
+        id: resolve_deploy_ref
+        shell: bash
+        run: echo "deploy_ref=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
   deploy-main:
     needs: [prepare, lint, bump_version]
     if: needs.prepare.outputs.should_run == 'true' && (needs.bump_version.result == 'success' || needs.bump_version.result == 'skipped')
@@ -184,7 +197,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-          ref: main
+          ref: ${{ needs.bump_version.outputs.deploy_ref || needs.prepare.outputs.source_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -200,6 +213,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Run lint for deployed revision
+        run: pnpm run lint
 
       - name: Rebuild SQLite for Linux
         run: pnpm rebuild better-sqlite3
