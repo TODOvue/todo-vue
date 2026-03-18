@@ -112,12 +112,12 @@ It is also worth keeping logic in the right place:
 
 ## Comparison
 
-| Hook | When it runs | Best fit | Common mistake |
-|---|---|---|---|
-| `mounted` | When the instance mounts for the first time | One-time initialization | Putting logic here that should run every time the view returns |
-| `activated` | On initial mount and on every reactivation from cache | Refreshing, re-syncing, or resuming visible work | Assuming the component comes back from a clean state |
-| `deactivated` | When the component leaves the active DOM for cache and also on unmount | Pausing polling, timers, observers, or persisting temporary state | Treating it as if it meant full destruction |
-| `unmounted` | When the instance is actually destroyed | Final cleanup | Expecting it to happen on every switch between cached views |
+| Hook          | When it runs                                                           | Best fit                                                          | Common mistake                                                 |
+|---------------|------------------------------------------------------------------------|-------------------------------------------------------------------|----------------------------------------------------------------|
+| `mounted`     | When the instance mounts for the first time                            | One-time initialization                                           | Putting logic here that should run every time the view returns |
+| `activated`   | On initial mount and on every reactivation from cache                  | Refreshing, re-syncing, or resuming visible work                  | Assuming the component comes back from a clean state           |
+| `deactivated` | When the component leaves the active DOM for cache and also on unmount | Pausing polling, timers, observers, or persisting temporary state | Treating it as if it meant full destruction                    |
+| `unmounted`   | When the instance is actually destroyed                                | Final cleanup                                                     | Expecting it to happen on every switch between cached views    |
 
 The decisive difference is this: a cached component does not die when it leaves the screen. It simply goes idle.
 
