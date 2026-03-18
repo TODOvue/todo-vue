@@ -30,6 +30,7 @@ jobs:
           script: |
             const message = context.payload.head_commit?.message || ''
             const actor = context.actor || ''
+            const mergeMatch = message.match(/^Merge pull request #(\d+)/m)
 
             if (actor === 'todovue-release[bot]' || message.startsWith('chore(release):')) {
               core.info('Skipping push deploy for release bot commit.')
@@ -41,13 +42,33 @@ jobs:
               return
             }
 
-            const pulls = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: context.sha,
-            })
+            let mergedPull = null
 
-            const mergedPull = pulls.data.find((pull) => pull.merged_at)
+            if (mergeMatch) {
+              const pullNumber = Number(mergeMatch[1])
+              try {
+                const response = await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pullNumber,
+                })
+                if (response.data.merged_at) {
+                  mergedPull = response.data
+                }
+              } catch (error) {
+                core.warning(`Unable to fetch PR #${pullNumber}: ${error.message}`)
+              }
+            }
+
+            if (!mergedPull) {
+              const pulls = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+              })
+
+              mergedPull = pulls.data.find((pull) => pull.merged_at) || null
+            }
 
             if (mergedPull) {
               core.info(`Running deploy for merged PR #${mergedPull.number}.`)
@@ -196,7 +217,7 @@ jobs:
 
   deploy-main:
     needs: [prepare, lint, bump_version]
-    if: needs.prepare.outputs.should_run == 'true' && (needs.lint.result == 'success' || needs.lint.result == 'skipped') && (needs.bump_version.result == 'success' || needs.bump_version.result == 'skipped')
+    if: always() && needs.prepare.outputs.should_run == 'true' && (needs.lint.result == 'success' || needs.lint.result == 'skipped') && (needs.bump_version.result == 'success' || needs.bump_version.result == 'skipped')
     runs-on: ubuntu-latest
 
     steps:

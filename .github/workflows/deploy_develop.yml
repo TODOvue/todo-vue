@@ -26,13 +26,35 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            const pulls = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: context.sha,
-            })
+            const message = context.payload.head_commit?.message || ''
+            const mergeMatch = message.match(/^Merge pull request #(\d+)/m)
+            let mergedPull = null
 
-            const mergedPull = pulls.data.find((pull) => pull.merged_at)
+            if (mergeMatch) {
+              const pullNumber = Number(mergeMatch[1])
+              try {
+                const response = await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pullNumber,
+                })
+                if (response.data.merged_at) {
+                  mergedPull = response.data
+                }
+              } catch (error) {
+                core.warning(`Unable to fetch PR #${pullNumber}: ${error.message}`)
+              }
+            }
+
+            if (!mergedPull) {
+              const pulls = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+              })
+
+              mergedPull = pulls.data.find((pull) => pull.merged_at) || null
+            }
 
             if (mergedPull) {
               core.info(`Running deploy for merged PR #${mergedPull.number} to develop.`)
@@ -78,7 +100,7 @@ jobs:
 
   deploy-develop:
     needs: [prepare, lint]
-    if: needs.prepare.outputs.should_run == 'true' && (needs.lint.result == 'success' || needs.lint.result == 'skipped')
+    if: always() && needs.prepare.outputs.should_run == 'true' && (needs.lint.result == 'success' || needs.lint.result == 'skipped')
     runs-on: ubuntu-latest
 
     steps:
