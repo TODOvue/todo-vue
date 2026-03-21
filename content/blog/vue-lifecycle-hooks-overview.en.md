@@ -146,8 +146,6 @@ console.log('Setup executed')
 ```
 > `setup()` is not available in Options API, because it is exclusive to Composition API.
 
-> If you want to go deeper into this phase, read the guide [Vue Lifecycle: creation phase (beforeCreate, created, setup)](/blog/vue-lifecycle-creation-phase-beforecreate-created-setup.en/).
-
 # Component mounting
 
 In this phase Vue **creates and inserts the component DOM**.
@@ -215,8 +213,6 @@ export default {
 </script>
 ```
 
-> If you want to go deeper into this phase, read the guide [Vue Lifecycle: mounting phase (beforeMount, mounted)](/blog/vue-lifecycle-mounting-phase-beforemount-mounted.en/).
-
 # Component update
 
 When reactive state changes, Vue **re-renders the component**.
@@ -274,8 +270,6 @@ export default {
 }
 </script>
 ```
-
-> If you want to go deeper into this phase, read the guide [Vue Lifecycle: update phase (beforeUpdate, updated)](/blog/vue-lifecycle-update-phase-beforeupdate-updated.en/).
 
 # Component unmounting
 
@@ -348,8 +342,6 @@ export default {
 </script>
 ```
 
-> If you want to go deeper into this phase, read the guide [Vue Lifecycle: unmounting phase (beforeUnmount, unmounted)](/blog/vue-lifecycle-unmounting-phase-beforeunmount-unmounted.en/).
-
 # `<KeepAlive>` hooks
 
 When a component is inside `<KeepAlive>`, **it is not destroyed**, it is only activated or deactivated.
@@ -400,8 +392,6 @@ export default {
 </script>
 ```
 
-> If you want to go deeper into this topic, read the guide [Vue Lifecycle: cached components with `<KeepAlive>` (activated, deactivated)](/blog/vue-lifecycle-keepalive-activated-deactivated.en/).
-
 # Error handling
 
 ## `onErrorCaptured` / `errorCaptured`
@@ -428,8 +418,6 @@ export default {
 }
 </script>
 ```
-
-> If you want to go deeper into this topic, read the guide [Vue Lifecycle: error handling with errorCaptured](/blog/vue-lifecycle-error-handling-errorcaptured.en/).
 
 # Render debugging hooks
 
@@ -483,8 +471,6 @@ export default {
 </script>
 ```
 
-> If you want to go deeper into this topic, read the guide [Vue Lifecycle: render debugging (renderTracked, renderTriggered)](/blog/vue-lifecycle-render-debug-rendertracked-rendertriggered.en/).
-
 # SSR (Server-Side Rendering)
 
 ## `onServerPrefetch` / `serverPrefetch`
@@ -511,8 +497,6 @@ export default {
 }
 </script>
 ```
-
-> If you want to go deeper into this topic, read the guide [Vue Lifecycle: server-side rendering with serverPrefetch](/blog/vue-lifecycle-ssr-serverprefetch.en/).
 
 # When to use hooks (and when not to)
 
