@@ -120,7 +120,7 @@ jobs:
 
   bump_version:
     needs: [prepare, lint]
-    if: needs.prepare.outputs.should_bump == 'true'
+    if: always() && needs.prepare.outputs.should_bump == 'true' && (needs.lint.result == 'success' || needs.lint.result == 'skipped')
     runs-on: ubuntu-latest
     permissions:
       contents: write
