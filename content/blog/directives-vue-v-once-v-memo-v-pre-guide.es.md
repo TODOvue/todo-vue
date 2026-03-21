@@ -6,13 +6,14 @@ updatedAt: 2026-02-23T21:00:00-05:00
 tags:
   - tag: "Directivas"
     color: "#6C5CE7"
+  - tag: "Rendimiento"
+    color: "#D4A017"
+  - tag: "Renderizado"
+    color: "#E17055"
   - tag: "Reactividad"
     color: "#1D5BA1"
   - tag: "Avanzado"
     color: "#F54927"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771897190/directives-vue-v-once-v-memo-v-pre-guide_ljsdlv.png
 coverAlt: "Imagen temporal para portada del artículo sobre v-once, v-memo y v-pre en Vue"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"

@@ -6,15 +6,12 @@ updatedAt: 2026-02-20T20:00:00-05:00
 tags:
   - tag: "Directives"
     color: "#6C5CE7"
+  - tag: "Templates"
+    color: "#00B894"
+  - tag: "Rendering"
+    color: "#E17055"
   - tag: "Basics"
     color: "#B173BF"
-  - tag: "Best Practices"
-    color: "#2196F3"
-  - tag: "Reactivity"
-    color: "#1D5BA1"
-draft: false
-locale: en
-author: TODOvue
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771635700/directives-vue-v-text-v-html-guide_n0cemz.png
 coverAlt: "Example of v-text and v-html usage in Vue.js"
 coverCaption: "Learn to use v-text and v-html safely and effectively in your Vue projects"

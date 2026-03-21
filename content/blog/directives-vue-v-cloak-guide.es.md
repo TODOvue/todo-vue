@@ -6,13 +6,12 @@ updatedAt: 2026-02-25T12:30:00-05:00
 tags:
   - tag: "Directivas"
     color: "#6C5CE7"
+  - tag: "Templates"
+    color: "#00B894"
+  - tag: "Renderizado"
+    color: "#E17055"
   - tag: "Básico"
     color: "#B173BF"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-  - tag: "Arquitectura"
-    color: "#4CAF50"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771976009/directives-vue-v-cloak-guide_vhkz2i.png
 coverAlt: "Portada temporal para el artículo sobre v-cloak en Vue"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"

@@ -8,11 +8,10 @@ tags:
     color: "#6C5CE7"
   - tag: "Lists"
     color: "#1D5BA1"
+  - tag: "Templates"
+    color: "#00B894"
   - tag: "Basics"
     color: "#B173BF"
-  - tag: "Best Practices"
-    color: "#2196F3"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770690176/directives-vue-v-for-guide_itbdds.png
 coverAlt: "Temporary cover image for the Vue v-for article"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"

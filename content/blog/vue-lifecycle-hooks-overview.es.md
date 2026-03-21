@@ -5,16 +5,14 @@ date: 2026-03-04T21:30:00-05:00
 updatedAt: 2026-03-04T21:30:00-05:00
 readingTime: 8
 tags:
-  - tag: "Básico"
-    color: "#B173BF"
+  - tag: "Ciclo de Vida"
+    color: "#FF6B6B"
   - tag: "Componentes"
     color: "#41B883"
   - tag: "Reactividad"
     color: "#1D5BA1"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-  - tag: "Arquitectura"
-    color: "#4CAF50"
+  - tag: "Básico"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1772676391/vue-lifecycle-hooks-overview_ovnxzy.png
 coverAlt: "Ciclos de vida en Vue: Una visión general"
 coverCaption: "Panorama de los hooks del ciclo de vida en Vue 3."

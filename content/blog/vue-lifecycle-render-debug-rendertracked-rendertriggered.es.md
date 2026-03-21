@@ -4,14 +4,16 @@ description: "Cómo usar renderTracked, renderTriggered, onRenderTracked y onRen
 date: 2026-03-17T22:00:00-05:00
 updatedAt: 2026-03-17T22:00:00-05:00
 tags:
-  - tag: "Avanzado"
-    color: "#F54927"
+  - tag: "Ciclo de Vida"
+    color: "#FF6B6B"
+  - tag: "Depuración"
+    color: "#C44569"
+  - tag: "Renderizado"
+    color: "#E17055"
   - tag: "Reactividad"
     color: "#1D5BA1"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-  - tag: "Componentes"
-    color: "#41B883"
+  - tag: "Avanzado"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773802976/vue-lifecycle-render-debug-rendertracked-rendertriggered_ekkgg1.png
 coverAlt: "Ilustración de depuración del render en Vue con renderTracked y renderTriggered"
 coverCaption: "renderTracked y renderTriggered ayudan a ver qué dependencia entra al render y cuál lo vuelve a disparar."

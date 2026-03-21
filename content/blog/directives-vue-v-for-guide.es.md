@@ -8,11 +8,10 @@ tags:
     color: "#6C5CE7"
   - tag: "Listas"
     color: "#1D5BA1"
+  - tag: "Templates"
+    color: "#00B894"
   - tag: "Básico"
     color: "#B173BF"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770690176/directives-vue-v-for-guide_itbdds.png
 coverAlt: "Imagen temporal para portada del artículo sobre v-for en Vue"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"

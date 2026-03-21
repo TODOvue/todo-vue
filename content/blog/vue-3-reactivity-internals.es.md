@@ -6,13 +6,12 @@ updatedAt: 2026-03-02T20:00:00-05:00
 tags:
   - tag: "Reactividad"
     color: "#1D5BA1"
-  - tag: "Avanzado"
-    color: "#F54927"
   - tag: "Arquitectura"
     color: "#4CAF50"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-draft: false
+  - tag: "Rendimiento"
+    color: "#D4A017"
+  - tag: "Avanzado"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1772497884/vue-3-reactivity-internals_hhru1s.png
 coverAlt: "Cómo funciona internamente el sistema de reactividad en Vue 3"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"

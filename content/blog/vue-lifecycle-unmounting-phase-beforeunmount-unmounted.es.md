@@ -4,14 +4,12 @@ description: "Qué ocurre cuando un componente sale de pantalla y cómo usar bef
 date: 2026-03-11T22:00:00-05:00
 updatedAt: 2026-03-11T22:00:00-05:00
 tags:
-  - tag: "Básico"
-    color: "#B173BF"
+  - tag: "Ciclo de Vida"
+    color: "#FF6B6B"
   - tag: "Componentes"
     color: "#41B883"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-  - tag: "Arquitectura"
-    color: "#4CAF50"
+  - tag: "Básico"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284773/vue-lifecycle-unmounting-phase-beforeunmount-unmounted_f9gqy0.png
 coverAlt: "Ilustración de la fase de desmontaje del ciclo de vida de Vue con beforeUnmount y unmounted"
 coverCaption: "La fase de desmontaje ocurre cuando Vue retira un componente del árbol activo"

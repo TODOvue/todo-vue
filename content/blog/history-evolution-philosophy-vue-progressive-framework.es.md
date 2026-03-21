@@ -8,8 +8,6 @@ tags:
     color: "#F27E68"
   - tag: "Ecosistema"
     color: "#68D4F2"
-  - tag: "Vite"
-    color: "#646CFF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1766105778/historia_de_vue_wbwv72.png
 coverAlt: Logo de Vue.js con fondo de código fuente
 coverCaption: "Explorando la evolución de Vue.js desde sus inicios hasta la actualidad"

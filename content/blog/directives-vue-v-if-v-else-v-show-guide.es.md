@@ -8,10 +8,10 @@ tags:
     color: "#6C5CE7"
   - tag: "Renderizado Condicional"
     color: "#E056FD"
+  - tag: "Templates"
+    color: "#00B894"
   - tag: "Básico"
     color: "#B173BF"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771265982/directives-vue-v-if-v-else-v-show-guide_qmtjik.png
 coverAlt: "Ilustración conceptual del renderizado condicional en Vue.js"
 coverCaption: "Renderizado condicional en Vue.js ilustrado por TODOvue"

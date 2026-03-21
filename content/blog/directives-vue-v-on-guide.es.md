@@ -6,11 +6,10 @@ updatedAt: 2026-02-13T10:30:00-05:00
 tags:
   - tag: "Directivas"
     color: "#6C5CE7"
+  - tag: "Eventos"
+    color: "#2D98DA"
   - tag: "Básico"
     color: "#B173BF"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771022043/directives-vue-v-on-guide_hwtqel.png
 coverAlt: "Imagen temporal para portada del articulo sobre v-on en Vue"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"

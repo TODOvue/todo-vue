@@ -4,12 +4,14 @@ description: "Qué ocurre justo antes y justo después de que Vue inserte un com
 date: 2026-03-09T22:00:00-05:00
 updatedAt: 2026-03-09T22:00:00-05:00
 tags:
-  - tag: "Básico"
-    color: "#B173BF"
+  - tag: "Ciclo de Vida"
+    color: "#FF6B6B"
   - tag: "Componentes"
     color: "#41B883"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
+  - tag: "Renderizado"
+    color: "#E17055"
+  - tag: "Básico"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284431/vue-lifecycle-mounting-phase-beforemount-mounted_wkrzal.png
 coverAlt: "Ilustración del ciclo de vida de un componente Vue enfocada en la fase de montaje del DOM"
 coverCaption: "La fase de montaje es el momento en el que Vue crea e inserta el DOM del componente en la página."

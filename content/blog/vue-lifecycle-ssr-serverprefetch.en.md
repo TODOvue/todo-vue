@@ -5,14 +5,16 @@ date: 2026-03-20T19:15:00-05:00
 updatedAt: 2026-03-20T19:15:00-05:00
 readingTime: 8
 tags:
-  - tag: "Advanced"
-    color: "#F54927"
+  - tag: "Lifecycle"
+    color: "#FF6B6B"
+  - tag: "SSR"
+    color: "#0E9AA7"
   - tag: "Architecture"
     color: "#4CAF50"
   - tag: "Components"
     color: "#41B883"
-  - tag: "Best Practices"
-    color: "#2196F3"
+  - tag: "Advanced"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1774051488/vue-lifecycle-ssr-serverprefetch_averlr.png
 coverAlt: "Illustration of a server delivering HTML with resolved data while a client hydrates without needing an extra fetch."
 coverCaption: "With `serverPrefetch`, the server can deliver complete HTML, improving both experience and SEO from the very first render."

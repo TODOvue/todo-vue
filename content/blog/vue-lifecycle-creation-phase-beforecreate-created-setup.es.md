@@ -4,14 +4,14 @@ description: "Qué pasa realmente en la fase de creación de un componente Vue y
 date: 2026-03-06T20:00:00-05:00
 updatedAt: 2026-03-06T20:00:00-05:00
 tags:
-  - tag: "Básico"
-    color: "#B173BF"
+  - tag: "Ciclo de Vida"
+    color: "#FF6B6B"
   - tag: "Componentes"
     color: "#41B883"
   - tag: "Reactividad"
     color: "#1D5BA1"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
+  - tag: "Básico"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284254/vue-lifecycle-creation-phase-beforecreate-created-setup_fkkyiw.png
 coverAlt: "Ilustración de un ciclo de vida de un componente Vue, destacando la fase de creación con beforeCreate, created y setup"
 coverCaption: "En esta imagen se muestra el ciclo de vida de un componente Vue, con énfasis en la fase de creación donde se ejecutan los hooks beforeCreate, created y setup."

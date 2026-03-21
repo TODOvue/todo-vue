@@ -4,14 +4,16 @@ description: "What happens when Vue re-renders a component and how to use before
 date: 2026-03-10T22:00:00-05:00
 updatedAt: 2026-03-10T22:00:00-05:00
 tags:
-  - tag: "Basics"
-    color: "#B173BF"
+  - tag: "Lifecycle"
+    color: "#FF6B6B"
   - tag: "Components"
     color: "#41B883"
+  - tag: "Rendering"
+    color: "#E17055"
   - tag: "Reactivity"
     color: "#1D5BA1"
-  - tag: "Best Practices"
-    color: "#2196F3"
+  - tag: "Basics"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284616/vue-lifecycle-update-phase-beforeupdate-updated_qql7os.png
 coverAlt: "Illustration of the Vue lifecycle update phase with beforeUpdate and updated"
 coverCaption: "The update phase happens when a reactive change forces Vue to render the component again."

@@ -4,14 +4,14 @@ description: "Cómo funcionan activated y deactivated en componentes cacheados c
 date: 2026-03-12T23:00:00-05:00
 updatedAt: 2026-03-12T23:00:00-05:00
 tags:
-  - tag: "Avanzado"
-    color: "#F54927"
+  - tag: "Ciclo de Vida"
+    color: "#FF6B6B"
+  - tag: "KeepAlive"
+    color: "#27AE60"
   - tag: "Componentes"
     color: "#41B883"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-  - tag: "Arquitectura"
-    color: "#4CAF50"
+  - tag: "Avanzado"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773371011/vue-lifecycle-keepalive-activated-deactivated_abjmwe.png
 coverAlt: "Ilustración de componentes cacheados con KeepAlive en Vue usando activated y deactivated"
 coverCaption: "KeepAlive permite desactivar y reactivar componentes sin destruir su estado local"

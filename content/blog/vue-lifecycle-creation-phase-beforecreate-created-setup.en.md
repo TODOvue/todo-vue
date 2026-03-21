@@ -4,14 +4,14 @@ description: "What really happens during a Vue component's creation phase and ho
 date: 2026-03-06T20:00:00-05:00
 updatedAt: 2026-03-06T20:00:00-05:00
 tags:
-  - tag: "Basics"
-    color: "#B173BF"
+  - tag: "Lifecycle"
+    color: "#FF6B6B"
   - tag: "Components"
     color: "#41B883"
   - tag: "Reactivity"
     color: "#1D5BA1"
-  - tag: "Best Practices"
-    color: "#2196F3"
+  - tag: "Basics"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284254/vue-lifecycle-creation-phase-beforecreate-created-setup_fkkyiw.png
 coverAlt: "Illustration of a Vue component lifecycle highlighting the creation phase with beforeCreate, created, and setup"
 coverCaption: "This image shows a Vue component lifecycle, focusing on the creation phase where beforeCreate, created, and setup run."

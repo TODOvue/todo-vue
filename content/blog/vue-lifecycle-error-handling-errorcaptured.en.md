@@ -4,14 +4,14 @@ description: "How to use errorCaptured and onErrorCaptured to isolate failures i
 date: 2026-03-16T22:00:00-05:00
 updatedAt: 2026-03-16T22:00:00-05:00
 tags:
-  - tag: "Advanced"
-    color: "#F54927"
+  - tag: "Lifecycle"
+    color: "#FF6B6B"
+  - tag: "Error Handling"
+    color: "#E55039"
   - tag: "Components"
     color: "#41B883"
-  - tag: "Best Practices"
-    color: "#2196F3"
-  - tag: "Architecture"
-    color: "#4CAF50"
+  - tag: "Advanced"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773714502/vue-lifecycle-error-handling-errorcaptured_mn62y7.png
 coverAlt: "Illustration of a Vue component with a protective shield, representing error handling with errorCaptured."
 coverCaption: "With errorCaptured, you can protect specific parts of your UI without compromising the whole experience."

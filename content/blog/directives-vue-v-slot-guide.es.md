@@ -6,13 +6,12 @@ updatedAt: 2026-02-19T08:00:00-05:00
 tags:
   - tag: "Directivas"
     color: "#6C5CE7"
+  - tag: "Slots"
+    color: "#8E44AD"
   - tag: "Componentes"
     color: "#41B883"
   - tag: "Avanzado"
     color: "#F54927"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771508914/directives-vue-v-slot-guide_wr2iyy.png
 coverAlt: "Portada del artículo Directivas en Vue: v-slot"
 coverCaption: "Usa v-slot para construir componentes más flexibles y reutilizables."
