@@ -77,6 +77,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Auto-Synced Recent Posts
 - This section is maintained automatically by scaffold_post.py.
+- Vue Lifecycle: server-side rendering with serverPrefetch (EN, 2026-03-20)
+  - URL: https://todovue.blog/blog/vue-lifecycle-ssr-serverprefetch.en/
+- Ciclos de vida en Vue: renderizado del lado del servidor (serverPrefetch) (ES, 2026-03-20)
+  - URL: https://todovue.blog/blog/vue-lifecycle-ssr-serverprefetch.es/
 - Vue Lifecycle: render debugging (renderTracked, renderTriggered) (EN, 2026-03-17)
   - URL: https://todovue.blog/blog/vue-lifecycle-render-debug-rendertracked-rendertriggered.en/
 - Ciclos de vida en Vue: depuración del render (renderTracked, renderTriggered) (ES, 2026-03-17)
