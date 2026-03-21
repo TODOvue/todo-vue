@@ -6,13 +6,12 @@ updatedAt: 2026-02-25T12:30:00-05:00
 tags:
   - tag: "Directives"
     color: "#6C5CE7"
+  - tag: "Templates"
+    color: "#00B894"
+  - tag: "Rendering"
+    color: "#E17055"
   - tag: "Basics"
     color: "#B173BF"
-  - tag: "Best Practices"
-    color: "#2196F3"
-  - tag: "Architecture"
-    color: "#4CAF50"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771976009/directives-vue-v-cloak-guide_vhkz2i.png
 coverAlt: "Temporary cover image for the article about v-cloak in Vue"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"

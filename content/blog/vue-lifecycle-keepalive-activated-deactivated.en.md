@@ -4,14 +4,14 @@ description: "How activated and deactivated work in components cached with <Keep
 date: 2026-03-12T23:00:00-05:00
 updatedAt: 2026-03-12T23:00:00-05:00
 tags:
-  - tag: "Advanced"
-    color: "#F54927"
+  - tag: "Lifecycle"
+    color: "#FF6B6B"
+  - tag: "KeepAlive"
+    color: "#27AE60"
   - tag: "Components"
     color: "#41B883"
-  - tag: "Best Practices"
-    color: "#2196F3"
-  - tag: "Architecture"
-    color: "#4CAF50"
+  - tag: "Advanced"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773371011/vue-lifecycle-keepalive-activated-deactivated_abjmwe.png
 coverAlt: "Illustration of cached Vue components with KeepAlive using activated and deactivated"
 coverCaption: "KeepAlive lets Vue deactivate and reactivate components without destroying their local state"

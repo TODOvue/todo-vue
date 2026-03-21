@@ -6,13 +6,12 @@ updatedAt: 2026-02-16T13:30:00-05:00
 tags:
   - tag: "Directives"
     color: "#6C5CE7"
+  - tag: "Forms"
+    color: "#E67E22"
   - tag: "Reactivity"
     color: "#1D5BA1"
   - tag: "Basics"
     color: "#B173BF"
-  - tag: "Best Practices"
-    color: "#2196F3"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771265788/directives-vue-v-model-guide_ticgya.png
 coverAlt: "Temporary cover image for the article about v-model in Vue"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"

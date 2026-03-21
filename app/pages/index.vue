@@ -156,11 +156,11 @@ setPageSeo({
           {{ t('home.sections.lastestPosts') }}
         </h2>
       </div>
-      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div class="grid grid-cols-1 justify-items-center gap-5 md:grid-cols-2 md:justify-items-stretch xl:grid-cols-4">
         <div
           v-for="post in latestPosts"
           :key="post.id"
-          class="blog-card-shell w-full"
+          class="blog-card-shell mx-auto w-full md:mx-0"
           role="link"
           tabindex="0"
           @click="handleCardClick($event, post.path)"
@@ -191,11 +191,11 @@ setPageSeo({
           {{ t('home.sections.series') }}
         </h2>
       </div>
-      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div class="grid grid-cols-1 justify-items-center gap-5 md:grid-cols-2 md:justify-items-stretch xl:grid-cols-4">
         <div
           v-for="seriesCard in seriesCards"
           :key="seriesCard.id"
-          class="blog-card-shell w-full"
+          class="blog-card-shell mx-auto w-full md:mx-0"
           role="link"
           tabindex="0"
           @click="handleSeriesCardClick($event, seriesCard.path)"

@@ -6,15 +6,14 @@ updatedAt: 2026-02-27T12:30:00-05:00
 tags:
   - tag: "Directivas"
     color: "#6C5CE7"
-  - tag: "Avanzado"
-    color: "#F54927"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
+  - tag: "Directivas Personalizadas"
+    color: "#7D5FFF"
   - tag: "Arquitectura"
     color: "#4CAF50"
   - tag: "Reactividad"
     color: "#1D5BA1"
-draft: false
+  - tag: "Avanzado"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1772207944/directives-vue-custom-directives-guide_nwp7od.png
 coverAlt: "Ejemplo de directiva personalizada en Vue 3"
 coverCaption: "Ejemplo de directiva personalizada en Vue 3"

@@ -6,13 +6,14 @@ updatedAt: 2026-02-23T21:00:00-05:00
 tags:
   - tag: "Directives"
     color: "#6C5CE7"
+  - tag: "Performance"
+    color: "#D4A017"
+  - tag: "Rendering"
+    color: "#E17055"
   - tag: "Reactivity"
     color: "#1D5BA1"
   - tag: "Advanced"
     color: "#F54927"
-  - tag: "Best Practices"
-    color: "#2196F3"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771897190/directives-vue-v-once-v-memo-v-pre-guide_ljsdlv.png
 coverAlt: "Temporary cover image for the article about v-once, v-memo, and v-pre in Vue"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"

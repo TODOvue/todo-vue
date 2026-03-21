@@ -4,12 +4,14 @@ description: "What happens right before and right after Vue inserts a component 
 date: 2026-03-09T22:00:00-05:00
 updatedAt: 2026-03-09T22:00:00-05:00
 tags:
-  - tag: "Basics"
-    color: "#B173BF"
+  - tag: "Lifecycle"
+    color: "#FF6B6B"
   - tag: "Components"
     color: "#41B883"
-  - tag: "Best Practices"
-    color: "#2196F3"
+  - tag: "Rendering"
+    color: "#E17055"
+  - tag: "Basics"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284431/vue-lifecycle-mounting-phase-beforemount-mounted_wkrzal.png
 coverAlt: "Illustration of a Vue component lifecycle focused on the DOM mounting phase"
 coverCaption: "The mounting phase is the moment when Vue creates and inserts the component DOM into the page."

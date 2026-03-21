@@ -6,13 +6,12 @@ updatedAt: 2026-02-16T13:30:00-05:00
 tags:
   - tag: "Directivas"
     color: "#6C5CE7"
+  - tag: "Formularios"
+    color: "#E67E22"
   - tag: "Reactividad"
     color: "#1D5BA1"
   - tag: "Básico"
     color: "#B173BF"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1771265788/directives-vue-v-model-guide_ticgya.png
 coverAlt: "Imagen temporal para portada del artículo sobre v-model en Vue"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"

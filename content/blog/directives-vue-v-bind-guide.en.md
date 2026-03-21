@@ -6,13 +6,12 @@ updatedAt: 2026-02-11T18:00:00-05:00
 tags:
   - tag: "Directives"
     color: "#6C5CE7"
+  - tag: "Templates"
+    color: "#00B894"
   - tag: "Reactivity"
     color: "#1D5BA1"
   - tag: "Basics"
     color: "#B173BF"
-  - tag: "Best Practices"
-    color: "#2196F3"
-draft: false
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1770849828/directives-vue-v-bind-guide_gqrgyj.png
 coverAlt: "Temporary cover image for the Vue v-bind article"
 coverCaption: "Temporary cover: replace with TODOvue final artwork"

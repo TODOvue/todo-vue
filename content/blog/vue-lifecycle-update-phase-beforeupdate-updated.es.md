@@ -4,14 +4,16 @@ description: "Qué ocurre cuando Vue vuelve a renderizar un componente y cómo u
 date: 2026-03-10T22:00:00-05:00
 updatedAt: 2026-03-10T22:00:00-05:00
 tags:
-  - tag: "Básico"
-    color: "#B173BF"
+  - tag: "Ciclo de Vida"
+    color: "#FF6B6B"
   - tag: "Componentes"
     color: "#41B883"
+  - tag: "Renderizado"
+    color: "#E17055"
   - tag: "Reactividad"
     color: "#1D5BA1"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
+  - tag: "Básico"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284616/vue-lifecycle-update-phase-beforeupdate-updated_qql7os.png
 coverAlt: "Ilustración de la fase de actualización del ciclo de vida de Vue con beforeUpdate y updated"
 coverCaption: "La fase de actualización ocurre cuando un cambio reactivo obliga a Vue a volver a renderizar el componente."

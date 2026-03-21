@@ -4,14 +4,14 @@ description: "Cómo usar errorCaptured y onErrorCaptured para aislar fallos en c
 date: 2026-03-16T22:00:00-05:00
 updatedAt: 2026-03-16T22:00:00-05:00
 tags:
-  - tag: "Avanzado"
-    color: "#F54927"
+  - tag: "Ciclo de Vida"
+    color: "#FF6B6B"
+  - tag: "Manejo de Errores"
+    color: "#E55039"
   - tag: "Componentes"
     color: "#41B883"
-  - tag: "Buenas Prácticas"
-    color: "#2196F3"
-  - tag: "Arquitectura"
-    color: "#4CAF50"
+  - tag: "Avanzado"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773714502/vue-lifecycle-error-handling-errorcaptured_mn62y7.png
 coverAlt: "Ilustración de un componente de Vue con un escudo de protección, simbolizando el manejo de errores con errorCaptured."
 coverCaption: "Con errorCaptured, puedes proteger partes específicas de tu UI sin comprometer toda la experiencia."

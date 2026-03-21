@@ -4,14 +4,16 @@ description: "Aprende a usar provide e inject en Vue.js para eliminar el Prop Dr
 date: 2026-01-22T23:30:00-05:00
 updatedAt: 2026-02-11T00:00:00-05:00
 tags:
-  - tag: "Avanzado"
-    color: "#F54927"
+  - tag: "Inyección de Dependencias"
+    color: "#2E86DE"
+  - tag: "Gestión de Estado"
+    color: "#FF9800"
   - tag: "Arquitectura"
     color: "#4CAF50"
   - tag: "Patrones de Diseño"
     color: "#9C27B0"
-  - tag: "Gestión de Estado"
-    color: "#FF9800"
+  - tag: "Componentes"
+    color: "#41B883"
   - tag: "Buenas Prácticas"
     color: "#2196F3"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1769126104/vue-provide-inject-avoid-prop-drilling_pkd9s1.png

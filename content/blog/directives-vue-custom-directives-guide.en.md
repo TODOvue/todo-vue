@@ -6,15 +6,14 @@ updatedAt: 2026-02-27T12:30:00-05:00
 tags:
   - tag: "Directives"
     color: "#6C5CE7"
-  - tag: "Advanced"
-    color: "#F54927"
-  - tag: "Best Practices"
-    color: "#2196F3"
+  - tag: "Custom Directives"
+    color: "#7D5FFF"
   - tag: "Architecture"
     color: "#4CAF50"
   - tag: "Reactivity"
     color: "#1D5BA1"
-draft: false
+  - tag: "Advanced"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1772207944/directives-vue-custom-directives-guide_nwp7od.png
 coverAlt: "Example of a custom directive in Vue 3"
 coverCaption: "Example of a custom directive in Vue 3"

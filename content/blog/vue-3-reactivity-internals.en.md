@@ -6,13 +6,12 @@ updatedAt: 2026-03-02T20:00:00-05:00
 tags:
   - tag: "Reactivity"
     color: "#1D5BA1"
-  - tag: "Advanced"
-    color: "#F54927"
   - tag: "Architecture"
     color: "#4CAF50"
-  - tag: "Best Practices"
-    color: "#2196F3"
-draft: false
+  - tag: "Performance"
+    color: "#D4A017"
+  - tag: "Advanced"
+    color: "#F54927"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1772497884/vue-3-reactivity-internals_hhru1s.png
 coverAlt: "How Vue 3 reactivity works internally"
 coverCaption: "Temporary cover: replace with final TODOvue artwork"

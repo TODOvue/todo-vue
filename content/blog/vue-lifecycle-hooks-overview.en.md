@@ -5,16 +5,14 @@ date: 2026-03-04T21:30:00-05:00
 updatedAt: 2026-03-04T21:30:00-05:00
 readingTime: 8
 tags:
-  - tag: "Basics"
-    color: "#B173BF"
+  - tag: "Lifecycle"
+    color: "#FF6B6B"
   - tag: "Components"
     color: "#41B883"
   - tag: "Reactivity"
     color: "#1D5BA1"
-  - tag: "Best Practices"
-    color: "#2196F3"
-  - tag: "Architecture"
-    color: "#4CAF50"
+  - tag: "Basics"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1772676391/vue-lifecycle-hooks-overview_ovnxzy.png
 coverAlt: "Vue Lifecycle Hooks: An Overview"
 coverCaption: "Overview of lifecycle hooks in Vue 3."

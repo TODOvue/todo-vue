@@ -4,14 +4,12 @@ description: "What happens when a component leaves the screen and how to use bef
 date: 2026-03-11T22:00:00-05:00
 updatedAt: 2026-03-11T22:00:00-05:00
 tags:
-  - tag: "Basics"
-    color: "#B173BF"
+  - tag: "Lifecycle"
+    color: "#FF6B6B"
   - tag: "Components"
     color: "#41B883"
-  - tag: "Best Practices"
-    color: "#2196F3"
-  - tag: "Architecture"
-    color: "#4CAF50"
+  - tag: "Basics"
+    color: "#B173BF"
 cover: https://res.cloudinary.com/denj4fg7f/image/upload/v1773284773/vue-lifecycle-unmounting-phase-beforeunmount-unmounted_f9gqy0.png
 coverAlt: "Illustration of the unmounting phase of the Vue lifecycle with beforeUnmount and unmounted"
 coverCaption: "The unmounting phase happens when Vue removes a component from the active tree"
