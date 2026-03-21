@@ -62,6 +62,19 @@ Además, existen hooks especiales para:
 
 En las siguientes secciones veremos **cuándo se ejecuta cada hook y para qué sirve**, con ejemplos.
 
+## Mapa de la serie
+
+Si quieres profundizar en cada grupo de hooks, aquí tienes la ruta completa de esta serie:
+
+* [Ciclos de vida en Vue: fase de creación (beforeCreate, created, setup)](/blog/vue-lifecycle-creation-phase-beforecreate-created-setup.es/)
+* [Ciclos de vida en Vue: fase de montaje (beforeMount, mounted)](/blog/vue-lifecycle-mounting-phase-beforemount-mounted.es/)
+* [Ciclos de vida en Vue: fase de actualización (beforeUpdate, updated)](/blog/vue-lifecycle-update-phase-beforeupdate-updated.es/)
+* [Ciclos de vida en Vue: fase de desmontaje (beforeUnmount, unmounted)](/blog/vue-lifecycle-unmounting-phase-beforeunmount-unmounted.es/)
+* [Ciclos de vida en Vue: componentes cacheados con KeepAlive (activated, deactivated)](/blog/vue-lifecycle-keepalive-activated-deactivated.es/)
+* [Ciclos de vida en Vue: manejo de errores con errorCaptured](/blog/vue-lifecycle-error-handling-errorcaptured.es/)
+* [Ciclos de vida en Vue: depuración del render (renderTracked, renderTriggered)](/blog/vue-lifecycle-render-debug-rendertracked-rendertriggered.es/)
+* [Ciclos de vida en Vue: renderizado del lado del servidor (serverPrefetch)](/blog/vue-lifecycle-ssr-serverprefetch.es/)
+
 # Creación del componente
 
 En esta fase Vue **crea la instancia del componente y configura la reactividad**, pero **todavía no existe el DOM**.

@@ -45,6 +45,21 @@ They all start with `v-` and exist to **reduce imperative code** and make templa
 This post is a **high-level map**: it doesn’t go extremely deep, but it makes it clear **what each directive does, when to use it, and what problem it solves**.
 Each one will later have its own dedicated article.
 
+## Series map
+
+If you want to go deeper into each directive, here is the full path for this series:
+
+* [Vue Directives: v-if, v-else, and v-show](/blog/directives-vue-v-if-v-else-v-show-guide.en/)
+* [Vue Directives: v-for](/blog/directives-vue-v-for-guide.en/)
+* [Vue Directives: v-bind](/blog/directives-vue-v-bind-guide.en/)
+* [Vue Directives: v-model](/blog/directives-vue-v-model-guide.en/)
+* [Vue Directives: v-on](/blog/directives-vue-v-on-guide.en/)
+* [Vue Directives: v-text and v-html](/blog/directives-vue-v-text-v-html-guide.en/)
+* [Vue Directives: v-slot](/blog/directives-vue-v-slot-guide.en/)
+* [Vue Directives: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.en/)
+* [Vue Directives: v-cloak](/blog/directives-vue-v-cloak-guide.en/)
+* [Vue Directives: Custom Directives](/blog/directives-vue-custom-directives-guide.en/)
+
 ## `v-if`, `v-else-if`, `v-else`
 
 They’re used to **render or remove elements from the DOM** based on a reactive condition.
@@ -85,8 +100,6 @@ export default {
 </template>
 ```
 
-> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](/blog/directives-vue-v-if-v-else-v-show-guide.en/).
-
 ## `v-show`
 
 It controls visibility using CSS (`display: none`), but **the element always exists in the DOM**.
@@ -122,8 +135,6 @@ export default {
   <p v-show="isVisible">Visible content</p>
 </template>
 ```
-> If you want to learn more, read the guide [Vue Directives: v-if, v-else, and v-show](/blog/directives-vue-v-if-v-else-v-show-guide.en/).
-
 ## `v-for`
 
 It lets you render lists from reactive arrays or objects.
@@ -172,8 +183,6 @@ export default {
 `key` **is not optional**. It never was.
 It’s essential so Vue can properly optimize rendering.
 
-> If you want to learn more, read the guide [Vue Directives: v-for](/blog/directives-vue-v-for-guide.en/).
-
 ## `v-bind`
 
 It dynamically binds HTML attributes or component props.
@@ -209,8 +218,6 @@ export default {
   <img :src="imageUrl" :alt="description" />
 </template>
 ```
-
-> If you want to learn more, read the guide [Vue Directive: v-bind](/blog/directives-vue-v-bind-guide.en/).
 
 ## `v-model`
 
@@ -254,8 +261,6 @@ export default {
 Internally, it combines props and events (`modelValue` + `update:modelValue`).
 It’s not magic, but it definitely feels like it.
 
-> If you want to learn more, read the guide [Vue Directives: v-model](/blog/directives-vue-v-model-guide.en/).
-
 ## `v-on`
 
 It listens to DOM events and runs reactive logic.
@@ -298,8 +303,6 @@ export default {
 
 It supports **modifiers** (`.stop`, `.prevent`, `.once`, etc.) that avoid unnecessary code.
 
-> If you want to learn more, read the guide [Vue Directives: v-on](/blog/directives-vue-v-on-guide.en/).
-
 ## `v-text`
 
 It inserts plain text into an element, replacing its content.
@@ -332,8 +335,6 @@ export default {
 ```
 
 It’s not used much, but it exists for very specific cases where you don’t want interpolations.
-
-> If you want to learn more, read the guide [Vue Directives: v-text and v-html](/blog/directives-vue-v-text-v-html-guide.en/).
 
 ## `v-html`
 
@@ -368,8 +369,6 @@ export default {
 
 > ⚠️ **Never use it with untrusted content**.
 It’s a direct door to XSS if you don’t know exactly what you’re rendering.
-
-> If you want to learn more, read the guide [Vue Directives: v-text and v-html](/blog/directives-vue-v-text-v-html-guide.en/)
 
 ## `v-slot`
 
@@ -413,8 +412,6 @@ export default {
 
 It’s key for building **flexible, composable, reusable** components.
 
-> If you want to learn more, read the guide [Vue Directives: v-slot](/blog/directives-vue-v-slot-guide.en/).
-
 ## `v-once`
 
 It renders content **only once** and excludes it from the reactive system.
@@ -449,8 +446,6 @@ export default {
 ```
 
 Useful when content should never update, even if state changes.
-
-> If you want to learn more, read the guide [Vue Directives: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.en).
 
 ## `v-memo`
 
@@ -491,8 +486,6 @@ export default {
 It’s an **advanced optimization**.
 It’s not meant to be used “just because”, but in real bottlenecks.
 
-> If you want to learn more, read the guide [Vue Directives: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.en).
-
 ## `v-pre`
 
 It prevents Vue from compiling the node’s content.
@@ -520,8 +513,6 @@ export default {}
 ```
 
 Perfect for showing snippets, literal examples, or demo templates.
-
-> If you want to learn more, read the guide [Vue Directives: v-once / v-memo / v-pre](/blog/directives-vue-v-once-v-memo-v-pre-guide.en).
 
 ## `v-cloak`
 
@@ -551,8 +542,6 @@ export default {}
 
 It prevents the initial flash in client-rendered apps.
 
-> If you want to learn more, read the guide [Vue Directives: v-cloak](/blog/directives-vue-v-cloak-guide.en/).
-
 ## Custom directives
 
 They let you extend Vue to directly manipulate the DOM when there’s no more declarative option.
@@ -576,7 +565,6 @@ app.directive('focus', {
 They’re powerful, but they must be used carefully:
 if you abuse them, you’re probably breaking Vue’s mental model.
 
-> If you want to learn more, read the guide [Vue Directives: Custom Directives](/blog/directives-vue-custom-directives-guide.en/).
 
 ## Conclusion
 
