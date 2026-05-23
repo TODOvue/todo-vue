@@ -16,7 +16,6 @@ const blogRoutes = (() => {
   }
 })()
 
-const tvUiStyleFallback = '@todovue/tv-ui/style.css'
 const tvUiNoopStyle = fileURLToPath(new URL('./assets/styles/tv-ui-noop.css', import.meta.url))
 const tvUiMissingStyleAliases = [
   '@todovue/tv-alert/style.css',

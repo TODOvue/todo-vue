@@ -9,10 +9,24 @@ const compat = new FlatCompat({
   baseDirectory
 })
 
-const standardConfigs = compat.extends('standard').map((config) => ({
-  ...config,
-  files: ['**/*.{js,cjs,mjs,jsx}']
-}))
+const standardConfigs = compat.extends('standard').map((config) => {
+  const nodeRules = config.plugins?.n?.rules ?? {}
+  const rules = Object.fromEntries(
+    Object.entries(config.rules ?? {}).filter(([ruleName]) => {
+      if (!ruleName.startsWith('n/')) {
+        return true
+      }
+
+      return ruleName.slice(2) in nodeRules
+    })
+  )
+
+  return {
+    ...config,
+    files: ['**/*.{js,cjs,mjs,jsx}'],
+    rules
+  }
+})
 
 export default withNuxt(
   {
