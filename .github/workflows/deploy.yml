@@ -106,11 +106,10 @@ jobs:
           node-version: '22.13.0'
           package-manager-cache: false
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Activate pnpm
-        run: corepack prepare pnpm@11.2.2 --activate
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.2.2
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -151,11 +150,10 @@ jobs:
           node-version: '22.13.0'
           package-manager-cache: false
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Activate pnpm
-        run: corepack prepare pnpm@11.2.2 --activate
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.2.2
 
       - name: Configure Git
         shell: bash
@@ -233,11 +231,10 @@ jobs:
           node-version: '22.13.0'
           package-manager-cache: false
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Activate pnpm
-        run: corepack prepare pnpm@11.2.2 --activate
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.2.2
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
