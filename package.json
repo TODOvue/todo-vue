@@ -3,6 +3,9 @@
   "name": "todo-vue",
   "type": "module",
   "private": false,
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

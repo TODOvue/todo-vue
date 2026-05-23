@@ -83,7 +83,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22.13.0'
           package-manager-cache: false
 
       - name: Enable Corepack
@@ -112,7 +112,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22.13.0'
           package-manager-cache: false
 
       - name: Enable Corepack
