@@ -1,6 +1,7 @@
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import tailwindcss from '@tailwindcss/vite'
 
 const blogRoutes = (() => {
   try {
@@ -105,12 +106,10 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/eslint',
     '@nuxt/fonts',
-    '@nuxt/hints',
     '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@todovue/tv-ui/nuxt',
-    '@nuxtjs/tailwindcss',
   ],
 
   eslint: {
@@ -168,7 +167,7 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  css: [tvUiStyleFallback, '@/assets/styles/tailwind.css', '@/assets/styles/main.css'],
+  css: ['@/assets/styles/main.css'],
 
   content: {},
 
@@ -183,6 +182,9 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    plugins: [
+      tailwindcss()
+    ],
     build: {
       chunkSizeWarningLimit: 1000
     }

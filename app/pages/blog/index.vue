@@ -215,7 +215,7 @@ setPageSeo({
         <div class="mb-5 flex justify-center sm:justify-end">
           <button
             :aria-label="isHorizontalView ? t('blogs.switch.gridAria') : t('blogs.switch.listAria')"
-            class="flex items-center gap-2 rounded-lg border-0 bg-light-card-bg dark:bg-dark-card-bg px-5 py-2.5 text-sm font-medium text-text shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow"
+            class="flex items-center gap-2 rounded-lg border-0 bg-light-card-bg px-5 py-2.5 text-sm font-medium text-light-text shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow dark:bg-dark-card-bg dark:text-dark-text"
             @click="toggleView"
           >
             <span class="[&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-[18px] sm:[&>svg]:w-[18px]">

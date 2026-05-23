@@ -1,3 +1,50 @@
+@import "tailwindcss";
+@import "@todovue/tv-ui/style.css" layer(components);
+
+@source "../../../app";
+@source "../../../node_modules/@todovue/tv-ui";
+
+@custom-variant dark (&:where(.dark-mode, .dark-mode *));
+
+@theme {
+  --color-dark-body-bg: var(--dark-body-bg);
+  --color-dark-card-bg: var(--dark-card-bg);
+  --color-dark-text: var(--dark-text);
+  --color-dark-button-bg: var(--dark-button-bg);
+  --color-dark-button-text: var(--dark-button-text);
+  --color-light-body-bg: var(--light-body-bg);
+  --color-light-card-bg: var(--light-card-bg);
+  --color-light-text: var(--light-text);
+  --color-light-button-bg: var(--light-button-bg);
+  --color-light-button-text: var(--light-button-text);
+  --color-primary: var(--button-bg);
+
+  --animate-fadeIn: fadeIn 0.5s ease-in forwards;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+:root {
+  --dark-body-bg: #161E31;
+  --dark-card-bg: #0E131F;
+  --dark-text: #CBD5E1;
+  --light-body-bg: #f8FAFC;
+  --light-card-bg: #B9C4DF;
+  --light-button-text: #F1F9F9;
+  --light-text: #1E293B;
+  --font-text: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-title: 'Kanit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --button-bg: #ef233c;
+}
+
 .dark-mode {
   background-color: var(--dark-body-bg);
   color: var(--dark-text);
