@@ -65,6 +65,13 @@
     },
     "toc": {
       "title": "En este blog"
+    },
+    "lab": {
+      "label": "Mini laboratorio",
+      "goal": "Objetivo",
+      "tasks": "Tareas",
+      "starterCode": "Código inicial",
+      "solutionHint": "Pista"
     }
   },
   "home": {

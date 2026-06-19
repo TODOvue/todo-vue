@@ -65,6 +65,13 @@
     },
     "toc": {
       "title": "In this blog"
+    },
+    "lab": {
+      "label": "Mini lab",
+      "goal": "Goal",
+      "tasks": "Tasks",
+      "starterCode": "Starter code",
+      "solutionHint": "Hint"
     }
   },
   "home": {

@@ -29,6 +29,33 @@ schemaOrg:
       type: "Person"
       name: "TODOvue"
     datePublished: "2026-01-05T22:00:00-05:00"
+lab:
+  title: "Build a tiny reactive counter"
+  goal: "Practice the difference between state, derived state, and effects by creating a small counter with Vue reactivity primitives."
+  tasks:
+    - "Create a counter with ref() and render its current value."
+    - "Add a computed value that doubles the counter."
+    - "Use watch() to log when the counter reaches 5."
+    - "Explain in one sentence which reads are tracked and which writes trigger updates."
+  starterCode: |
+    <script setup>
+    import { computed, ref, watch } from 'vue'
+
+    const count = ref(0)
+    const doubled = computed(() => count.value * 2)
+
+    watch(count, (value) => {
+      if (value === 5) {
+        console.log('The counter reached 5')
+      }
+    })
+    </script>
+
+    <template>
+      <button @click="count++">Count: {{ count }}</button>
+      <p>Doubled: {{ doubled }}</p>
+    </template>
+  solutionHint: "The template and computed getter read count, so Vue tracks those dependencies. Clicking the button writes to count, so Vue triggers the dependent updates."
 ---
 # What Is Reactivity? The Magic Behind Vue.js Explained Clearly
 

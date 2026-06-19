@@ -31,6 +31,13 @@ export default defineContentConfig({
           seriesOrder: z.number().int().positive().optional(),
           seriesTitle: z.string().optional(),
           seriesDescription: z.string().optional(),
+          lab: z.object({
+            title: z.string(),
+            goal: z.string(),
+            tasks: z.array(z.string()).default([]),
+            starterCode: z.string().optional(),
+            solutionHint: z.string().optional(),
+          }).optional(),
         })
       })
     )

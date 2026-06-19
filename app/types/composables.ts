@@ -2,6 +2,14 @@ import type { ComputedRef, DeepReadonly, Ref } from 'vue'
 
 export type BlogTag = string | { tag?: string; color?: string }
 
+export type BlogLabConfig = {
+  title: string
+  goal: string
+  tasks: string[]
+  starterCode?: string
+  solutionHint?: string
+}
+
 export type BlogPost = {
   id?: string | number
   _id?: string
@@ -28,6 +36,7 @@ export type BlogPost = {
   seriesOrder?: number
   seriesTitle?: string
   seriesDescription?: string
+  lab?: BlogLabConfig
   [key: string]: unknown
 }
 
