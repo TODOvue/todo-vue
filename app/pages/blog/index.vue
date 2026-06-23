@@ -268,7 +268,7 @@ setPageSeo({
         </ClientOnly>
       </section>
 
-      <section class="static flex flex-col gap-10 lg:sticky lg:top-5 lg:h-fit">
+      <section class="flex flex-col gap-10 lg:h-fit">
         <TvSidebar
           :data="renderMostPopular"
           @click="handleLinkBlog"

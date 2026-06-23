@@ -29,6 +29,33 @@ schemaOrg:
       type: "Person"
       name: "TODOvue"
     datePublished: "2026-01-05T22:00:00-05:00"
+lab:
+  title: "Construye un contador reactivo pequeno"
+  goal: "Practica la diferencia entre estado, estado derivado y efectos creando un contador pequeno con primitivas de reactividad de Vue."
+  tasks:
+    - "Crea un contador con ref() y muestra su valor actual."
+    - "Agrega un computed que duplique el contador."
+    - "Usa watch() para registrar cuando el contador llegue a 5."
+    - "Explica en una frase que lecturas se rastrean y que escrituras disparan actualizaciones."
+  starterCode: |
+    <script setup>
+    import { computed, ref, watch } from 'vue'
+
+    const count = ref(0)
+    const doubled = computed(() => count.value * 2)
+
+    watch(count, (value) => {
+      if (value === 5) {
+        console.log('El contador llego a 5')
+      }
+    })
+    </script>
+
+    <template>
+      <button @click="count++">Contador: {{ count }}</button>
+      <p>Doble: {{ doubled }}</p>
+    </template>
+  solutionHint: "El template y el getter de computed leen count, por eso Vue rastrea esas dependencias. Al hacer clic en el boton se escribe en count, asi que Vue dispara las actualizaciones dependientes."
 ---
 # ¿Qué es la reactividad? La magia detrás de Vue.js explicada con claridad
 

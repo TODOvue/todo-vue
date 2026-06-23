@@ -10,6 +10,7 @@ import {
 } from '@todovue/tv-ui'
 
 import { useI18n } from 'vue-i18n'
+import BlogLab from '~/components/blog/BlogLab.vue'
 import type { BlogPost, CardConfig, PopularConfig } from '@/types/composables'
 import type { BreadcrumbItem, SidebarBlogLink, TagLike, TocData } from '@/types/views'
 import { getDocumentSlug } from '@/utils/contentLocale'
@@ -105,6 +106,8 @@ const articleData = computed(() => ({
   coverCaption: getPostCoverCaption(resolvedPost.value),
   body: resolvedPost.value.body
 }))
+
+const labData = computed(() => resolvedPost.value.lab)
 
 const currentSeriesKey = computed<string>(() => normalizeSeriesKey(resolvedPost.value.series))
 
@@ -488,6 +491,10 @@ const articleContainer = ref<HTMLElement | null>(null)
             :content="articleData"
             :lang="locale"
             @label-click="handleLabelClick"
+          />
+          <BlogLab
+            v-if="labData"
+            :lab="labData"
           />
           <div
             v-if="!seriesContext && (previousPost || nextPost)"

@@ -42,7 +42,7 @@ export const useGlobalLoader = (): GlobalLoaderApi => {
     loaderTimer = setInterval(() => {
       if (progress.value >= 95) return
 
-      let step = 0
+      let step: number
       if (progress.value < 60) {
         step = 8 + Math.random() * 6
       } else if (progress.value < 80) {

@@ -22,6 +22,7 @@ Use this as the source of truth for frontmatter tags in `content/blog`.
 | Best Practices        | Buenas Prácticas          | `#2196F3` |
 | State Management      | Gestión de Estado         | `#FF9800` |
 | Components            | Componentes               | `#41B883` |
+| Composables           | Composables               | `#14B8A6` |
 | Directives            | Directivas                | `#6C5CE7` |
 | Conditional Rendering | Renderizado Condicional   | `#E056FD` |
 | Lists                 | Listas                    | `#1D5BA1` |
