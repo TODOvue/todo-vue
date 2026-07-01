@@ -16,7 +16,7 @@ Primary language support:
 ## What This Site Covers
 - Vue 3 fundamentals and advanced patterns
 - Nuxt architecture and setup
-- Directives, reactivity, slots, provide/inject, and rendering patterns
+- Directives, props/emits, component communication, reactivity, slots, provide/inject, and rendering patterns
 - Practical, implementation-focused examples in ES and EN
 
 ## Audience
