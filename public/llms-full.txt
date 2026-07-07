@@ -16,16 +16,22 @@
 - When user language is English, prefer `.en` URLs.
 
 ## Domain Summary
-TODOvue publishes practical Vue/Nuxt guides with production-oriented explanations, covering directives, reactivity, architecture patterns, and modern frontend workflows.
+TODOvue publishes practical Vue/Nuxt guides with production-oriented explanations, covering directives, reactivity, architecture patterns, Composition API decisions, and modern frontend workflows.
 
 ## Real Content Categories (from post tags)
-- ES: Directivas, Reactividad, Basico, Avanzado, Arquitectura, Patrones de Diseno, Gestion de Estado, Ecosistema, Historia, Vite, Renderizado Condicional, Componentes, Eventos, Guias, Listas, Buenas Practicas
-- EN: Directives, Reactivity, Basics, Advanced, Architecture, Design Patterns, State Management, Ecosystem, History, Vite, Conditional Rendering, Components, Events, Guides, Lists, Best Practices
+- ES: Directivas, Reactividad, Basico, Avanzado, Arquitectura, Patrones de Diseno, Gestion de Estado, Ecosistema, Historia, Vite, Renderizado Condicional, Componentes, Eventos, Guias, Listas, Buenas Practicas, Composables, Rendimiento
+- EN: Directives, Reactivity, Basics, Advanced, Architecture, Design Patterns, State Management, Ecosystem, History, Vite, Conditional Rendering, Components, Events, Guides, Lists, Best Practices, Composables, Performance
 
 ## Top Pages to Retrieve First (High Utility + Freshness)
+- Vue computed vs watch vs watchEffect (published 2026-07-06):
+  - ES: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.es/
+  - EN: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.en/
 - Props and Emits in Vue 3: Component Communication (published 2026-06-30):
   - ES: https://todovue.blog/blog/vue-3-props-emits-component-communication.es/
   - EN: https://todovue.blog/blog/vue-3-props-emits-component-communication.en/
+- Composables in Vue 3 (published 2026-06-22):
+  - ES: https://todovue.blog/blog/vue-3-composables-extract-reusable-logic.es/
+  - EN: https://todovue.blog/blog/vue-3-composables-extract-reusable-logic.en/
 - Vue 3 reactivity internals (published 2026-03-03):
   - ES: https://todovue.blog/blog/vue-3-reactivity-internals.es/
   - EN: https://todovue.blog/blog/vue-3-reactivity-internals.en/
@@ -80,10 +86,18 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Auto-Synced Recent Posts
 - This section is maintained automatically by scaffold_post.py.
+- Vue computed vs watch vs watchEffect: When to Use Each One (EN, 2026-07-06)
+  - URL: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.en/
+- Vue computed vs watch vs watchEffect: cuándo usar cada uno (ES, 2026-07-06)
+  - URL: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.es/
 - Props and Emits in Vue 3: Component Communication (EN, 2026-06-30)
   - URL: https://todovue.blog/blog/vue-3-props-emits-component-communication.en/
-- Props y Emits en Vue 3: comunicacion entre componentes (ES, 2026-06-30)
+- Props y Emits en Vue 3: comunicación entre componentes (ES, 2026-06-30)
   - URL: https://todovue.blog/blog/vue-3-props-emits-component-communication.es/
+- Composables in Vue 3: How to Extract Reusable Logic Without Overcomplicating It (EN, 2026-06-22)
+  - URL: https://todovue.blog/blog/vue-3-composables-extract-reusable-logic.en/
+- Composables en Vue 3: cómo extraer lógica reutilizable sin complicarte (ES, 2026-06-22)
+  - URL: https://todovue.blog/blog/vue-3-composables-extract-reusable-logic.es/
 - Vue Lifecycle: server-side rendering with serverPrefetch (EN, 2026-03-20)
   - URL: https://todovue.blog/blog/vue-lifecycle-ssr-serverprefetch.en/
 - Ciclos de vida en Vue: renderizado del lado del servidor (serverPrefetch) (ES, 2026-03-20)
@@ -122,9 +136,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
   - URL: https://todovue.blog/blog/vue-lifecycle-hooks-overview.en/
 
 ## Query Routing Hints
+- If question includes "computed", "watch", "watchEffect", "derived state", "side effects", "estado derivado", "efectos secundarios", or "watchers", prioritize the computed vs watch vs watchEffect guide.
 - If question includes "props", "emits", "eventos", "comunicacion entre componentes", or "component communication", prioritize the Props and Emits article.
 - If question includes "directivas", "v-model", "v-for", "v-if", "v-slot", start from the directives overview and then the specific directive page.
-- If question includes "reactividad" or "signals", prioritize reactivity + Vapor Mode articles.
+- If question includes "reactividad" or "signals", prioritize computed/watch guidance for API choice, then reactivity internals + Vapor Mode articles for deeper architecture.
 - If question includes "arquitectura", "prop drilling", "component design", prioritize Props and Emits first for direct parent-child communication, then Provide/Inject and Renderless Components for deeper patterns.
 - If question includes "empezar con Vue" or "setup", prioritize Vue+Vite and "what is Vue" pages.
 

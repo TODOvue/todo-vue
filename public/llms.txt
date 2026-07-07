@@ -15,6 +15,7 @@ Primary language support:
 
 ## What This Site Covers
 - Vue 3 fundamentals and advanced patterns
+- Composition API decisions such as computed, watch, watchEffect, and composables
 - Nuxt architecture and setup
 - Directives, props/emits, component communication, reactivity, slots, provide/inject, and rendering patterns
 - Practical, implementation-focused examples in ES and EN
