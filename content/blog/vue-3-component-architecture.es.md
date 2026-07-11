@@ -1,8 +1,8 @@
 ---
 title: "Arquitectura de componentes en Vue 3: comunicación, reutilización y dependencias"
 description: "Aprende a elegir entre props, eventos, slots, atributos heredados, composables y provide/inject para diseñar componentes Vue 3 claros y mantenibles."
-date: 2026-07-10T17:22:43-05:00
-updatedAt: 2026-07-10T17:22:43-05:00
+date: 2026-07-10T17:19:30-05:00
+updatedAt: 2026-07-10T17:19:30-05:00
 draft: false
 locale: es
 author: TODOvue
@@ -35,7 +35,7 @@ schemaOrg:
     author:
       type: "Person"
       name: "TODOvue"
-    datePublished: "2026-07-10T17:22:43-05:00"
+    datePublished: "2026-07-10T17:19:30-05:00"
 ---
 
 # Arquitectura de componentes en Vue 3: comunicación, reutilización y dependencias
