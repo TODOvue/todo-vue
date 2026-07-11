@@ -27,3 +27,8 @@ logs
 
 # Private planning notes (local only)
 .private-notes/
+
+# Personal local tooling
+.local/
+.codex/
+.content-workflows/

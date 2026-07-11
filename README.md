@@ -9,7 +9,7 @@ A modern, high-performance blog built with Nuxt 4 and Vue 3. This project levera
 
 - **Nuxt 4**: Utilizing the latest Nuxt features for optimal performance and developer experience.
 - **Nuxt Content**: Write blog posts in Markdown with frontmatter support.
-- **Micro-Frontend Architecture**: Uses [@todovue/tv-ui](https://ui.todovue.blog) for a consistent design system.
+- **UI system**: Uses [@todovue/tv-ui](https://ui.todovue.blog) for a consistent design system.
 - **Internationalization (i18n)**: Built-in support for English and Spanish content.
 - **SEO Optimized**: Includes meta tags, sitemap, and schema.org integration.
 - **Performance**: High Lighthouse scores for performance and accessibility.

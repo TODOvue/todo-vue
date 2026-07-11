@@ -163,3 +163,9 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 ## Contact and Community
 - Issues: https://github.com/TODOvue/todo-vue/issues
 - Sponsors: https://github.com/sponsors/TODOvue
+
+## Recent Architecture Posts
+- Vue 3 Component Architecture: Communication, Reuse, and Dependencies (EN, 2026-07-10)
+  - URL: https://todovue.blog/blog/vue-3-component-architecture.en/
+- Arquitectura de componentes en Vue 3: comunicación, reutilización y dependencias (ES, 2026-07-10)
+  - URL: https://todovue.blog/blog/vue-3-component-architecture.es/
