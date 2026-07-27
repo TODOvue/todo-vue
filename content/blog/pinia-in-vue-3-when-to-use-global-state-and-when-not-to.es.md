@@ -2,10 +2,14 @@
 title: "Pinia en Vue 3: cuándo usar estado global y cuándo no"
 description: "Aprende a decidir si un dato debe vivir en un componente, un subárbol o una store de Pinia según sus consumidores, duración y lógica compartida."
 date: 2026-07-24T23:20:00-05:00
-updatedAt: 2026-07-24T23:20:00-05:00
-draft: true
+updatedAt: 2026-07-26T00:00:00-05:00
+draft: false
 locale: es
 author: TODOvue
+series: vue-3-architecture
+seriesOrder: 6
+seriesTitle: "Arquitectura de aplicaciones en Vue 3"
+seriesDescription: "Serie práctica para diseñar aplicaciones Vue 3 mantenibles mediante comunicación clara entre componentes, lógica reutilizable, dependencias acotadas y una gestión intencional del estado."
 tags:
   - tag: "Gestión de Estado"
     color: "#FF9800"

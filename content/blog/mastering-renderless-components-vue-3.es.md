@@ -2,7 +2,8 @@
 title: "Patrones Avanzados en Vue 3: El Poder de los Renderless Components"
 description: "Explora cómo los Renderless Components en Vue 3 pueden mejorar la reutilización de código y la separación de lógica y presentación en tus aplicaciones."
 date: 2026-01-30T17:00:00-05:00
-updatedAt: 2026-02-11T00:00:00-05:00
+updatedAt: 2026-07-26T00:00:00-05:00
+draft: false
 tags:
   - tag: "Arquitectura"
     color: "#4CAF50"
@@ -21,6 +22,10 @@ coverAlt: "Patrones Avanzados en Vue 3: El Poder de los Renderless Components"
 coverCaption: "Imagen destacada que representa el concepto de Renderless Components en Vue 3."
 locale: es
 author: TODOvue
+series: vue-3-architecture
+seriesOrder: 5
+seriesTitle: "Arquitectura de aplicaciones en Vue 3"
+seriesDescription: "Serie práctica para diseñar aplicaciones Vue 3 mantenibles mediante comunicación clara entre componentes, lógica reutilizable, dependencias acotadas y una gestión intencional del estado."
 keywords:
   - Vue 3
   - Renderless Components

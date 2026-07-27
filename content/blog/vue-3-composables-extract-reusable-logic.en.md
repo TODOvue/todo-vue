@@ -2,7 +2,7 @@
 title: "Composables in Vue 3: How to Extract Reusable Logic Without Overcomplicating It"
 description: "Learn what composables are in Vue 3, when they are worth using, and how to extract reusable logic with a clear useToggle example."
 date: 2026-06-22T20:00:00-05:00
-updatedAt: 2026-06-22T20:00:00-05:00
+updatedAt: 2026-07-26T00:00:00-05:00
 draft: false
 tags:
   - tag: "Composables"
@@ -18,6 +18,10 @@ coverAlt: "Screen showing code in a development environment"
 coverCaption: "Reusable code in Vue 3 by TODOvue"
 locale: en
 author: TODOvue
+series: vue-3-architecture
+seriesOrder: 3
+seriesTitle: "Vue 3 Application Architecture"
+seriesDescription: "A practical series for designing maintainable Vue 3 applications through clear component communication, reusable logic, scoped dependencies, and intentional state management."
 keywords:
   - Vue.js
   - Vue 3

@@ -2,10 +2,14 @@
 title: "Pinia in Vue 3: When to Use Global State and When Not To"
 description: "Learn how to decide whether data belongs in a component, a subtree, or a Pinia store based on its consumers, lifetime, and shared logic."
 date: 2026-07-24T23:20:00-05:00
-updatedAt: 2026-07-24T23:20:00-05:00
-draft: true
+updatedAt: 2026-07-26T00:00:00-05:00
+draft: false
 locale: en
 author: TODOvue
+series: vue-3-architecture
+seriesOrder: 6
+seriesTitle: "Vue 3 Application Architecture"
+seriesDescription: "A practical series for designing maintainable Vue 3 applications through clear component communication, reusable logic, scoped dependencies, and intentional state management."
 tags:
   - tag: "State Management"
     color: "#FF9800"

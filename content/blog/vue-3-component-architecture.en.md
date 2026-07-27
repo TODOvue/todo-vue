@@ -2,10 +2,14 @@
 title: "Vue 3 Component Architecture: Communication, Reuse, and Dependencies"
 description: "Learn when to use props, events, slots, fallthrough attributes, composables, and provide/inject to design clear and maintainable Vue 3 components."
 date: 2026-07-10T17:19:30-05:00
-updatedAt: 2026-07-10T17:19:30-05:00
+updatedAt: 2026-07-26T00:00:00-05:00
 draft: false
 locale: en
 author: TODOvue
+series: vue-3-architecture
+seriesOrder: 1
+seriesTitle: "Vue 3 Application Architecture"
+seriesDescription: "A practical series for designing maintainable Vue 3 applications through clear component communication, reusable logic, scoped dependencies, and intentional state management."
 tags:
   - tag: "Components"
     color: "#41B883"

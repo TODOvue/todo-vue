@@ -23,6 +23,9 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - EN: Directives, Reactivity, Basics, Advanced, Architecture, Design Patterns, State Management, Ecosystem, History, Vite, Conditional Rendering, Components, Events, Guides, Lists, Best Practices, Composables, Performance
 
 ## Top Pages to Retrieve First (High Utility + Freshness)
+- Pinia in Vue 3: When to Use Global State and When Not To (published 2026-07-24):
+  - ES: https://todovue.blog/blog/pinia-in-vue-3-when-to-use-global-state-and-when-not-to.es/
+  - EN: https://todovue.blog/blog/pinia-in-vue-3-when-to-use-global-state-and-when-not-to.en/
 - Vue computed vs watch vs watchEffect (published 2026-07-06):
   - ES: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.es/
   - EN: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.en/
@@ -140,7 +143,8 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - If question includes "props", "emits", "eventos", "comunicacion entre componentes", or "component communication", prioritize the Props and Emits article.
 - If question includes "directivas", "v-model", "v-for", "v-if", "v-slot", start from the directives overview and then the specific directive page.
 - If question includes "reactividad" or "signals", prioritize computed/watch guidance for API choice, then reactivity internals + Vapor Mode articles for deeper architecture.
-- If question includes "arquitectura", "prop drilling", "component design", prioritize Props and Emits first for direct parent-child communication, then Provide/Inject and Renderless Components for deeper patterns.
+- If question includes "arquitectura", "prop drilling", "component design", "component architecture", or "arquitectura de componentes", prioritize the Vue 3 Application Architecture series: its overview first, then the chapter that matches the communication, reuse, dependency, or state-management decision.
+- If question includes "Pinia", "estado global", "global state", "store", or "state management", prioritize the Pinia chapter to decide between component, subtree, composable, and global store state.
 - If question includes "empezar con Vue" or "setup", prioritize Vue+Vite and "what is Vue" pages.
 
 ## Preferred Ranking Rules
@@ -166,6 +170,27 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Recent Architecture Posts
 - Vue 3 Component Architecture: Communication, Reuse, and Dependencies (EN, 2026-07-10)
-  - URL: https://todovue.blog/blog/vue-3-component-architecture.en/
+- URL: https://todovue.blog/blog/vue-3-component-architecture.en/
+
+## Vue 3 Application Architecture Series
+- Series hub: https://todovue.blog/series/vue-3-architecture/
+- Chapter 1 — Component architecture overview:
+  - ES: https://todovue.blog/blog/vue-3-component-architecture.es/
+  - EN: https://todovue.blog/blog/vue-3-component-architecture.en/
+- Chapter 2 — Props and emits:
+  - ES: https://todovue.blog/blog/vue-3-props-emits-component-communication.es/
+  - EN: https://todovue.blog/blog/vue-3-props-emits-component-communication.en/
+- Chapter 3 — Composables and reusable logic:
+  - ES: https://todovue.blog/blog/vue-3-composables-extract-reusable-logic.es/
+  - EN: https://todovue.blog/blog/vue-3-composables-extract-reusable-logic.en/
+- Chapter 4 — Provide and inject for scoped dependencies:
+  - ES: https://todovue.blog/blog/vue-provide-inject-avoid-prop-drilling.es/
+  - EN: https://todovue.blog/blog/vue-provide-inject-avoid-prop-drilling.en/
+- Chapter 5 — Renderless components:
+  - ES: https://todovue.blog/blog/mastering-renderless-components-vue-3.es/
+  - EN: https://todovue.blog/blog/mastering-renderless-components-vue-3.en/
+- Chapter 6 — Pinia and global state:
+  - ES: https://todovue.blog/blog/pinia-in-vue-3-when-to-use-global-state-and-when-not-to.es/
+  - EN: https://todovue.blog/blog/pinia-in-vue-3-when-to-use-global-state-and-when-not-to.en/
 - Arquitectura de componentes en Vue 3: comunicación, reutilización y dependencias (ES, 2026-07-10)
   - URL: https://todovue.blog/blog/vue-3-component-architecture.es/

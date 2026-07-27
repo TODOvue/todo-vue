@@ -2,7 +2,8 @@
 title: "Provide e Inject en Vue 3: Guía definitiva para eliminar el Prop Drilling"
 description: "Aprende a usar provide e inject en Vue.js para eliminar el Prop Drilling, gestionar la reactividad de forma segura con readonly y mejorar la arquitectura de tus componentes."
 date: 2026-01-22T23:30:00-05:00
-updatedAt: 2026-02-11T00:00:00-05:00
+updatedAt: 2026-07-26T00:00:00-05:00
+draft: false
 tags:
   - tag: "Inyección de Dependencias"
     color: "#2E86DE"
@@ -21,6 +22,10 @@ coverAlt: "Provide e Inject en Vue 3: Guía definitiva para eliminar el Prop Dri
 coverCaption: "Provide e Inject en Vue 3 por TODOvue"
 locale: es
 author: TODOvue
+series: vue-3-architecture
+seriesOrder: 4
+seriesTitle: "Arquitectura de aplicaciones en Vue 3"
+seriesDescription: "Serie práctica para diseñar aplicaciones Vue 3 mantenibles mediante comunicación clara entre componentes, lógica reutilizable, dependencias acotadas y una gestión intencional del estado."
 keywords:
   - Vue.js
   - Provide

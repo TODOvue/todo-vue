@@ -2,7 +2,7 @@
 title: "Props y Emits en Vue 3: comunicación entre componentes"
 description: "Aprende cómo usar props y emits en Vue 3 para pasar datos hacia componentes hijos y comunicar eventos hacia componentes padres de forma clara."
 date: 2026-06-30T20:00:00-05:00
-updatedAt: 2026-06-30T20:00:00-05:00
+updatedAt: 2026-07-26T00:00:00-05:00
 draft: false
 tags:
   - tag: "Componentes"
@@ -18,6 +18,10 @@ coverAlt: "Props y Emits en Vue 3: comunicación entre componentes"
 coverCaption: "Comunicación entre componentes en Vue 3 por TODOvue"
 locale: es
 author: TODOvue
+series: vue-3-architecture
+seriesOrder: 2
+seriesTitle: "Arquitectura de aplicaciones en Vue 3"
+seriesDescription: "Serie práctica para diseñar aplicaciones Vue 3 mantenibles mediante comunicación clara entre componentes, lógica reutilizable, dependencias acotadas y una gestión intencional del estado."
 keywords:
   - Vue.js
   - Vue 3

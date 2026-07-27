@@ -2,7 +2,8 @@
 title: "Advanced Patterns in Vue 3: The Power of Renderless Components"
 description: "Discover how Renderless Components in Vue 3 can improve code reuse and the separation of logic and presentation in your applications."
 date: 2026-01-30T17:00:00-05:00
-updatedAt: 2026-02-11T00:00:00-05:00
+updatedAt: 2026-07-26T00:00:00-05:00
+draft: false
 tags:
   - tag: "Architecture"
     color: "#4CAF50"
@@ -21,6 +22,10 @@ coverAlt: "Advanced Patterns in Vue 3: The Power of Renderless Components"
 coverCaption: "Featured image representing the Renderless Components concept in Vue 3."
 locale: en
 author: TODOvue
+series: vue-3-architecture
+seriesOrder: 5
+seriesTitle: "Vue 3 Application Architecture"
+seriesDescription: "A practical series for designing maintainable Vue 3 applications through clear component communication, reusable logic, scoped dependencies, and intentional state management."
 keywords:
   - Vue 3
   - Renderless Components
