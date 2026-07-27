@@ -2,7 +2,8 @@
 title: "¿Qué es la reactividad? La magia detrás de Vue.js explicada con claridad"
 description: "Explora el sistema de reactividad de Vue.js, desde analogías simples hasta su implementación técnica con Proxies, y aprende a optimizar tus aplicaciones."
 date: 2026-01-05T22:00:00-05:00
-updatedAt: 2026-02-11T00:00:00-05:00
+updatedAt: 2026-07-27T00:00:00-05:00
+draft: false
 tags:
   - tag: "Reactividad"
     color: "#1D5BA1"
@@ -15,6 +16,10 @@ coverAlt: "Ilustración de un laboratorio de codificación mágica de Vue.js"
 coverCaption: "Ilustración de un laboratorio de codificación mágica de Vue.js por TODOvue"
 locale: es
 author: TODOvue
+series: vue-reactivity
+seriesOrder: 1
+seriesTitle: "Reactividad práctica en Vue 3"
+seriesDescription: "Ruta práctica para entender cómo Vue rastrea el estado, elegir la API reactiva correcta y optimizar actualizaciones sin perder claridad."
 keywords:
   - Vue.js
   - Reactividad
@@ -24,7 +29,7 @@ keywords:
   - reactive
 schemaOrg:
   - type: "BlogPosting"
-    headline: "Vue 3.6 Beta: La Revolución de Vapor Mode y el Nuevo Motor de Reactividad"
+    headline: "¿Qué es la reactividad? La magia detrás de Vue.js explicada con claridad"
     author:
       type: "Person"
       name: "TODOvue"

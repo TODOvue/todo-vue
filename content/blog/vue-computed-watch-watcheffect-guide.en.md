@@ -2,7 +2,7 @@
 title: "Vue computed vs watch vs watchEffect: When to Use Each One"
 description: "Learn the practical difference between computed, watch, and watchEffect in Vue 3, with examples, mistakes to avoid, and a decision guide for real components."
 date: 2026-07-06T20:00:00-05:00
-updatedAt: 2026-07-06T20:00:00-05:00
+updatedAt: 2026-07-27T00:00:00-05:00
 draft: false
 tags:
   - tag: "Reactivity"
@@ -18,6 +18,10 @@ coverAlt: "Vue reactivity concepts represented as connected data flows"
 coverCaption: "Computed values, watchers, and effects in Vue 3 by TODOvue"
 locale: en
 author: TODOvue
+series: vue-reactivity
+seriesOrder: 3
+seriesTitle: "Practical Reactivity in Vue 3"
+seriesDescription: "A practical path to understand how Vue tracks state, choose the right reactive API, and optimize updates without losing clarity."
 keywords:
   - Vue.js
   - Vue 3

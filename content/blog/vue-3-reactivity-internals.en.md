@@ -2,7 +2,8 @@
 title: "How Vue 3 Reactivity Works Internally"
 description: "Technical breakdown of Vue 3's reactivity engine: dependency tracking, WeakMap->Map->Set structure, activeEffect, scheduler, batching, and real architecture pitfalls."
 date: 2026-03-02T20:00:00-05:00
-updatedAt: 2026-03-02T20:00:00-05:00
+updatedAt: 2026-07-27T00:00:00-05:00
+draft: false
 tags:
   - tag: "Reactivity"
     color: "#1D5BA1"
@@ -17,6 +18,10 @@ coverAlt: "How Vue 3 reactivity works internally"
 coverCaption: "Temporary cover: replace with final TODOvue artwork"
 locale: en
 author: TODOvue
+series: vue-reactivity
+seriesOrder: 5
+seriesTitle: "Practical Reactivity in Vue 3"
+seriesDescription: "A practical path to understand how Vue tracks state, choose the right reactive API, and optimize updates without losing clarity."
 keywords:
   - Vue 3
   - reactivity

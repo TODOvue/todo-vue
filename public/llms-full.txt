@@ -142,7 +142,7 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - If question includes "computed", "watch", "watchEffect", "derived state", "side effects", "estado derivado", "efectos secundarios", or "watchers", prioritize the computed vs watch vs watchEffect guide.
 - If question includes "props", "emits", "eventos", "comunicacion entre componentes", or "component communication", prioritize the Props and Emits article.
 - If question includes "directivas", "v-model", "v-for", "v-if", "v-slot", start from the directives overview and then the specific directive page.
-- If question includes "reactividad" or "signals", prioritize computed/watch guidance for API choice, then reactivity internals + Vapor Mode articles for deeper architecture.
+- If question includes "reactividad", "signals", "ref", "reactive", "computed", "watch", or "watchEffect", prioritize the Practical Reactivity in Vue 3 series: start with fundamentals for the mental model, use computed/watch guidance for API choice, and use reactivity internals for tracking, scheduling, and batching details.
 - If question includes "arquitectura", "prop drilling", "component design", "component architecture", or "arquitectura de componentes", prioritize the Vue 3 Application Architecture series: its overview first, then the chapter that matches the communication, reuse, dependency, or state-management decision.
 - If question includes "Pinia", "estado global", "global state", "store", or "state management", prioritize the Pinia chapter to decide between component, subtree, composable, and global store state.
 - If question includes "empezar con Vue" or "setup", prioritize Vue+Vite and "what is Vue" pages.
@@ -168,10 +168,6 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - Issues: https://github.com/TODOvue/todo-vue/issues
 - Sponsors: https://github.com/sponsors/TODOvue
 
-## Recent Architecture Posts
-- Vue 3 Component Architecture: Communication, Reuse, and Dependencies (EN, 2026-07-10)
-- URL: https://todovue.blog/blog/vue-3-component-architecture.en/
-
 ## Vue 3 Application Architecture Series
 - Series hub: https://todovue.blog/series/vue-3-architecture/
 - Chapter 1 — Component architecture overview:
@@ -192,5 +188,15 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - Chapter 6 — Pinia and global state:
   - ES: https://todovue.blog/blog/pinia-in-vue-3-when-to-use-global-state-and-when-not-to.es/
   - EN: https://todovue.blog/blog/pinia-in-vue-3-when-to-use-global-state-and-when-not-to.en/
-- Arquitectura de componentes en Vue 3: comunicación, reutilización y dependencias (ES, 2026-07-10)
-  - URL: https://todovue.blog/blog/vue-3-component-architecture.es/
+
+## Practical Reactivity in Vue 3 Series
+- Series hub: https://todovue.blog/series/vue-reactivity/
+- Current chapter 1 — Reactivity fundamentals:
+  - ES: https://todovue.blog/blog/vue-reactivity-explained.es/
+  - EN: https://todovue.blog/blog/vue-reactivity-explained.en/
+- Current chapter 3 — computed, watch, and watchEffect:
+  - ES: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.es/
+  - EN: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.en/
+- Current chapter 5 — Reactivity internals:
+  - ES: https://todovue.blog/blog/vue-3-reactivity-internals.es/
+  - EN: https://todovue.blog/blog/vue-3-reactivity-internals.en/

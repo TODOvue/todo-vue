@@ -2,7 +2,8 @@
 title: "Cómo funciona internamente el sistema de reactividad en Vue 3"
 description: "Disección técnica del motor reactivo de Vue 3: dependency tracking, estructura WeakMap->Map->Set, activeEffect, scheduler, batching y errores reales de arquitectura."
 date: 2026-03-02T20:00:00-05:00
-updatedAt: 2026-03-02T20:00:00-05:00
+updatedAt: 2026-07-27T00:00:00-05:00
+draft: false
 tags:
   - tag: "Reactividad"
     color: "#1D5BA1"
@@ -17,6 +18,10 @@ coverAlt: "Cómo funciona internamente el sistema de reactividad en Vue 3"
 coverCaption: "Portada temporal: reemplazar por arte final de TODOvue"
 locale: es
 author: TODOvue
+series: vue-reactivity
+seriesOrder: 5
+seriesTitle: "Reactividad práctica en Vue 3"
+seriesDescription: "Ruta práctica para entender cómo Vue rastrea el estado, elegir la API reactiva correcta y optimizar actualizaciones sin perder claridad."
 keywords:
   - Vue 3
   - reactividad

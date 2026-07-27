@@ -2,7 +2,7 @@
 title: "Vue computed vs watch vs watchEffect: cuándo usar cada uno"
 description: "Aprende la diferencia práctica entre computed, watch y watchEffect en Vue 3, con ejemplos, errores comunes y una guía de decisión para componentes reales."
 date: 2026-07-06T20:00:00-05:00
-updatedAt: 2026-07-06T20:00:00-05:00
+updatedAt: 2026-07-27T00:00:00-05:00
 draft: false
 tags:
   - tag: "Reactividad"
@@ -18,6 +18,10 @@ coverAlt: "Conceptos de reactividad en Vue representados como flujos de datos co
 coverCaption: "Computed, watchers y efectos en Vue 3 por TODOvue"
 locale: es
 author: TODOvue
+series: vue-reactivity
+seriesOrder: 3
+seriesTitle: "Reactividad práctica en Vue 3"
+seriesDescription: "Ruta práctica para entender cómo Vue rastrea el estado, elegir la API reactiva correcta y optimizar actualizaciones sin perder claridad."
 keywords:
   - Vue.js
   - Vue 3
