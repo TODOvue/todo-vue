@@ -1,6 +1,6 @@
 import { computed, onUnmounted, readonly } from 'vue'
 import { queryCollection, useI18n, useLocalePath, useNuxtApp, useState } from '#imports'
-import { FALLBACK_LOCALE, getDocumentSlug, getLocalizedPosts, matchesSlug } from '@/utils/contentLocale'
+import { FALLBACK_LOCALE, getDocumentSlug, getLocalizedPosts, matchesSlug, toBlogListPost } from '@/utils/contentLocale'
 import type { Database } from 'firebase/database'
 import type {
   BlogPost,
@@ -76,7 +76,7 @@ export const useBlogStore = (): UseBlogStoreApi => {
 
     isLoading.value = true
     try {
-      const posts = await getBlogCollection().all()
+      const posts = (await getBlogCollection().all()).map((post) => toBlogListPost(post))
       const localized = typeof localizedContent?.getLocalized === 'function'
         ? localizedContent.getLocalized(posts, locale.value)
         : (getLocalizedPosts(posts, locale.value, FALLBACK_LOCALE) as BlogPost[])

@@ -2,7 +2,7 @@
 import { TvBreadcrumbs, TvCard, TvHero } from '@todovue/tv-ui'
 import type { BlogPost, CardConfig } from '@/types/composables'
 import type { BreadcrumbItem, TagLike } from '@/types/views'
-import { FALLBACK_LOCALE, getDocumentLocale } from '@/utils/contentLocale'
+import { FALLBACK_LOCALE, getDocumentLocale, toBlogListPost } from '@/utils/contentLocale'
 
 const router = useRouter()
 const route = useRoute()
@@ -30,7 +30,7 @@ const sortSeriesPosts = (posts: BlogPost[]): BlogPost[] =>
 const { data: allBlogPosts } = await useAsyncData<BlogPost[]>('series-page-all-posts', async () => {
   const collection = queryCollection as unknown as (name: string) => { all: () => Promise<BlogPost[]> }
   const posts = await collection('blog').all()
-  return Array.isArray(posts) ? posts : []
+  return Array.isArray(posts) ? posts.map((post) => toBlogListPost(post)) : []
 }, {
   watch: [() => locale.value]
 })

@@ -88,3 +88,13 @@ export const getLocalizedPosts = <T>(
 
 export const matchesSlug = (post: unknown, slug: string): boolean =>
   getDocumentSlug(post) === slug
+
+/**
+ * Keep collection payloads small when the content body is not needed.
+ * Nuxt Content adds the parsed Markdown AST to `body`; serializing the body
+ * for every post makes the generated Nuxt payload unnecessarily large.
+ */
+export const toBlogListPost = <T extends Record<string, unknown>>(post: T): T => {
+  const { body: _body, ...metadata } = post
+  return metadata as T
+}
