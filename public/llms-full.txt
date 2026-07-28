@@ -194,6 +194,9 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - Current chapter 1 — Reactivity fundamentals:
   - ES: https://todovue.blog/blog/vue-reactivity-explained.es/
   - EN: https://todovue.blog/blog/vue-reactivity-explained.en/
+- Current chapter 2 — ref() vs reactive() state modeling:
+  - ES: https://todovue.blog/blog/ref-vs-reactive-como-modelar-el-estado-en-vue-3.es/
+  - EN: https://todovue.blog/blog/ref-vs-reactive-como-modelar-el-estado-en-vue-3.en/
 - Current chapter 3 — computed, watch, and watchEffect:
   - ES: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.es/
   - EN: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.en/
