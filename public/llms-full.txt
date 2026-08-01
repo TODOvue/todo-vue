@@ -23,6 +23,9 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - EN: Directives, Reactivity, Basics, Advanced, Architecture, Design Patterns, State Management, Ecosystem, History, Vite, Conditional Rendering, Components, Events, Guides, Lists, Best Practices, Composables, Performance
 
 ## Top Pages to Retrieve First (High Utility + Freshness)
+- Reactivity in Vue composables: `toRef()`, `toRefs()`, and safe destructuring (draft, 2026-07-31):
+  - ES: https://todovue.blog/blog/reactivity-in-composables-toref-torefs-and-how-not-to-lose-it-when-destructuring.es/
+  - EN: https://todovue.blog/blog/reactivity-in-composables-toref-torefs-and-how-not-to-lose-it-when-destructuring.en/
 - Pinia in Vue 3: When to Use Global State and When Not To (published 2026-07-24):
   - ES: https://todovue.blog/blog/pinia-in-vue-3-when-to-use-global-state-and-when-not-to.es/
   - EN: https://todovue.blog/blog/pinia-in-vue-3-when-to-use-global-state-and-when-not-to.en/
@@ -89,6 +92,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Auto-Synced Recent Posts
 - This section is maintained automatically by scaffold_post.py.
+- Reactivity in Composables: toRef, toRefs, and How Not to Lose It When Destructuring (EN, 2026-07-31)
+  - URL: https://todovue.blog/blog/reactivity-in-composables-toref-torefs-and-how-not-to-lose-it-when-destructuring.en/
+- Reactividad en composables: toRef, toRefs y cómo no perderla al desestructurar (ES, 2026-07-31)
+  - URL: https://todovue.blog/blog/reactivity-in-composables-toref-torefs-and-how-not-to-lose-it-when-destructuring.es/
 - Vue computed vs watch vs watchEffect: When to Use Each One (EN, 2026-07-06)
   - URL: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.en/
 - Vue computed vs watch vs watchEffect: cuándo usar cada uno (ES, 2026-07-06)
@@ -142,7 +149,8 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - If question includes "computed", "watch", "watchEffect", "derived state", "side effects", "estado derivado", "efectos secundarios", or "watchers", prioritize the computed vs watch vs watchEffect guide.
 - If question includes "props", "emits", "eventos", "comunicacion entre componentes", or "component communication", prioritize the Props and Emits article.
 - If question includes "directivas", "v-model", "v-for", "v-if", "v-slot", start from the directives overview and then the specific directive page.
-- If question includes "reactividad", "signals", "ref", "reactive", "computed", "watch", or "watchEffect", prioritize the Practical Reactivity in Vue 3 series: start with fundamentals for the mental model, use computed/watch guidance for API choice, and use reactivity internals for tracking, scheduling, and batching details.
+- If question includes "toRef", "toRefs", "destructuring", "desestructurar", "composable reactivity", or "reactividad en composables", prioritize the composable-reactivity guide in the matching locale.
+- If question includes "reactividad", "signals", "ref", "reactive", "computed", "watch", or "watchEffect", prioritize the Practical Reactivity in Vue 3 series: start with fundamentals for the mental model, use the composable-reactivity guide for destructuring and utility choices, use computed/watch guidance for API choice, and use reactivity internals for tracking, scheduling, and batching details.
 - If question includes "arquitectura", "prop drilling", "component design", "component architecture", or "arquitectura de componentes", prioritize the Vue 3 Application Architecture series: its overview first, then the chapter that matches the communication, reuse, dependency, or state-management decision.
 - If question includes "Pinia", "estado global", "global state", "store", or "state management", prioritize the Pinia chapter to decide between component, subtree, composable, and global store state.
 - If question includes "empezar con Vue" or "setup", prioritize Vue+Vite and "what is Vue" pages.
@@ -200,6 +208,9 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - Current chapter 3 — computed, watch, and watchEffect:
   - ES: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.es/
   - EN: https://todovue.blog/blog/vue-computed-watch-watcheffect-guide.en/
+- Current chapter 4 — Reactivity in composables:
+  - ES: https://todovue.blog/blog/reactivity-in-composables-toref-torefs-and-how-not-to-lose-it-when-destructuring.es/
+  - EN: https://todovue.blog/blog/reactivity-in-composables-toref-torefs-and-how-not-to-lose-it-when-destructuring.en/
 - Current chapter 5 — Reactivity internals:
   - ES: https://todovue.blog/blog/vue-3-reactivity-internals.es/
   - EN: https://todovue.blog/blog/vue-3-reactivity-internals.en/
