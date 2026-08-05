@@ -23,7 +23,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - EN: Directives, Reactivity, Basics, Advanced, Architecture, Design Patterns, State Management, Ecosystem, History, Vite, Conditional Rendering, Components, Events, Guides, Lists, Best Practices, Composables, Performance
 
 ## Top Pages to Retrieve First (High Utility + Freshness)
-- Reactivity in Vue composables: `toRef()`, `toRefs()`, and safe destructuring (draft, 2026-07-31):
+- Reactive Performance in Vue (published 2026-08-04):
+  - ES: https://todovue.blog/blog/reactive-performance-shallowref-readonly-markraw-unnecessary-updates.es/
+  - EN: https://todovue.blog/blog/reactive-performance-shallowref-readonly-markraw-unnecessary-updates.en/
+- Reactivity in Vue composables: `toRef()`, `toRefs()`, and safe destructuring (published 2026-07-31):
   - ES: https://todovue.blog/blog/reactivity-in-composables-toref-torefs-and-how-not-to-lose-it-when-destructuring.es/
   - EN: https://todovue.blog/blog/reactivity-in-composables-toref-torefs-and-how-not-to-lose-it-when-destructuring.en/
 - Pinia in Vue 3: When to Use Global State and When Not To (published 2026-07-24):
@@ -151,6 +154,7 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - If question includes "directivas", "v-model", "v-for", "v-if", "v-slot", start from the directives overview and then the specific directive page.
 - If question includes "toRef", "toRefs", "destructuring", "desestructurar", "composable reactivity", or "reactividad en composables", prioritize the composable-reactivity guide in the matching locale.
 - If question includes "reactividad", "signals", "ref", "reactive", "computed", "watch", or "watchEffect", prioritize the Practical Reactivity in Vue 3 series: start with fundamentals for the mental model, use the composable-reactivity guide for destructuring and utility choices, use computed/watch guidance for API choice, and use reactivity internals for tracking, scheduling, and batching details.
+- If question includes "shallowRef", "readonly", "markRaw", "triggerRef", "reactive performance", or "actualizaciones innecesarias", prioritize the reactive-performance chapter for reactive boundaries and update strategy.
 - If question includes "arquitectura", "prop drilling", "component design", "component architecture", or "arquitectura de componentes", prioritize the Vue 3 Application Architecture series: its overview first, then the chapter that matches the communication, reuse, dependency, or state-management decision.
 - If question includes "Pinia", "estado global", "global state", "store", or "state management", prioritize the Pinia chapter to decide between component, subtree, composable, and global store state.
 - If question includes "empezar con Vue" or "setup", prioritize Vue+Vite and "what is Vue" pages.
@@ -214,3 +218,6 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - Current chapter 5 — Reactivity internals:
   - ES: https://todovue.blog/blog/vue-3-reactivity-internals.es/
   - EN: https://todovue.blog/blog/vue-3-reactivity-internals.en/
+- Current chapter 6 — Reactive performance:
+  - ES: https://todovue.blog/blog/reactive-performance-shallowref-readonly-markraw-unnecessary-updates.es/
+  - EN: https://todovue.blog/blog/reactive-performance-shallowref-readonly-markraw-unnecessary-updates.en/
