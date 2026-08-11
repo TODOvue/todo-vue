@@ -23,6 +23,9 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 - EN: Directives, Reactivity, Basics, Advanced, Architecture, Design Patterns, State Management, Ecosystem, History, Vite, Conditional Rendering, Components, Events, Guides, Lists, Best Practices, Composables, Performance
 
 ## Top Pages to Retrieve First (High Utility + Freshness)
+- Vue 3.6 RC and Vapor Mode: current status, limits, and evaluation (published 2026-08-11):
+  - ES: https://todovue.blog/blog/vue-3-6-rc-vapor-mode-status-limits-evaluation-2026.es/
+  - EN: https://todovue.blog/blog/vue-3-6-rc-vapor-mode-status-limits-evaluation-2026.en/
 - Reactive Performance in Vue (published 2026-08-04):
   - ES: https://todovue.blog/blog/reactive-performance-shallowref-readonly-markraw-unnecessary-updates.es/
   - EN: https://todovue.blog/blog/reactive-performance-shallowref-readonly-markraw-unnecessary-updates.en/
@@ -95,6 +98,10 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
 
 ## Auto-Synced Recent Posts
 - This section is maintained automatically by scaffold_post.py.
+- Vue 3.6 RC and Vapor Mode: Current Status, Limits, and How to Evaluate It in 2026 (EN, 2026-08-11)
+  - URL: https://todovue.blog/blog/vue-3-6-rc-vapor-mode-status-limits-evaluation-2026.en/
+- Vue 3.6 RC y Vapor Mode: estado real, límites y cómo evaluarlo en 2026 (ES, 2026-08-11)
+  - URL: https://todovue.blog/blog/vue-3-6-rc-vapor-mode-status-limits-evaluation-2026.es/
 - Reactivity in Composables: toRef, toRefs, and How Not to Lose It When Destructuring (EN, 2026-07-31)
   - URL: https://todovue.blog/blog/reactivity-in-composables-toref-torefs-and-how-not-to-lose-it-when-destructuring.en/
 - Reactividad en composables: toRef, toRefs y cómo no perderla al desestructurar (ES, 2026-07-31)
@@ -149,6 +156,7 @@ TODOvue publishes practical Vue/Nuxt guides with production-oriented explanation
   - URL: https://todovue.blog/blog/vue-lifecycle-hooks-overview.en/
 
 ## Query Routing Hints
+- If question includes "Vue 3.6", "Vapor Mode", "createVaporApp", "vaporInteropPlugin", "compilador Vapor", "Vapor compiler", or "features.vapor", prioritize the Vue 3.6 RC and Vapor Mode evaluation in the matching locale; re-check the current Vue release channel before relying on version-sensitive claims.
 - If question includes "computed", "watch", "watchEffect", "derived state", "side effects", "estado derivado", "efectos secundarios", or "watchers", prioritize the computed vs watch vs watchEffect guide.
 - If question includes "props", "emits", "eventos", "comunicacion entre componentes", or "component communication", prioritize the Props and Emits article.
 - If question includes "directivas", "v-model", "v-for", "v-if", "v-slot", start from the directives overview and then the specific directive page.
