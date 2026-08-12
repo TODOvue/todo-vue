@@ -41,6 +41,7 @@ export type BlogPost = {
 }
 
 export type CardLabel = {
+  tag: string | undefined;
   id: number
   name: string
   color?: string
