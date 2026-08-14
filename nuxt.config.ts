@@ -134,6 +134,7 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
+    zeroRuntime: true,
     urls: blogRoutes,
     xsl: false,
     autoLastmod: true,
@@ -161,7 +162,12 @@ export default defineNuxtConfig({
   },
 
   linkChecker: {
-    excludeLinks: ['/rss.xml', '/rss.en.xml']
+    excludeLinks: [
+      '/rss.xml',
+      '/rss.en.xml',
+      'https://github.com/TODOvue',
+      'https://cris-dev.com'
+    ]
   },
 
   devtools: { enabled: true },
@@ -182,9 +188,10 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [
-      tailwindcss()
+      tailwindcss({ optimize: false })
     ],
     build: {
+      cssMinify: 'esbuild',
       chunkSizeWarningLimit: 1000
     }
   },
