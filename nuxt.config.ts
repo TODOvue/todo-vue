@@ -144,7 +144,10 @@ export default defineNuxtConfig({
   },
 
   ogImage: {
-    enabled: true
+    // This static site provides its social images explicitly. Disabling the
+    // unused renderer also prevents Nuxt Generate from loading Takumi's native
+    // binary in Linux CI.
+    enabled: false
   },
 
   schemaOrg: {

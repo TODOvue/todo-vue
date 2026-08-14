@@ -209,7 +209,7 @@ setPageSeo({
     </section>
 
     <div
-      class="container-main grid grid-cols-1 gap-5 lg:grid-cols-[1fr_350px] lg:gap-[30px]"
+      class="container-main grid grid-cols-1 gap-5 lg:grid-cols-[1fr_350px] lg:gap-7.5"
     >
       <section>
         <div class="mb-5 flex justify-center sm:justify-end">
@@ -218,7 +218,7 @@ setPageSeo({
             class="cursor-pointer flex items-center gap-2 rounded-lg border-0 bg-light-card-bg px-5 py-2.5 text-sm font-medium text-light-text shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow dark:bg-dark-card-bg dark:text-dark-text"
             @click="toggleView"
           >
-            <span class="[&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-[18px] sm:[&>svg]:w-[18px]">
+            <span class="[&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-4.5 sm:[&>svg]:w-4.5">
               <IconGrid v-if="isHorizontalView" />
               <IconList v-else />
             </span>
