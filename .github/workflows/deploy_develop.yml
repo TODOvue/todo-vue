@@ -83,7 +83,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '22.13.0'
+          node-version: '22.22.0'
           package-manager-cache: false
 
       - name: Setup pnpm
@@ -111,7 +111,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '22.13.0'
+          node-version: '22.22.0'
           package-manager-cache: false
 
       - name: Setup pnpm
@@ -124,6 +124,10 @@ jobs:
 
       - name: Rebuild SQLite for Linux
         run: pnpm rebuild better-sqlite3
+
+      - name: Verify SQLite native module
+        run: |
+          node -e "const Database = require('better-sqlite3'); const db = new Database(':memory:'); db.prepare('SELECT 1').get(); db.close(); console.log('better-sqlite3 loaded successfully')"
 
       - name: Resolve version for app
         id: app_version

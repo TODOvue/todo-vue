@@ -4,7 +4,7 @@
   "type": "module",
   "private": false,
   "engines": {
-    "node": ">=22.13.0"
+    "node": ">=22.22.0"
   },
   "scripts": {
     "build": "nuxt build",
