@@ -95,6 +95,6 @@ export const matchesSlug = (post: unknown, slug: string): boolean =>
  * for every post makes the generated Nuxt payload unnecessarily large.
  */
 export const toBlogListPost = <T extends Record<string, unknown>>(post: T): T => {
-  const { body: _body, ...metadata } = post
+  const { body: _body, lab: _lab, ...metadata } = post
   return metadata as T
 }
